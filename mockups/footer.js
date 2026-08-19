@@ -1,5 +1,5 @@
 /* ============================================================
-   GLOBAL FOOTER — air.inc-style "ground" footer (migration).
+   GLOBAL FOOTER, air.inc-style "ground" footer (migration).
    Self-injecting, no dependencies. Add to any page with:
      <link rel="stylesheet" href="footer.css">
      <script src="footer.js" defer></script>
@@ -38,13 +38,13 @@
           '<div class="gf-col"><span class="gf-h">status</span>' +
             '<span class="gf-avail"><i></i> open to new work</span>' +
             '<span class="gf-line">based in the bay area</span>' +
-            '<span class="gf-line">local time <b id="gfClock">—</b></span>' +
+            '<span class="gf-line">local time <b id="gfClock">00:00</b></span>' +
           '</div>' +
         '</nav>' +
       '</div>' +
       '<div class="gf-bar">' +
         '<a class="gf-mark" href="/"><svg viewBox="0 0 30 26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><path d="M9 18a6 6 0 0 1 12 0" fill="currentColor" stroke="none"/><line x1="15" y1="7" x2="15" y2="4.2"/><line x1="7.2" y1="10.2" x2="5.4" y2="8.6"/><line x1="22.8" y1="10.2" x2="24.6" y2="8.6"/><line x1="2.5" y1="18" x2="27.5" y2="18"/></svg>gauravi.</a>' +
-        '<div class="gf-meta"><span>© 2026 gauravi linjara</span><span>designed &amp; built by me — and a few too many coffees · switzer + react</span></div>' +
+        '<div class="gf-meta"><span>© 2026 gauravi linjara</span><span>designed &amp; built by me, and a few too many coffees · switzer + react</span></div>' +
       '</div>' +
     '</div>';
 

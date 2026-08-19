@@ -1,11 +1,11 @@
 /* ───────────────────────────────────────────────────────────
-   cinematic.css — styles for the shared cinematic layer.
+   cinematic.css, styles for the shared cinematic layer.
    Pairs with cinematic.js. Nothing here hides content on its
    own: all pre-animation states are set at runtime by GSAP, so
    reduced-motion / no-JS visitors always see the full page.
    ─────────────────────────────────────────────────────────── */
 
-/* masked word split — .cn-m clips, .cn-w slides up out of it */
+/* masked word split, .cn-m clips, .cn-w slides up out of it */
 .cn-m{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.06em;margin-bottom:-.06em;}
 .cn-w{display:inline-block;will-change:transform;}
 

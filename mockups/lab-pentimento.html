@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="upright.css?v=1">
-<title>pentimento — the lab</title>
+<title>pentimento, the lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600&display=swap" rel="stylesheet">
@@ -76,7 +76,7 @@
         </ol>
         <div class="reveal" id="reveal">
           <div class="lesson">we are made of our <span class="a">revisions</span>.</div>
-          <div class="note">pentimento — the earlier drafts a painter changed, still ghosting beneath the surface. so are yours. nothing is erased; only painted over.</div>
+          <div class="note">pentimento, the earlier drafts a painter changed, still ghosting beneath the surface. so are yours. nothing is erased; only painted over.</div>
           <button class="cta" id="cta">paint it back<span class="ic">↺</span></button>
         </div>
         <div class="meterwrap"><span>uncovered</span><div class="meter"><i id="bar"></i></div><span id="pct">0%</span><button class="rst" id="rst" title="start over">↺</button></div>
@@ -125,7 +125,7 @@
     ux.globalCompositeOperation='overlay'; ux.fillStyle='rgba(224,123,83,.12)'; ux.fillRect(0,0,W,H);
     ux.globalCompositeOperation='source-over'; drawPentimenti(ux);
   }
-  // the discovery — construction lines + earlier versions she painted over
+  // the discovery, construction lines + earlier versions she painted over
   function drawPentimenti(c){ c.save(); c.lineCap='round'; c.lineJoin='round';
     c.strokeStyle='rgba(224,123,83,.26)'; c.lineWidth=1.1;
     [[0.5,0.04,0.5,0.97],[0.16,0.5,0.84,0.5],[0.08,0.08,0.74,0.95],[0.9,0.1,0.3,0.92]].forEach(L=>{ c.beginPath(); c.moveTo(W*L[0],H*L[1]); c.lineTo(W*L[2],H*L[3]); c.stroke(); });
@@ -154,7 +154,7 @@
       if(active && px>-900){ ctx.save(); ctx.globalCompositeOperation='soft-light'; const wg=ctx.createRadialGradient(px,py,0,px,py,92); wg.addColorStop(0,'rgba(255,212,150,.55)'); wg.addColorStop(1,'rgba(255,212,150,0)'); ctx.fillStyle=wg; ctx.fillRect(0,0,W,H); ctx.restore(); }
     } else { ctx.fillStyle='#1c1814'; ctx.fillRect(0,0,W,H); }
     bar.style.width=Math.round(uncovered*100)+'%'; pct.textContent=Math.round(uncovered*100)+'%';
-    if(uncovered<.03) setW('drag across her — wipe the surface away.'); else if(uncovered<.33) setW('shapes she used to be…'); else setW('every version, still there.');
+    if(uncovered<.03) setW('drag across her, wipe the surface away.'); else if(uncovered<.33) setW('shapes she used to be…'); else setW('every version, still there.');
     if(uncovered>.32 && !shown){ shown=true; steps.style.opacity=0; setTimeout(()=>{steps.style.display='none';reveal.classList.add('show');animateIn(reveal.querySelector('.lesson'));},360); }
     requestAnimationFrame(loop);
   }

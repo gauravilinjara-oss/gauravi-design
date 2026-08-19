@@ -1,4 +1,4 @@
-/* Microsoft Clarity — shared analytics loader for gauravi.design
+/* Microsoft Clarity, shared analytics loader for gauravi.design
    Project: xjzgfy9kg5 · heatmaps + session replay.
    Included once per page via <script src="clarity.js?v=1" defer></script>.
    Change the project id (or disable tracking) here, in ONE place. */

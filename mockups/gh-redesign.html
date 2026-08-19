@@ -130,16 +130,16 @@
   .iconbtn:active{transform:scale(.92)}
   .iconbtn .ms{font-size:20px}
 
-  /* P0-1 · baseline deltas — no number without "vs your usual" */
+  /* P0-1 · baseline deltas, no number without "vs your usual" */
   .delta{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;letter-spacing:.2px;border-radius:7px;padding:2.5px 7px;vertical-align:middle}
   .delta.up{background:rgba(139,230,168,.12);color:var(--success)}
   .delta.warn{background:rgba(229,184,99,.14);color:var(--gold)}
   .delta.flat{background:rgba(255,255,255,.07);color:var(--on-surface-var)}
 
-  /* P0-2 · today's plan — the score drives the day */
-  /* Active Zone Minutes — position-in-range gauge (Whoop/Oura style). The target
+  /* P0-2 · today's plan, the score drives the day */
+  /* Active Zone Minutes, position-in-range gauge (Whoop/Oura style). The target
      band is the hero; today's value is a labelled caret dropping into it. Read-only. */
-  /* Status sits with its metric (Oura pattern) — a quiet accent label, not a header badge */
+  /* Status sits with its metric (Oura pattern), a quiet accent label, not a header badge */
   .zm{margin-top:16px}
   .zm-top{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:600;color:var(--on-surface-var)}
   .zm-status{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;letter-spacing:.1px;color:var(--primary)}
@@ -153,11 +153,11 @@
   .zm-ticks span{position:absolute;transform:translateX(-50%)}
   .plan-tt{font-size:15px;font-weight:600;margin-top:2px}
 
-  /* P0-3 · time-adaptive hero — the layout answers "how am I doing right now" */
+  /* P0-3 · time-adaptive hero, the layout answers "how am I doing right now" */
   .dp-label{font-size:10px;font-weight:700;letter-spacing:.5px;color:var(--on-surface-var);margin:2px 4px 10px}
   .phone[data-daypart="morning"] .card-sleep{order:-1;grid-column:1/-1;padding:20px;cursor:pointer}
   .phone[data-daypart="morning"] .card-sleep .big{font-size:40px;line-height:44px}
-  /* morning keeps the full Steps card (with the ring) — same as the default view */
+  /* morning keeps the full Steps card (with the ring), same as the default view */
 
   /* today-so-far ministats */
   .ministats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
@@ -195,7 +195,7 @@
   .card-steps .big{font-size:44px;line-height:48px}
   .card-sleep .big{font-size:36px;line-height:40px;white-space:nowrap}
   .card-steps .goal{font-size:13px;font-weight:550;opacity:.7}
-  /* circular steps ring — lime arc + footprint core (springs in on load) */
+  /* circular steps ring, lime arc + footprint core (springs in on load) */
   .steps-body{display:flex;align-items:center;gap:22px;margin-top:12px}
   .steps-ring{position:relative;width:112px;height:112px;flex:none}
   .steps-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
@@ -233,7 +233,7 @@
   /* half-width sleep card stays calm: number → delta → one chip */
   .card-sleep .rng-line{display:none}
   .card-sleep .delta-line{color:var(--success);font-weight:650;opacity:1}
-  /* stage mix as one slim bar — the hypnogram lives on the Sleep tab (Oura/WHOOP: no chart on home) */
+  /* stage mix as one slim bar, the hypnogram lives on the Sleep tab (Oura/WHOOP: no chart on home) */
   .card-sleep .msilh{display:none;margin-top:14px;gap:3px;height:10px}
   .card-sleep .msilh i{border-radius:99px;min-width:6px}
   .card-sleep .msilh + .mix-line{display:none;margin-top:8px}
@@ -245,7 +245,7 @@
     background:rgba(139,230,168,.13);color:var(--success);border-radius:8px;padding:3px 8px;
     font-size:12px;font-weight:600;
   }
-  /* morning hero: verdict docks top-right, opposite the cap — number stack stays clean */
+  /* morning hero: verdict docks top-right, opposite the cap, number stack stays clean */
   .phone[data-daypart="morning"] .card-sleep .scorechip{position:absolute;top:17px;right:18px;margin-top:0}
   .caldots{display:flex;gap:5px;margin-top:12px}
   .caldots i{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.12)}
@@ -312,7 +312,7 @@
   .confirm-strip.done .q{color:var(--on-success-container);font-weight:600;display:flex;align-items:center;gap:6px}
   .confirm-strip.done .q .ms{font-size:16px;color:var(--success)}
 
-  /* FAB — the biggest button logs an activity */
+  /* FAB, the biggest button logs an activity */
   .fab{
     position:absolute;right:18px;bottom:98px;z-index:6;
     height:56px;border-radius:16px;padding:0 20px 0 16px;border:none;cursor:pointer;
@@ -363,7 +363,7 @@
 
   .hypno-card{background:var(--sc-lowest);border-radius:20px;padding:18px;margin-top:12px}
   .hypno-card h4{font-size:14px;font-weight:600;margin-bottom:14px}
-  /* the night as a 4-lane stepped hypnogram — flat capsules, one lane per stage */
+  /* the night as a 4-lane stepped hypnogram, flat capsules, one lane per stage */
   .hypno{display:flex;flex-direction:column;gap:7px;margin-top:2px}
   .hlane{display:flex;align-items:center;gap:10px}
   .hlane .hlab{width:38px;flex:none;text-align:right;font-size:10px;font-weight:650;letter-spacing:.02em;color:var(--on-surface-var)}
@@ -653,7 +653,7 @@
   .phone[data-type="b"] .card .cap,.phone[data-type="b"] .mcard .mk{font-size:9.5px;letter-spacing:.9px}
   .phone[data-type="b"] .card .sub{font-size:11.5px}
 
-  /* lab switcher (desktop stage only — hidden in dummy-app mode) */
+  /* lab switcher (desktop stage only, hidden in dummy-app mode) */
   .lab{
     display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center;
     font-family:inherit;font-size:12px;color:#8b93a1;
@@ -671,7 +671,7 @@
   /* ================= liquid-glass pass =================
      Glass only reads with light behind it: .aurora paints 1–2 desaturated
      echoes of the accent under the screens (Linear-look hue discipline).
-     Cards are translucent fills over the pre-blurred aurora — real
+     Cards are translucent fills over the pre-blurred aurora, real
      backdrop-filter is reserved for the two chrome layers (dock + sheet),
      staying inside Apple's ≤4-glass-layers budget with zero nesting. */
   .aurora{position:absolute;inset:0;pointer-events:none}
@@ -690,11 +690,11 @@
   }
   .phone:not([data-mode="light"]) .aurora .a2,
   .phone:not([data-mode="light"]) .aurora .a3{display:none}
-  /* film grain — the difference between glass and a translucent div */
+  /* film grain, the difference between glass and a translucent div */
   .grain{position:absolute;inset:0;pointer-events:none;z-index:4;opacity:.06;mix-blend-mode:overlay;
     background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="160" height="160" filter="url(%23n)" opacity="0.7"/></svg>')}
 
-  /* card glass: white-alpha gradient over a dark plate — numerals never sit on raw glass */
+  /* card glass: white-alpha gradient over a dark plate, numerals never sit on raw glass */
   .card-steps,.card-cardio,.card-sleep,.card-ready,.tl-card,.sl-hero,
   .hypno-card,.insight,.stat,.hr-card,.verify,.gcard{
     /* fill-step does the separating (Apple/M3 dark elevation); border is a whisper */
@@ -702,7 +702,7 @@
     border:1px solid rgba(255,255,255,.05);
     box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 14px 34px -14px rgba(0,0,0,.55);
   }
-  /* top-edge light on hero surfaces — box-shadow follows the radius cleanly (no mask artifacts) */
+  /* top-edge light on hero surfaces, box-shadow follows the radius cleanly (no mask artifacts) */
   .card-steps,.sl-hero{position:relative}
   .card-steps::before,.sl-hero::before{
     content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
@@ -750,7 +750,7 @@
      answers the "dark-only strains eyes morning & night" critique (Oura's
      most-cited flaw). Same roles, light physics: glass casts shadow now. */
   .phone[data-mode="light"]{
-    /* ── Material You (blue seed) — semantic domain roles, per the review ── */
+    /* ── Material You (blue seed), semantic domain roles, per the review ── */
     --primary:#0B57D0; --on-primary:#FFFFFF; --primary-container:#D3E3FD; --on-primary-container:#041E49;
     --secondary-container:#DAE2F9; --on-secondary-container:#131C2B;
     /* sleep = teal */
@@ -872,7 +872,7 @@
   .phone[data-mode="light"] .scallop::after{background:radial-gradient(58% 42% at 32% 22%,rgba(255,255,255,.65),transparent 62%)}
   .phone[data-mode="light"] .snack{background:rgba(25,28,21,.92);color:#F2F3EE;border-color:rgba(255,255,255,.08)}
 
-  /* ================= glass v2 — lenses & speculars =================
+  /* ================= glass v2, lenses & speculars =================
      more glass without more blur: light catching edges, not extra layers. */
   /* every icon container becomes a small glass lens */
   .tl-ic,.card-ready .ic,.iconbtn,.sh-close,.week-pills .wp,
@@ -886,7 +886,7 @@
     border:1px solid rgba(255,255,255,.06);
     box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
   }
-  /* top-edge light on every card — clean inset highlight, no masked ring */
+  /* top-edge light on every card, clean inset highlight, no masked ring */
   .card,.tl-card,.hypno-card,.insight,.mcard,.hr-card,.stat{position:relative}
   .card::before,.tl-card::before,.hypno-card::before,.insight::before,
   .mcard::before,.hr-card::before,.stat::before{
@@ -905,14 +905,14 @@
   .fab{box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -10px 16px -10px rgba(0,0,0,.3),
        0 6px 20px color-mix(in srgb, var(--primary) 30%, transparent)}
   .nv.on .pill{box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -6px 10px -8px rgba(0,0,0,.35)}
-  /* flat cap/timeline icons — no glow */
+  /* flat cap/timeline icons, no glow */
   .cap .ms:first-child,.mk .ms:first-child,.tl-ic .ms{filter:none}
 
-  /* ================= light glass — to the spec =================
+  /* ================= light glass, to the spec =================
      Layer stack: near-white base → chromatic pastel blobs → BLURRED glass
      panes (blur 14 / saturate 170) → content. Double-edge borders (white
      inner rim + dark contact hairline) and key+ambient shadows at light-safe
-     alphas (0.04–0.10). No blur = "floating paper" — the named failure mode. */
+     alphas (0.04–0.10). No blur = "floating paper", the named failure mode. */
   .phone[data-mode="light"]{--surface:#F8F9FF}
   /* spec: light blobs = radial fades at .22–.28 alpha, never solid tinted fields */
   .phone[data-mode="light"] .aurora i{opacity:1;filter:blur(60px)}
@@ -942,7 +942,7 @@
   .phone[data-mode="light"] .card-sleep,.phone[data-mode="light"] .sl-hero{background:var(--tertiary-container);border:1px solid transparent;box-shadow:none}
   .phone[data-mode="light"] .card-ready{background:var(--gold-container);border:1px solid transparent;box-shadow:none}
   .phone[data-mode="light"] .card-ready .ic{background-color:#FFFFFF}
-  /* one tonal treatment for every activity icon — differentiate by glyph, not hue */
+  /* one tonal treatment for every activity icon, differentiate by glyph, not hue */
   .phone[data-mode="light"] .tl-ic{background-color:#DCE8FB;color:var(--primary);border-color:transparent;box-shadow:none}
   .phone[data-mode="light"] .tl-ic.strength{background-color:#DCE8FB;color:var(--primary)}
   .phone[data-mode="light"] .mst{border-color:transparent;box-shadow:none}
@@ -953,7 +953,7 @@
   /* action icons are neutral in light (act=black); identity color stays in timeline */
   .phone[data-mode="light"] .start-chips .ms,.phone[data-mode="light"] .log-grid .ms{color:var(--on-surface)}
   .phone[data-mode="light"] .start-chips .more .ms,.phone[data-mode="light"] .log-grid .custom .ms{color:var(--on-surface-var)}
-  /* kill the dark-glass gradient sheen — light lenses are flat fills */
+  /* kill the dark-glass gradient sheen, light lenses are flat fills */
   .phone[data-mode="light"] .tl-ic,.phone[data-mode="light"] .card-ready .ic,
   .phone[data-mode="light"] .iconbtn,.phone[data-mode="light"] .sh-close,
   .phone[data-mode="light"] .week-pills .wp,.phone[data-mode="light"] .log-grid button,
@@ -1717,7 +1717,7 @@
     const frame = t => {
       if(start === undefined) start = t;
       const p = Math.min((t - start) / dur, 1);
-      const e = 1 - Math.pow(1 - p, 3);            // ease-out cubic — one curve for both
+      const e = 1 - Math.pow(1 - p, 3);            // ease-out cubic, one curve for both
       const v = Math.round(target * e);
       big.textContent = v.toLocaleString();
       setRing(v);                                  // ring % === number / goal, every frame
@@ -1987,7 +1987,7 @@
       return `<div class="hlane"><span class="hlab">${labels[stage]}</span><div class="trk">${segs}</div></div>`;
     }).join('');
   })();
-  // glanceable stage mix on the Today sleep card — proportions, not a squashed timeline
+  // glanceable stage mix on the Today sleep card, proportions, not a squashed timeline
   (function(){
     const el = document.getElementById('sleepMini');
     if(!el) return;
@@ -2008,7 +2008,7 @@
     }
     el.setAttribute('d', d + 'Z');
   })();
-  // ?tab=today|fitness|sleep|health — deep-link a screen (case-study embeds pin to one tab).
+  // ?tab=today|fitness|sleep|health, deep-link a screen (case-study embeds pin to one tab).
   // Runs last so the hypnogram/lanes exist before the sleep reveal fires.
   (function(){
     const t = new URLSearchParams(location.search).get('tab');

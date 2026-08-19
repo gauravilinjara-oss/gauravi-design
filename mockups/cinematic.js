@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════
-   cinematic.js — shared cinematic-motion layer for the whole portfolio.
+   cinematic.js, shared cinematic-motion layer for the whole portfolio.
    Hand-written, no build step. Pairs with cinematic.css.
 
    Opt-in per page via <body data-cine="…"> space-separated flags:
@@ -7,7 +7,7 @@
                  · h1 gets a masked line/word split unless the container
                    opts out with data-cine-hero="noh1"
      parallax  → scroll-scrubbed depth on [data-prlx] + auto-tagged media
-                 (.hero-stage, .visual img, .media .cover) — subtle drift
+                 (.hero-stage, .visual img, .media .cover), subtle drift
      tilt      → cursor-tracked 3D tilt + specular light sheen on
                  [data-tilt] and auto targets (.case .media, .wcard …)
      magnet    → magnetic pull on .ink-btn / [data-magnet]
@@ -18,10 +18,10 @@
      reveals   → GSAP-staggered reveal for [data-rv] groups (pages that
                  have no reveal system of their own, e.g. blog)
 
-   Everything respects prefers-reduced-motion (module bails out — nothing
+   Everything respects prefers-reduced-motion (module bails out, nothing
    is ever hidden by CSS, all initial states are set at runtime), and
    pointer-driven effects skip coarse pointers. GSAP + ScrollTrigger are
-   expected on the page (CDN tags) — the module fails soft without them.
+   expected on the page (CDN tags), the module fails soft without them.
    ═══════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
@@ -37,7 +37,7 @@
   if (reduce) return;                       // content is never pre-hidden, so this is safe
 
   var gsap = window.gsap, ST = window.ScrollTrigger;
-  if (!gsap) return;                        // fail soft — page works untouched
+  if (!gsap) return;                        // fail soft, page works untouched
   if (ST) gsap.registerPlugin(ST);
 
   var EASE = 'cubic-bezier(.22,1,.36,1)';   // tokens.css --ease
@@ -97,7 +97,7 @@
           });
           parent.replaceChild(frag, n);
         } else if (n.nodeType === 1 && !/^(BR)$/.test(n.tagName)) {
-          /* keep accent spans whole — they animate as one token */
+          /* keep accent spans whole, they animate as one token */
           if (n.childElementCount === 0 && n.textContent.trim().split(/\s+/).length <= 3) {
             parent.replaceChild(wrapToken(n.cloneNode(true)), n);
           } else { walk(n); }
@@ -108,7 +108,7 @@
     return tokens;
   }
 
-  /* ═══ HERO — choreographed entrance ══════════════════════════════════ */
+  /* ═══ HERO, choreographed entrance ══════════════════════════════════ */
   if (has('hero')) (function () {
     var host = document.querySelector('[data-cine-hero]');
     if (!host) return;
@@ -145,7 +145,7 @@
     });
   })();
 
-  /* ═══ PARALLAX — scroll-scrubbed depth ═══════════════════════════════ */
+  /* ═══ PARALLAX, scroll-scrubbed depth ═══════════════════════════════ */
   if (has('parallax') && ST) (function () {
     /* explicit: <el data-prlx="0.2"> → drifts yPercent = depth·60 over its scroll life */
     [].forEach.call(document.querySelectorAll('[data-prlx]'), function (el) {
@@ -156,7 +156,7 @@
       });
     });
 
-    /* auto: media breathes inside its clipped frame — gentle Ken-Burns drift */
+    /* auto: media breathes inside its clipped frame, gentle Ken-Burns drift */
     var imgs = document.querySelectorAll('.visual img:not([data-prlx])');
     [].forEach.call(imgs, function (img) {
       var frame = img.closest('.visual') || img.parentElement;
@@ -178,7 +178,7 @@
     }
   })();
 
-  /* ═══ TILT — cursor 3D tilt + specular sheen (dynamic light) ═════════ */
+  /* ═══ TILT, cursor 3D tilt + specular sheen (dynamic light) ═════════ */
   if (has('tilt') && !coarse && !isCaseStudy) (function () {
     var AUTO = '.case .media, .wcard, .snap-card, [data-tilt]';
     var els = document.querySelectorAll(AUTO);
@@ -201,7 +201,7 @@
     });
   })();
 
-  /* ═══ MAGNET — buttons lean toward the cursor ════════════════════════ */
+  /* ═══ MAGNET, buttons lean toward the cursor ════════════════════════ */
   if (has('magnet') && !coarse) (function () {
     var els = document.querySelectorAll('.ink-btn, [data-magnet]');
     [].forEach.call(els, function (el) {
@@ -218,7 +218,7 @@
     });
   })();
 
-  /* ═══ REVEALS — staggered scroll-in for pages without their own ══════ */
+  /* ═══ REVEALS, staggered scroll-in for pages without their own ══════ */
   if (has('reveals') && ST) (function () {
     var els = document.querySelectorAll('[data-rv]');
     if (!els.length) return;
@@ -231,7 +231,7 @@
     });
   })();
 
-  /* ═══ GRAIN — WebGL film grain + drifting warm light overlay ═════════ */
+  /* ═══ GRAIN, WebGL film grain + drifting warm light overlay ═════════ */
   if (has('grain')) (function () {
     if (document.getElementById('cf-gl') || document.getElementById('fx')) return; // page runs its own GL
     var cv = document.createElement('canvas');
@@ -295,7 +295,7 @@
     requestAnimationFrame(frame);
   })();
 
-  /* ═══ MOTES — Three.js dust catching the light (real depth) ══════════ */
+  /* ═══ MOTES, Three.js dust catching the light (real depth) ══════════ */
   if (has('motes') && !coarse) (function () {
     var host = document.querySelector('[data-motes]');
     if (!host) return;
@@ -401,6 +401,6 @@
         renderer.render(scene, camera);
       }
       requestAnimationFrame(tick);
-    }).catch(function () { /* CDN blocked — page is fine without motes */ });
+    }).catch(function () { /* CDN blocked, page is fine without motes */ });
   })();
 })();

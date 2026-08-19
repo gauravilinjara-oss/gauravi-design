@@ -18,14 +18,14 @@
 <meta name="twitter:card" content="summary_large_image" />
 
 <style>
-  /* ── essay-local tokens — pure white, navy/teal ink (Wattenberger style) ── */
+  /* ── essay-local tokens, pure white, navy/teal ink (Wattenberger style) ── */
   .essay{
     --paper:#ffffff;
-    --ink:#16202b;            /* site navy — headings/text    */
+    --ink:#16202b;            /* site navy, headings/text    */
     --ink-2:#2c4d57;          /* body text                    */
     --soft:#5d757d;           /* secondary                    */
     --faint:#9aabb0;          /* captions / labels            */
-    --clay:#9a4a28;           /* warm terracotta — functional accent only (links/progress) */
+    --clay:#9a4a28;           /* warm terracotta, functional accent only (links/progress) */
     --line:rgba(22,50,61,.12);
     --serif:"Satoshi","Satoshi",system-ui,sans-serif;
     --mono:"Satoshi",ui-monospace,Menlo,monospace;
@@ -38,17 +38,17 @@
     background:var(--paper);color:var(--ink-2);
     font-family:var(--serif);font-optical-sizing:auto;
     -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-    overflow-x:clip;   /* clip, NOT hidden — hidden breaks position:sticky */
+    overflow-x:clip;   /* clip, NOT hidden, hidden breaks position:sticky */
   }
   .essay ::selection{background:rgba(200,100,60,.18)}
 
-  /* atmosphere — a warm wash of light + the faintest film grain, fixed to the viewport */
+  /* atmosphere, a warm wash of light + the faintest film grain, fixed to the viewport */
   .atmos{position:fixed;inset:0;pointer-events:none;z-index:50;background:radial-gradient(135% 95% at 50% -12%,rgba(255,237,212,.16),rgba(255,255,255,0) 56%)}
   .grain{position:fixed;inset:0;pointer-events:none;z-index:51;opacity:.05;mix-blend-mode:multiply;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
-  /* a quiet bridge line between acts — a pause beat, not a heading */
+  /* a quiet bridge line between acts, a pause beat, not a heading */
   .essay .bridge{text-align:center;font-family:var(--serif);font-style:normal;font-size:clamp(20px,2.7vw,31px);line-height:1.28;color:var(--soft);max-width:22ch;margin:clamp(12px,3vh,40px) auto clamp(52px,10vh,120px);padding:0 26px;text-wrap:balance}
-  /* poetic stanza — centered lines that rise in one by one */
+  /* poetic stanza, centered lines that rise in one by one */
   .essay .stanza{text-align:center;font-family:var(--serif);font-size:clamp(20px,2.7vw,30px);line-height:1.3;color:var(--ink);max-width:none;margin:0 auto}
   .stanza .st-line{display:block;margin:.12em 0}
   .stanza .st-line strong{font-weight:600;color:var(--ink)}
@@ -61,7 +61,7 @@
   .lead{font-size:clamp(18px,1rem + 0.7vw,21px)!important;line-height:1.55!important;color:var(--ink)!important}
   /* storytelling type: graceful wrapping, hanging punctuation, tight cadence between short lines */
   .essay{hanging-punctuation:first allow-end}
-  /* balance short statement lines so they split evenly — no lonely two-word last line.
+  /* balance short statement lines so they split evenly, no lonely two-word last line.
      `.essay`-scoped so it beats `.essay p{text-wrap:pretty}` on <p> beats/leads. */
   .essay .disp,.essay .sec-h,.essay .e-title,.essay .close-line,.essay .h-lbl,.essay .beat,.essay .big-beat,.essay .coldline,.essay .fcap,.essay .bridge,.essay .lead{text-wrap:balance}
   .essay .lead{margin-bottom:.7em}
@@ -87,7 +87,7 @@
   .scroll-cue .ln{width:1px;height:32px;background:linear-gradient(var(--faint),transparent);animation:cuemove 2s ease-in-out infinite}
   @keyframes cuemove{0%,100%{transform:scaleY(.5);transform-origin:top;opacity:.4}50%{transform:scaleY(1);opacity:1}}
 
-  /* ── CLAY HERO — sticky cut-out figure (right) + text beats (left) ──────── */
+  /* ── CLAY HERO, sticky cut-out figure (right) + text beats (left) ──────── */
   .clay{position:relative;height:560vh;background:var(--paper)}
   .clay-sticky{position:sticky;top:0;height:100vh;overflow:hidden;
     display:grid;grid-template-columns:44% 56%;align-items:center;
@@ -106,10 +106,10 @@
     height:min(80vh,640px);aspect-ratio:1000/967;max-width:100%;
     filter:drop-shadow(0 26px 30px rgba(22,50,61,.10))}
   .figwrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:bottom center;
-    opacity:0;will-change:opacity}        /* hard cut — no crossfade, no intermediate blend */
+    opacity:0;will-change:opacity}        /* hard cut, no crossfade, no intermediate blend */
   .figwrap img.show{opacity:1}
 
-  /* painting hero — figure on the LEFT, text on the RIGHT */
+  /* painting hero, figure on the LEFT, text on the RIGHT */
   .paint{height:480vh}
   .paint-sticky{grid-template-columns:56% 44%}
   .paint-figure .figwrap{aspect-ratio:1100/982}
@@ -124,10 +124,10 @@
   /* one heading made huge + upright (no italics) */
   .essay .big-h{font-size:clamp(28px,6vw,78px);line-height:1.04;letter-spacing:-.03em;margin:0 0 .4em;max-width:94vw;width:max-content}
   .essay .big-h em{font-style:normal;color:var(--ink);font-variation-settings:"opsz" 144,"wght" 600,"SOFT" 40}
-  /* centered heading + subhead (this section) — blow-up scales from centre, not the left edge */
+  /* centered heading + subhead (this section), blow-up scales from centre, not the left edge */
   .essay .col.centered{text-align:center;max-width:840px}   /* wide enough for the big display line to centre on the page */
   .essay .col.centered .big-h{margin-left:auto;margin-right:auto;max-width:100%;transform-origin:center center}
-  /* "blow up" entrance — explodes in from small with an overshoot, then settles */
+  /* "blow up" entrance, explodes in from small with an overshoot, then settles */
   .blowup{opacity:0;transform:scale(.34);filter:blur(10px);transform-origin:left center;
     transition:opacity .55s cubic-bezier(.2,.8,.2,1),transform 1.05s cubic-bezier(.2,1.45,.32,1),filter .7s ease}
   .blowup.in{opacity:1;transform:scale(1);filter:blur(0)}
@@ -160,11 +160,11 @@
   .loader span:nth-child(2){animation-delay:.16s}.loader span:nth-child(3){animation-delay:.32s}
   @keyframes bob{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-9px);opacity:1}}
 
-  /* ── DIGITAL DELIGHTS — horizontal-scroll gallery (essay fonts) ────────── */
+  /* ── DIGITAL DELIGHTS, horizontal-scroll gallery (essay fonts) ────────── */
   .scroll-side{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--clay);white-space:nowrap}
   .hwrap{position:relative;height:420vh;background:#fff;--cl:#c8643c;--cl-deep:#9a4a28;--cl-lt:#e0855c}
   .hsticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
-  .glass{display:contents}   /* no card, no background — diagrams sit on the page */
+  .glass{display:contents}   /* no card, no background, diagrams sit on the page */
   .htrack{display:flex;height:100vh;will-change:transform}
   .hpanel{flex:0 0 100vw;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:0 8vw;text-align:center}
   .h-num{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--faint)}
@@ -175,7 +175,7 @@
   .hint a{color:var(--clay);cursor:pointer;text-decoration:underline;text-underline-offset:2px}
   .hbar{position:absolute;left:8vw;right:8vw;bottom:13vh;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
   .hbar span{display:block;height:100%;width:25%;background:var(--clay);border-radius:2px;transform:translateX(0);transition:transform .12s linear}
-  /* demos — clean lines, meadow colors */
+  /* demos, clean lines, meadow colors */
   svg.s{display:block;width:100%;max-width:330px;margin:0 auto;overflow:visible;touch-action:none}
   .ink{fill:none;stroke:var(--soft);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
   .gdot{fill:#b0764c;opacity:.3}   /* warm clay dot grid */
@@ -206,7 +206,7 @@
   }
   @media (max-width:640px){ svg.s{max-width:280px} .h-lbl{font-size:24px;white-space:normal;max-width:18ch} }
 
-  /* ── CONTRAST (cold prompt) — stays white, clinical ─────────────────────── */
+  /* ── CONTRAST (cold prompt), stays white, clinical ─────────────────────── */
   .contrast .col{max-width:65ch;text-align:center}
   .promptbox{max-width:520px;margin:6px auto 0;text-align:left;background:#f6f8f8;border:1px solid var(--line);border-radius:14px;padding:20px 22px;font-family:var(--mono)}
   .promptbox .row{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--soft);min-height:22px}
@@ -223,7 +223,7 @@
   .essay .coldline{text-align:center;font-style:normal;font-size:clamp(16px,1rem + 0.5vw,20px);margin:4.5vh auto 0;max-width:none;color:var(--ink);font-family:var(--serif);line-height:1.4}
   .coldline em{color:var(--ink);font-style:normal;font-weight:600}
 
-  /* optimized-away — the word loses its weight, then dissolves into nothing,
+  /* optimized-away, the word loses its weight, then dissolves into nothing,
      leaving the gap where it was. (blur-dissolve + variable-weight thinning) */
   .optimized{margin:4vh 0 1vh}
   .essay .opt-line{font-family:var(--serif);font-size:clamp(34px,6vw,64px);line-height:1.04;letter-spacing:-.02em;margin:0 0 3.2vh;color:var(--ink);font-weight:400}
@@ -245,41 +245,41 @@
   @media (prefers-reduced-motion:reduce){ .close-aura,.fleck{animation:none} .fleck{opacity:.4} }
   @media (prefers-reduced-motion:reduce){ .close-throw .throw-fr{opacity:0!important} .close-throw .throw-fr:last-child{opacity:1!important} } /* hold the finished vessel */
 
-  /* the turn — each realization rises in as its own beat */
+  /* the turn, each realization rises in as its own beat */
   .turn .big-beat{font-family:var(--serif);font-style:italic;font-size:clamp(26px,3.7vw,44px);line-height:1.14;letter-spacing:-.01em;color:var(--ink);margin:.08em 0}
   .turn .big-beat em{font-style:normal;color:var(--ink);font-variation-settings:"opsz" 144,"wght" 600,"SOFT" 50}
 
-  /* contrast — the maker who made nothing (clean hands) */
-  /* contrast — the maker (hands clean) + identical machine-perfect pots snap in */
+  /* contrast, the maker who made nothing (clean hands) */
+  /* contrast, the maker (hands clean) + identical machine-perfect pots snap in */
   .sameness{display:flex;align-items:flex-end;justify-content:center;gap:clamp(22px,6vw,64px);margin:clamp(66px,13vh,150px) auto 0;flex-wrap:wrap}
   .same-fig{width:min(54vw,240px);display:block}
   .same-pots{display:flex;gap:clamp(12px,2vw,20px);align-items:flex-end;padding-bottom:6px}
   .same-pot{display:block;width:clamp(56px,11vw,88px);height:auto;opacity:0;transform:translateY(7px) scale(.95);filter:drop-shadow(0 7px 10px rgba(120,60,30,.16))}
-  .same-pot.in{opacity:1;transform:none;transition:opacity .07s linear,transform .07s linear} /* cold instant snap — no easing */
+  .same-pot.in{opacity:1;transform:none;transition:opacity .07s linear,transform .07s linear} /* cold instant snap, no easing */
   .same-cap{flex-basis:100%;text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-top:14px}
 
-  /* turn — beats paired with clay figures */
+  /* turn, beats paired with clay figures */
   .turn{overflow:hidden}
   .beat-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center;max-width:760px;margin:5vh auto;padding:0 26px}
   .beat-row.flip .beat-fig{order:-1}
   .beat-row .big-beat,.beat-row .lead{margin:0}
   .beat-fig{width:100%;max-width:300px;margin:0 auto;display:block;filter:drop-shadow(0 18px 24px rgba(22,32,43,.10))}
-  /* fingerprint — full-bleed climax */
-  /* fingerprint — contained, framed, caption set calmly below */
+  /* fingerprint, full-bleed climax */
+  /* fingerprint, contained, framed, caption set calmly below */
   .fingerprint{margin:7vh auto;max-width:860px;padding:0 26px;text-align:center}
   .fingerprint img{width:100%;aspect-ratio:16/8;object-fit:cover;display:block;border-radius:14px;
     box-shadow:0 28px 56px rgba(40,22,10,.16),0 4px 12px rgba(40,22,10,.10)}
   .fingerprint .fcap{margin:24px auto 0;font-family:var(--serif);font-style:italic;font-size:clamp(19px,2.4vw,26px);line-height:1.32;color:var(--ink);max-width:30ch}
   .fingerprint .fcap em{font-style:normal;font-weight:600;color:var(--ink)}
   @media (max-width:640px){ .beat-row{grid-template-columns:1fr;gap:8px} .beat-row.flip .beat-fig{order:0} .beat-fig{max-width:230px} }
-  /* turn — sticky "dialogue" scene: figure swaps resistance↔surprise on scroll */
+  /* turn, sticky "dialogue" scene: figure swaps resistance↔surprise on scroll */
   .tscene{height:300vh}
   .tscene .clay-sticky{grid-template-columns:46% 54%;gap:clamp(24px,4vw,56px);padding:0 max(22px,5vw)}
   /* center the figure so it shares the headline's optical center (not bottom-anchored) */
   .tscene .figwrap{aspect-ratio:1100/942;height:min(60vh,470px);top:50%;bottom:auto;transform:translate(-50%,-50%)}
   .tscene .beat{font-size:clamp(34px,5vw,60px);padding-right:0}
 
-  /* moldable clay — press & drag the real slab, the material gives back */
+  /* moldable clay, press & drag the real slab, the material gives back */
   .turn .col-mold{text-align:center}
   .mold{margin:clamp(20px,4vh,40px) auto 0;width:min(500px,86vw);display:flex;flex-direction:column;align-items:center;gap:16px}
   .moldslab{position:relative;width:100%;line-height:0;cursor:grab;touch-action:none;-webkit-tap-highlight-color:transparent}
@@ -287,11 +287,11 @@
   .moldslab canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
   .mold-hint{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);transition:opacity .5s}
   .mold-hint.gone{opacity:0}
-  /* the payoff line under the slab — big, upright, blows up from centre */
+  /* the payoff line under the slab, big, upright, blows up from centre */
   .essay .mold-payoff{text-align:center;font-family:var(--serif);font-size:clamp(30px,6.2vw,78px);line-height:1.0;letter-spacing:-.03em;color:var(--ink);margin:clamp(40px,7vh,92px) auto 0;max-width:16ch;padding:0 22px;transform-origin:center center}
   .essay .mold-payoff em{font-style:normal;color:var(--ink);font-variation-settings:"opsz" 144,"wght" 600,"SOFT" 40}
 
-  /* ── CLOSE — a layered, luminous climax ─────────────────────────────────── */
+  /* ── CLOSE, a layered, luminous climax ─────────────────────────────────── */
   .close-stage{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:clamp(80px,15vh,190px) 24px 0}
   /* warm aura of light behind the maker (far layer) */
   .close-aura{position:absolute;left:50%;top:42%;width:min(88vw,780px);aspect-ratio:1/1;transform:translate(-50%,-50%);z-index:-2;pointer-events:none;
@@ -304,7 +304,7 @@
   .fleck:nth-child(3){animation-duration:7.5s} .fleck:nth-child(4){animation-duration:5.2s} .fleck:nth-child(5){animation-duration:8s}
   @keyframes fleckPulse{0%,100%{opacity:.22}50%{opacity:.55}}
   .close-fig{width:min(52vw,236px);object-fit:contain;filter:drop-shadow(0 20px 26px rgba(22,50,61,.1));will-change:transform}
-  /* the clay, worked — a slow stop-motion loop, floating (cut out) on the page */
+  /* the clay, worked, a slow stop-motion loop, floating (cut out) on the page */
   .close-throw{position:relative;width:min(92vw,640px);aspect-ratio:900/557;will-change:transform;filter:drop-shadow(0 26px 32px rgba(22,50,61,.12))}
   .close-throw .throw-fr{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity 190ms ease-in-out}
   .close-throw .throw-fr.on{opacity:1}
@@ -323,7 +323,7 @@
     .essay .cl-tr,.essay .cl-bl{position:static;text-align:center;max-width:none;margin:.4em auto 0;display:block}
     .essay .cl-tr{margin-top:.7em}
   }
-  /* ── line-mask reveal — each line rises from behind a hard edge (premium, no ghost) ── */
+  /* ── line-mask reveal, each line rises from behind a hard edge (premium, no ghost) ── */
   .ml{transform:scale(.99);transition:transform 1.1s cubic-bezier(.16,1,.3,1)}
   .ml.in{transform:scale(1)}
   .ml .ml-line{display:block;overflow:hidden;padding-bottom:.16em;margin-bottom:-.16em}
@@ -344,7 +344,7 @@
   .essay .coda-line{font-size:clamp(16px,1rem + 0.45vw,18px);line-height:1.6;color:var(--ink-2);margin:0 0 .4em}
   .essay .close-thesis{font-size:clamp(21px,2.8vw,28px);line-height:1.36;color:var(--ink);margin:1.7em auto 0;max-width:24ch}
   .close-thesis strong{font-weight:600}
-  /* your turn — press the real clay slab to leave a fingerprint */
+  /* your turn, press the real clay slab to leave a fingerprint */
   .yourturn{max-width:600px;margin:4vh auto 0;text-align:center;padding:0 26px}
   .invite{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:16px}
   .slab{position:relative;display:inline-block;width:min(92vw,520px);cursor:pointer;line-height:0;-webkit-tap-highlight-color:transparent}
@@ -359,7 +359,7 @@
   .count{font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:var(--clay);margin-top:18px;min-height:18px}
   .essay .sign{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--faint);margin-top:5vh}
   .essay .sign a{color:var(--clay);text-decoration:none}
-  /* back-to-top — quiet pill that returns the reader to the start of the essay */
+  /* back-to-top, quiet pill that returns the reader to the start of the essay */
   .essay .totop{display:inline-flex;align-items:center;gap:9px;margin-top:clamp(30px,5vh,54px);
     font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);
     background:none;border:1px solid rgba(154,74,40,.30);border-radius:999px;padding:12px 22px;cursor:pointer;
@@ -370,14 +370,14 @@
 
   @media (max-width:760px){
     /* intro is a compact opener on phones (its content is only ~360px) so the
-       clay hero pins within ONE scroll instead of two — no full-screen of dead space */
+       clay hero pins within ONE scroll instead of two, no full-screen of dead space */
     .intro{min-height:auto;padding:16vh 24px 11vh}
-    /* "Even digital design used to have some of this." — keep line 2 fitting on phones */
+    /* "Even digital design used to have some of this.", keep line 2 fitting on phones */
     .essay .big-h{font-size:clamp(22px,6.3vw,30px);letter-spacing:-.02em}
     /* "AI shouldn't erase that conversation." → 2 clean lines (size so line 1 fits) */
     .essay .lead.richer{font-size:clamp(15px,4.4vw,19px)!important}
     /* sticky scroll scenes (clay / paint / turn) on phones: a centred column so the
-       text beat sits just ABOVE the figure with only a small gap — no dead space. */
+       text beat sits just ABOVE the figure with only a small gap, no dead space. */
     .clay-sticky{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2vh;padding:3vh 20px}
     .clay-text{position:relative;top:auto;left:auto;right:auto;width:100%;height:15vh;padding:0}
     .beat{top:auto;bottom:0;left:0;right:0;padding:0 22px;text-align:center;
@@ -407,7 +407,7 @@
     .landfoot .land-img{transform:none!important}
   }
 
-  /* ── LAND FOOTER — a clay dreamworld sign-off (this page only) ─────────── */
+  /* ── LAND FOOTER, a clay dreamworld sign-off (this page only) ─────────── */
   .landfoot{position:relative;width:100%;min-height:clamp(440px,46vw,660px);overflow:hidden;background:#cda07a;isolation:isolate}
   /* melt the top edge into the white page so the clay world emerges, no hard seam */
   .landfoot::before{content:"";position:absolute;left:0;right:0;top:0;height:clamp(90px,16vh,190px);z-index:1;pointer-events:none;
@@ -425,7 +425,7 @@
 <link rel="stylesheet" href="transition.css?v=1">
 </head>
 <body>
-<!-- shared page transition (ink wipe) — see transition.css/js -->
+<!-- shared page transition (ink wipe), see transition.css/js -->
 <div class="pgx" id="pgx" aria-hidden="true">
   <div class="pgx-ink"></div>
   <div class="pgx-mark"><span class="wm">gauravi<span class="dot">.</span></span></div>
@@ -473,7 +473,7 @@
     </div>
   </section>
 
-  <!-- ── PAINTING (scroll hero — figure left, text right) ───────────────── -->
+  <!-- ── PAINTING (scroll hero, figure left, text right) ───────────────── -->
   <section class="clay paint" id="paint">
     <div class="clay-sticky paint-sticky">
       <span class="clay-label">at the easel</span>
@@ -493,7 +493,7 @@
     </div>
   </section>
 
-  <!-- ── DIGITAL DESIGN — horizontal gallery of tiny delights ───────────── -->
+  <!-- ── DIGITAL DESIGN, horizontal gallery of tiny delights ───────────── -->
   <section class="sec">
     <div class="col centered">
       <h2 class="sec-h disp big-h blowup">Even digital design<br>used to have <em>some of this.</em></h2>
@@ -622,7 +622,7 @@
     <p class="mold-payoff disp blowup">You push, and it <em>pushes back.</em></p>
   </section>
 
-  <!-- the dialogue with the material — the figure CHANGES as you scroll -->
+  <!-- the dialogue with the material, the figure CHANGES as you scroll -->
   <section class="clay tscene" id="turnscene">
     <div class="clay-sticky">
       <span class="clay-label">the dialogue</span>
@@ -639,7 +639,7 @@
     </div>
   </section>
 
-  <!-- the emotional anchor — full-bleed fingerprint -->
+  <!-- the emotional anchor, full-bleed fingerprint -->
   <section class="fingerprint reveal">
     <img src="../assets/making/turn/fingerprint.jpg?v=2" alt="A thumbprint pressed into wet clay">
     <p class="fcap">The little imperfections that remind you <em>another human was here.</em></p>
@@ -686,7 +686,7 @@
 
 </div>
 
-<!-- ── LAND FOOTER — the clay dreamworld (replaces the shared footer here) ── -->
+<!-- ── LAND FOOTER, the clay dreamworld (replaces the shared footer here) ── -->
 <footer class="landfoot reveal" id="landfoot">
   <img class="land-img" src="../assets/making/land/land.jpg" alt="A handmade clay dreamworld: rolling terracotta hills, clay clouds, and the maker standing before a low sun">
 </footer>
@@ -724,7 +724,7 @@
     var r = s.sec.getBoundingClientRect();
     var total = s.sec.offsetHeight - window.innerHeight;
     var p = clamp((-r.top)/total, 0, 1);
-    /* scroll drives the frame — discrete switch, one at a time (no blend) */
+    /* scroll drives the frame, discrete switch, one at a time (no blend) */
     var idx = Math.min(s.frames.length-1, Math.floor(p*s.frames.length));
     s.frames.forEach(function(f,i){ f.classList.toggle('show', i===idx); });
     s.beats.forEach(function(b){
@@ -754,18 +754,18 @@
     closeParallax();
   }
 
-  /* ── close climax: the maker throws a pot, forever — a slow stop-motion loop.
+  /* ── close climax: the maker throws a pot, forever, a slow stop-motion loop.
      lump → centre → bowl → tall vessel → back to a fresh lump = "more clay." ── */
   (function(){
     var box = document.getElementById('closeThrow'); if(!box) return;
     var frs = Array.prototype.slice.call(box.querySelectorAll('.throw-fr'));
     if(frs.length < 2) return;
-    var holds = [980,840,1120];   /* per-frame hold (ms) — a touch slower/calmer loop */
+    var holds = [980,840,1120];   /* per-frame hold (ms), a touch slower/calmer loop */
     var cur = 0, started = false, z = 1;
     /* Fade the INCOMING frame in ON TOP of the still-opaque outgoing one, then drop
        the old frame only after it's fully covered. The static surround (pedestal,
        flowers, stool) always has a solid layer beneath it during the transition, so
-       it never dips toward the white bg — no "blink". Only the clay dissolves. */
+       it never dips toward the white bg, no "blink". Only the clay dissolves. */
     function step(){
       var nxt = (cur+1) % frs.length;
       var incoming = frs[nxt], outgoing = frs[cur];
@@ -785,7 +785,7 @@
   update();
   window.__update = update;
 
-  /* ── digital delights — interactions + horizontal-scroll storytelling ── */
+  /* ── digital delights, interactions + horizontal-scroll storytelling ── */
   var demos = {};
 
   // 1 · pixel nudge
@@ -799,7 +799,7 @@
     blob.addEventListener('pointerdown',function(e){ drag=true; blob.classList.add('drag'); blob.focus(); blob.setPointerCapture(e.pointerId); sx=e.clientX; sy=e.clientY; ox=x; oy=y; });
     blob.addEventListener('pointermove',function(e){ if(!drag)return; var sc=300/svg.getBoundingClientRect().width; x=ox+(e.clientX-sx)*sc; y=oy+(e.clientY-sy)*sc; set(); });
     blob.addEventListener('pointerup',function(){ drag=false; blob.classList.remove('drag'); });
-    demos.pixel=function(){ x=0;y=0;set(); setTimeout(function(){ x=1; set(); },300); };   /* one nudge — matches "a single step" */
+    demos.pixel=function(){ x=0;y=0;set(); setTimeout(function(){ x=1; set(); },300); };   /* one nudge, matches "a single step" */
   })();
 
   // 2 · motion curves (draggable handles + rolling ball)
@@ -819,7 +819,7 @@
       h.addEventListener('pointermove',mv); h.addEventListener('pointerup',up); }); }
     drag(ch1,c1); drag(ch2,c2);
     svg.addEventListener('click',function(e){ if(e.target.classList.contains('chandle'))return; roll(); });
-    [].forEach.call(document.querySelectorAll('.hint a[data-c]'),function(a){ a.addEventListener('click',function(){ var v=a.dataset.c.split(',').map(Number); c1={x:v[0],y:v[1]}; c2={x:v[2],y:v[3]}; note.textContent=a.textContent+' — tap to roll'; redraw(); roll(); }); });
+    [].forEach.call(document.querySelectorAll('.hint a[data-c]'),function(a){ a.addEventListener('click',function(){ var v=a.dataset.c.split(',').map(Number); c1={x:v[0],y:v[1]}; c2={x:v[2],y:v[3]}; note.textContent=a.textContent+', tap to roll'; redraw(); roll(); }); });
     redraw();
     demos.curve=function(){ roll(); };
   })();
@@ -922,7 +922,7 @@
     d.style.left=((e.clientX-r.left)/r.width*100)+'%';
     d.style.top=((e.clientY-r.top)/r.height*100)+'%';
     d.innerHTML=fp(); prints.appendChild(d);
-    n++; count.textContent='you left your mark — '+n+(n===1?' print ✦':' prints ✦');
+    n++; count.textContent='you left your mark, '+n+(n===1?' print ✦':' prints ✦');
   });
 })();
 
@@ -930,7 +930,7 @@
    Height-field renderer: each press stamps an inverted Laplacian-of-Gaussian
    (a soft dip with a squeezed-up rim) into a heightmap; we shade by the surface
    SLOPE under a top-left light (N·L), so dent floors keep the clay's own tone and
-   only the walls catch shadow/light — matte, shallow, and slowly self-settling. */
+   only the walls catch shadow/light, matte, shallow, and slowly self-settling. */
 (function(){
   var slab=document.getElementById('moldSlab'); if(!slab) return;
   var cv=document.getElementById('moldCv'); if(!cv||!cv.getContext) return;

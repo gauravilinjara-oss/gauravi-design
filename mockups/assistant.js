@@ -1,5 +1,5 @@
 /* ============================================================================
-   PORTFOLIO CHAT WIDGET  —  self-contained, no dependencies
+   PORTFOLIO CHAT WIDGET, self-contained, no dependencies
    ----------------------------------------------------------------------------
    Renders a launcher + chat panel, streams from /api/chat (SSE), and keeps a
    short rolling history. Drop on any page with: assistant.css + this script.
@@ -50,7 +50,7 @@
         '<div class="gachat-av"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 6l2.4 5.4L12 18l-2.4-6.6z" fill="#fff" stroke="none"/></svg></div>' +
         '<div class="gc-htxt"><div class="ttl">ask about <span class="a">gauravi</span></div>' +
         '<div class="sub"><span class="live"></span>online · replies instantly</div></div>' +
-        '<button class="gachat-iconbtn gc-voice" type="button" aria-pressed="false" aria-label="Voice mode — read replies aloud" title="Voice mode (read replies aloud)">' +
+        '<button class="gachat-iconbtn gc-voice" type="button" aria-pressed="false" aria-label="Voice mode, read replies aloud" title="Voice mode (read replies aloud)">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M19 5a9 9 0 0 1 0 14"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>' +
         '</button>' +
         '<button class="gachat-iconbtn gc-reset" type="button" aria-label="Clear conversation" title="Clear">' +
@@ -108,7 +108,7 @@
     var wrap = document.createElement('div');
     wrap.className = 'gachat-intro';
     var p = document.createElement('p');
-    p.textContent = "Hi! I can tell you about Gauravi’s work, background, and how she designs. Ask me anything — or start here:";
+    p.textContent = "Hi! I can tell you about Gauravi’s work, background, and how she designs. Ask me anything, or start here:";
     wrap.appendChild(p);
     var chips = document.createElement('div');
     chips.className = 'gachat-chips';
@@ -216,7 +216,7 @@
   form.addEventListener('submit', function (e) { e.preventDefault(); send(input.value); });
 
   // ============================================================================
-  //  VOICE MODE  —  speak to ask (Web Speech: SpeechRecognition) + hear replies
+  //  VOICE MODE, speak to ask (Web Speech: SpeechRecognition) + hear replies
   //  (SpeechSynthesis). Progressive enhancement: controls hide if unsupported.
   //  Fitting for a portfolio whose owner designs AI-voice experiences.
   // ============================================================================

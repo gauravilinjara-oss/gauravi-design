@@ -1,5 +1,5 @@
 /* ============================================================
-   case-sidebar.js — builds responsive case-study navigation.
+   case-sidebar.js, builds responsive case-study navigation.
    It reads project metadata from the snapshot card and creates
    one shared section model for the desktop rail and mobile select.
    ============================================================ */
@@ -64,9 +64,9 @@
   var entries=getSectionEntries();
   if(entries.length<2) return;
 
-  var proj=(document.title||'case study').split(/\s*[,\-–—]\s+/)[0].trim();
+  var proj=(document.title||'case study').split(/\s*[-–,]\s+/)[0].trim();
   var roleRaw=fact('role'), timeline=fact('timeline');
-  var roleParts=roleRaw.split(/\s+[—–·]\s+/);
+  var roleParts=roleRaw.split(/\s+[,–·]\s+/);
   var role=roleParts[0]||roleRaw, org=roleParts.slice(1).join(' · ');
 
   var rail=document.createElement('aside');

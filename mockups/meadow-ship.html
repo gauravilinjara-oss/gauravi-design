@@ -5,21 +5,21 @@
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Gauravi Linjara · Design Engineer for AI-native Products</title>
-<meta name="description" content="Design engineer building AI-native products—from research and product design through working code." />
+<meta name="description" content="Design engineer building AI-native products, from research and product design through working code." />
 
 <!-- social share preview (link unfurl card) -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Gauravi Linjara" />
 <meta property="og:url" content="https://gauravi.design/" />
 <meta property="og:title" content="Gauravi · design engineer for AI-native products." />
-<meta property="og:description" content="Design engineer building AI-native products—from research and product design through working code." />
+<meta property="og:description" content="Design engineer building AI-native products, from research and product design through working code." />
 <meta property="og:image" content="https://gauravi.design/assets/og/og-home.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="Gauravi, design engineer for AI-native products." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Gauravi · design engineer for AI-native products." />
-<meta name="twitter:description" content="Design engineer building AI-native products—from research and product design through working code." />
+<meta name="twitter:description" content="Design engineer building AI-native products, from research and product design through working code." />
 <meta name="twitter:image" content="https://gauravi.design/assets/og/og-home.jpg" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -38,7 +38,7 @@
     --fs-giant:clamp(46px,8.4vw,104px); --fs-h1:clamp(32px,4.4vw,60px); --fs-h2:clamp(30px,3.8vw,52px); --fs-h3:clamp(22px,2.4vw,30px); --fs-h4:clamp(19px,1.9vw,24px);
     --green:#2F6CB8;   /* readable blue emphasis on light surfaces */
     --edge:max(22px,8%);
-    /* sky — retinted by the time-of-day script (day palette default) */
+    /* sky, retinted by the time-of-day script (day palette default) */
     --sky1:#2f6cb8; --sky2:#5a93cf; --sky3:#8cbce9; --sky4:#b9dcf4;
     --sun-core:#fff3c4; --sun-mid:#ffd95b;
   }
@@ -52,7 +52,7 @@
     background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 40%,var(--sky3) 64%, transparent 96%);
     transition:background 1.2s ease;}
   /* the hero's bottom goes transparent so the SAME fixed cloud sky shows through and continues
-     seamlessly into the sections below — no hard horizon line at any time of day */
+     seamlessly into the sections below, no hard horizon line at any time of day */
   .stage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:38%;z-index:5;pointer-events:none;
     background:linear-gradient(to bottom, rgba(201,227,241,0) 0%, rgba(201,227,241,.28) 55%, rgba(201,227,241,0) 100%);
     transition:background 1.2s ease;}
@@ -100,7 +100,7 @@
 
   /* ─── night: sun → pale cratered moon, no rays ─── */
   body.nightsky .i-rays{display:none;}
-  /* night clouds are dark blue-grey, not glowing white — realistic AND keeps light hero text legible (white clouds dropped contrast to ~1:1) */
+  /* night clouds are dark blue-grey, not glowing white, realistic AND keeps light hero text legible (white clouds dropped contrast to ~1:1) */
   body.nightsky .i-cloud,
   body.nightsky .i-cloud::before,
   body.nightsky .i-cloud::after{background:#5d6f92;}
@@ -114,7 +114,7 @@
       radial-gradient(circle, #f6f7ff 0%, #dfe4f4 58%, rgba(223,228,244,0) 73%);
     box-shadow:0 0 34px 6px rgba(196,210,255,.34);}
 
-  /* ─────────── ambient sky life: bees (day) → fireflies (night) — from journey.html ─────────── */
+  /* ─────────── ambient sky life: bees (day) → fireflies (night), from journey.html ─────────── */
   .bees{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden;}
   .bee{position:absolute;left:0;top:0;width:62px;will-change:transform;pointer-events:auto;cursor:pointer;}
   .bee-art{position:relative;display:block;width:100%;will-change:transform;}
@@ -133,7 +133,7 @@
   .bee-hint{position:absolute;left:50%;top:50%;width:28px;height:28px;transform:translate(-50%,-50%);border-radius:50%;border:1.5px solid rgba(255,255,255,.7);opacity:0;animation:beeHint 3.6s ease-in-out infinite;pointer-events:none;}
   @keyframes beeHint{0%,100%{opacity:0;transform:translate(-50%,-50%) scale(.5)}50%{opacity:.5;transform:translate(-50%,-50%) scale(1)}}
   .bee:hover .bee-hint{opacity:0;animation:none;}
-  /* floating metric whisper — bare number, no box */
+  /* floating metric whisper, bare number, no box */
   .bee-tag{position:absolute;left:50%;top:-19px;transform:translateX(-50%) translateY(5px);white-space:nowrap;
     font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:inherit;
     opacity:0;transition:opacity .55s ease,transform .55s ease;pointer-events:none;}
@@ -223,7 +223,7 @@
   .eyebrow{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--soft);margin-bottom:14px;}
   .hl{font-family:var(--font-display);font-weight:400;letter-spacing:-.02em;font-size:var(--fs-h1);line-height:1.05;color:var(--ink);}
   .hl .a{color:inherit;}
-  .hl .ln.l2{font-style:italic;color:inherit;}     /* "then ship the code." — same ink as headline, italic (air.inc-style) */
+  .hl .ln.l2{font-style:italic;color:inherit;}     /* "then ship the code.", same ink as headline, italic (air.inc-style) */
   .hl .ln{display:block;overflow:hidden;white-space:nowrap;padding-bottom:.06em;margin-bottom:-.06em;}
   .hl .ln > span{display:inline-block;will-change:transform;transform:translateY(114%);
     transition:transform 1.05s cubic-bezier(.22,1,.36,1);}
@@ -264,7 +264,7 @@
   .lede{font-family:var(--font-text);font-weight:400;font-size:16px;line-height:1.6;color:var(--soft);margin-top:20px;max-width:520px;}
   .proof{font-family:var(--font-mono);font-weight:500;font-size:11.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--soft);margin-top:18px;}
   .cta-row{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;}
-  /* ── .ink-btn: air.inc-style — flat, 8px radius, thin border, fills on hover ── */
+  /* ── .ink-btn: air.inc-style, flat, 8px radius, thin border, fills on hover ── */
   .ink-btn{position:relative;display:inline-flex;align-items:center;gap:9px;
     font-family:var(--font-mono);font-size:13px;letter-spacing:.04em;text-transform:lowercase;text-decoration:none;line-height:1;
     padding:14px 22px;border:1px solid currentColor;color:var(--ink);background:transparent;cursor:pointer;
@@ -510,7 +510,7 @@
 <link rel="stylesheet" href="cinematic.css?v=1" />
 <link rel="stylesheet" href="nav.css?v=9">
 <style>
-  /* home hero is a blue day/night sky — keep the shared nav's brand light */
+  /* home hero is a blue day/night sky, keep the shared nav's brand light */
   #gnav .gnav-brand,#gnav .gnav-dot{color:#fff;text-shadow:0 1px 14px rgba(8,22,48,.32);}
   #gnav .gnav-mark{color:#fff;filter:drop-shadow(0 1px 8px rgba(8,22,48,.4));}
   body.nightsky #gnav .gnav-brand,body.nightsky #gnav .gnav-dot{color:#EDF1E6;}
@@ -554,7 +554,7 @@
 </style>
 <div class="cloudfield" id="cloudfield" aria-hidden="true"></div>
 <style>
-  /* real drifting clouds (air.inc motion) — one soft cloud sprite, mirrored/scaled/feathered */
+  /* real drifting clouds (air.inc motion), one soft cloud sprite, mirrored/scaled/feathered */
   .cloudfield .cfc{position:absolute;left:0;top:0;will-change:transform;pointer-events:none;}
   .cloudfield .cfc img{display:block;width:100%;height:auto;
     -webkit-mask-image:linear-gradient(to right,transparent 0,#000 7%,#000 93%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 7%,#000 90%,transparent 100%);
@@ -563,20 +563,19 @@
   body.nightsky .cloudfield .cfc img{filter:brightness(.5) saturate(.72);}
 </style>
 
-<!-- ════════════ AIR.INC CLOUD SKY — below the fold only (hero meadow stays untouched) ════════════ -->
+<!-- ════════════ AIR.INC CLOUD SKY, below the fold only (hero meadow stays untouched) ════════════ -->
 <style>
   /* The hero (.stage) keeps its meadow, girl, grass, sun & bees exactly as designed.
-     The air.inc cloud effect lives in the .cloudfield, which sits BEHIND the scroll —
-     the opaque hero covers it, so these soft drifting clouds only reveal after the first fold. */
+     The air.inc cloud effect lives in the .cloudfield, which sits BEHIND the scroll, the opaque hero covers it, so these soft drifting clouds only reveal after the first fold. */
   body{background:#b9dcf4;}
   .cloudfield{background:linear-gradient(180deg,#2f6cb8 0%,#5a93cf 36%,#8cbce9 72%,#b9dcf4 100%) !important;}
 
-  /* soft, slowly-drifting clouds (air.inc) — white, clearly readable, soft-edged */
+  /* soft, slowly-drifting clouds (air.inc), white, clearly readable, soft-edged */
   .cf{border-radius:0 !important;
     background:radial-gradient(62% 100% at 50% 54%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.85) 34%, rgba(255,255,255,.4) 60%, rgba(255,255,255,0) 80%) !important;
     filter:blur(16px) !important;}
   .cf::before,.cf::after{display:none !important;}
-  /* original six — bumped in size + opacity, staggered so they're spread across the sky at load */
+  /* original six, bumped in size + opacity, staggered so they're spread across the sky at load */
   .cf.c1{width:560px;height:165px;opacity:.92;animation-delay:-12s !important;}
   .cf.c2{width:820px;height:230px;opacity:.8;animation-delay:-58s !important;}
   .cf.c3{width:420px;height:130px;opacity:.86;animation-delay:-34s !important;}
@@ -622,7 +621,7 @@
     </picture>
   </div>
 
-  <!-- ░░ NAV ░░ — legacy bar, hidden by nav.js which injects the shared #gnav -->
+  <!-- ░░ NAV ░░, legacy bar, hidden by nav.js which injects the shared #gnav -->
   <nav class="nav nav-old">
     <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 30 26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><g class="sun"><path d="M9 18a6 6 0 0 1 12 0" fill="currentColor" stroke="none"/><line x1="15" y1="7" x2="15" y2="4.2"/><line x1="7.2" y1="10.2" x2="5.4" y2="8.6"/><line x1="22.8" y1="10.2" x2="24.6" y2="8.6"/></g><line x1="2.5" y1="18" x2="27.5" y2="18"/></svg>gauravi<span class="a">.</span></a>
     <button class="navtoggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu"><span class="tg-txt">menu</span><span class="tg-ico"><span></span><span></span></span></button>
@@ -643,14 +642,14 @@
     <div class="eyebrow">gauravi linjara · san francisco</div>
     <div class="hey" aria-label="hi, i'm gauravi"><span class="hey-slot"><span class="hey-w" id="heyW">hi</span></span>, i'm gauravi</div>
     <h1 class="hl"><span class="ln"><span>design engineer for</span></span><span class="ln l2"><span>ai-native products.</span></span></h1>
-    <p class="lede">Design engineer building AI-native products—from research and product design through working code. <b>6+ years of experience</b> across the US, Dubai and India shipping enterprise fintech and AI voice systems end to end.</p>    <div class="cta-row">
+    <p class="lede">Design engineer building AI-native products, from research and product design through working code. <b>6+ years of experience</b> across the US, Dubai and India shipping enterprise fintech and AI voice systems end to end.</p>    <div class="cta-row">
       <a class="ink-btn primary" id="skip" href="mailto:gauravilinjara@gmail.com"><span class="lbl">let's talk <span class="arw">→</span></span></a>
       <a class="ink-btn" id="bookCall" href="https://calendly.com/gauravilinjara/quick-coffee-chat" target="_blank" rel="noopener"><span class="lbl">book a call <span class="arw">↗</span></span></a>
       <a class="ink-btn" href="https://www.linkedin.com/in/gauravi-linjara/" target="_blank" rel="noopener"><span class="lbl">linkedin <span class="arw">↗</span></span></a>
     </div>
   </div>
 
-  <!-- ░░ time-of-day rail (vertical glass slider — drag to set the light, AUTO follows local time) ░░ -->
+  <!-- ░░ time-of-day rail (vertical glass slider, drag to set the light, AUTO follows local time) ░░ -->
   <style>
     .scene-rail{position:fixed;right:16px;top:50%;transform:translateY(-50%);z-index:95;display:flex;flex-direction:column;align-items:center;gap:6px;
       background:rgba(255,255,255,.16);-webkit-backdrop-filter:blur(14px) saturate(1.15);backdrop-filter:blur(14px) saturate(1.15);
@@ -844,7 +843,7 @@
   body.nightsky .ai-stage-sub b{color:#EDF1E6;}
 </style>
 
-<!-- big belief banner (air-style, over the sky) — top, right under the hero -->
+<!-- big belief banner (air-style, over the sky), top, right under the hero -->
 <section class="ai-sec ai-banner ai-stat-pin" id="aiStatSec">
   <div class="ai-wrap">
     <h2 class="ai-stat" id="aiStat" aria-label="6 YEARS. 3 COUNTRIES. 15+ PROJECTS. $71M IN REVENUE.">
@@ -856,7 +855,7 @@
   </div>
 </section>
 
-<!-- work — full-width real screens & video, floating in the sky -->
+<!-- work, full-width real screens & video, floating in the sky -->
 <style>
   .ai-work{background:transparent;padding:clamp(30px,5vh,60px) 0 clamp(56px,9vh,104px);}
   .ai-work .ai-wrap{max-width:1120px;}
@@ -889,7 +888,7 @@
   @media (max-width:760px){ .ai-case-head{flex-direction:column;align-items:flex-start;} .ai-case-meta{text-align:left;} }
 </style>
 
-<!-- ════ AIR-STYLE giant belief statement — full-bleed, scroll-scrub line wipe over a vivid sky ════ -->
+<!-- ════ AIR-STYLE giant belief statement, full-bleed, scroll-scrub line wipe over a vivid sky ════ -->
 <style>
   .ai-manifesto{position:relative;z-index:8;overflow:hidden;width:100%;
     padding:clamp(96px,22vh,240px) 0;display:flex;align-items:center;}
@@ -920,7 +919,7 @@
   .mf-sub em{font-style:italic;color:#ffd1a1;}
 </style>
 
-<!-- ░░ Selected work — case studies (ported from air version; bees stay as the hero teaser) ░░ -->
+<!-- ░░ Selected work, case studies (ported from air version; bees stay as the hero teaser) ░░ -->
 <style>
   .sw-sec{position:relative;z-index:8;padding:var(--sp-section) 0;}
   .sw-sec .ai-wrap{max-width:1180px;}
@@ -953,11 +952,11 @@
   .sw-media{overflow:hidden;background:rgba(255,255,255,.08);aspect-ratio:16/10;position:relative;border-radius:13px;}
   .sw-media img,.sw-media video{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform 1.1s cubic-bezier(.22,1,.36,1);}
   .sw-card:hover .sw-media img,.sw-card:hover .sw-media video{transform:scale(1.04);}
-  /* flagship mobile card — phone peeking from the bottom (portrait device on a tinted panel) */
+  /* flagship mobile card, phone peeking from the bottom (portrait device on a tinted panel) */
   .sw-media.phone{background:linear-gradient(165deg,#d8e5f7 0%,#aecbef 56%,#8eb4e6 100%);display:flex;justify-content:center;align-items:flex-start;padding-top:24px;}
   .sw-media.phone video,.sw-media.phone img{width:52%;height:auto;max-width:none;object-fit:contain;align-self:flex-start;transition:transform 1.1s cubic-bezier(.22,1,.36,1);}
   .sw-media.phone video{border-radius:26px;box-shadow:0 28px 46px -20px rgba(8,24,52,.62);clip-path:inset(4.5% 0 0 0 round 30px);}
-  /* GH cover video is a framed phone with its own bezel — round it to match, no top trim */
+  /* GH cover video is a framed phone with its own bezel, round it to match, no top trim */
   .sw-media.phone video.gh-cover{border-radius:30px;clip-path:inset(0 0 0 0 round 30px);}
   .sw-media.phone .gh-cmp{position:relative;width:52%;aspect-ratio:430/902;border-radius:30px;overflow:hidden;--pos:50%;align-self:flex-start;touch-action:none;cursor:ew-resize;box-shadow:0 28px 46px -20px rgba(8,24,52,.62);transition:transform 1.1s cubic-bezier(.22,1,.36,1);}
   .sw-card:hover .sw-media.phone .gh-cmp{transform:translateY(-7px);}
@@ -973,7 +972,7 @@
   .sw-media.phone img{filter:drop-shadow(0 24px 30px rgba(8,24,52,.48));}
   .sw-card:hover .sw-media.phone video,.sw-card:hover .sw-media.phone img{transform:translateY(-7px);}
   @media(max-width:760px){.sw-media.phone video,.sw-media.phone img{width:54%;}}
-  /* voice case (NDA) — soft "voice orb" on a light gradient tuned to the dawn/sky palette */
+  /* voice case (NDA), soft "voice orb" on a light gradient tuned to the dawn/sky palette */
   .sw-media.nda{display:grid;place-items:center;position:relative;overflow:hidden;background:linear-gradient(142deg,#dcebf8 0%,#e7ede1 50%,#f7e9d2 100%);}
   .sw-media.nda::before,.sw-media.nda::after{content:"";position:absolute;width:58%;aspect-ratio:1;border-radius:50%;pointer-events:none;}
   /* when the NDA card has a real video cover, drop the decorative aura */
@@ -1150,7 +1149,7 @@
   </div>
 </section>
 <script>
-  /* Scroll highlight — Motion inView center-zone technique, vanilla IntersectionObserver.
+  /* Scroll highlight, Motion inView center-zone technique, vanilla IntersectionObserver.
      Each skill row lights up as it crosses a narrow band at the viewport's vertical center. */
   (function(){
     var rows = document.querySelectorAll('#skillsList .skill-row');
@@ -1174,7 +1173,7 @@
 
 
 
-<!-- on stages & in conversations — speaking / conferences gallery -->
+<!-- on stages & in conversations, speaking / conferences gallery -->
 <style>
   .ai-stage{position:relative;z-index:8;padding:var(--sp-section) 0;}
   .ai-stage .ai-wrap{max-width:1180px;}
@@ -1229,8 +1228,7 @@
 </section>
 
 <script>
-  /* pin the triad connector exactly to the dot centers (robust across widths —
-     avoids the --edge percentage resolving against different containing blocks) */
+  /* pin the triad connector exactly to the dot centers (robust across widths, avoids the --edge percentage resolving against different containing blocks) */
   (function(){
     function placeThread(){
       var a=document.getElementById('aiTriad'); if(!a) return;
@@ -1265,7 +1263,7 @@
   })();
 </script>
 
-<!-- ===== about — postcard floating on the sky (links to beyond.html) ===== -->
+<!-- ===== about, postcard floating on the sky (links to beyond.html) ===== -->
 <style>
   .abtme{position:relative;z-index:8;padding:var(--sp-section) 0;}
   .abtme .ai-wrap{max-width:1180px;}
@@ -1333,7 +1331,7 @@
   </div>
 </section>
 
-<!-- ===== testimonials — "The Wall" (PLACEHOLDER COPY: swap quotes/names with real recommendations before publishing) ===== -->
+<!-- ===== testimonials, "The Wall" (PLACEHOLDER COPY: swap quotes/names with real recommendations before publishing) ===== -->
 <style>
   .tmn{position:relative;z-index:8;padding:var(--sp-section) 0;}
   .tmn .ai-wrap{max-width:1180px;}
@@ -1481,7 +1479,7 @@
   stage.addEventListener('pause',play,true);
   stage.addEventListener('ended',play,true);
   layout();
-  // don't auto-advance on load — start (from the interviewing opener) only when the gallery is reached
+  // don't auto-advance on load, start (from the interviewing opener) only when the gallery is reached
   if('IntersectionObserver' in window){ new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting) play(); else stop(); });},{threshold:.15}).observe(stage); }
   else { play(); }
 })();
@@ -1731,7 +1729,7 @@
       .from('.cta-row .ink-btn',{y:14,opacity:0,duration:.6,stagger:.1},'-=0.4');
   }
 
-  /* mouse parallax depth — sun, clouds, meadow */
+  /* mouse parallax depth, sun, clouds, meadow */
   if(!reduce && fine){
     var P=[{el:document.querySelector('.i-sunwrap'),d:0.16}];
     [].forEach.call(document.querySelectorAll('.i-pl'),function(p){ P.push({el:p,d:parseFloat(p.dataset.depth)||0.3}); });
@@ -1744,9 +1742,9 @@
     },{passive:true});
   }
 
-  /* ════ cinematic ascent — a continuous parallax rise into the sky as you scroll off the hero ════
+  /* ════ cinematic ascent, a continuous parallax rise into the sky as you scroll off the hero ════
      The ground lifts and dissolves, the copy floats up, the sun sinks, and cloud layers drift past
-     at depth — the "6 years" banner rises straight in behind it. No pin, so there is never a held
+     at depth, the "6 years" banner rises straight in behind it. No pin, so there is never a held
      empty frame. Guarded by prefers-reduced-motion above. */
   if(!reduce && window.ScrollTrigger){
     g.registerPlugin(ScrollTrigger);
@@ -1758,7 +1756,7 @@
     var plLayers=g.utils.toArray('.i-pl');
 
     if(stageEl && mw2){
-      /* scroll-linked parallax ascent — NO pin, so there is never a held empty frame.
+      /* scroll-linked parallax ascent, NO pin, so there is never a held empty frame.
          The ground lifts and dissolves, the copy floats up, the sun sinks, and cloud layers drift
          past at depth (nearer layers travel farther → you feel the rise) while the "6 years"
          banner below rises straight in behind it. One continuous lift into the sky. */
@@ -1815,7 +1813,7 @@
 })();
 </script>
 
-<!-- portfolio chat assistant — the .ask-pill opens it (its own floating launcher is hidden here) -->
+<!-- portfolio chat assistant, the .ask-pill opens it (its own floating launcher is hidden here) -->
 <link rel="stylesheet" href="assistant.css?v=mobile-20260715">
 <style>#gachat .gachat-launch{display:none;}</style>
 <script src="assistant.js?v=2" defer></script>
@@ -1861,7 +1859,7 @@
 })();
 </script>
 
-<!-- ════ AIR-STYLE engine — splash · scroll reveals · count-up stats · time-of-day closing ════ -->
+<!-- ════ AIR-STYLE engine, splash · scroll reveals · count-up stats · time-of-day closing ════ -->
 <script>
 (function(){
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1941,7 +1939,7 @@
   })();
 
 
-  // ground (grass): air-style time-of-day scene — switcher + auto local time + fireflies
+  // ground (grass): air-style time-of-day scene, switcher + auto local time + fireflies
   var ground=document.getElementById('ground'), gimg=document.getElementById('groundImg'),
       gtint=document.getElementById('groundTint'), tod=document.getElementById('tod'), gfly=document.getElementById('groundFly');
   var TOD={ dawn:'rgba(250,228,198,.10)', day:'transparent', golden:'rgba(250,206,160,.09)', night:'rgba(30,42,70,.20)' };
@@ -1979,7 +1977,7 @@
 })();
 </script>
 
-<!-- interactive grass footer (WebGL) — auto-inits .grass-footer -->
+<!-- interactive grass footer (WebGL), auto-inits .grass-footer -->
 <!-- keep the grass ground as the very last band -->
 <script>
 window.addEventListener('load',function(){
@@ -1989,7 +1987,7 @@ window.addEventListener('load',function(){
   window.dispatchEvent(new Event('resize'));   // let the grass canvas re-measure after the move
 });
 </script>
-<!-- real cloud sky engine — procedural WebGL clouds (replaces the PNG layers).
+<!-- real cloud sky engine, procedural WebGL clouds (replaces the PNG layers).
      Reads the page's live time-of-day CSS vars (--sky1..4, --sun-mid, body.nightsky)
      so the sky always matches the hero slider; drifts with scroll + pointer parallax.
      If WebGL is unavailable it bails and the .cloudfield CSS gradient shows instead. -->
@@ -2182,7 +2180,7 @@ window.addEventListener('load',function(){
     font-family:inherit;font-style:normal;font-weight:inherit;}
 </style>
 
-<!-- ════ SKY FLIGHT — depth, drifting clouds, birds, light motes, oversized drift-type, scroll camera ════ -->
+<!-- ════ SKY FLIGHT, depth, drifting clouds, birds, light motes, oversized drift-type, scroll camera ════ -->
 <style>
   .sfly{position:fixed;inset:0;pointer-events:none;overflow:hidden;}
   #sfFar{z-index:1;} #sfNear{z-index:9;}
@@ -2256,7 +2254,7 @@ window.addEventListener('load',function(){
   document.addEventListener('visibilitychange',function(){ running=!document.hidden; if(running){ last=performance.now(); requestAnimationFrame(loop); } });
   requestAnimationFrame(loop);
 
-  /* oversized drift-type — giant words you fly past, tied to two sections */
+  /* oversized drift-type, giant words you fly past, tied to two sections */
   if(window.gsap && window.ScrollTrigger){
     gsap.registerPlugin(ScrollTrigger);
     function flyWord(sel,trig){
@@ -2387,7 +2385,7 @@ document.querySelectorAll('[data-ghcmp]').forEach(function(cmp){
 })();
 </script>
 <script>
-/* "book a call" — official Calendly popup, lazy-loaded on hover/click.
+/* "book a call", official Calendly popup, lazy-loaded on hover/click.
    If the widget fails to load, the href opens the Calendly page in a new tab. */
 (function(){
   var links=[].slice.call(document.querySelectorAll('#bookCall,.cal-pop'));

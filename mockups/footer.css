@@ -1,5 +1,5 @@
 /* ============================================================
-   GLOBAL FOOTER — air.inc-style "ground" footer (migration).
+   GLOBAL FOOTER, air.inc-style "ground" footer (migration).
    footer.js injects #gfooter; this skins it for LIGHT pages,
    inheriting tokens (--ink / --soft / --accent / --green / --line).
    ============================================================ */
@@ -41,7 +41,7 @@
 @media(max-width:760px){#gfooter .gf-top{grid-template-columns:1fr;gap:38px;}#gfooter .gf-bar{flex-direction:column;gap:6px;}}
 
 /* ============================================================
-   SKY FOOTER (v2) — match the homepage's .ground footer:
+   SKY FOOTER (v2), match the homepage's .ground footer:
    day-sky gradient + drifting clouds + white text, with a
    staggered fade-up reveal on scroll (footer.js adds .in).
    Overrides the earlier pale-cloud rules above (loads later).

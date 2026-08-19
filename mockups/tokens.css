@@ -1,17 +1,17 @@
 @import url("https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600&display=swap");
 
 /* =============================================================================
-   tokens.css — SINGLE SOURCE OF TRUTH for the whole portfolio.
+   tokens.css, SINGLE SOURCE OF TRUTH for the whole portfolio.
    Load this FIRST on every page:  <link rel="stylesheet" href="tokens.css">
 
    ── MIGRATION (air.inc-style system) ────────────────────────────────────────
    The portfolio is moving to the system defined in mockups/meadow-ship.html:
-     • ONE type superfamily — Satoshi (display, body, and labels)
+     • ONE type superfamily, Satoshi (display, body, and labels)
      • Light & airy palette; flat NAVY accent (#16202b), GREEN italic emphasis
      • One section rhythm, a tight type scale, one signature ease
    The block below defines the NEW canonical tokens. The LEGACY SHIM at the
    bottom maps the old --t-* names onto the new values so existing pages keep
-   rendering. It is load-bearing — keep it until every page is rewritten off --t-*.
+   rendering. It is load-bearing, keep it until every page is rewritten off --t-*.
    ============================================================================= */
 
 :root{
@@ -19,7 +19,7 @@
   --ink: #16202b;           /* primary text                                      */
   --soft:#4E5F74;           /* secondary text                                    */
   --faint:#4E5F74;          /* tertiary / captions; readable on white            */
-  --accent:#16202b;         /* flat near-black/navy — CTAs, structure            */
+  --accent:#16202b;         /* flat near-black/navy, CTAs, structure            */
   --accent-deep:#0f1822;    /* pressed / deep                                    */
   --accent-soft:#e7ecf3;    /* light navy tint fill / chips                      */
   --on-accent:#ffffff;      /* text on navy fills                                */
@@ -29,7 +29,7 @@
   --focus-ring:#2F6CB8;
   --focus-inner:#FFFFFF;
 
-  /* surfaces — light & airy (cool near-white) */
+  /* surfaces, light & airy (cool near-white) */
   --page-bg:#ffffff;        /* base page background                              */
   --surface: #f4f7fc;       /* raised cards                                      */
   --surface-2:#f5f5f5;      /* secondary surface                                 */
@@ -57,29 +57,29 @@
      Every spacing, radius, shadow and tracking value should come from here.
      If a raw value isn't on the scale, snap it to the nearest token.        */
 
-  /* SPACING — 8-pt scale. Use ONLY these for margin/padding/gap. */
+  /* SPACING, 8-pt scale. Use ONLY these for margin/padding/gap. */
   --s-1:4px;  --s-2:8px;   --s-3:16px; --s-4:24px; --s-5:32px;
   --s-6:48px; --s-7:64px;  --s-8:96px; --s-9:128px;
 
-  /* RADIUS — one ladder, applied by element size. */
+  /* RADIUS, one ladder, applied by element size. */
   --r-1:10px;      /* chips, small controls        */
   --r-2:16px;      /* cards, inputs                */
   --r-3:20px;      /* large cards, media frames    */
   --r-4:28px;      /* full-bleed panels            */
   --r-pill:999px;
 
-  /* SHADOW — exactly two tiers. No other shadow recipes. */
+  /* SHADOW, exactly two tiers. No other shadow recipes. */
   --shadow-1:0 1px 2px rgba(20,32,52,.04), 0 6px 16px -8px rgba(20,32,52,.14);
   --shadow-2:0 2px 6px rgba(20,32,52,.06), 0 24px 56px -28px rgba(20,32,52,.26);
 
-  /* MOTION — one easing (--ease above) + one duration set. */
+  /* MOTION, one easing (--ease above) + one duration set. */
   --dur-1:var(--motion-fast); --dur-2:var(--motion-standard); --dur-3:var(--motion-expressive);
 
-  /* TRACKING ladder — size-specific (see §2). */
+  /* TRACKING ladder, size-specific (see §2). */
   --tr-display:-.045em; --tr-h2:-.03em; --tr-h3:-.02em;
   --tr-body:0em;        --tr-mono:.14em;
 
-  /* hairline — lighter than --line, for raised surfaces (elevation from light) */
+  /* hairline, lighter than --line, for raised surfaces (elevation from light) */
   --hairline:rgba(20,32,52,.06);
   --fs-giant:clamp(46px,8.4vw,104px);
   --fs-h1:clamp(32px,4.4vw,60px);
@@ -91,7 +91,7 @@
      LITERAL values on purpose: old pages do `--accent: var(--t-accent)`, so the
      shim must NOT reference --accent/--ink/etc. or it creates a circular var()
      loop that nulls the token. Keeps existing pages rendering.
-     KEEP THIS — pages still reference --t-* names everywhere; only remove once every
+     KEEP THIS, pages still reference --t-* names everywhere; only remove once every
      page has been rewritten to use the new canonical tokens directly. */
   --t-accent:#16202b;
   --t-accent-bright:#16202b;
@@ -118,7 +118,7 @@
   --t-gold:#caa86a;
   --t-blue:#8CC7F4;
 
-  /* type — all collapse onto the one superfamily (no serif / no handwriting) */
+  /* type, all collapse onto the one superfamily (no serif / no handwriting) */
   --t-font-sans:Satoshi,system-ui,sans-serif;
   --t-font-display:Satoshi,system-ui,sans-serif;
   --t-font-serif:Satoshi,system-ui,sans-serif;
@@ -140,7 +140,7 @@ body:not(.home){ background:#ffffff !important; }
    own value still wins. These rules only fill in where nothing is set locally.
    ============================================================================= */
 
-/* §2 · typography — size-specific tracking ladder (the highest-craft change) */
+/* §2 · typography, size-specific tracking ladder (the highest-craft change) */
 body{ font-family:var(--font-text);font-weight:400;text-rendering:optimizeLegibility; font-feature-settings:"kern" 1; }
 /* The portfolio uses weight and color for emphasis; slanted type is not part of the system. */
 html em,html i{font-style:normal!important}
@@ -155,7 +155,7 @@ p { letter-spacing:var(--tr-body); }
   font-variant-numeric:tabular-nums;
 }
 
-/* §6 · focus rings — never outline:none without a replacement */
+/* §6 · focus rings, never outline:none without a replacement */
 :focus-visible{
   outline:2px solid var(--focus-inner);
   outline-offset:2px;
@@ -163,12 +163,12 @@ p { letter-spacing:var(--tr-body); }
   box-shadow:0 0 0 5px var(--focus-ring);
 }
 
-/* §7 · materials — selection colour + consistent link affordance */
+/* §7 · materials, selection colour + consistent link affordance */
 ::selection{ background:var(--accent-soft); color:var(--ink); }
 a{ text-underline-offset:3px; text-decoration-thickness:1px; }
 
 /* §5 · reduced motion. The blanket rule collapses durations; the second rule is
-   the safety net — reveal wrappers start at opacity:0, so without it any content
+   the safety net, reveal wrappers start at opacity:0, so without it any content
    waiting on a scroll reveal would stay permanently invisible. */
 @media (prefers-reduced-motion: reduce){
   *{ animation-duration:.01ms!important; animation-iteration-count:1!important;

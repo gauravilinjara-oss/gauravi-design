@@ -1,5 +1,5 @@
 /* ============================================================
-   NAV — self-injecting brand mark + bottom dock (migration).
+   NAV, self-injecting brand mark + bottom dock (migration).
    Injects #gnav at the top of <body>, and hides the page's old
    top-bar nav so there's no duplicate. Pairs with nav.css.
      <link rel="stylesheet" href="nav.css">

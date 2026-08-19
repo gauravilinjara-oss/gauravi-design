@@ -1,5 +1,5 @@
 /* ───────────────────────────────────────────────────────────
-   transition.js — drives the shared page transition (see transition.css)
+   transition.js, drives the shared page transition (see transition.css)
    - on load: ink recedes (reveal), fire `pgx:revealed`
    - on internal-link click: ink spreads to cover, then navigate
    Real <a href> links keep working if this script ever fails to load.
@@ -12,7 +12,7 @@
 
   if(!pgx || reduce){ if(pgx) pgx.style.display='none'; fireRevealed(); return; }
 
-  /* one inked line per transition — carried across the navigation (sessionStorage) so the
+  /* one inked line per transition, carried across the navigation (sessionStorage) so the
      SAME line shows from cover (leaving) through reveal (arriving), never mid-transition flicker */
   var PHRASES=['be right there','one sec','brewing coffee','mid-run idea','rolling fresh pasta',
     'almost at the top','shaping the clay','ink still wet','sketching it up','onward!',
@@ -23,7 +23,7 @@
   (function(){ var m=null; try{ m=sessionStorage.getItem('pgxMsg'); sessionStorage.removeItem('pgxMsg'); }catch(_){}
     writeMsg(m || randMsg()); })();
 
-  /* reveal on load — hold the covered state briefly so the line is felt, then ink recedes */
+  /* reveal on load, hold the covered state briefly so the line is felt, then ink recedes */
   setTimeout(function(){
     pgx.classList.add('reveal');
     setTimeout(fireRevealed, 1080);

@@ -1,5 +1,5 @@
 /* ============================================================
-   smooth-scroll.js — site-wide buttery scroll via Lenis,
+   smooth-scroll.js, site-wide buttery scroll via Lenis,
    synced to GSAP ScrollTrigger.
    - Loads Lenis from CDN.
    - If GSAP + ScrollTrigger are present, drives Lenis from the
@@ -20,7 +20,7 @@
   s.defer = true;
   s.onload = function () {
     var L = window.Lenis || (window.lenis && window.lenis.default);
-    if (!L) return;                       // fail soft — native scroll still works
+    if (!L) return;                       // fail soft, native scroll still works
     var lenis = new L({
       duration: 1.2,
       easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, // expo-out
@@ -54,6 +54,6 @@
     setTimeout(resync, 600);
     setTimeout(resync, 1600);
   };
-  s.onerror = function () { /* CDN blocked — native scroll, no harm */ };
+  s.onerror = function () { /* CDN blocked, native scroll, no harm */ };
   document.head.appendChild(s);
 })();

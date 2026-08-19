@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="upright.css?v=1">
-<title>the line — the lab</title>
+<title>the line, the lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600&display=swap" rel="stylesheet">
@@ -66,12 +66,12 @@
       <div class="rail">
         <h1>let the water <span class="a">settle</span>.</h1>
         <ol class="steps" id="steps">
-          <li><span class="n">1</span>stir the pond — churn it up</li>
+          <li><span class="n">1</span>stir the pond, churn it up</li>
           <li><span class="n">2</span>then stop, and let it still</li>
         </ol>
         <div class="reveal" id="reveal">
           <div class="lesson">flow is surrender, not <span class="a">force</span>.</div>
-          <div class="note">you can't stir the water clear. it clears the moment you stop. the line, the wave, a restless mind — all settle only when you let them.</div>
+          <div class="note">you can't stir the water clear. it clears the moment you stop. the line, the wave, a restless mind, all settle only when you let them.</div>
           <button class="cta" id="cta">stir again<span class="ic">↺</span></button>
         </div>
         <div class="meterwrap"><span>stillness</span><div class="meter"><i id="bar"></i></div><span id="pct">0%</span><button class="rst" id="rst" title="start over">↺</button></div>
@@ -123,7 +123,7 @@
     } else { ctx.fillStyle='#2c4744'; ctx.fillRect(0,0,W,H); }
     setAudio(turb, stirred?calm:0);
     const cm=Math.round(calm*100); bar.style.width=cm+'%'; pct.textContent=cm+'%';
-    if(!stirred)setW('stir the pond — drag through it.'); else if(turb>0.35)setW('churning it only muddies it.'); else if(calmTime<2000)setW('…now stop. let it settle.'); else setW('see? still water, clear again.');
+    if(!stirred)setW('stir the pond, drag through it.'); else if(turb>0.35)setW('churning it only muddies it.'); else if(calmTime<2000)setW('…now stop. let it settle.'); else setW('see? still water, clear again.');
     if(stirred && calmTime>2600 && !shown){ shown=true; steps.style.opacity=0; setTimeout(()=>{steps.style.display='none';reveal.classList.add('show');animateIn(reveal.querySelector('.lesson'));sfx.reveal();},360); }
     requestAnimationFrame(frame);
   }
@@ -131,10 +131,10 @@
   function move(e){ ensureAudio(); stirred=true; const r=cv.getBoundingClientRect(); const cx=e.touches?e.touches[0].clientX:e.clientX,cy=e.touches?e.touches[0].clientY:e.clientY;
     mx=(cx-r.left)/r.width*W; my=(cy-r.top)/r.height*H; if(lx>=0){ turb=Math.min(1,turb+Math.hypot(mx-lx,my-ly)/130); } lx=mx;ly=my; }
   cv.addEventListener('pointermove',move); cv.addEventListener('pointerleave',()=>{mx=my=lx=ly=-1;}); cv.addEventListener('touchmove',move,{passive:true});
-  function restart(){ shown=false; stirred=false; turb=0; calm=0; calmTime=0; reveal.classList.remove('show'); steps.style.display=''; steps.style.opacity=1; setW('stir the pond — drag through it.'); }
+  function restart(){ shown=false; stirred=false; turb=0; calm=0; calmTime=0; reveal.classList.remove('show'); steps.style.display=''; steps.style.opacity=1; setW('stir the pond, drag through it.'); }
   cta.addEventListener('click',()=>{ ensureAudio(); restart(); sfx.restart(); });
   rst.addEventListener('click',()=>{ ensureAudio(); restart(); sfx.restart(); });
-  setW('stir the pond — drag through it.');
+  setW('stir the pond, drag through it.');
 </script>
 
   <style id="polish">

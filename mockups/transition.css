@@ -1,5 +1,5 @@
 /* ───────────────────────────────────────────────────────────
-   transition.css — shared page-transition (ink wipe)
+   transition.css, shared page-transition (ink wipe)
    A single warm ink blot spreads diagonally to cover the page on
    navigation and recedes to reveal it on load. The ragged edge is
    real SVG turbulence on the clip, so it reads hand-drawn ("inked")

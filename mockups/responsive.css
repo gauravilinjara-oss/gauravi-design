@@ -1,5 +1,5 @@
 /* ============================================================
-   responsive.css  —  shared safety + consistency layer
+   responsive.css, shared safety + consistency layer
    Loaded right before </head>, AFTER each page's own <style>,
    so it can layer on top without fighting page-specific design.
    NOT loaded on journey.html (which manages its own mobile layout).
@@ -11,11 +11,11 @@
    4. The site nav wraps/shrinks gracefully on narrow phones.
    ============================================================ */
 
-/* 1 — fluid media. Zero-specificity :where() so any page rule still wins. */
+/* 1, fluid media. Zero-specificity :where() so any page rule still wins. */
 :where(img, svg, video, canvas) { max-width: 100%; }
 :where(img, video)              { height: auto; }
 
-/* 2 — horizontal-overflow guard.
+/* 2, horizontal-overflow guard.
    `clip` (not `hidden`) so position:sticky / scroll anchoring keep working. */
 html { overflow-x: clip; }
 
@@ -25,7 +25,7 @@ html { overflow-x: clip; }
   min-block-size: var(--hit-target, 44px);
 }
 
-/* 3 — touch & coarse pointer:
+/* 3, touch & coarse pointer:
    never hide the system cursor, and guarantee finger-sized hit areas. */
 @media (hover: none), (pointer: coarse) {
   * { cursor: auto !important; }
@@ -45,7 +45,7 @@ html { overflow-x: clip; }
   }
 }
 
-/* 4 — narrow phones: let the global site nav wrap instead of overflowing.
+/* 4, narrow phones: let the global site nav wrap instead of overflowing.
    Mirrors the handling beyond.html / quick.html already ship. */
 @media (max-width: 480px) {
   .wnav { flex-wrap: wrap; gap: 8px; padding-inline: max(16px, 4.5vw); }
@@ -59,7 +59,7 @@ html { overflow-x: clip; }
 }
 
 /* ============================================================
-   Shared mobile menu — hamburger → full-screen overlay.
+   Shared mobile menu, hamburger → full-screen overlay.
    Behaviour is injected by nav-menu.js. Auto-themes via each
    page's own --paper / --ink / --accent variables.
    (The home page has its own menu and loads neither this nor JS.)
@@ -119,7 +119,7 @@ html { overflow-x: clip; }
 }
 
 /* ============================================================
-   Capsule nav (desktop) — links live in a frosted pill, with
+   Capsule nav (desktop), links live in a frosted pill, with
    "quick view" as the terracotta accent CTA. Shared across pages.
    ============================================================ */
 @media (min-width: 769px) {
@@ -143,14 +143,14 @@ html { overflow-x: clip; }
   .snav a[href*="quick"] .exti { opacity: .8; }
 }
 
-/* brand "gauravi." — the dot gives a little pop on hover (keyframe, so it won't fight any entrance animation) */
+/* brand "gauravi.", the dot gives a little pop on hover (keyframe, so it won't fight any entrance animation) */
 .brand .a { display: inline-block; }
 .brand:hover .a { animation: dotpop .42s cubic-bezier(.34,1.55,.5,1); }
 @keyframes dotpop { 0% { transform: scale(1); } 45% { transform: scale(1.55); } 100% { transform: scale(1); } }
 @media (prefers-reduced-motion: reduce) { .brand:hover .a { animation: none; } }
 
 /* ============================================================
-   Case-study mobile — dense mockups & wide blocks (2026).
+   Case-study mobile, dense mockups & wide blocks (2026).
    The framed product screenshots (.bw) and the wide reference
    table / role swimlane are unreadable squeezed onto a phone.
    On small screens we keep them at a legible size inside a
@@ -217,7 +217,7 @@ html { overflow-x: clip; }
 }
 
 /* ============================================================
-   Mobile overflow hardening — portfolio QA pass, July 2026.
+   Mobile overflow hardening, portfolio QA pass, July 2026.
    Grids/flex rows with product screenshots, mono labels, and
    animated line wrappers were letting the document grow wider than
    a phone viewport. Because horizontal overflow is clipped, that

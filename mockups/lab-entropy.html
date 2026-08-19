@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="upright.css?v=1">
-<title>entropy — the lab</title>
+<title>entropy, the lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600&display=swap" rel="stylesheet">
@@ -78,11 +78,11 @@
         <h1>keep her <span class="a">whole</span>.</h1>
         <ol class="steps" id="steps">
           <li><span class="n">1</span>brush to hold her together</li>
-          <li><span class="n">2</span>then stop — and watch</li>
+          <li><span class="n">2</span>then stop, and watch</li>
         </ol>
         <div class="reveal" id="reveal">
           <div class="lesson">order is something you keep <span class="a">choosing</span>.</div>
-          <div class="note">a room, a friendship, a star — all of it pays rent.</div>
+          <div class="note">a room, a friendship, a star, all of it pays rent.</div>
           <button class="cta" id="letgo">let her go<span class="ic">↗</span></button>
           <div class="ending" id="ending">nothing lasts. <span class="a">love it anyway.</span></div>
         </div>
@@ -169,8 +169,8 @@
     if(order<58) seenDecay=true;
     if(!letGo){
       if(performance.now()-started<2600) setW('brush to hold her together.');
-      else if(tended>40 && order>62) setW('see? you can keep her whole —');
-      else if(order<46) setW('— but stop, and she slips away.');
+      else if(tended>40 && order>62) setW('see? you can keep her whole.');
+      else if(order<46) setW('but stop, and she slips away.');
     }
     if(!shown && seenDecay && performance.now()-started>6000){
       shown=true; steps.style.opacity=0;

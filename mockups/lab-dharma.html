@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="upright.css?v=1">
-<title>dharma — the lab</title>
+<title>dharma, the lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600&display=swap" rel="stylesheet">
@@ -68,11 +68,11 @@
         <h1>draw the bow. then <span class="a">let go</span>.</h1>
         <ol class="steps" id="steps">
           <li><span class="n">1</span>drag back to draw the bow</li>
-          <li><span class="n">2</span>release — and don't look for where it lands</li>
+          <li><span class="n">2</span>release, and don't look for where it lands</li>
         </ol>
         <div class="reveal" id="reveal">
-          <div class="lesson">act with your whole heart — then release the <span class="a">fruit</span>.</div>
-          <div class="note">"you have a right to the action, never to its fruits." — the bhagavad gita.</div>
+          <div class="lesson">act with your whole heart, then release the <span class="a">fruit</span>.</div>
+          <div class="note">"you have a right to the action, never to its fruits.", the bhagavad gita.</div>
           <button class="cta" id="cta">nock another<span class="ic">↺</span></button>
         </div>
         <div class="meterwrap"><span>draw</span><div class="meter"><i id="bar"></i></div><span id="pct">0%</span><button class="rst" id="rst" title="start over">↺</button></div>
@@ -146,10 +146,10 @@
     else setCreak(0);
     bar.style.width='0%'; pct.textContent='0%'; }
   addEventListener('pointerup',loose);
-  function restart(){ shown=false; arrows=[]; aiming=false; reveal.classList.remove('show'); steps.style.display=''; steps.style.opacity=1; setW('draw the bow — drag back.'); }
+  function restart(){ shown=false; arrows=[]; aiming=false; reveal.classList.remove('show'); steps.style.display=''; steps.style.opacity=1; setW('draw the bow, drag back.'); }
   cta.addEventListener('click',()=>{ ensureAudio(); restart(); sfx.restart(); });
   rst.addEventListener('click',()=>{ ensureAudio(); restart(); sfx.restart(); });
-  setW('draw the bow — drag back.');
+  setW('draw the bow, drag back.');
 </script>
 
   <style id="polish">

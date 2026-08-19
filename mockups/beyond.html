@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="tokens.css?v=craft2">
   <link rel="stylesheet" href="nav.css?v=9">
   <link rel="stylesheet" href="footer.css">
-<meta name="description" content="Design engineer building AI-native products—from research and product design through working code." />
+<meta name="description" content="Design engineer building AI-native products, from research and product design through working code." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="transition.css" />
@@ -30,7 +30,7 @@
   a{color:inherit;text-decoration:none;}
   h1,h2,h3{font-family:"Satoshi",system-ui,sans-serif;}
 
-  /* ===== animated ambient background — soft drifting streaks (matches the video) ===== */
+  /* ===== animated ambient background, soft drifting streaks (matches the video) ===== */
   .bgfx{position:fixed;inset:-12%;z-index:-2;pointer-events:none;
     background:var(--paper);}
   .bgfx::after{content:none;}
@@ -42,7 +42,7 @@
     100%{transform:translate3d(-2.5%,3%,0)}}
   @keyframes streakshimmer{0%,100%{opacity:.45;transform:translateY(-1%)}50%{opacity:1;transform:translateY(1.2%)}}
 
-  /* ===== WebGL stripe layer — vertical lines over everything; ripples near the cursor.
+  /* ===== WebGL stripe layer, vertical lines over everything; ripples near the cursor.
      Only this layer warps; DOM text underneath stays perfectly crisp. ===== */
   #fx{position:fixed;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;
     mix-blend-mode:soft-light;opacity:0;transition:opacity .6s ease;}
@@ -58,7 +58,7 @@
   .chat-head .dot-on{width:7px;height:7px;border-radius:50%;background:var(--sage-d);animation:pulseon 2.2s infinite;}
   @keyframes pulseon{0%{box-shadow:0 0 0 0 rgba(143,189,108,.55)}70%{box-shadow:0 0 0 7px rgba(143,189,108,0)}100%{box-shadow:0 0 0 0 rgba(143,189,108,0)}}
 
-  /* nav — unified content-page nav (matches work / lab / quick) */
+  /* nav, unified content-page nav (matches work / lab / quick) */
   .wnav{display:flex;justify-content:space-between;align-items:center;padding:22px 6vw;}
   .brand{font-family:"Satoshi",system-ui,sans-serif;font-weight:400;font-size:23px;letter-spacing:-.02em;color:var(--ink);text-decoration:none;}
   .brand .a{color:var(--accent);}
@@ -67,7 +67,7 @@
   .snav a:hover{color:var(--ink);border-color:var(--line);}
   .snav a.on{color:var(--accent);}
 
-  /* stage — full-width so the chat's left edge lines up with the logo */
+  /* stage, full-width so the chat's left edge lines up with the logo */
   .stage{padding:clamp(14px,3vh,40px) 6vw 22px;
     display:grid;grid-template-columns:0.78fr 1.6fr;gap:clamp(28px,3.6vw,60px);align-items:stretch;flex:none;min-height:calc(100svh - 215px);}
 
@@ -86,11 +86,11 @@
   /* cards must be a touch SHORTER than the viewport, or the lower layers un-pin at the
      end of scroll and the sage/blue/terracotta edges collapse onto each other */
   .card-in{width:100%;padding:0 6vw;}
-  /* ===== vibrant stacking layers — distinct hues; each pins lower so the edges build a colourful deck ===== */
+  /* ===== vibrant stacking layers, distinct hues; each pins lower so the edges build a colourful deck ===== */
   .c-a{top:0;background:#BCC6F2;}          /* green */
   .c-b{top:16px;background:#A8CFEF;}        /* blue */
   .c-c{top:32px;background:linear-gradient(150deg,#2a4a73,#1a3052);color:var(--on-primary);}  /* terracotta · testimonials */
-  .c-d{top:48px;min-height:calc(100svh - 48px);background:#BFE4D9;}  /* gold · contact — sticky like the rest; shorter so the page ends right as it pins, leaving all four layers stacked */
+  .c-d{top:48px;min-height:calc(100svh - 48px);background:#BFE4D9;}  /* gold · contact, sticky like the rest; shorter so the page ends right as it pins, leaving all four layers stacked */
   @media(min-width:769px){ .navmenu{display:none!important;} }  /* mobile menu must not render in-flow on desktop */
   /* light pastel cards (a, b, d) keep dark ink text + terracotta accent (default) */
   .c-a .more-k,.c-b .more-k,.c-d .more-k{color:rgba(20,32,52,.6);}
@@ -123,7 +123,7 @@
     background:linear-gradient(transparent,rgba(20,18,16,.62));}
   /* rotating quote */
   .rquote{position:relative;max-width:920px;margin-top:clamp(26px,4vh,44px);}
-  /* one big faded quotation mark as a watermark (editorial style) — no inline black marks */
+  /* one big faded quotation mark as a watermark (editorial style), no inline black marks */
   .rquote::before{content:"\201C";position:absolute;left:-.62em;top:-.1em;
     font-family:"Satoshi",system-ui,sans-serif;font-weight:400;font-size:clamp(34px,5vw,56px);line-height:1;
     color:rgba(244,239,230,.32);pointer-events:none;z-index:0;}
@@ -144,20 +144,20 @@
   .more-h{font-family:"Satoshi",system-ui,sans-serif;font-weight:400;letter-spacing:-.01em;text-transform:lowercase;
     font-size:clamp(26px,4vw,44px);line-height:1.02;margin:16px 0 0;color:var(--ink);}
   .more-h .a{color:var(--accent);}
-  /* masked line reveal (Inkwell-style) — each line wipes up from behind a mask */
+  /* masked line reveal (Inkwell-style), each line wipes up from behind a mask */
   .more-h .ln{display:block;overflow:hidden;padding-bottom:.12em;margin-bottom:-.12em;}
   .more-h .ln-i{display:block;transform:translateY(118%);transition:transform 1.05s cubic-bezier(.19,1,.22,1);}
   .more-h.in .ln-i{transform:none;}
   .more-h.in .ln:nth-child(2) .ln-i{transition-delay:.09s;}
   .more-h.in .ln:nth-child(3) .ln-i{transition-delay:.18s;}
 
-  /* reveal — slow expo-out, matches the case studies + references */
+  /* reveal, slow expo-out, matches the case studies + references */
   .reveal{opacity:0;transform:translateY(24px);transition:opacity 1.1s cubic-bezier(.19,1,.22,1),transform 1.1s cubic-bezier(.19,1,.22,1);}
   .reveal.in{opacity:1;transform:none;}
 
-  /* conferences — calm masonry gallery (natural ratios, never crops faces) */
+  /* conferences, calm masonry gallery (natural ratios, never crops faces) */
   .gal{columns:2;column-gap:clamp(16px,2vw,26px);margin-top:clamp(20px,3vw,30px);}
-  /* ink reveal — a full-width photo emerges as a wash of paper recedes with an inky deckle edge */
+  /* ink reveal, a full-width photo emerges as a wash of paper recedes with an inky deckle edge */
   .ink-wrap{position:relative;overflow:hidden;margin-top:44px;border-radius:16px;box-shadow:0 24px 54px -32px rgba(34,39,30,.4);}
   .ink-hero{margin:0;position:relative;display:block;background:#ece9e2;}
   .ink-hero img{display:block;width:100%;height:auto;max-height:62vh;object-fit:cover;object-position:center 26%;}
@@ -176,7 +176,7 @@
   .gal figure:hover figcaption{opacity:1;}
   @media(max-width:640px){.gal{columns:1}}
 
-  /* testimonials — big quiet quotes */
+  /* testimonials, big quiet quotes */
   .tlist{margin-top:50px;display:grid;gap:clamp(30px,4.5vw,58px);}
   .tq{max-width:760px;}
   .tq.feat{max-width:920px;}
@@ -187,11 +187,11 @@
   .tq q::after{content:"\201D";color:var(--accent);}
   .tq .by{margin-top:16px;font-family:"Satoshi",system-ui,sans-serif;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);}
   .tq .by b{color:var(--ink);font-weight:500;}
-  /* scroll-linked word reveal (Algo-style) — words sit dim, brighten left-to-right as you scroll */
+  /* scroll-linked word reveal (Algo-style), words sit dim, brighten left-to-right as you scroll */
   .tq q .w{color:#b9b2a6;transition:color .45s ease;}
   .tq q .w.lit{color:var(--ink);}
 
-  /* ===== left: chat — bottom-anchored, scrolls up as messages arrive ===== */
+  /* ===== left: chat, bottom-anchored, scrolls up as messages arrive ===== */
   .chatcol{display:flex;flex-direction:column;justify-content:flex-end;min-height:0;overflow:hidden;}
   .chat{display:flex;flex-direction:column;justify-content:flex-end;width:100%;max-width:330px;
     flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;-ms-overflow-style:none;
@@ -230,7 +230,7 @@
   .bento{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:auto;align-content:start;gap:16px;}
   .panel{border-radius:30px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
 
-  /* skills + clients (big green) — liquid wavy edges */
+  /* skills + clients (big green), liquid wavy edges */
   .p-skills{grid-column:1 / -1;background:transparent;padding:30px 34px 32px;border-radius:30px;overflow:visible;box-shadow:none;isolation:isolate;}
   .p-skills::before{content:"";position:absolute;inset:0;border-radius:30px;background:linear-gradient(155deg,#2E2B27 0%,#1E1C19 100%);box-shadow:var(--shadow);filter:url(#blockwave);z-index:-1;}
   .kick{font-family:"Satoshi",system-ui,sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,239,230,.62);display:block;margin-bottom:14px;}
@@ -362,13 +362,13 @@
 <meta property="og:site_name" content="Gauravi Linjara" />
 <meta property="og:url" content="https://gauravi.design/beyond.html" />
 <meta property="og:title" content="About, Gauravi Linjara" />
-<meta property="og:description" content="Design engineer building AI-native products—from research and product design through working code." />
+<meta property="og:description" content="Design engineer building AI-native products, from research and product design through working code." />
 <meta property="og:image" content="https://gauravi.design/assets/og/og-card.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="About, Gauravi Linjara" />
-<meta name="twitter:description" content="Design engineer building AI-native products—from research and product design through working code." />
+<meta name="twitter:description" content="Design engineer building AI-native products, from research and product design through working code." />
 <meta name="twitter:image" content="https://gauravi.design/assets/og/og-card.png" />
   <link rel="stylesheet" href="responsive.css?v=mobile-20260715" />
   <link rel="stylesheet" href="buttons.css" />
@@ -397,7 +397,7 @@
 
   <canvas id="fx" aria-hidden="true"></canvas>
 
-  <!-- shared page transition (ink wipe) — see transition.css/js -->
+  <!-- shared page transition (ink wipe), see transition.css/js -->
   <div class="pgx" id="pgx" aria-hidden="true">
     <div class="pgx-ink"></div>
     <div class="pgx-mark"><span class="wm">gauravi<span class="dot">.</span></span></div>
@@ -424,7 +424,7 @@
         <span class="who">gauravi <span class="dot-on"></span> online</span>
       </div>
       <div class="chat" id="chat">
-        <div class="row"><h1 class="msg">Design engineer building AI-native products—from research and product design through working code. Based in SF. ☕</h1></div>
+        <div class="row"><h1 class="msg">Design engineer building AI-native products, from research and product design through working code. Based in SF. ☕</h1></div>
         <div class="row"><div class="msg photo"><img src="../assets/photos/photo3.jpg" alt="Gauravi making fresh pasta" loading="lazy" /></div></div>
         <div class="row"><div class="msg">Finding happiness in <b>learning new recipes</b>.</div></div>
         <div class="row"><div class="msg">Best thinking happens <b>mid-run</b>.</div></div>
@@ -663,7 +663,7 @@
   setTimeout(go, 1600);   // fallback if transition.js is slow/absent
 
   /* ---- WebGL stripe layer: vertical lines that ripple like liquid near the cursor.
-         Only the stripe layer warps — the DOM text/panels underneath never move. ---- */
+         Only the stripe layer warps, the DOM text/panels underneath never move. ---- */
   (function(){
     var canvas=document.getElementById('fx');
     var fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
@@ -688,7 +688,7 @@
       '  vec2 d=fc-uMouse; float len=length(d);',              // smoothed cursor point
       '  float infl=exp(-len/(uRes.y*0.30));',                 // uRadius
       '  float ripple=sin(len*0.02 - uTime*1.9);',
-      '  float bend=infl*ripple*(20.0+uAmp*40.0);',            // uDisp / uAmp — stronger while moving
+      '  float bend=infl*ripple*(20.0+uAmp*40.0);',            // uDisp / uAmp, stronger while moving
       '  float sway=(flow-0.5)*40.0 + sin(uv.y*7.0+uTime*0.5)*4.0;', // global fluid sway of the lines
       '  float x=fc.x + bend + sway;',
       '  float period=uRes.x/58.0;',                           // uLines 58

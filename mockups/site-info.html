@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How I built this, Gauravi Linjara</title>
-<meta name="description" content="A colophon for gauravi.design — the hand-written stack, the design system and tokens, and how the homepage sky was built. No framework, no page-builder." />
+<meta name="description" content="A colophon for gauravi.design, the hand-written stack, the design system and tokens, and how the homepage sky was built. No framework, no page-builder." />
 <link rel="stylesheet" href="tokens.css?v=craft2">
 <link rel="stylesheet" href="nav.css?v=9">
 <meta property="og:type" content="website" />
@@ -156,7 +156,7 @@
 </style>
 </head>
 <body>
-<!-- shared page transition (ink wipe) — see transition.css/js -->
+<!-- shared page transition (ink wipe), see transition.css/js -->
 <div class="pgx" id="pgx" aria-hidden="true">
   <div class="pgx-ink"></div>
   <div class="pgx-mark"><span class="wm">gauravi<span class="dot">.</span></span></div>
@@ -166,26 +166,26 @@
     <header class="lead">
       <span class="kick">colophon</span>
       <h1>How I built this</h1>
-      <p class="intro">No template, no page-builder — every page here is hand-written, one file at a time. Here's the system underneath it, and how the parts that move were made.</p>
+      <p class="intro">No template, no page-builder, every page here is hand-written, one file at a time. Here's the system underneath it, and how the parts that move were made.</p>
     </header>
 
     <!-- STACK -->
     <section class="blk">
-      <div class="seclabel">01 — the stack</div>
+      <div class="seclabel">01, the stack</div>
       <h2 class="sectitle">Plain files, on purpose.</h2>
       <div class="card rows" style="margin-top:22px">
         <div class="row"><div class="k">built with</div><div class="v"><b>Hand-written HTML &amp; CSS.</b> No framework, no build step, no bundler. A little vanilla JavaScript where something needed to move, and GSAP for the scroll-tied motion.</div></div>
         <div class="row"><div class="k">hosting</div><div class="v">Deployed on <b>Vercel</b>. A few small serverless functions power the “ask me anything” assistant, which runs on Claude.</div></div>
         <div class="row"><div class="k">type</div><div class="v"><b>Satoshi</b> for everything you read, <b>Satoshi</b> for the little labels.</div></div>
-        <div class="row"><div class="k">analytics</div><div class="v">Microsoft Clarity — anonymized, aggregate, never sold. No ad trackers.</div></div>
+        <div class="row"><div class="k">analytics</div><div class="v">Microsoft Clarity, anonymized, aggregate, never sold. No ad trackers.</div></div>
       </div>
     </section>
 
     <!-- DESIGN SYSTEM -->
     <section class="blk">
-      <div class="seclabel">02 — the design system</div>
+      <div class="seclabel">02, the design system</div>
       <h2 class="sectitle">One file is the source of truth.</h2>
-      <p class="secsub">Every colour, size, space, radius and easing comes from a single <b>tokens.css</b>. It's deliberately small: <b>one cool neutral ramp, one accent, and tints derived from it</b> — never a pile of one-off colours. Change it there, it changes everywhere.</p>
+      <p class="secsub">Every colour, size, space, radius and easing comes from a single <b>tokens.css</b>. It's deliberately small: <b>one cool neutral ramp, one accent, and tints derived from it</b>, never a pile of one-off colours. Change it there, it changes everywhere.</p>
 
       <div class="swatches">
         <div class="sw"><div class="chip" style="background:#16202b"></div><div class="meta"><div class="nm">text</div><div class="hex">#16202B</div><div class="use">primary text &amp; structure</div></div></div>
@@ -197,8 +197,8 @@
       </div>
 
       <div class="card" style="margin-top:16px;padding:clamp(18px,3vw,30px)">
-        <div class="type-row"><span class="type-aa f-satoshi">Aa</span><div class="type-samp f-satoshi">Satoshi — the whole site reads in one geometric sans, 400 → 600.</div><div class="type-meta"><b>Satoshi</b><br>display + body</div></div>
-        <div class="type-row"><span class="type-aa f-mono">Aa</span><div class="type-samp f-mono">Satoshi — the small print, kicks &amp; labels.</div><div class="type-meta"><b>Satoshi</b><br>labels</div></div>
+        <div class="type-row"><span class="type-aa f-satoshi">Aa</span><div class="type-samp f-satoshi">Satoshi, the whole site reads in one geometric sans, 400 → 600.</div><div class="type-meta"><b>Satoshi</b><br>display + body</div></div>
+        <div class="type-row"><span class="type-aa f-mono">Aa</span><div class="type-samp f-mono">Satoshi, the small print, kicks &amp; labels.</div><div class="type-meta"><b>Satoshi</b><br>labels</div></div>
         <div class="scale" style="margin-top:14px;border-top:1px solid var(--line);padding-top:12px">
           <div style="font-size:clamp(30px,6vw,52px)"><span class="tok">--fs-giant</span> the loud one</div>
           <div style="font-size:clamp(26px,4vw,40px)"><span class="tok">--fs-h1</span> section titles</div>
@@ -228,9 +228,9 @@
 
     <!-- THE SKY -->
     <section class="blk">
-      <div class="seclabel">03 — the homepage sky</div>
+      <div class="seclabel">03, the homepage sky</div>
       <h2 class="sectitle">A sky that knows what time it is.</h2>
-      <p class="secsub">The landing page isn't a photo or a video — it's <b>divs and gradients</b>. The whole sky is drawn in CSS and quietly retinted to match the actual hour where you're standing. Here it is in miniature — <b>flip it</b>:</p>
+      <p class="secsub">The landing page isn't a photo or a video, it's <b>divs and gradients</b>. The whole sky is drawn in CSS and quietly retinted to match the actual hour where you're standing. Here it is in miniature, <b>flip it</b>:</p>
 
       <div class="sky-wrap">
         <div class="sky-demo" id="skyDemo">
@@ -240,24 +240,24 @@
           <div class="cloud a"></div>
           <div class="cloud b"></div>
         </div>
-        <div class="sky-cap">a working miniature of the real hero — same gradient stops, same drift.</div>
+        <div class="sky-cap">a working miniature of the real hero, same gradient stops, same drift.</div>
       </div>
 
       <div class="how">
-        <div><span class="n">1</span><p><b>The gradient.</b> Four CSS colour-stops (<span class="f-mono" style="font-size:12px">--sky1…4</span>) from deep blue up to pale horizon. That's the entire sky — one <span class="f-mono" style="font-size:12px">linear-gradient</span>.</p></div>
-        <div><span class="n">2</span><p><b>Time of day.</b> A small script reads your clock and swaps the four stops — morning, noon, golden hour, night — so the sky is honest about the hour. You can also set it yourself with the day/dusk/night/auto toggle.</p></div>
+        <div><span class="n">1</span><p><b>The gradient.</b> Four CSS colour-stops (<span class="f-mono" style="font-size:12px">--sky1…4</span>) from deep blue up to pale horizon. That's the entire sky, one <span class="f-mono" style="font-size:12px">linear-gradient</span>.</p></div>
+        <div><span class="n">2</span><p><b>Time of day.</b> A small script reads your clock and swaps the four stops, morning, noon, golden hour, night, so the sky is honest about the hour. You can also set it yourself with the day/dusk/night/auto toggle.</p></div>
         <div><span class="n">3</span><p><b>The clouds.</b> Blurred white circles (a div with two pseudo-elements) drifting on a <span class="f-mono" style="font-size:12px">@keyframes</span> loop. At night they turn slate-grey so the hero text stays legible.</p></div>
-        <div><span class="n">4</span><p><b>The life.</b> The sun becomes a moon, stars fade in, and the daytime bees become fireflies. Hand-drawn SVG, flapping on a 0.12s wing loop. No canvas, no WebGL, no library — just the browser.</p></div>
+        <div><span class="n">4</span><p><b>The life.</b> The sun becomes a moon, stars fade in, and the daytime bees become fireflies. Hand-drawn SVG, flapping on a 0.12s wing loop. No canvas, no WebGL, no library, just the browser.</p></div>
       </div>
     </section>
 
     <!-- GROUND UP -->
     <section class="blk">
-      <div class="seclabel">04 — from the ground up</div>
+      <div class="seclabel">04, from the ground up</div>
       <h2 class="sectitle">How it came together.</h2>
       <div class="steps">
         <div><h4>Start with the words, not the layout.</h4><p>Every page began as a sentence I was trying to say. The design came after, in service of it.</p></div>
-        <div><h4>One tokens file, before anything else.</h4><p>Colours, type, spacing, motion — decided once, in <span class="f-mono" style="font-size:12px">tokens.css</span>, so nothing drifts. Consistency is a system, not willpower.</p></div>
+        <div><h4>One tokens file, before anything else.</h4><p>Colours, type, spacing, motion, decided once, in <span class="f-mono" style="font-size:12px">tokens.css</span>, so nothing drifts. Consistency is a system, not willpower.</p></div>
         <div><h4>Hand-write it, keep it flat.</h4><p>Plain HTML &amp; CSS a browser reads directly. No framework to outgrow, no build to break. Motion is CSS first, GSAP only where scroll needs choreography.</p></div>
         <div><h4>Make one thing sing per page.</h4><p>The sky here, a drag-to-reveal painting there. One idea, obsessed over, beats ten that are fine.</p></div>
       </div>

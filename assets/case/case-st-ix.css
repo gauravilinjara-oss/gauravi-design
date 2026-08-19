@@ -7,7 +7,7 @@
 .st-stickywrap{position:sticky;top:0;height:100vh;display:flex;align-items:center}
 .st-sticky{width:100%;border:1px solid rgba(42,37,32,.12);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 26px 64px -32px rgba(42,37,32,.3)}
 .st-stage{position:relative;height:min(70vh,660px);background:#fff;overflow:hidden}
-/* full width, top-aligned, bottom cropped by overflow — never chops the sides */
+/* full width, top-aligned, bottom cropped by overflow, never chops the sides */
 .st-stage img{position:absolute;top:0;left:0;width:100%;height:auto;opacity:0;transition:opacity .55s ease}
 .st-stage img.on{opacity:1}
 /* soft fade at the bottom edge so the crop reads as intentional */

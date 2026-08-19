@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 
 const core = [
   'mockups/meadow-ship.html',
@@ -31,8 +31,30 @@ test('ships final credibility values in initial HTML', async () => {
 });
 
 test('uses one canonical positioning statement', async () => {
-  const canonical = 'Design engineer building AI-native products—from research and product design through working code.';
+  const canonical = 'Design engineer building AI-native products, from research and product design through working code.';
   for (const file of ['mockups/meadow-ship.html', 'mockups/beyond.html']) {
     assert.ok((await readFile(file, 'utf8')).includes(canonical), file);
   }
+});
+
+test('does not use em dashes in portfolio copy or metadata', async () => {
+  const roots = ['mockups', 'assets'];
+  const failures = [];
+  const emDash = String.fromCodePoint(0x2014);
+  const namedEntity = `&m${'dash'};`;
+  const numericEntity = /&#(?:0*8212|x0*2014);/i;
+
+  for (const root of roots) {
+    const entries = await readdir(root, { recursive: true });
+    for (const entry of entries) {
+      if (!/\.(?:html|css|js|json|md)$/i.test(entry)) continue;
+      const file = `${root}/${entry}`;
+      const source = await readFile(file, 'utf8');
+      if (source.includes(emDash) || source.includes(namedEntity) || numericEntity.test(source)) {
+        failures.push(file);
+      }
+    }
+  }
+
+  assert.deepEqual(failures, []);
 });

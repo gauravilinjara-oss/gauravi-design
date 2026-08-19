@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="upright.css?v=1">
-<title>say my name — the lab</title>
-<meta name="description" content="gauravi — three even syllables. a tiny windows-xp game that teaches you to say my name, mic test included.">
-<meta property="og:title" content="say my name.exe — learn to pronounce Gauravi">
+<title>say my name, the lab</title>
+<meta name="description" content="gauravi, three even syllables. a tiny windows-xp game that teaches you to say my name, mic test included.">
+<meta property="og:title" content="say my name.exe, learn to pronounce Gauravi">
 <meta property="og:description" content="GOW · ra · vee. a tiny XP game with a real mic test and an official certificate. i will be checking.">
 <meta property="og:image" content="https://gauravi.design/assets/og/og-sayit.jpg">
 <meta property="og:url" content="https://gauravi.design/say-my-name">
@@ -253,10 +253,10 @@
   const winRecycle=makeWin('winRecycle','Recycle Bin',`
     <p style="margin-bottom:12px;color:var(--ink-soft)">pronunciations i had to throw away:</p>
     <ul style="list-style:none;display:flex;flex-direction:column;gap:9px;font-size:13.5px">
-      <li>📄 <b>gravy.wav</b> — i am not a sauce</li>
-      <li>📄 <b>gaurav-i.doc</b> — close, but that's my dad's friend</li>
-      <li>📄 <b>gow-RAH-vee.tmp</b> — why is the middle yelling</li>
-      <li>📄 <b>garvey.bak</b> — respectfully, no</li>
+      <li>📄 <b>gravy.wav</b>, i am not a sauce</li>
+      <li>📄 <b>gaurav-i.doc</b>, close, but that's my dad's friend</li>
+      <li>📄 <b>gow-RAH-vee.tmp</b>, why is the middle yelling</li>
+      <li>📄 <b>garvey.bak</b>, respectfully, no</li>
     </ul>
     <p style="margin-top:14px;font-size:12px;color:var(--ink-soft)">(empty recycle bin? never. these are funny.)</p>`);
 
@@ -293,7 +293,7 @@
     <img src="/assets/sayit/gauravi-cutout.png" alt="" onerror="this.remove()"
       style="max-height:130px;max-width:70%;margin-bottom:10px;filter:drop-shadow(2px 4px 6px rgba(0,20,60,.3))">
     <p style="font-size:15px">hi :)) i'm gauravi</p>
-    <p style="margin-top:12px">my name gets remixed a lot — gravy, gaurav-i, gow-RAH-vee (why is the middle yelling)</p>
+    <p style="margin-top:12px">my name gets remixed a lot, gravy, gaurav-i, gow-RAH-vee (why is the middle yelling)</p>
     <p style="margin-top:12px">so i made a tiny game to help you say it right &lt;3</p>
     <div class="btnrow"><button class="xpbtn primary" id="toLearn">let's learn →</button></div>`,'center');
   $('#toLearn').addEventListener('click',()=>{closeWin(winIntro);openWin(winLearn);});
@@ -310,7 +310,7 @@
     </div>
     <div class="btnrow"><button class="xpbtn primary" id="playBtn">🔊 play pronunciation</button><button class="xpbtn" id="playSlowBtn">🐢 hear it slow</button></div>
     <ul class="keypts">
-      <li>three even syllables — no syllable is the boss</li>
+      <li>three even syllables, no syllable is the boss</li>
       <li>"gow" rhymes with "cow", not "go"</li>
       <li>ends in a clean "vee", like the letter V</li>
     </ul>
@@ -349,7 +349,7 @@
   }
 
   const winTest=makeWin('winTest','FINAL PRONUNCIATION TEST',`
-    <p style="font-size:12.5px;border:1px solid var(--ink);padding:8px;background:#fff">✳ say <b>Gauravi</b> (गौरवी) — three even syllables — and you win ✳</p>
+    <p style="font-size:12.5px;border:1px solid var(--ink);padding:8px;background:#fff">✳ say <b>Gauravi</b> (गौरवी), three even syllables, and you win ✳</p>
     <div class="stage">
       <span class="megaico">📣</span>
       <span class="saywhat">say "Gauravi" (GOW·ra·vee)</span>
@@ -357,7 +357,7 @@
       <button class="xpbtn" id="recBtn">🎙️ press to record</button>
       <p style="font-size:11px;margin-top:10px;opacity:.75" id="spaceHint">or press spacebar · you'll have ~5 seconds</p>
     </div>
-    <p class="tiphint">tip: not "gravy" — i am not a sauce</p>`,'center');
+    <p class="tiphint">tip: not "gravy", i am not a sauce</p>`,'center');
 
   /* ---- generic dialog ---- */
   function showDialog(title,ico,html,buttons){
@@ -414,18 +414,18 @@
     let title,ico,msg;
     track(/gravy|grevy/.test(joined)?'sayit-fail-gravy':/gaurav|gorav|garav/.test(joined)?'sayit-fail-gaurav':'sayit-fail-other');
     if(/gravy|grevy/.test(joined)){title='not quite :/';ico='🍗';
-      msg=`i heard <b>"${heard}"</b> — i love gravy but i am not a sauce.<br>it's <b>GOW·ra·vee</b>, promise it's easier than it looks`;}
+      msg=`i heard <b>"${heard}"</b>, i love gravy but i am not a sauce.<br>it's <b>GOW·ra·vee</b>, promise it's easier than it looks`;}
     else if(/gaurav|gorav|garav/.test(joined)){title='SO close';ico='🥹';
-      msg=`i heard <b>"${heard}"</b> — that's the boy version!<br>just add the <b>vee</b> at the end: GOW·ra·<b>vee</b>`;}
+      msg=`i heard <b>"${heard}"</b>, that's the boy version!<br>just add the <b>vee</b> at the end: GOW·ra·<b>vee</b>`;}
     else{title='not quite :/';ico='🫠';
-      msg=`i heard <b>"${heard}"</b>. it's <b>GOW·ra·vee</b> — gow like cow, quick little ra, vee like the letter V`;}
+      msg=`i heard <b>"${heard}"</b>. it's <b>GOW·ra·vee</b>, gow like cow, quick little ra, vee like the letter V`;}
     const btns=[['listen again',()=>{playName();}],['try again',()=>{}]];
     if(fails>=3)btns.push(['okay just trust me 🤞',()=>winGame(true)]);
     showDialog(title,ico,msg,btns);
   }
 
   function didntCatch(){
-    showDialog('hm?','👂',`i didn't catch anything — mic might be off, or you were too shy. one more time?`,
+    showDialog('hm?','👂',`i didn't catch anything, mic might be off, or you were too shy. one more time?`,
       [['try again',()=>{}],['listen first',()=>playName()]]);
   }
 

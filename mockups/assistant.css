@@ -1,8 +1,8 @@
 /* ============================================================================
-   PORTFOLIO CHAT WIDGET — scoped styles (everything under #gachat / .gachat-*)
+   PORTFOLIO CHAT WIDGET, scoped styles (everything under #gachat / .gachat-*)
    On-brand with the new homepage: frosted sky-glass + sky-blue accent,
    Satoshi / Satoshi. Transforms+opacity only; respects prefers-reduced-motion.
-   Self-contained — safe to drop on any page.
+   Self-contained, safe to drop on any page.
    ============================================================================ */
 #gachat{
   --gc-paper:rgba(248,251,255,.86); --gc-card:rgba(255,255,255,.72); --gc-ink:#16202b; --gc-soft:#3f5468;

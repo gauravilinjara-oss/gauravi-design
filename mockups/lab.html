@@ -62,7 +62,7 @@
   .card.in .frame img{clip-path:inset(0 0 0 0);transform:scale(1)}
   .card:hover .frame img{transform:scale(1.08);filter:saturate(1.05)}
 
-  /* short scrim — only darkens the bottom strip under the title, so bright covers keep their true colour */
+  /* short scrim, only darkens the bottom strip under the title, so bright covers keep their true colour */
   .scrim{position:absolute;inset:0;pointer-events:none;
     background:linear-gradient(to top,rgba(8,11,15,.82) 0%,rgba(8,11,15,.22) 24%,transparent 42%);
     opacity:.92;transition:opacity .45s ease}
@@ -210,7 +210,7 @@
   const wrap=document.getElementById('cards');
   DOORS.forEach((d,i)=>{
     const c=document.createElement('button');
-    c.className='card'; c.type='button'; c.setAttribute('aria-label',d[1]+' — open experiment');
+    c.className='card'; c.type='button'; c.setAttribute('aria-label',d[1]+', open experiment');
     c.style.setProperty('--ar',d[6]); c.style.setProperty('--pc',d[3]); c.style.setProperty('--sh',rgba(d[3],.55));
     c.innerHTML=`<span class="frame">
         <img referrerpolicy="no-referrer" src="${d[5]}" alt="${d[1]}">

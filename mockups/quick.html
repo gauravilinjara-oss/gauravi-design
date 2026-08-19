@@ -22,7 +22,7 @@
   body{background:transparent;color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;}
   .wrap{max-width:1120px;margin:0 auto;padding:0 6vw;}
 
-  /* breezy sky ground — matches the homepage / about atmosphere */
+  /* breezy sky ground, matches the homepage / about atmosphere */
   .bgfx{position:fixed;inset:-12%;z-index:-2;pointer-events:none;
     background-image:
       radial-gradient(68% 58% at 10% 6%, #E7EEFB 0%, transparent 60%),
@@ -40,7 +40,7 @@
   @keyframes blobdrift{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(3%,-2.5%,0)}100%{transform:translate3d(-2.5%,3%,0)}}
   #fx{position:fixed;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;mix-blend-mode:soft-light;opacity:0;transition:opacity .6s ease;display:none;}
   #fx.live{opacity:0;}
-  /* grain — the tactile print layer */
+  /* grain, the tactile print layer */
   .grain{position:fixed;inset:0;z-index:4;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-size:170px;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
@@ -55,7 +55,7 @@
   .eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:10px;}
   .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);}
 
-  /* ===== hero — kinetic ===== */
+  /* ===== hero, kinetic ===== */
   .qhero{position:relative;z-index:5;padding:42px 6vw 6px;}
   .qhead{font-family:var(--serif);font-weight:400;font-size:clamp(42px,7.4vw,104px);line-height:.96;letter-spacing:-.03em;margin:18px 0 0;max-width:14ch;
     font-variation-settings:'wght' 600,'opsz' 144;}
@@ -142,14 +142,14 @@
   .wm .wunit{display:block;margin-top:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);}
   .wbody{min-width:0;}
   .wbody .co-logo{display:block;height:32px;width:auto;margin-bottom:14px;}
-  .wbody .co-logo[src*="podonos"]{height:25px;}  /* tightly-cropped icon reads larger — balance it */
+  .wbody .co-logo[src*="podonos"]{height:25px;}  /* tightly-cropped icon reads larger, balance it */
   .wbody .wtag{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
   .wbody h3{font-family:var(--serif);font-weight:500;font-size:clamp(24px,2.6vw,32px);letter-spacing:-.01em;margin:7px 0 8px;transition:color .2s;}
   .wcard:hover h3{color:var(--accent);}
   .wbody p{font-size:14.5px;color:var(--soft);line-height:1.5;max-width:42ch;}
   .wgo{font-family:var(--mono);font-size:20px;color:var(--muted);align-self:flex-start;transition:transform .25s ease,color .25s ease;}
   .wcard:hover .wgo{color:var(--accent);transform:translate(3px,-3px);}
-  /* floating lock — pops on hover of the gated onepin card and chases the cursor (mirrors the about-page mail letter) */
+  /* floating lock, pops on hover of the gated onepin card and chases the cursor (mirrors the about-page mail letter) */
   .lockfloat{position:fixed;left:0;top:0;z-index:60;font-size:clamp(52px,6vw,74px);line-height:1;pointer-events:none;
     transform:translate3d(-100px,-100px,0) translate(-50%,-50%) scale(0);will-change:transform;
     filter:drop-shadow(0 8px 14px rgba(120,60,30,.32));}
@@ -165,7 +165,7 @@
     .wcard{position:relative !important;top:0 !important;}
   }
 
-  /* ===== close — magnetic CTAs ===== */
+  /* ===== close, magnetic CTAs ===== */
   .closesec{position:relative;z-index:5;padding:46px 0 90px;}
   .close{background:rgba(255,255,255,.6);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(255,255,255,.7);border-radius:22px;padding:46px 46px 42px;box-shadow:inset 0 1px 0 rgba(255,255,255,.8), 0 30px 64px -38px rgba(20,42,84,.4);position:relative;overflow:hidden;}
   .close::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(140,188,233,.28),transparent 70%);pointer-events:none;}
@@ -376,7 +376,7 @@
   </script>
 
   <script>
-  /* stat band — staggered reveal + count-up with a landing pop */
+  /* stat band, staggered reveal + count-up with a landing pop */
   (function(){
     var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
     function fmt(n,comma){ n=Math.round(n); return comma ? n.toLocaleString('en-US') : String(n); }
@@ -416,7 +416,7 @@
           big.style.transform='translate('+(dx*16).toFixed(1)+'px,'+(dy*11).toFixed(1)+'px)'; });
         hero.addEventListener('mouseleave', function(){ big.style.transform=''; });
       });
-      // re-tick on hover — the numbers come back to life
+      // re-tick on hover, the numbers come back to life
       document.querySelectorAll('.c-mcell, .c-bignum').forEach(function(host){
         var el=host.querySelector('.cu'); if(!el) return; var busy=false;
         host.addEventListener('mouseenter', function(){
@@ -504,7 +504,7 @@
   })();
   </script>
   <script>
-  /* floating lock on the gated onepin card — pops on hover, chases the cursor, mirrors the about-page mail letter */
+  /* floating lock on the gated onepin card, pops on hover, chases the cursor, mirrors the about-page mail letter */
   (function(){
     var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
     var fine=matchMedia('(hover:hover) and (pointer:fine)').matches;

@@ -1,5 +1,5 @@
 /* ============================================================
-   NAV — air.inc-style brand mark + bottom floating dock (migration).
+   NAV, air.inc-style brand mark + bottom floating dock (migration).
    Self-injecting via nav.js, scoped under #gnav so it never collides
    with a page's own inline .nav/.snav/.brand rules. Light-page tuned.
      <link rel="stylesheet" href="nav.css">
@@ -13,11 +13,11 @@
 #gnav .gnav-mark .sun{color:var(--sun,#ffc93c);transform-origin:15px 18px;animation:sunRise 3.6s ease-in-out infinite;}
 @keyframes sunRise{0%{transform:translateY(6px);opacity:.35}28%,62%{transform:translateY(0);opacity:1}100%{transform:translateY(6px);opacity:.35}}
 
-/* the old bottom dock is retired — kept in the DOM (hidden) only as the link
+/* the old bottom dock is retired, kept in the DOM (hidden) only as the link
    source that gets cloned into the full-screen overlay menu below */
 #gnav .gnav-dock{display:none;}
 
-/* ── MENU TRIGGER — a small fixed pill, on every width ── */
+/* ── MENU TRIGGER, a small fixed pill, on every width ── */
 #gnav .gnav-burger{display:inline-flex;align-items:center;gap:10px;position:fixed;top:18px;right:max(16px,4vw);z-index:98;
   font-family:var(--font-mono,monospace);font-size:12px;letter-spacing:.14em;text-transform:lowercase;color:var(--ink,#16202b);
   padding:10px 17px;cursor:pointer;-webkit-tap-highlight-color:transparent;
@@ -36,8 +36,8 @@
 #gnav.menu-open .gnav-burger .gb-l:first-child{transform:translateY(2.85px) rotate(45deg);}
 #gnav.menu-open .gnav-burger .gb-l:last-child{transform:translateY(-2.85px) rotate(-45deg);}
 
-/* ── FULL-SCREEN OVERLAY MENU — big editorial links, staggered in ── */
-/* the homepage's soft blue day-sky with drifting clouds — no meadow scene */
+/* ── FULL-SCREEN OVERLAY MENU, big editorial links, staggered in ── */
+/* the homepage's soft blue day-sky with drifting clouds, no meadow scene */
 #gnav .gnav-menu{position:fixed;inset:0;z-index:97;opacity:0;visibility:hidden;overflow:hidden;
   background:linear-gradient(180deg,#2f6cb8 0%,#4b83c6 42%,#5f97d2 74%,#79aadd 100%);
   transition:opacity var(--motion-standard,260ms) var(--ease-standard,ease),visibility var(--motion-standard,260ms) var(--ease-standard,ease);}
