@@ -135,9 +135,10 @@
     color:rgba(244,239,230,.6);transition:opacity .5s ease;}
   .rquote .by b{color:var(--on-primary);font-weight:500;}
   .rquote.fading q{opacity:0;transform:translateY(8px);} .rquote.fading .by{opacity:0;}
-  .rdots{display:flex;gap:9px;margin-top:30px;}
-  .rdot{width:8px;height:8px;border-radius:50%;border:none;padding:0;background:rgba(244,239,230,.25);cursor:pointer;transition:transform .25s,background .25s;}
-  .rdot.on{background:var(--accent);transform:scale(1.25);}
+  .rdots{display:flex;gap:0;margin-top:12px;}
+  .rdot{position:relative;width:var(--hit-target);height:var(--hit-target);border:none;padding:0;background:transparent;cursor:pointer;}
+  .rdot::before{content:"";position:absolute;left:50%;top:50%;width:8px;height:8px;border-radius:50%;background:rgba(244,239,230,.25);transform:translate(-50%,-50%);transition:transform var(--motion-fast) var(--ease-standard),background-color var(--motion-fast) var(--ease-standard);}
+  .rdot.on::before{background:var(--accent);transform:translate(-50%,-50%) scale(1.25);}
   .more-sec{padding:12vh 0;}
   .more-k{font-family:"Geist Mono";font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
   .more-h{font-family:"Switzer",sans-serif;font-weight:300;letter-spacing:-.01em;text-transform:lowercase;
@@ -507,7 +508,11 @@
       .sf-nav{display:flex;gap:12px;justify-content:center;margin-top:28px;}
       .sf-nav button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.16);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);color:#fff;font-size:18px;cursor:pointer;transition:background .2s,transform .2s;}
       .sf-nav button:hover{background:rgba(255,255,255,.3);transform:translateY(-2px);}
-      @media(max-width:700px){.sf-card{width:76vw;}}
+      @media(max-width:700px){
+        .sf-stage{overflow:clip;}
+        .sf-card{width:min(76vw,calc(100% - 24px));max-width:100%;}
+        .sf-card img,.sf-card video,.sf-card .cap,.sf-card .cap .t,.sf-card .cap .s{max-inline-size:100%;box-sizing:border-box;}
+      }
     </style>
     <section class="card c-b stages-card" aria-label="On stages and in conversations">
       <div class="card-in">

@@ -19,10 +19,22 @@
    `clip` (not `hidden`) so position:sticky / scroll anchoring keep working. */
 html { overflow-x: clip; }
 
+#gnav .gnav-burger,
+.gnav-burger {
+  min-inline-size: var(--hit-target, 44px);
+  min-block-size: var(--hit-target, 44px);
+}
+
 /* 3 — touch & coarse pointer:
    never hide the system cursor, and guarantee finger-sized hit areas. */
 @media (hover: none), (pointer: coarse) {
   * { cursor: auto !important; }
+  #gnav .gnav-burger,
+  .gnav-burger,
+  button[aria-label^="show quote"] {
+    min-inline-size: var(--hit-target, 44px);
+    min-block-size: var(--hit-target, 44px);
+  }
   .snav a,
   .navpills a,
   .back,
