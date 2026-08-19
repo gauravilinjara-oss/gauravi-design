@@ -163,6 +163,10 @@
   .case-study section{padding-block:48px}
 }
 .case-study .section-lede{margin-top:16px;font-size:15px;line-height:1.5;color:var(--case-soft)}
+.case-study :is(.lede,.section-lede) :is(b,strong,em,.mk){
+  color:inherit!important;font-weight:inherit!important;font-style:normal!important;
+  background:none!important;background-image:none!important;padding:0!important;border-radius:0!important;
+}
 .case-study .reframe{max-width:760px}
 .case-study .reframe .re-line{
   color:var(--case-soft);font-size:clamp(18px,1.6vw,22px);line-height:1.4;

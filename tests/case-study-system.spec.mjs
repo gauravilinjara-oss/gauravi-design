@@ -71,6 +71,36 @@ test('case prose matches the Bridgeway contrast and callout hierarchy', async ({
   });
 });
 
+test('case introductions use one text color without highlight treatments', async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('desktop'));
+  await page.goto('/case-podonos.html');
+
+  const styles = await page.evaluate(() => {
+    const hero = document.querySelector('header.hero .lede');
+    const mark = hero.querySelector('.mk');
+    const heroBold = mark.querySelector('b');
+    const section = [...document.querySelectorAll('.section-lede')]
+      .find((element) => element.textContent.includes('Is this voice good?'));
+    const sectionBold = section.querySelector('b');
+    const read = (element) => {
+      const style = getComputedStyle(element);
+      return {
+        color: style.color,
+        backgroundColor: style.backgroundColor,
+        backgroundImage: style.backgroundImage,
+        fontWeight: style.fontWeight,
+      };
+    };
+    return { hero: read(hero), mark: read(mark), heroBold: read(heroBold), section: read(section), sectionBold: read(sectionBold) };
+  });
+
+  expect(styles.mark).toEqual(styles.hero);
+  expect(styles.heroBold).toEqual(styles.hero);
+  expect(styles.sectionBold).toEqual(styles.section);
+  expect(styles.mark.backgroundImage).toBe('none');
+  expect(styles.mark.backgroundColor).toBe('rgba(0, 0, 0, 0)');
+});
+
 test('case content clears the desktop rail at every supported desktop boundary', async ({ page }, testInfo) => {
   test.skip(!testInfo.project.name.startsWith('desktop'));
 
