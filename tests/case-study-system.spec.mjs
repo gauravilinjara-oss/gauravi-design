@@ -60,3 +60,36 @@ test('desktop navigation updates the URL and honors reduced motion', async ({ pa
   });
   await expect(links.nth(1)).toHaveAttribute('aria-current', 'location');
 });
+
+test('mobile navigation changes sections and follows reading position', async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('mobile'));
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.addInitScript(() => {
+    const scrollIntoView = Element.prototype.scrollIntoView;
+    Element.prototype.scrollIntoView = function scrollWithRecordedOptions(options) {
+      window.__caseScrollOptions = options;
+      scrollIntoView.call(this, options);
+    };
+  });
+  await page.goto('/case-podonos.html');
+
+  const entries = page.locator('header.hero, section:has(.sec-head .eyebrow)');
+  const select = page.locator('#caseSectionSelect');
+  const selectedTarget = await entries.nth(1).getAttribute('id');
+
+  await select.selectOption('1');
+
+  await expect(page).toHaveURL(new RegExp(`#${selectedTarget}$`));
+  expect(await page.evaluate(() => window.__caseScrollOptions)).toEqual({
+    behavior: 'auto',
+    block: 'start',
+  });
+  await expect(select).toHaveValue('1');
+
+  await entries.nth(2).evaluate((entry) => {
+    const top = entry.getBoundingClientRect().top + window.scrollY - window.innerHeight * .05;
+    window.scrollTo({ top, behavior: 'auto' });
+  });
+
+  await expect(select).toHaveValue('2');
+});
