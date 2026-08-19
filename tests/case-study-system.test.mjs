@@ -40,6 +40,8 @@ test('shared case-study typography follows the restrained Bridgeway scale', asyn
     'standard sections use the reference 56px vertical rhythm');
   assert.match(css, /\.case-study \.trust-sec\{padding-block:48px 32px\}/,
     'the social-proof strip remains compact');
+  assert.match(css, /\.case-study \.eyebrow,[\s\S]*?font-family:'Satoshi',system-ui,sans-serif;[\s\S]*?font-size:12px;font-weight:600;[\s\S]*?letter-spacing:\.1em/,
+    'case-study labels use the shipped Satoshi face with a dense editorial treatment');
 });
 
 test('project accent is inherited and consumed by editorial chrome', async () => {
