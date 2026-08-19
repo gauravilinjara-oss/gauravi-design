@@ -598,6 +598,7 @@
   @media (prefers-reduced-motion:reduce){.cf{animation:none !important;}}
 </style>
 
+<main>
 <section class="stage" data-motes>
 
   <!-- ░░ your original animated sky ░░ -->
@@ -672,7 +673,7 @@
     <button class="sr-b" data-tod="night" title="night" aria-label="night"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 13.5A8 8 0 1 1 10.5 3.5a6.2 6.2 0 0 0 10 10z"/></svg></button>
     <span class="sr-div" aria-hidden="true"></span>
     <button class="sr-auto on" id="ssAuto" title="follow my local time">auto</button>
-    <input type="range" min="0" max="100" value="50" id="ssRange" aria-hidden="true" tabindex="-1" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;" />
+    <input type="range" min="0" max="100" value="50" id="ssRange" aria-label="time of day" aria-hidden="true" tabindex="-1" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;" />
   </div>
 
   <!-- ░░ ask pill ░░ -->
@@ -1587,6 +1588,7 @@
     </div>
   </div>
 </section>
+</main>
 
 <!-- time-of-day palette + slider -->
 <script>
