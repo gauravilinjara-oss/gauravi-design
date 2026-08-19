@@ -588,7 +588,7 @@
 </script>
 </section>
 
-<header class="hero" data-cine-hero="noh1" data-nav-label="Overview">
+<header class="hero" id="overview" data-cine-hero="noh1" data-nav-label="Overview">
   <div class="wrap">
     <div class="hero-grid">
       <div class="hero-txt">
@@ -673,14 +673,12 @@
 </section>
 
 <!-- ================= CONTEXT ================= -->
-<section>
+<section id="context" data-nav-label="Context">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">01 · Context</span>
       <h2>a billion-dirham bet on <span class="accent">digital.</span></h2>
-    </div>
-    <div class="body-col">
-      <p>Emirates NBD put <b>AED&nbsp;1 billion</b> into digitising its corporate bank. Trade finance was the most paper-bound part of that estate, and among the most valuable: the bank holds roughly a <b>quarter of the UAE market</b> in letters of credit.</p>
+      <p class="section-lede">Emirates NBD put <b>AED&nbsp;1 billion</b> into digitising its corporate bank. Trade finance was the most paper-bound part of that estate, and among the most valuable: the bank holds roughly a <b>quarter of the UAE market</b> in letters of credit.</p>
     </div>
     <div class="cards trio" style="margin-top:26px">
       <div class="card">
@@ -703,7 +701,7 @@
 </section>
 
 <!-- ================= PROBLEM ================= -->
-<section>
+<section id="problem" data-nav-label="Problem">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">02 · Problem</span>
@@ -743,35 +741,31 @@
 </section>
 
 <!-- ================= THE OLD WAY VS smartTRADE ================= -->
-<section>
+<section id="strategy" data-nav-label="Strategy">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">03 · The shift</span>
       <h2>from the counter to the <span class="accent">desk.</span></h2>
-    </div>
-    <div class="body-col" style="margin-bottom:30px">
-      <p>Raising an import LC, the core task. Before and after smartTRADE.</p>
-    </div>
-    <div class="body-col" style="margin-bottom:30px">
-      <p><b>The bet behind it.</b> The fastest way to speed up paper is to thin maker-checker approvals. But in trade finance the controls <i>are</i> the product. So the rigor stayed, intact and digital, and the speed came from elsewhere: saved clause templates, digital upload, live status. Trust survived the move online; only the paper didn't.</p>
+      <p class="section-lede">Raising an import LC, the core task. Before and after smartTRADE.</p>
     </div>
     <div class="shiftblk">
       <div><span class="old">a slow, opaque paper trail</span><span class="arw">→</span></div>
       <span class="new">every trade product, <em>online and visible</em>.</span>
       <p class="ssub">Days of paperwork with no status, now LCs, guarantees, collections and loans run online, in one place, with status you can track.</p>
     </div>
+    <div class="body-col" style="margin-top:30px">
+      <p><b>The bet behind it.</b> The fastest way to speed up paper is to thin maker-checker approvals. But in trade finance the controls <i>are</i> the product. So the rigor stayed, intact and digital, and the speed came from elsewhere: saved clause templates, digital upload, live status. Trust survived the move online; only the paper didn't.</p>
+    </div>
   </div>
 </section>
 
 <!-- ================= PROCESS ================= -->
-<section>
+<section id="research" data-nav-label="Research">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">04 · Process</span>
       <h2>designed for <span class="accent">trust.</span></h2>
-    </div>
-    <div class="body-col">
-      <p>Learn the real trade-ops anxieties, prototype a flow that keeps the bank's controls but loses the paper, and validate it sprint by sprint with engineering.</p>
+      <p class="section-lede">Learn the real trade-ops anxieties, prototype a flow that keeps the bank's controls but loses the paper, and validate it sprint by sprint with engineering.</p>
     </div>
 
         <p class="voices-label">in their own words</p>
@@ -828,14 +822,12 @@
 </section>
 
 <!-- ================= SOLUTION VISUALS ================= -->
-<section>
+<section id="solution" data-nav-label="Solution">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">05 · Solution</span>
       <h2>the trade hub, made <span class="accent">legible.</span></h2>
-    </div>
-    <div class="body-col" style="margin-bottom:34px">
-      <p>An import LC is one of the most field-heavy instruments in banking. I designed it as a <b>nine-step tabbed canvas</b> that ends in one scannable <b>review</b> before anything is committed.</p>
+      <p class="section-lede">An import LC is one of the most field-heavy instruments in banking. I designed it as a <b>nine-step tabbed canvas</b> that ends in one scannable <b>review</b> before anything is committed.</p>
     </div>
 
     <!-- hero shot: the Review screen (most complete single view) -->
@@ -858,14 +850,12 @@
 </section>
 
 <!-- ================= THE FLOW (stepper-driven, no external assets) ================= -->
-<section>
+<section id="flow" data-nav-label="Flow">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">06 · The flow</span>
       <h2>raising an LC, step by <span class="accent">step.</span></h2>
-    </div>
-    <div class="body-col" style="margin-bottom:18px">
-      <p>The core journey, the way a user moves through it: fill the tabs in any order, attach what's needed, review before committing. <span class="note">scroll, the screen follows each step ↓</span></p>
+      <p class="section-lede">The core journey, the way a user moves through it: fill the tabs in any order, attach what's needed, review before committing. <span class="note">scroll, the screen follows each step ↓</span></p>
     </div>
 
     <!-- scrollytelling: sticky screen crossfades as the captions scroll (see case-st-ix.*) -->
@@ -908,26 +898,28 @@
     <!-- motion: interaction craft -->
     <div style="margin-top:52px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;align-items:start">
       <div>
-        <figure class="bw"><video src="../assets/case/smarttrade/status.mp4" muted loop playsinline autoplay></video></figure>
-        <p class="note" style="margin-top:14px;text-align:center">the client watches the request move through maker-checker in real time, answering &ldquo;where is my lc right now?&rdquo; on screen.</p>
+        <figure style="margin:0">
+          <div class="bw"><video src="../assets/case/smarttrade/status.mp4" muted loop playsinline autoplay></video></div>
+          <figcaption class="note" style="margin-top:14px;text-align:center">the client watches the request move through maker-checker in real time, answering &ldquo;where is my lc right now?&rdquo; on screen.</figcaption>
+        </figure>
       </div>
       <div>
-        <figure class="bw"><video src="../assets/case/smarttrade/tabs.mp4" muted loop playsinline autoplay></video></figure>
-        <p class="note" style="margin-top:14px;text-align:center">nine field-heavy sections validate and collapse into one scannable review before anything commits.</p>
+        <figure style="margin:0">
+          <div class="bw"><video src="../assets/case/smarttrade/tabs.mp4" muted loop playsinline autoplay></video></div>
+          <figcaption class="note" style="margin-top:14px;text-align:center">nine field-heavy sections validate and collapse into one scannable review before anything commits.</figcaption>
+        </figure>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ================= DESIGN DECISIONS ================= -->
-<section>
+<section id="decisions" data-nav-label="Decisions">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">07 · Design decisions</span>
       <h2>controls kept, <span class="accent">paper dropped.</span></h2>
-    </div>
-    <div class="body-col" style="margin-bottom:30px">
-      <p>The hard part of digitising a regulated instrument is keeping its governance intact while shedding its paper. Four decisions carried that weight.</p>
+      <p class="section-lede">The hard part of digitising a regulated instrument is keeping its governance intact while shedding its paper. Four decisions carried that weight.</p>
     </div>
     <div class="cards">
       <div class="card">
@@ -954,29 +946,31 @@
 
     <p class="voices-label" style="margin:34px 0 14px">the discrepancy screen, annotated · hover or tap the pins</p>
     <!-- hotspot annotations (see case-st-ix.*) -->
-    <div class="ix-hs">
-      <img src="../assets/case/smarttrade/discrepancy.png" alt="smartTRADE bill discrepancy acceptance, annotated">
-      <div class="ix-pin down" style="left:12.5%;top:24%">1<span class="tip">Five tabs, discrepancy, settlement, forex, charges, attachments, resolved in one flow, not five errands.</span></div>
-      <div class="ix-pin" style="left:50%;top:40%">2<span class="tip">Every accept or reject is captured with mandatory remarks, an auditable decision, not a phone call.</span></div>
-      <div class="ix-pin" style="left:35%;top:73.5%">3<span class="tip">Decide line by line, or accept and reject the whole bill at once.</span></div>
-    </div>
-    <figcaption class="shot-cap" style="margin-top:12px">discrepancy acceptance, review, settle and decide in one place</figcaption>
+    <figure style="margin:0">
+      <div class="ix-hs">
+        <img src="../assets/case/smarttrade/discrepancy.png" alt="smartTRADE bill discrepancy acceptance, annotated">
+        <div class="ix-pin down" style="left:12.5%;top:24%">1<span class="tip">Five tabs, discrepancy, settlement, forex, charges, attachments, resolved in one flow, not five errands.</span></div>
+        <div class="ix-pin" style="left:50%;top:40%">2<span class="tip">Every accept or reject is captured with mandatory remarks, an auditable decision, not a phone call.</span></div>
+        <div class="ix-pin" style="left:35%;top:73.5%">3<span class="tip">Decide line by line, or accept and reject the whole bill at once.</span></div>
+      </div>
+      <figcaption class="shot-cap" style="margin-top:12px">discrepancy acceptance, review, settle and decide in one place</figcaption>
+    </figure>
 
     <!-- motion: discrepancy decided in-flow -->
-    <figure class="bw" style="margin:44px auto 0;max-width:560px"><video src="../assets/case/smarttrade/discrepancy.mp4" muted loop playsinline autoplay></video></figure>
-    <p class="note" style="max-width:560px;margin:14px auto 0;text-align:center">a discrepant bill decided line by line: accept, or reject with mandatory remarks. <b>why capture remarks?</b> every decision becomes an auditable record, not a phone call and days of limbo.</p>
+    <figure style="margin:44px auto 0;max-width:560px">
+      <div class="bw"><video src="../assets/case/smarttrade/discrepancy.mp4" muted loop playsinline autoplay></video></div>
+      <figcaption class="note" style="margin:14px auto 0;text-align:center">a discrepant bill decided line by line: accept, or reject with mandatory remarks. <b>why capture remarks?</b> every decision becomes an auditable record, not a phone call and days of limbo.</figcaption>
+    </figure>
   </div>
 </section>
 
 <!-- ================= SCREENS GALLERY ================= -->
-<section>
+<section id="screens" data-nav-label="Screens">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">08 · Screens</span>
       <h2>the full <span class="accent">picture.</span></h2>
-    </div>
-    <div class="body-col" style="margin-bottom:24px">
-      <p>The four flows that carry the module: initiate, view, accept a discrepancy, settle. <span class="note">click any screen to view it full size ⤢</span></p>
+      <p class="section-lede">The four flows that carry the module: initiate, view, accept a discrepancy, settle. <span class="note">click any screen to view it full size ⤢</span></p>
     </div>
     <!-- click-to-zoom bento (see case-st-ix.*) -->
     <div class="st-bento">
@@ -1005,7 +999,7 @@
 </section>
 
 <!-- ================= IMPACT 3-WAY ================= -->
-<section>
+<section id="impact" data-nav-label="Impact">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">09 · Impact</span>
@@ -1035,7 +1029,7 @@
 </section>
 
 <!-- ================= RECOGNITION ================= -->
-<section>
+<section id="recognition" data-nav-label="Recognition">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">10 · Recognition</span>
@@ -1062,7 +1056,7 @@
 </section>
 
 <!-- ================= REFLECTION ================= -->
-<section>
+<section id="reflection" data-nav-label="Reflection">
   <div class="wrap">
     <div class="sec-head" style="margin-bottom:24px">
       <span class="eyebrow">11 · Reflection</span>

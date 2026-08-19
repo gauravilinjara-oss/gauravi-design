@@ -893,7 +893,7 @@
 
 
 <!-- ================= HERO ================= -->
-<header class="hero" data-cine-hero="noh1" data-nav-label="Overview">
+<header class="hero" id="overview" data-cine-hero="noh1" data-nav-label="Overview">
   <div class="wrap">
     <div class="kicker-row">
       <span class="eyebrow">AI-native · 0 → 1 · multilingual TTS · designed + built</span>
@@ -991,20 +991,18 @@
 </section>
 
 <!-- ================= CONTEXT ================= -->
-<section>
+<section id="context" data-nav-label="Context">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">01 · Context</span>
       <h2>fluent in english, broken everywhere <span class="accent">else.</span></h2>
-    </div>
-    <div class="body-col">
-      <p>English TTS is mature; every other language degrades on translation, and buyers aren't multilingual enough to hear it. <b>OnePin knows which model wins for each language</b>, so businesses can reach markets they couldn't serve before.</p>
+      <p class="section-lede">English TTS is mature; every other language degrades on translation, and buyers aren't multilingual enough to hear it. <b>OnePin knows which model wins for each language</b>, so businesses can reach markets they couldn't serve before.</p>
     </div>
   </div>
 </section>
 
 <!-- ================= PROBLEM ================= -->
-<section>
+<section id="problem" data-nav-label="Problem">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">02 · Problem</span>
@@ -1219,22 +1217,20 @@
 
 
 <!-- ================= THE OLD WAY VS ONEPIN ================= -->
-<section>
+<section id="strategy" data-nav-label="Strategy">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">03 · The shift</span>
       <h2>from a 10-day chain to one layer.</h2>
-    </div>
-    <div class="body-col" style="margin-bottom:30px">
-      <p>A football match in English, headed for a global audience. Before vs. after OnePin.</p>
-    </div>
-    <div class="body-col" style="margin-bottom:30px">
-      <p><b>The bet:</b> the slow part was never making the audio, it was judging it. So OnePin judges. It picks the model, checks every take, and the bulk runs disappear.</p>
+      <p class="section-lede">A football match in English, headed for a global audience. Before vs. after OnePin.</p>
     </div>
     <div class="shiftblk">
       <div><span class="old">a 10-day manual chain</span><span class="arw">→</span></div>
       <span class="new">localized audio in <em>hours</em>, not days.</span>
       <p class="ssub">Ten days of hand-offs and defensive bulk runs, replaced by a layer any team, or agent, can run end-to-end.</p>
+    </div>
+    <div class="body-col" style="margin-top:30px">
+      <p><b>The bet:</b> the slow part was never making the audio, it was judging it. So OnePin judges. It picks the model, checks every take, and the bulk runs disappear.</p>
     </div>
 
     <div class="pullquote" style="margin-top:44px;text-align:left;padding:0">
@@ -1245,14 +1241,12 @@
 </section>
 
 <!-- ================= PROCESS ================= -->
-<section>
+<section id="research" data-nav-label="Research">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">04 · Process</span>
       <h2>designed for humans, and for <span class="accent">agents.</span></h2>
-    </div>
-    <div class="body-col">
-      <p>Straight to the people living the pain, then prototype fast and lock direction in a month.</p>
+      <p class="section-lede">Straight to the people living the pain, then prototype fast and lock direction in a month.</p>
     </div>
     
         <p class="voices-label">in their own words</p>
@@ -1320,14 +1314,12 @@
   .aistage .as-l b{color:var(--ink);font-weight:400}
   @media(max-width:820px){.aipipe{grid-template-columns:1fr}.aistage{border-right:none;border-bottom:1px solid var(--line)}.aistage:last-child{border-bottom:none}}
 </style>
-<section>
+<section id="design" data-nav-label="Design">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">05 · Designing the judgment</span>
       <h2>teaching a machine to <span class="accent">hear taste.</span></h2>
-    </div>
-    <div class="body-col" style="margin-bottom:26px">
-      <p><b>"Is this voice good?"</b> used to be a gut call. My job was to turn it into a system that gives the same answer every time. Build the flow node by node, or just tell the agent what you want. Either way, the same judgment runs underneath.</p>
+      <p class="section-lede"><b>"Is this voice good?"</b> used to be a gut call. My job was to turn it into a system that gives the same answer every time. Build the flow node by node, or just tell the agent what you want. Either way, the same judgment runs underneath.</p>
     </div>
 
     <div style="margin:8px 0 34px">
@@ -1744,16 +1736,14 @@
 
 
 <!-- ================= SOLUTION VISUALS ================= -->
-<section>
+<section id="solution" data-nav-label="Solution">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">06 · Solution</span>
       <h2>the smart layer, made visible.</h2>
+      <p class="section-lede">One surface, human or agent at the wheel: <b>describe the job in chat</b>, watch it build as a <b>live node graph</b>, ship what clears. Four decisions made it trustworthy:</p>
     </div>
     <p class="opin-tag serif">TTS makes voice. <em>OnePin makes it production-ready.</em></p>
-    <div class="body-col" style="margin-bottom:26px">
-      <p>One surface, human or agent at the wheel: <b>describe the job in chat</b>, watch it build as a <b>live node graph</b>, ship what clears. Four decisions made it trustworthy:</p>
-    </div>
 
     <!-- ===== annotated design schematic: matches the real OnePin node aesthetic, each node carries a decision + the principle behind it ===== -->
     <style>
@@ -1857,25 +1847,28 @@
       .opin-reclabel{display:block;text-align:center;margin-top:12px;font-family:'Satoshi',monospace;text-transform:uppercase;letter-spacing:.14em;font-size:10.5px;color:var(--ink-faint)}
     </style>
 
-    <div class="opin">
-      <div class="opin-bar">
-        <span class="d"></span><span class="d"></span><span class="d"></span>
-        <span class="brand">One<span class="ai">Pin</span></span>
-        <span class="tabs"><span class="tab on">production</span><span class="tab">library</span><span class="tab">settings</span></span>
+    <figure style="margin:0">
+      <div class="opin">
+        <div class="opin-bar">
+          <span class="d"></span><span class="d"></span><span class="d"></span>
+          <span class="brand">One<span class="ai">Pin</span></span>
+          <span class="tabs"><span class="tab on">production</span><span class="tab">library</span><span class="tab">settings</span></span>
+        </div>
+        <div class="opin-svg">
+          <img loading="lazy" src="../assets/case/podonos/podonos-agent.svg" alt="OnePin agent panel: describe the localization job in plain language and the agent routes the model, injects phonemes and explains its choice">
+          <img loading="lazy" src="../assets/case/podonos/podonos-flow.svg" alt="OnePin node graph: script in, corrected, validated against naturalness/word accuracy/noise/pronunciation, ready to ship">
+        </div>
       </div>
-      <div class="opin-svg">
-        <img loading="lazy" src="../assets/case/podonos/podonos-agent.svg" alt="OnePin agent panel: describe the localization job in plain language and the agent routes the model, injects phonemes and explains its choice">
-        <img loading="lazy" src="../assets/case/podonos/podonos-flow.svg" alt="OnePin node graph: script in, corrected, validated against naturalness/word accuracy/noise/pronunciation, ready to ship">
-      </div>
-    </div>
-
-    <p class="cap" style="text-align:center;margin-top:10px;font-family:'Satoshi',system-ui,sans-serif;color:var(--ink-soft);font-size:14px">the OnePin production surface · some details redacted out of respect for the team</p>
+      <figcaption class="cap" style="text-align:center;margin-top:10px;font-family:'Satoshi',system-ui,sans-serif;color:var(--ink-soft);font-size:14px">the OnePin production surface · some details redacted out of respect for the team</figcaption>
+    </figure>
 
     <p class="voices-label" style="margin-top:46px">the workflow, building itself</p>
-    <div style="border:1px solid rgba(20,32,52,.1);border-radius:var(--r-2);overflow:hidden;box-shadow:var(--shadow-1)">
-      <video src="../assets/case/podonos/onepin-flow.mp4" poster="../assets/case/podonos/onepin-flow-poster.jpg" muted loop playsinline autoplay style="display:block;width:100%;height:auto"></video>
-    </div>
-    <p class="cap" style="text-align:center;margin-top:14px;font-family:'Satoshi',system-ui,sans-serif;color:var(--ink-soft);font-size:14px">the new 101 pipeline wiring itself, node by node, until the whole graph runs</p>
+    <figure style="margin:0">
+      <div style="border:1px solid rgba(20,32,52,.1);border-radius:var(--r-2);overflow:hidden;box-shadow:var(--shadow-1)">
+        <video src="../assets/case/podonos/onepin-flow.mp4" poster="../assets/case/podonos/onepin-flow-poster.jpg" muted loop playsinline autoplay style="display:block;width:100%;height:auto"></video>
+      </div>
+      <figcaption class="cap" style="text-align:center;margin-top:14px;font-family:'Satoshi',system-ui,sans-serif;color:var(--ink-soft);font-size:14px">the new 101 pipeline wiring itself, node by node, until the whole graph runs</figcaption>
+    </figure>
 
     <p class="voices-label" style="margin-top:46px">one platform, every surface</p>
     <style>
@@ -1908,21 +1901,24 @@
       .seoul-team{margin:24px 0 0;border-radius:var(--r-2);overflow:hidden;box-shadow:var(--shadow-1)}
       .seoul-team img{display:block;width:100%;height:auto}
     </style>
-    <div class="seoul-strip">
-      <figure class="seoul-shot lb"><img loading="lazy" src="../assets/case/podonos/seoul-architecture.jpg" alt="Whiteboard sketch of the OnePin flow: input, translate, model, validate, errors → notify, Seoul on-site"></figure>
-      <figure class="seoul-shot lb"><img loading="lazy" src="../assets/case/podonos/seoul-normalization.jpg" alt="Whiteboard working through audio normalization and correction examples, Seoul on-site"></figure>
-      <figure class="seoul-shot lb"><img loading="lazy" src="../assets/case/podonos/team-seoul.jpg" alt="The Podonos team together at NAVER D2SF, Seoul"></figure>
-    </div>
-    <p class="cap" style="text-align:center;margin-top:14px;font-family:'Satoshi',system-ui,sans-serif;color:var(--ink-soft);font-size:14px">behind the build · whiteboards and the Podonos team · 3 weeks on-site at NAVER D2SF, Seoul</p>
+    <figure style="margin:0">
+      <div class="seoul-strip">
+        <figure class="seoul-shot lb"><img loading="lazy" src="../assets/case/podonos/seoul-architecture.jpg" alt="Whiteboard sketch of the OnePin flow: input, translate, model, validate, errors → notify, Seoul on-site"></figure>
+        <figure class="seoul-shot lb"><img loading="lazy" src="../assets/case/podonos/seoul-normalization.jpg" alt="Whiteboard working through audio normalization and correction examples, Seoul on-site"></figure>
+        <figure class="seoul-shot lb"><img loading="lazy" src="../assets/case/podonos/team-seoul.jpg" alt="The Podonos team together at NAVER D2SF, Seoul"></figure>
+      </div>
+      <figcaption class="cap" style="text-align:center;margin-top:14px;font-family:'Satoshi',system-ui,sans-serif;color:var(--ink-soft);font-size:14px">behind the build · whiteboards and the Podonos team · 3 weeks on-site at NAVER D2SF, Seoul</figcaption>
+    </figure>
   </div>
 </section>
 
 <!-- ================= HOW I BUILT IT ================= -->
-<section>
+<section id="build" data-nav-label="Build">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">07 · How I built it</span>
       <h2>from Figma to shipped, <span class="accent">with AI.</span></h2>
+      <p class="section-lede">The Figma file was the starting point, not the deliverable. I designed in <b>clean components and standard layout patterns</b> on purpose, so the interface could be built straight from the design, then took it the rest of the way myself.</p>
     </div>
     <style>
       .bflow{position:relative;margin-top:34px}
@@ -2019,14 +2015,13 @@
     </script>
 
     <div class="body-col" style="margin-top:46px">
-      <p>The Figma file was the starting point, not the deliverable. I designed in <b>clean components and standard layout patterns</b> on purpose, so the interface could be built straight from the design, then took it the rest of the way myself.</p>
       <p>From there I moved into <b>Figma Make and Claude Code</b> to turn the chat-agent and node interface into working code, and wrote the pipeline, phoneme injection, normalization, and the validators as <b>Python skills</b> a person or an agent can run. AI removed the execution bottleneck; the judgment and the taste stayed mine.</p>
     </div>
   </div>
 </section>
 
 <!-- ================= IMPACT 3-WAY ================= -->
-<section>
+<section id="impact" data-nav-label="Impact">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">08 · Impact</span>
@@ -2056,7 +2051,7 @@
 </section>
 
 <!-- ================= REFLECTION ================= -->
-<section>
+<section id="reflection" data-nav-label="Reflection">
   <div class="wrap">
     <div class="sec-head" style="margin-bottom:24px">
       <span class="eyebrow">09 · Reflection</span>

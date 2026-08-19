@@ -8,6 +8,12 @@ const cases = [
   'case-business.html', 'case-mashreq.html', 'case-googlehealth.html',
 ];
 
+const requiredLabels = {
+  'case-podonos.html': ['Overview', 'Context', 'Problem', 'Research', 'Design', 'Solution', 'Build', 'Impact', 'Reflection'],
+  'case-fxonline.html': ['Overview', 'Context', 'Problem', 'Research', 'Strategy', 'Solution', 'Flow', 'Impact', 'Reflection'],
+  'case-smarttrade.html': ['Overview', 'Context', 'Problem', 'Research', 'Strategy', 'Solution', 'Flow', 'Impact', 'Reflection'],
+};
+
 test('shared shell applies only one desktop content offset', async () => {
   const css = await readFile('mockups/case-editorial.css', 'utf8');
   assert.match(css, /\.case-study\s*\{[^}]*padding-left:0;/s,
@@ -52,5 +58,15 @@ for (const name of cases) {
     assert.ok($('[data-case-accent]').length === 1, 'one project accent hook');
     assert.equal(new Set($('section[id]').map((_, el) => $(el).attr('id')).get()).size,
       $('section[id]').length, 'unique section ids');
+  });
+}
+
+for (const [name, labels] of Object.entries(requiredLabels)) {
+  test(`${name} has the editorial narrative`, async () => {
+    const $ = cheerio.load(await readFile(`mockups/${name}`, 'utf8'));
+    const actual = $('[data-nav-label]').map((_, el) => $(el).attr('data-nav-label')).get();
+    for (const label of labels) {
+      assert.ok(actual.includes(label), `${name}: ${label}`);
+    }
   });
 }
