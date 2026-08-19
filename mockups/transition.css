@@ -11,10 +11,10 @@
   background:radial-gradient(130% 130% at 72% 112%, #a9cdee 0%, #cfe3f6 46%, #edf5fd 100%);
   filter:url(#pgxink);
   clip-path:circle(170% at 72% 112%);
-  transition:clip-path 1s cubic-bezier(.62,0,.34,1);will-change:clip-path;}
+  transition:clip-path var(--motion-expressive,500ms) var(--ease-expressive,cubic-bezier(.22,1,.36,1));will-change:clip-path;}
 .pgx.reveal .pgx-ink{clip-path:circle(0% at 24% -12%);}
 
-.pgx-mark{position:absolute;inset:0;display:grid;place-items:center;opacity:1;transition:opacity .55s ease;}
+.pgx-mark{position:absolute;inset:0;display:grid;place-items:center;opacity:1;transition:opacity var(--motion-expressive,500ms) var(--ease-standard,ease);}
 .pgx.reveal .pgx-mark{opacity:0;}
 .pgx-mark .wm{font-family:"Switzer",system-ui,sans-serif;font-weight:600;letter-spacing:-.02em;line-height:1.02;
   font-size:clamp(38px,7.2vw,92px);color:#16202b;filter:url(#pgxink);

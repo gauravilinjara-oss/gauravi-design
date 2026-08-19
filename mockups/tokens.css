@@ -19,14 +19,16 @@
   /* ── NEW CANONICAL TOKENS ─────────────────────────────────────────────────── */
   --ink: #16202b;           /* primary text                                      */
   --soft:#4E5F74;           /* secondary text                                    */
-  --faint:#8b95a3;          /* tertiary / captions (cool)                        */
+  --faint:#4E5F74;          /* tertiary / captions; readable on white            */
   --accent:#16202b;         /* flat near-black/navy — CTAs, structure            */
   --accent-deep:#0f1822;    /* pressed / deep                                    */
   --accent-soft:#e7ecf3;    /* light navy tint fill / chips                      */
   --on-accent:#ffffff;      /* text on navy fills                                */
-  --green:#0083E7;          /* deep pine — italic emphasis accent                */
+  --green:#2F6CB8;          /* readable blue emphasis on light surfaces           */
   --sun: #ffc93c;
   --link: #2f6cb8;
+  --focus-ring:#2F6CB8;
+  --focus-inner:#FFFFFF;
 
   /* surfaces — light & airy (cool near-white) */
   --page-bg:#ffffff;        /* base page background                              */
@@ -102,18 +104,18 @@
   --t-paper-2:#f5f5f5;
   --t-ink:#16202b;
   --t-ink-soft:#4E5F74;
-  --t-ink-faint:#8b95a3;
+  --t-ink-faint:#4E5F74;
   --t-line:rgba(20,32,52,.12);
 
   /* dark "gallery" surfaces flip to light (work/lab go airy) */
   --t-paper-dark:#ffffff;
   --t-ink-on-dark:#16202b;
   --t-soft-on-dark:#4E5F74;
-  --t-muted-on-dark:#8b95a3;
+  --t-muted-on-dark:#4E5F74;
   --t-line-on-dark:rgba(20,32,52,.12);
 
   /* secondary accents retuned to the new palette */
-  --t-sage:#0083E7;
+  --t-sage:#2F6CB8;
   --t-gold:#caa86a;
   --t-blue:#8CC7F4;
 
@@ -151,7 +153,12 @@ p { letter-spacing:var(--tr-body); }
 }
 
 /* §6 · focus rings — never outline:none without a replacement */
-:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:inherit; }
+:focus-visible{
+  outline:2px solid var(--focus-inner);
+  outline-offset:2px;
+  border-radius:inherit;
+  box-shadow:0 0 0 5px var(--focus-ring);
+}
 
 /* §7 · materials — selection colour + consistent link affordance */
 ::selection{ background:var(--accent-soft); color:var(--ink); }

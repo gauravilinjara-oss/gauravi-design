@@ -27,6 +27,9 @@
 @media (prefers-reduced-motion:reduce){
   .cn-grain,.cn-motes,.cn-motes-fixed{display:none !important;}
   .cn-tilt::after{display:none !important;}
+  html body .bee-wing,
+  html body .i-rays,
+  html body .ai-rv{animation:none !important;}
 }
 @media (max-width:760px){
   .cn-grain{opacity:.26;}

@@ -25,6 +25,11 @@
   border:1px solid rgba(255,255,255,.55);border-radius:999px;box-shadow:inset 0 1px 1px rgba(255,255,255,.92),inset 0 -8px 14px -10px rgba(255,255,255,.55),0 12px 28px -12px rgba(8,22,48,.42);
   transition:background-color var(--motion-fast,160ms) var(--ease-standard,ease),box-shadow var(--motion-fast,160ms) var(--ease-standard,ease);}
 #gnav .gnav-burger:hover{box-shadow:inset 0 1px 1px rgba(255,255,255,.92),inset 0 -8px 14px -10px rgba(255,255,255,.6),0 14px 32px -12px rgba(8,22,48,.5);}
+#gnav .gnav-burger:focus-visible{
+  outline:2px solid var(--focus-inner,#fff);
+  outline-offset:2px;
+  box-shadow:0 0 0 5px var(--focus-ring,#2f6cb8);
+}
 #gnav .gnav-burger .gb-ico{display:inline-flex;flex-direction:column;justify-content:center;gap:4px;width:16px;height:11px;}
 #gnav .gnav-burger .gb-l{display:block;width:16px;height:1.7px;border-radius:2px;background:var(--ink,#16202b);transition:transform var(--motion-standard,260ms) var(--ease-standard,ease),opacity var(--motion-standard,260ms) var(--ease-standard,ease);}
 #gnav.menu-open .gnav-burger{background:rgba(255,255,255,.97);}
