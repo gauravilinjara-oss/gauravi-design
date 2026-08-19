@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Google Health redesigned · M3 Expressive prototype</title>
+<!-- installable dummy-app mode: share the URL, friends "Add to Home Screen" -->
+<link rel="manifest" href="gh-manifest.json">
+<meta name="theme-color" content="#F8F9FF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GH Redesign">
+<link rel="apple-touch-icon" href="assets/gh-icon-180.png">
+<link rel="icon" type="image/svg+xml" href="assets/gh-icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300..800&family=Space+Grotesk:wght@500..700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..600,0..1,0&display=swap" rel="stylesheet">
+<style>
+  /* ---------- M3 Expressive tokens (dark, neon-lime seed) ---------- */
+  :root{
+    --primary:#D6F14E;         --on-primary:#232B00;
+    --primary-container:#3A4413; --on-primary-container:#E8FA8B;
+    --secondary:#B9BDCB;       --secondary-container:#282A33; --on-secondary-container:#DDE0EA;
+    --tertiary:#C9B6F2;        --tertiary-container:#2C2454;  --on-tertiary-container:#E4DDFF;
+    --fitness:#54C7F4;         --fitness-container:#0E3344;   --on-fitness-container:#BDE9FC;
+    --gold:#E5B863;
+    --success:#8BE6A8;         --success-container:#1B4A2E;   --on-success-container:#C9F3D6;
+    --error:#FF6E62;           --error-container:#4A1512;
+    --surface:#101014;         --surface-dim:#0B0B0E;
+    --sc-lowest:#17171B; --sc-low:#1C1C21; --sc:#212127; --sc-high:#27272E; --sc-highest:#2E2E36;
+    --on-surface:#E8E6EC;      --on-surface-var:#A5A3AD;
+    --outline:#5A5962;         --outline-var:#37363E;
+    /* sleep-stage palette (dark-tuned) */
+    /* sleep stages: one teal family, luminance = depth (surface pale → deep dark) */
+    --st-awake:#D6C7FA; --st-rem:#B69EEF; --st-light:#9179D8; --st-deep:#6E56B4;
+    /* M3E motion */
+    --spring:cubic-bezier(.34,1.36,.64,1);       /* spatial, expressive */
+    --standard:cubic-bezier(.2,0,0,1);           /* effects, no overshoot */
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{overscroll-behavior:none}
+  button,.nv,.tl-item,.cap,[data-what]{touch-action:manipulation}
+  @media (max-width:520px){body{-webkit-user-select:none;user-select:none}}
+  body{
+    font-family:'Roboto Flex',Roboto,system-ui,sans-serif;
+    background-color:#0a0b0d;
+    background:radial-gradient(90% 60% at 50% 0%,#15171b,#0a0b0d 70%) #0a0b0d;
+    min-height:100vh;
+    display:flex;flex-direction:column;align-items:center;gap:20px;
+    padding:36px 16px 60px;
+  }
+  .stage-cap{font-size:13px;color:#8b93a1;letter-spacing:.2px;text-align:center}
+  .stage-cap b{color:#d7dce6;font-weight:600}
+
+  .ms{
+    font-family:'Material Symbols Rounded';
+    font-weight:normal;font-style:normal;display:inline-block;
+    line-height:1;letter-spacing:normal;text-transform:none;white-space:nowrap;
+    direction:ltr;-webkit-font-smoothing:antialiased;
+    font-variation-settings:'FILL' 0,'wght' 400,'opsz' 24;
+    font-size:24px;user-select:none;
+  }
+  .ms.fill{font-variation-settings:'FILL' 1,'wght' 400,'opsz' 24}
+
+  /* ---------- phone frame ---------- */
+  .phone{
+    width:412px;height:892px;flex:none;
+    background:var(--surface);
+    color:var(--on-surface);
+    border-radius:44px;
+    box-shadow:0 0 0 10px #1a1c21,0 0 0 12px #34373e,0 34px 70px -18px rgba(0,0,0,.75);
+    overflow:clip;position:relative;
+  }
+  .viewport{position:absolute;inset:0;overflow:clip}
+
+  /* status bar */
+  .statusbar{
+    height:44px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 26px 0 30px;color:var(--on-surface);
+    font-size:15px;font-weight:600;position:relative;z-index:5;
+  }
+  .statusbar .ms{font-size:16px}
+  .statusbar .right{display:flex;gap:6px;align-items:center}
+
+  /* ---------- screens ---------- */
+  .screen{
+    position:absolute;top:44px;left:0;right:0;bottom:80px;
+    overflow-y:auto;overscroll-behavior:contain;
+    opacity:0;pointer-events:none;transform:translateX(24px);
+    transition:opacity .28s var(--standard),transform .55s var(--spring);
+    padding:4px 16px 170px;
+    scrollbar-width:none;
+  }
+  .screen::-webkit-scrollbar{display:none}
+  .screen.active{opacity:1;pointer-events:auto;transform:translateX(0)}
+
+  /* ---------- type scale (M3) ---------- */
+  .display-l{font-size:57px;line-height:64px;font-weight:450}
+  .display-s{font-size:36px;line-height:44px;font-weight:500}
+  .headline-s{font-size:24px;line-height:32px;font-weight:500}
+  .title-l{font-size:22px;line-height:28px;font-weight:500}
+  .title-m{font-size:16px;line-height:24px;font-weight:550;letter-spacing:.15px}
+  .body-l{font-size:16px;line-height:24px}
+  .body-m{font-size:14px;line-height:20px;letter-spacing:.25px}
+  .label-l{font-size:14px;line-height:20px;font-weight:550;letter-spacing:.1px}
+  .label-m{font-size:12px;line-height:16px;font-weight:550;letter-spacing:.5px}
+  .muted{color:var(--on-surface-var)}
+
+  /* ---------- today: header ---------- */
+  .home-head{display:flex;align-items:center;gap:14px;padding:10px 4px 18px}
+  .home-head .greet{flex:1}
+  .home-head .greet .title-l{font-weight:600;font-variation-settings:'wght' 600}
+  .sync{display:inline-flex;align-items:center;gap:4px;color:var(--on-surface-var);font-size:12px;font-weight:550;letter-spacing:.4px}
+  .sync .ms{font-size:14px;color:var(--success)}
+  .avatar{
+    width:40px;height:40px;border-radius:50%;flex:none;
+    background:linear-gradient(135deg,#4285F4,#9B72CB 55%,#D96570);
+    color:#fff;display:flex;align-items:center;justify-content:center;
+    font-weight:600;font-size:16px;
+    overflow:hidden;
+  }
+  .avatar img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+  .iconbtn{
+    width:40px;height:40px;border-radius:50%;flex:none;border:1px solid rgba(255,255,255,.09);
+    background:rgba(255,255,255,.06);color:var(--on-surface-var);cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .4s var(--spring);
+  }
+  .iconbtn:active{transform:scale(.92)}
+  .iconbtn .ms{font-size:20px}
+
+  /* P0-1 · baseline deltas — no number without "vs your usual" */
+  .delta{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;letter-spacing:.2px;border-radius:7px;padding:2.5px 7px;vertical-align:middle}
+  .delta.up{background:rgba(139,230,168,.12);color:var(--success)}
+  .delta.warn{background:rgba(229,184,99,.14);color:var(--gold)}
+  .delta.flat{background:rgba(255,255,255,.07);color:var(--on-surface-var)}
+
+  /* P0-2 · today's plan — the score drives the day */
+  /* Active Zone Minutes — position-in-range gauge (Whoop/Oura style). The target
+     band is the hero; today's value is a labelled caret dropping into it. Read-only. */
+  /* Status sits with its metric (Oura pattern) — a quiet accent label, not a header badge */
+  .zm{margin-top:16px}
+  .zm-top{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:600;color:var(--on-surface-var)}
+  .zm-status{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;letter-spacing:.1px;color:var(--primary)}
+  .zm-status .dot{width:6px;height:6px;border-radius:50%;background:var(--primary)}
+  .zm-bar{position:relative;height:6px;border-radius:999px;background:rgba(255,255,255,.09);margin-top:30px}
+  .zm-zone{position:absolute;left:33.3%;width:33.4%;top:0;bottom:0;border-radius:999px;background:linear-gradient(180deg,color-mix(in srgb,var(--primary) 82%,#fff),var(--primary));box-shadow:0 1px 10px color-mix(in srgb,var(--primary) 45%,transparent)}
+  /* floating target-dot marker + value bubble (sleek, read-only) */
+  .zm-val{position:absolute;left:60%;top:-26px;transform:translateX(-50%);font-size:13px;font-weight:800;font-style:normal;letter-spacing:.2px;line-height:1;white-space:nowrap;color:var(--on-surface)}
+  .zm-dot{position:absolute;left:60%;top:50%;width:13px;height:13px;transform:translate(-50%,-50%);border-radius:50%;background:#fff;box-shadow:0 0 0 3px var(--primary),0 2px 6px rgba(0,0,0,.28);z-index:2}
+  .zm-ticks{position:relative;height:13px;margin-top:9px;font-size:9.5px;font-weight:600;letter-spacing:.3px;color:var(--on-surface-var);opacity:.6}
+  .zm-ticks span{position:absolute;transform:translateX(-50%)}
+  .plan-tt{font-size:15px;font-weight:600;margin-top:2px}
+
+  /* P0-3 · time-adaptive hero — the layout answers "how am I doing right now" */
+  .dp-label{font-size:10px;font-weight:700;letter-spacing:.5px;color:var(--on-surface-var);margin:2px 4px 10px}
+  .phone[data-daypart="morning"] .card-sleep{order:-1;grid-column:1/-1;padding:20px;cursor:pointer}
+  .phone[data-daypart="morning"] .card-sleep .big{font-size:40px;line-height:44px}
+  /* morning keeps the full Steps card (with the ring) — same as the default view */
+
+  /* today-so-far ministats */
+  .ministats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+  .mst{border-radius:16px;padding:10px 6px;text-align:center}
+  .mst .ms{font-size:16px;color:var(--on-surface-var)}
+  .mst .v{font-size:14.5px;font-weight:650;margin-top:3px}
+  .mst .v small{font-size:9.5px;font-weight:600;color:var(--on-surface-var)}
+  .mst .l{font-size:8.5px;font-weight:700;letter-spacing:.5px;color:var(--on-surface-var);margin-top:1px}
+
+  /* timeline day divider + history */
+  .tl-div{display:flex;align-items:center;gap:10px;padding:9px 16px 7px;font-size:10.5px;font-weight:700;letter-spacing:.8px;color:var(--on-surface-var);border-top:1px solid var(--sc-high)}
+  .tl-div::after{content:"";flex:1;height:1px;background:var(--sc-high)}
+  .ghostbtn{
+    display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+    font:inherit;font-size:13px;font-weight:600;color:var(--on-surface-var);cursor:pointer;
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;
+    min-height:46px;margin-top:12px;transition:transform .4s var(--spring);
+  }
+  .ghostbtn:active{transform:scale(.97)}
+  .ghostbtn .ms{font-size:17px}
+
+  /* ---------- today: metric grid ---------- */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid > .card{min-width:0}
+  .card-steps .row{flex-wrap:wrap;row-gap:4px}
+  .card{border-radius:20px;padding:18px;position:relative}
+  .card .cap{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;letter-spacing:.1px;margin-bottom:8px}
+  .card .cap .ms{font-size:24px}
+  .card .big{font-size:32px;line-height:36px;font-weight:600;font-variation-settings:'wght' 620}
+  .card .sub{font-size:12px;margin-top:2px;opacity:.75;font-weight:400}
+
+  .card-steps{grid-column:1/-1;background:var(--sc-low);color:var(--on-surface);padding:20px 20px 18px}
+  .card-steps .cap{color:var(--primary)}
+  .card-steps .row{display:flex;align-items:baseline;gap:10px}
+  .card-steps .big{font-size:44px;line-height:48px}
+  .card-sleep .big{font-size:36px;line-height:40px;white-space:nowrap}
+  .card-steps .goal{font-size:13px;font-weight:550;opacity:.7}
+  /* circular steps ring — lime arc + footprint core (springs in on load) */
+  .steps-body{display:flex;align-items:center;gap:22px;margin-top:12px}
+  .steps-ring{position:relative;width:112px;height:112px;flex:none}
+  .steps-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+  .ring-track{fill:none;stroke:var(--sc-highest);stroke-width:11}
+  .ring-fill{fill:none;stroke:var(--primary);stroke-width:11;stroke-linecap:round;
+    stroke-dasharray:314.159;stroke-dashoffset:314.159;
+    filter:drop-shadow(0 1px 5px color-mix(in srgb,var(--primary) 40%,transparent));
+    transition:stroke-dashoffset 1.05s var(--spring)}
+  /* clean: percent-to-goal in the ring, no medallion disc */
+  .ring-core{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;transition:transform .5s var(--spring)}
+  .ring-core .pct{font-size:24px;font-weight:800;line-height:1;color:var(--primary);font-variation-settings:'wght' 700}
+  .ring-core .pl{font-size:9.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--on-surface-var);opacity:.7}
+  .card-steps.pop .ring-core{animation:stepPop .55s var(--spring)}
+  @keyframes stepPop{0%{transform:scale(1)}45%{transform:scale(1.12)}100%{transform:scale(1)}}
+  .steps-stats{min-width:0}
+  .steps-stats .row{display:flex;align-items:baseline;gap:8px}
+  .steps-stats .delta{display:inline-flex;align-items:center;margin-top:8px;font-size:12px;padding:5px 12px;border-radius:8px;gap:4px}
+  .steps-stats .sub{margin-top:9px}
+  @media (prefers-reduced-motion:reduce){ .ring-fill{transition:none} .card-steps.pop .ring-core{animation:none} }
+  /* dark Steps → desaturated amber (unify with light's orange identity) */
+  .phone:not([data-mode="light"]) .card-steps .cap,
+  .phone:not([data-mode="light"]) .card-steps .ring-core .pct{color:#FBA43F}
+  .phone:not([data-mode="light"]) .card-steps .ring-fill{stroke:#FBA43F;filter:drop-shadow(0 1px 6px color-mix(in srgb,#FBA43F 42%,transparent))}
+  .phone:not([data-mode="light"]) .card-steps .delta.up{background:rgba(251,164,63,.16);color:#FBA43F}
+  /* dark Sleep → purple (unify with light's purple identity) */
+  .phone:not([data-mode="light"]) .card-sleep .delta-line,
+  .phone:not([data-mode="light"]) .sl-hero .rng .d-up{color:var(--tertiary)}
+  .phone:not([data-mode="light"]) .card-sleep .scorechip{background:color-mix(in srgb,var(--tertiary) 16%,transparent);color:var(--tertiary)}
+  .phone:not([data-mode="light"]) .card-sleep .scorechip .ms{color:var(--tertiary)}
+
+  .card-cardio{background:var(--sc-low);color:var(--on-surface)}
+  .card-cardio .cap{color:var(--fitness)}
+  .card-sleep{background:var(--sc-low);color:var(--on-surface)}
+  .card-sleep .cap{color:var(--tertiary)}
+  /* half-width sleep card stays calm: number → delta → one chip */
+  .card-sleep .rng-line{display:none}
+  .card-sleep .delta-line{color:var(--success);font-weight:650;opacity:1}
+  /* stage mix as one slim bar — the hypnogram lives on the Sleep tab (Oura/WHOOP: no chart on home) */
+  .card-sleep .msilh{display:none;margin-top:14px;gap:3px;height:10px}
+  .card-sleep .msilh i{border-radius:99px;min-width:6px}
+  .card-sleep .msilh + .mix-line{display:none;margin-top:8px}
+  .phone[data-daypart="morning"] .card-sleep .msilh + .mix-line{display:block;font-size:11.5px;color:var(--on-surface-var);font-weight:550}
+  .phone[data-daypart="morning"] .card-sleep .rng-line{display:block}
+  .phone[data-daypart="morning"] .card-sleep .msilh{display:flex}
+  .card-sleep .scorechip{
+    display:inline-flex;align-items:center;gap:4px;margin-top:8px;
+    background:rgba(139,230,168,.13);color:var(--success);border-radius:8px;padding:3px 8px;
+    font-size:12px;font-weight:600;
+  }
+  /* morning hero: verdict docks top-right, opposite the cap — number stack stays clean */
+  .phone[data-daypart="morning"] .card-sleep .scorechip{position:absolute;top:17px;right:18px;margin-top:0}
+  .caldots{display:flex;gap:5px;margin-top:12px}
+  .caldots i{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.12)}
+  .caldots i.on{background:var(--fitness)}
+
+  .card-ready{
+    grid-column:1/-1;background:var(--sc-low);color:var(--on-surface);
+    display:flex;align-items:center;gap:14px;padding:16px 18px;
+  }
+  .card-ready .ic{
+    width:40px;height:40px;border-radius:14px;background:var(--sc-highest);
+    display:flex;align-items:center;justify-content:center;color:var(--on-surface-var);flex:none;
+  }
+  .card-ready .tt{font-size:14px;font-weight:600}
+  .card-ready .dd{font-size:12px;color:var(--on-surface-var);margin-top:1px}
+
+  /* ---------- today: timeline ---------- */
+  .sect{display:flex;align-items:center;justify-content:space-between;margin:26px 4px 10px}
+  .sect .title-m{font-variation-settings:'wght' 620}
+  .sect a{font-size:13px;font-weight:600;color:var(--primary);text-decoration:none}
+
+  .tl-card{background:var(--sc-lowest);border-radius:20px;overflow:hidden}
+  .tl-item{
+    display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;
+    transition:background .2s var(--standard);
+  }
+  .tl-main .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tl-item:hover{background:var(--sc-low)}
+  .tl-item + .tl-item{border-top:1px solid var(--sc-high)}
+  .tl-ic{
+    width:44px;height:44px;border-radius:50%;flex:none;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--fitness-container);color:var(--fitness);
+  }
+  .tl-ic.strength{background:rgba(229,184,99,.14);color:var(--gold)}
+  .tl-main{flex:1;min-width:0}
+  .tl-main .nm{font-size:15px;font-weight:600;line-height:1.3;display:flex;align-items:center;gap:6px}
+  .tl-main .nm .ms{font-size:15px;color:var(--success)}
+  .tl-main .mt{font-size:13px;line-height:1.35;color:var(--on-surface-var);margin-top:3px}
+  .tl-time{font-size:12px;font-weight:550;color:var(--on-surface-var)}
+  .tl-item > .ms.chev{color:var(--outline);font-size:20px}
+
+  /* the one-time confirm strip (replaces the 8-chip cloud) */
+  .confirm-strip{
+    display:flex;align-items:center;gap:10px;
+    background:var(--sc-low);border-top:1px solid var(--sc-high);
+    padding:10px 16px 10px 74px;
+    transition:opacity .3s var(--standard);
+  }
+  .confirm-strip .q{flex:1;font-size:13px;color:var(--on-surface-var)}
+  .btn-sm{
+    border:none;cursor:pointer;font:inherit;font-size:12.5px;font-weight:600;
+    border-radius:999px;padding:0 14px;min-height:36px;
+    display:inline-flex;align-items:center;gap:5px;position:relative;
+    transition:transform .45s var(--spring),background .2s var(--standard);
+  }
+  /* 48dp touch target = invisible hit slop, not a bigger pill (M3 accessibility spec) */
+  .btn-sm::before{content:"";position:absolute;inset:-6px;border-radius:999px}
+  .btn-sm .ms{font-size:16px}
+  .btn-sm:active{transform:scale(.94)}
+  .btn-yes{background:var(--primary);color:var(--on-primary)}
+  .btn-edit{background:transparent;color:var(--primary);box-shadow:inset 0 0 0 1px var(--outline-var)}
+  .confirm-strip.done{background:var(--success-container)}
+  .confirm-strip.done .q{color:var(--on-success-container);font-weight:600;display:flex;align-items:center;gap:6px}
+  .confirm-strip.done .q .ms{font-size:16px;color:var(--success)}
+
+  /* FAB — the biggest button logs an activity */
+  .fab{
+    position:absolute;right:18px;bottom:98px;z-index:6;
+    height:56px;border-radius:16px;padding:0 20px 0 16px;border:none;cursor:pointer;
+    background:var(--primary);color:var(--on-primary);
+    display:flex;align-items:center;gap:10px;
+    font:inherit;font-size:15px;font-weight:600;
+    box-shadow:0 6px 20px color-mix(in srgb, var(--primary) 30%, transparent);
+    transition:transform .5s var(--spring),opacity .25s var(--standard);
+  }
+  .fab:active{transform:scale(.95)}
+  .fab .ms{font-size:24px}
+  .phone[data-tab]:not([data-tab="today"]) .fab{opacity:0;pointer-events:none;transform:translateY(12px)}
+
+  /* ---------- sleep screen ---------- */
+  .sl-head{padding:10px 4px 4px}
+  .sl-head .headline-s{font-variation-settings:'wght' 620}
+  .seg{
+    display:inline-flex;background:var(--sc);border-radius:999px;padding:4px;margin:14px 0 18px;
+  }
+  .seg button{
+    border:none;background:transparent;cursor:pointer;font:inherit;
+    font-size:13px;font-weight:600;color:var(--on-surface-var);
+    padding:0 16px;min-height:40px;border-radius:999px;
+    transition:background .35s var(--spring),color .2s;
+  }
+  .seg button.on{background:var(--sc-highest);color:var(--on-surface);box-shadow:0 1px 3px rgba(0,0,0,.35)}
+
+  .sl-hero{
+    background:var(--sc-low);color:var(--on-surface);
+    border-radius:24px;padding:22px;display:flex;align-items:center;gap:22px;
+  }
+  /* score in an M3E shape container (scalloped "sunny") */
+  .scallop{position:relative;width:104px;height:104px;flex:none}
+  .scallop svg{position:absolute;inset:0}
+  .scallop .in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .scallop .n{font-size:36px;font-weight:650;color:var(--success);line-height:1}
+  .scallop .lb{font-size:11px;font-weight:650;margin-top:2px;color:var(--on-success-container)}
+  .sl-hero .rng .d-up{color:var(--success);font-weight:650;white-space:nowrap}
+  .sl-hero .facts{flex:1}
+  .sl-hero .facts .dur{font-size:26px;font-weight:600}
+  .sl-hero .facts .rng{font-size:13px;opacity:.75;margin-top:2px}
+  .chip-goal{
+    display:inline-flex;align-items:center;gap:5px;margin-top:10px;
+    background:var(--success-container);color:var(--on-success-container);
+    font-size:12px;font-weight:600;border-radius:8px;padding:4px 10px;
+  }
+  .chip-goal .ms{font-size:15px;color:var(--success)}
+
+  .hypno-card{background:var(--sc-lowest);border-radius:20px;padding:18px;margin-top:12px}
+  .hypno-card h4{font-size:14px;font-weight:600;margin-bottom:14px}
+  /* the night as a 4-lane stepped hypnogram — flat capsules, one lane per stage */
+  .hypno{display:flex;flex-direction:column;gap:7px;margin-top:2px}
+  .hlane{display:flex;align-items:center;gap:10px}
+  .hlane .hlab{width:38px;flex:none;text-align:right;font-size:10px;font-weight:650;letter-spacing:.02em;color:var(--on-surface-var)}
+  .hlane .trk{position:relative;flex:1;height:16px;border-radius:8px;background:rgba(255,255,255,.05);overflow:hidden}
+  .hseg{position:absolute;top:2px;bottom:2px;border-radius:6px;min-width:5px}
+  @keyframes hlaneIn{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+  .hypno.go .hlane .trk{animation:hlaneIn .7s var(--standard) both}
+  .hypno.go .hlane:nth-child(2) .trk{animation-delay:.08s}
+  .hypno.go .hlane:nth-child(3) .trk{animation-delay:.16s}
+  .hypno.go .hlane:nth-child(4) .trk{animation-delay:.24s}
+  @media (prefers-reduced-motion:reduce){.hypno.go .hlane .trk{animation:none}}
+  .phone[data-mode="light"] .hlane .trk{background:rgba(0,0,0,.05)}
+  .hyp-axis{display:flex;justify-content:space-between;font-size:11px;color:var(--on-surface-var);margin-top:8px;font-weight:500;padding-left:48px}
+  .stg-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+  .stg-chips span{display:inline-flex;align-items:center;gap:6px;background:var(--sc);border-radius:999px;padding:7px 12px;font-size:11.5px;font-weight:600;color:var(--on-surface-var)}
+  .stg-chips i{width:8px;height:8px;border-radius:50%;flex:none}
+
+  .insight{
+    display:flex;gap:12px;align-items:center;
+    background:var(--sc-low);border-radius:20px;padding:14px 16px;margin-top:12px;
+  }
+  .insight .ms{color:var(--tertiary);flex:none}
+  .insight p{font-size:13.5px;line-height:19px;color:var(--on-surface)}
+
+  /* ---------- activity detail sheet ---------- */
+  .scrim{
+    position:absolute;inset:0;background:rgba(15,20,30,.4);z-index:8;
+    opacity:0;pointer-events:none;transition:opacity .3s var(--standard);
+  }
+  .sheet{
+    position:absolute;left:0;right:0;bottom:0;top:64px;z-index:9;
+    background:var(--surface);border-radius:28px 28px 0 0;
+    transform:translateY(104%);transition:transform .55s var(--spring);
+    display:flex;flex-direction:column;overflow:hidden;
+  }
+  .phone.sheet-open .scrim,.phone.log-open .scrim,.phone.start-open .scrim,.phone.what-open .scrim,
+  .phone.hist-open .scrim,.phone.custom-open .scrim,.phone.setup-open .scrim{opacity:1;pointer-events:auto}
+  .phone.sheet-open .sheet:not(.logsheet){transform:translateY(0)}
+  .phone.log-open #logsheet{transform:translateY(0)}
+  .phone.start-open #startsheet{transform:translateY(0)}
+  .phone.what-open #whatsheet{transform:translateY(0)}
+  .phone.hist-open #histsheet{transform:translateY(0)}
+  .phone.custom-open #customsheet{transform:translateY(0)}
+  .phone.setup-open #setupsheet{transform:translateY(0)}
+  .sheet .grab{width:36px;height:4px;border-radius:2px;background:var(--outline-var);margin:10px auto 2px;flex:none}
+  .sheet-body{flex:1;overflow-y:auto;padding:8px 20px 28px;scrollbar-width:none}
+  .sheet-body::-webkit-scrollbar{display:none}
+  .sh-head{display:flex;align-items:center;gap:14px;padding:8px 0 16px}
+  .sh-head .tl-ic{width:48px;height:48px}
+  .sh-head .tt{flex:1}
+  .sh-head .tt .title-l{font-variation-settings:'wght' 620}
+  .sh-head .tt .when{font-size:13px;color:var(--on-surface-var);margin-top:1px}
+  .sh-close{border:none;background:var(--sc);width:40px;height:40px;border-radius:50%;cursor:pointer;color:var(--on-surface);display:flex;align-items:center;justify-content:center}
+
+  .verify{
+    display:flex;align-items:center;gap:10px;
+    background:var(--secondary-container);color:var(--on-secondary-container);
+    border-radius:16px;padding:12px 14px;margin-bottom:14px;
+    transition:background .35s var(--standard);
+  }
+  .verify .q{flex:1;font-size:13.5px;font-weight:550;line-height:18px}
+  .verify.done{background:var(--success-container);color:var(--on-success-container)}
+
+  .map{
+    height:170px;border-radius:16px;position:relative;overflow:hidden;
+    background:linear-gradient(150deg,#17231C,#131F2A 60%,#1C1B2A);
+    margin-bottom:14px;
+  }
+  .map svg{position:absolute;inset:0}
+  .map .pin{position:absolute;width:12px;height:12px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+
+  .statgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .stat{background:var(--sc-lowest);border-radius:16px;padding:14px 16px}
+  .stat .k{font-size:12px;font-weight:600;color:var(--on-surface-var);letter-spacing:.4px;display:flex;gap:5px;align-items:center}
+  .stat .k .ms{font-size:15px}
+  .stat .v{font-size:22px;font-weight:600;margin-top:4px;font-variation-settings:'wght' 620}
+  .stat .v small{font-size:13px;font-weight:550;color:var(--on-surface-var)}
+
+  .hr-card{background:var(--sc-lowest);border-radius:16px;padding:14px 16px;margin-top:10px}
+  .hr-card .k{font-size:12px;font-weight:600;color:var(--on-surface-var);letter-spacing:.4px;margin-bottom:8px}
+
+  /* ---------- fitness screen ---------- */
+  .week-pills{display:flex;gap:6px;margin-top:12px}
+  .week-pills .wp{
+    flex:1;height:48px;border-radius:999px;background:rgba(255,255,255,.06);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+    font-size:9.5px;font-weight:700;color:var(--on-surface-var);letter-spacing:.5px;
+  }
+  .week-pills .wp .ms{font-size:14px;color:var(--primary)}
+  .week-pills .wp.done{background:var(--primary-container);color:var(--on-primary-container)}
+  .week-pills .wp.today{box-shadow:inset 0 0 0 1.5px color-mix(in srgb, var(--primary) 55%, transparent)}
+  .start-chips{display:flex;gap:8px;flex-wrap:wrap}
+  .start-chips button{
+    font:inherit;font-size:13px;font-weight:600;color:var(--on-surface);cursor:pointer;
+    background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.09);border-radius:999px;
+    min-height:44px;padding:0 16px;display:inline-flex;align-items:center;gap:7px;
+    transition:transform .4s var(--spring);
+  }
+  .start-chips button:active{transform:scale(.94)}
+  .start-chips .ms{font-size:17px;color:var(--primary)}
+  .start-chips .more{color:var(--on-surface-var)}
+  .start-chips .more .ms{color:var(--on-surface-var)}
+  .loadchip{font-size:10px;font-weight:700;letter-spacing:.3px;color:var(--fitness);background:rgba(84,199,244,.12);border-radius:7px;padding:3px 7px;flex:none}
+
+  /* ---------- health screen ---------- */
+  .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .mcard{border-radius:18px;padding:14px}
+  .mcard .mk{font-size:10px;font-weight:700;letter-spacing:.4px;color:var(--on-surface-var);display:flex;gap:5px;align-items:center}
+  .mcard .mv{font-size:24px;font-weight:650;margin-top:4px}
+  .mcard .mv small{font-size:12px;color:var(--on-surface-var);font-weight:600}
+  .mcard svg{display:block;margin-top:10px}
+  .chip-state{display:inline-flex;align-items:center;gap:4px;margin-top:10px;font-size:10px;font-weight:650;border-radius:7px;padding:3px 8px}
+  .chip-state.ok{background:rgba(139,230,168,.12);color:var(--success)}
+  .chip-state.cal{background:rgba(255,255,255,.07);color:var(--on-surface-var)}
+  .ebar{height:8px;border-radius:4px;background:rgba(255,255,255,.08);margin-top:12px;overflow:hidden}
+  .ebar i{display:block;height:100%;border-radius:4px;background:var(--tertiary)}
+
+  /* ---------- log sheet + snackbar ---------- */
+  .sheet.logsheet{top:auto;height:auto;padding-bottom:max(env(safe-area-inset-bottom),8px)}
+  .log-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:4px;padding-bottom:14px}
+  .log-grid button{
+    font:inherit;font-size:12.5px;font-weight:600;color:var(--on-surface);cursor:pointer;
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:18px;
+    min-height:84px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+    transition:transform .4s var(--spring),background .2s;
+  }
+  .log-grid button:active{transform:scale(.93)}
+  .log-grid .ms{font-size:24px;color:var(--primary)}
+  .log-grid .custom{color:var(--on-surface-var)}
+  .log-grid .custom .ms{color:var(--on-surface-var)}
+  .what-body{font-size:15px;line-height:1.65;color:var(--on-surface-var);padding:2px 4px 8px}
+  .what-body b{color:var(--on-surface);font-weight:600}
+
+  /* ---- round two: live workout ---- */
+  .workout{
+    position:absolute;inset:0;z-index:11;background:var(--surface);color:var(--on-surface);
+    display:flex;flex-direction:column;align-items:center;padding:60px 24px 40px;
+    transform:translateY(102%);transition:transform .55s var(--spring);
+  }
+  .phone.wo-open .workout{transform:translateY(0)}
+  .wo-head{display:flex;align-items:center;gap:14px;align-self:stretch}
+  .wo-head .when{font-size:12px;color:var(--on-surface-var)}
+  .wo-time{font-family:'Space Grotesk',sans-serif;font-size:76px;font-weight:600;letter-spacing:-.02em;margin:60px 0 30px}
+  .wo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-self:stretch}
+  .wo-stat{border-radius:18px;padding:16px 8px;text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.05)}
+  .phone[data-mode="light"] .wo-stat{background:#FFFFFF;border-color:transparent;box-shadow:0 1px 2px rgba(0,0,0,.03),0 6px 18px rgba(0,0,0,.05)}
+  .wo-stat .v{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:600}
+  .wo-stat .l{font-size:9px;font-weight:700;letter-spacing:.6px;color:var(--on-surface-var);margin-top:4px}
+  .wo-ctl{display:flex;gap:12px;margin-top:auto;align-self:stretch}
+  .wo-pause{
+    width:64px;height:64px;border-radius:22px;border:1px solid rgba(255,255,255,.14);cursor:pointer;
+    background:rgba(255,255,255,.08);color:var(--on-surface);display:flex;align-items:center;justify-content:center;
+  }
+  .phone[data-mode="light"] .wo-pause{background:rgba(0,0,0,.05);border-color:transparent}
+  .phone[data-mode="light"] .hr-card line{stroke:rgba(0,0,0,.12)}
+  .wo-pause .ms{font-size:26px}
+  .wo-end{
+    flex:1;height:64px;border-radius:22px;border:none;cursor:pointer;font:inherit;
+    font-size:16px;font-weight:650;background:var(--primary);color:var(--on-primary);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 6px 20px color-mix(in srgb, var(--primary) 30%, transparent);
+  }
+  .phone[data-mode="light"] .wo-end{background:#CDE64B;color:#232B00}
+  /* celebration: the M3E shape-morph moment */
+  .celebrate{
+    position:absolute;inset:0;z-index:12;display:flex;align-items:center;justify-content:center;
+    background:color-mix(in srgb, var(--surface) 55%, transparent);
+    -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+    opacity:0;pointer-events:none;transition:opacity .3s;
+  }
+  .phone.cel-open .celebrate{opacity:1}
+  .cel-card{text-align:center}
+  .cel-card .scallop{width:128px;height:128px;margin:0 auto}
+  .phone.cel-open .cel-card .scallop{animation:celpop 1s var(--spring)}
+  @keyframes celpop{0%{transform:scale(.4) rotate(-14deg);opacity:0}55%{transform:scale(1.12) rotate(4deg);opacity:1}100%{transform:scale(1) rotate(0)}}
+  .cel-t{font-size:24px;font-weight:650;margin-top:18px}
+  .cel-s{font-size:14px;color:var(--on-surface-var);margin-top:6px}
+
+  /* ---- round two: history / custom / setup sheets ---- */
+  .hist-day{font-size:10.5px;font-weight:700;letter-spacing:.8px;color:var(--on-surface-var);margin:16px 4px 8px}
+  .hist-day:first-child{margin-top:4px}
+  /* sheet filter: same segmented control as .seg (Day/Week/Month/6M) */
+  .hist-filter{display:inline-flex;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);border-radius:999px;padding:4px;margin:6px 0 16px}
+  .hist-filter button{
+    border:none;background:transparent;cursor:pointer;font:inherit;
+    font-size:13px;font-weight:600;color:var(--on-surface-var);
+    padding:0 16px;min-height:40px;border-radius:999px;
+    transition:background .35s var(--spring),color .2s;
+  }
+  .hist-filter button.on{background:rgba(255,255,255,.14);color:var(--on-surface);box-shadow:0 1px 3px rgba(0,0,0,.35)}
+  .glass-input{
+    width:100%;font:inherit;font-size:15px;color:var(--on-surface);
+    background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;
+    min-height:52px;padding:0 16px;outline:none;margin:6px 0 14px;
+  }
+  .phone[data-mode="light"] .glass-input{background:#F1F1F0;border-color:transparent}
+  .glass-input::placeholder{color:var(--on-surface-var)}
+  .sheet-cta{
+    width:100%;min-height:52px;border-radius:16px;border:none;cursor:pointer;font:inherit;
+    font-size:15px;font-weight:650;background:var(--primary);color:var(--on-primary);margin-bottom:12px;
+  }
+  .sw-row{display:flex;align-items:center;gap:12px;padding:14px 4px;border-bottom:1px solid rgba(255,255,255,.07)}
+  .phone[data-mode="light"] .sw-row{border-bottom-color:rgba(0,0,0,.06)}
+  .sw-row:last-of-type{border-bottom:none}
+  .sw-row .t{flex:1;font-size:14.5px;font-weight:550}
+  .sw-row .d{font-size:11.5px;color:var(--on-surface-var);margin-top:2px}
+  .sw{
+    width:52px;height:32px;border-radius:999px;flex:none;position:relative;cursor:pointer;
+    background:rgba(255,255,255,.12);transition:background .3s;border:1px solid rgba(255,255,255,.1);
+  }
+  .phone[data-mode="light"] .sw{background:rgba(0,0,0,.12)}
+  .phone[data-mode="light"] .sw.on{background:var(--success)}
+  .phone[data-mode="light"] .sect a{color:var(--on-surface)}
+  .sw::after{
+    content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;
+    background:#fff;transition:transform .35s var(--spring);box-shadow:0 1px 4px rgba(0,0,0,.3);
+  }
+  .sw.on{background:var(--success)}
+  .sw.on::after{transform:translateX(20px)}
+  .snack{
+    position:absolute;left:50%;bottom:104px;transform:translateX(-50%) translateY(16px);z-index:8;
+    background:rgba(20,20,27,.92);border:1px solid rgba(255,255,255,.10);color:var(--on-surface);
+    font-size:13px;font-weight:550;border-radius:999px;padding:10px 18px;white-space:nowrap;
+    opacity:0;pointer-events:none;transition:opacity .3s,transform .5s var(--spring);
+  }
+  .snack.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* ---------- bottom nav (M3 navigation bar, 80dp) ---------- */
+  .navbar{
+    position:absolute;left:0;right:0;bottom:0;height:80px;z-index:7;
+    background:var(--sc);display:flex;align-items:stretch;
+    padding:10px 6px 12px;
+  }
+  .nv{
+    flex:1;border:none;background:transparent;cursor:pointer;font:inherit;
+    display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--on-surface-var);
+  }
+  .nv .pill{
+    width:64px;height:32px;border-radius:999px;display:flex;align-items:center;justify-content:center;
+    transition:background .4s var(--spring);
+  }
+  .nv .lb{font-size:12px;font-weight:550;letter-spacing:.4px}
+  .nv.on{color:var(--on-surface)}
+  .nv.on .pill{background:var(--primary)}
+  .nv.on .ms{font-variation-settings:'FILL' 1,'wght' 500,'opsz' 24;color:var(--on-primary)}
+  .nv.on .lb{font-weight:650}
+
+  /* ================= theme lab: four accent stories =================
+     roles stay fixed (primary=act · tertiary=sleep · fitness=cardio · success=state);
+     only the hues rotate. Glows derive from the tokens via color-mix. */
+  .phone[data-theme="glacier"]{
+    --primary:#7CD4FD; --on-primary:#002B3F; --primary-container:#0E3A50; --on-primary-container:#C4EAFF;
+    --tertiary:#B5A8FF; --tertiary-container:#2C2454; --on-tertiary-container:#E4DDFF;
+    --fitness:#5EEAD4; --fitness-container:#0E3B33; --on-fitness-container:#BDF5E9;
+  }
+  .phone[data-theme="ember"]{
+    --primary:#FFC24B; --on-primary:#3F2A00; --primary-container:#4A3200; --on-primary-container:#FFE0A6;
+    --tertiary:#A78BFA; --tertiary-container:#2E2154; --on-tertiary-container:#E2D8FF;
+    --fitness:#67B7F0; --fitness-container:#0F3550; --on-fitness-container:#C6E5FC;
+  }
+  .phone[data-theme="signal"]{
+    --primary:#8AB4F8; --on-primary:#062E6F; --primary-container:#0842A0; --on-primary-container:#D3E3FD;
+    --tertiary:#D0BCFF; --tertiary-container:#38265C; --on-tertiary-container:#EDE2FF;
+    --fitness:#5FD4D0; --fitness-container:#0C3A38; --on-fitness-container:#BDF0EE;
+    --success:#6DD58C; --success-container:#14371F; --on-success-container:#C4EED0;
+  }
+  /* the dark top-glow is meaning-tied: hue follows daypart, then theme */
+  .phone{--glow:rgba(150,168,52,.15)}                       /* volt lime, low chroma */
+  .phone[data-daypart="morning"]{--glow:rgba(45,140,120,.15)} /* mornings glow sleep-teal */
+  .phone[data-theme="glacier"]{--glow:rgba(60,120,160,.17)}
+  .phone[data-theme="ember"]{--glow:rgba(185,130,45,.14)}
+  .phone[data-theme="signal"]{--glow:rgba(75,110,190,.16)}
+
+  /* ================= type lab =================
+     DEFAULT = grotesk numerals (her pick): data gets a display voice,
+     Roboto Flex keeps the prose. A/B remain as lab variants. */
+  .big,.sl-hero .dur,.mcard .mv,.scallop .n,.mst .v,.tl-time{
+    font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-.01em;
+  }
+  .phone[data-type="a"] .big,.phone[data-type="a"] .sl-hero .dur,.phone[data-type="a"] .mcard .mv,
+  .phone[data-type="a"] .scallop .n,.phone[data-type="a"] .mst .v,.phone[data-type="a"] .tl-time{
+    font-family:'Roboto Flex',Roboto,sans-serif;letter-spacing:normal;
+  }
+  .phone[data-type="b"] .card-steps .big{font-size:54px;line-height:56px}
+  .phone[data-type="b"] .card .big{font-size:36px;line-height:40px}
+  .phone[data-type="b"] .sl-hero .dur{font-size:30px}
+  .phone[data-type="b"] .mcard .mv{font-size:28px}
+  .phone[data-type="b"] .card .cap,.phone[data-type="b"] .mcard .mk{font-size:9.5px;letter-spacing:.9px}
+  .phone[data-type="b"] .card .sub{font-size:11.5px}
+
+  /* lab switcher (desktop stage only — hidden in dummy-app mode) */
+  .lab{
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center;
+    font-family:inherit;font-size:12px;color:#8b93a1;
+  }
+  .lab .lgroup{display:flex;gap:6px;align-items:center}
+  .lab .lgroup > span{font-size:10px;letter-spacing:1.5px;font-weight:700;margin-right:2px}
+  .lab button{
+    font:inherit;font-size:12px;font-weight:600;cursor:pointer;color:#aab2c0;
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
+    border-radius:999px;padding:6px 14px;
+  }
+  .lab button.on{background:#d7dce6;color:#14161a;border-color:transparent}
+  @media (max-width:520px){.lab{display:none}}
+
+  /* ================= liquid-glass pass =================
+     Glass only reads with light behind it: .aurora paints 1–2 desaturated
+     echoes of the accent under the screens (Linear-look hue discipline).
+     Cards are translucent fills over the pre-blurred aurora — real
+     backdrop-filter is reserved for the two chrome layers (dock + sheet),
+     staying inside Apple's ≤4-glass-layers budget with zero nesting. */
+  .aurora{position:absolute;inset:0;pointer-events:none}
+  .aurora i{position:absolute;border-radius:50%}
+  .aurora .a1{width:400px;height:400px;left:-120px;top:-110px}
+  .aurora .a2{width:320px;height:320px;right:-100px;top:170px}
+  .aurora .a3{width:340px;height:340px;left:-90px;bottom:60px}
+  /* DARK: one localized top glow, meaning-tied via --glow, fading to flat
+     near-black before the data cards (WHOOP/Apple-Fitness rule: color
+     belongs to the data, not the backdrop). Light mode keeps its three
+     spec-true radial fades. */
+  .phone:not([data-mode="light"]) .aurora i{opacity:1;filter:blur(30px)}
+  .phone:not([data-mode="light"]) .aurora .a1{
+    left:-12%;top:-170px;width:124%;height:420px;
+    background:radial-gradient(52% 60% at 50% 45%, var(--glow), transparent 72%);
+  }
+  .phone:not([data-mode="light"]) .aurora .a2,
+  .phone:not([data-mode="light"]) .aurora .a3{display:none}
+  /* film grain — the difference between glass and a translucent div */
+  .grain{position:absolute;inset:0;pointer-events:none;z-index:4;opacity:.06;mix-blend-mode:overlay;
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="160" height="160" filter="url(%23n)" opacity="0.7"/></svg>')}
+
+  /* card glass: white-alpha gradient over a dark plate — numerals never sit on raw glass */
+  .card-steps,.card-cardio,.card-sleep,.card-ready,.tl-card,.sl-hero,
+  .hypno-card,.insight,.stat,.hr-card,.verify,.gcard{
+    /* fill-step does the separating (Apple/M3 dark elevation); border is a whisper */
+    background:linear-gradient(155deg,rgba(255,255,255,.10),rgba(255,255,255,.03) 45%,rgba(255,255,255,.016)),rgba(20,22,26,.6);
+    border:1px solid rgba(255,255,255,.05);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 14px 34px -14px rgba(0,0,0,.55);
+  }
+  /* top-edge light on hero surfaces — box-shadow follows the radius cleanly (no mask artifacts) */
+  .card-steps,.sl-hero{position:relative}
+  .card-steps::before,.sl-hero::before{
+    content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.20);
+  }
+  .verify.done{background:rgba(23,61,38,.7)}
+  .seg{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07)}
+  .seg button.on{background:rgba(255,255,255,.14)}
+  .tl-item:hover{background:rgba(255,255,255,.05)}
+  .tl-item + .tl-item{border-top-color:rgba(255,255,255,.07)}
+  .confirm-strip{background:rgba(255,255,255,.045);border-top-color:rgba(255,255,255,.07)}
+  .confirm-strip.done{background:rgba(23,61,38,.75)}
+  .card-ready .ic{background:rgba(255,255,255,.10)}
+  .btn-edit{box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+  .sh-close{background:rgba(255,255,255,.09)}
+  .scrim{background:rgba(6,8,12,.5)}
+  /* the ONLY two true backdrop-filter layers: floating dock + modal sheet */
+  .navbar{
+    left:12px;right:12px;bottom:12px;height:72px;border-radius:26px;
+    background:rgba(20,20,27,.72);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 40px -14px rgba(0,0,0,.6);
+    padding:10px 8px;
+  }
+  .sheet{background:rgba(19,19,26,.92);border-top:1px solid rgba(255,255,255,.10)}
+  @supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+    .navbar{background:rgba(20,20,27,.55);-webkit-backdrop-filter:blur(16px) saturate(160%);backdrop-filter:blur(16px) saturate(160%)}
+    .sheet{background:rgba(19,19,26,.78);-webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%)}
+  }
+  .screen{bottom:96px}
+  .fab{bottom:110px}
+  /* ---- dummy-app mode: on phones the prototype IS the app ---- */
+  @media (max-width:520px){
+    body{padding:0;min-height:100dvh;gap:0}
+    .stage-cap{display:none}
+    .phone{width:100%;height:100dvh;border-radius:0;box-shadow:none;flex:auto}
+    .statusbar{display:none}
+    .screen{top:max(env(safe-area-inset-top),14px);bottom:calc(max(env(safe-area-inset-bottom),10px) + 84px)}
+    .navbar{bottom:max(env(safe-area-inset-bottom),10px)}
+    .fab{bottom:calc(max(env(safe-area-inset-bottom),10px) + 98px)}
+    .sheet{top:max(env(safe-area-inset-top),20px)}
+  }
+
+  /* ================= light mode =================
+     answers the "dark-only strains eyes morning & night" critique (Oura's
+     most-cited flaw). Same roles, light physics: glass casts shadow now. */
+  .phone[data-mode="light"]{
+    /* ── Material You (blue seed) — semantic domain roles, per the review ── */
+    --primary:#0B57D0; --on-primary:#FFFFFF; --primary-container:#D3E3FD; --on-primary-container:#041E49;
+    --secondary-container:#DAE2F9; --on-secondary-container:#131C2B;
+    /* sleep = teal */
+    --tertiary:#6750A4; --tertiary-container:#E9DDFF; --on-tertiary-container:#21005D;
+    /* cardio/activity rides the action-blue family */
+    --fitness:#0B57D0; --fitness-container:#D3E3FD; --on-fitness-container:#041E49;
+    /* confirmed-healthy = green */
+    --success:#146C2E; --success-container:#C4EED0; --on-success-container:#052012;
+    /* calibration / learning = amber */
+    --gold:#8A5100; --gold-container:#FFDDB5;
+    --error:#B3261E; --error-container:#F9DEDC;
+    /* tonal canvas: cool near-white with subtle blue tint (M3 surface roles) */
+    --surface:#F8F9FF; --sc-lowest:#FFFFFF; --sc-low:#F0F2FA; --sc:#EAEEF7;
+    --sc-high:#E4E9F3; --sc-highest:#DEE3EE;
+    --on-surface:#1A1B21; --on-surface-var:#44464F; --outline:#74777F; --outline-var:#C4C6D0;
+    --st-awake:#C9B8F5; --st-rem:#A78BDB; --st-light:#8062C7; --st-deep:#4E3A93;
+  }
+  .phone[data-mode="light"] .aurora,.phone[data-mode="light"] .grain{display:none}
+  /* Material 3: separation by TONAL container, not a uniform white card + shadow.
+     Shadows are reserved for nav dock, FAB and modal sheets only. */
+  .phone[data-mode="light"] .card-cardio,.phone[data-mode="light"] .tl-card,
+  .phone[data-mode="light"] .hypno-card,.phone[data-mode="light"] .insight,
+  .phone[data-mode="light"] .stat,.phone[data-mode="light"] .hr-card,
+  .phone[data-mode="light"] .verify,.phone[data-mode="light"] .gcard{
+    background:#FFFFFF;border:1px solid rgba(16,32,43,.07);box-shadow:none;
+  }
+  /* Steps hero → primary-container (Today emphasis) */
+  .phone[data-mode="light"] .card-steps{background:var(--primary-container);border:1px solid transparent;box-shadow:none}
+  .phone[data-mode="light"] .card-steps .cap{color:var(--primary)}
+  .phone[data-mode="light"] .card-steps .ring-track{stroke:rgba(255,255,255,.9)}
+  .phone[data-mode="light"] .card-steps .ring-fill{stroke:var(--primary);filter:none}
+  .phone[data-mode="light"] .card-steps .ring-core .disc{background:#fff;box-shadow:0 1px 3px rgba(4,30,73,.14)}
+  .phone[data-mode="light"] .card-steps .ring-core .ms{color:var(--primary)}
+  /* Sleep → teal container */
+  .phone[data-mode="light"] .card-sleep,.phone[data-mode="light"] .sl-hero{background:var(--tertiary-container);border:1px solid transparent;box-shadow:none}
+  .phone[data-mode="light"] .card-sleep .cap{color:var(--tertiary)}
+  .phone[data-mode="light"] .card-sleep .delta-line{color:var(--tertiary)}
+  .phone[data-mode="light"] .card-sleep .scorechip{background:var(--tertiary);color:#fff}
+  .phone[data-mode="light"] .card-sleep .scorechip .ms{color:#fff}
+  /* bigger sleep icons per the reference */
+  .card-sleep .cap .ms{font-size:22px}
+  .card-sleep .scorechip .ms{font-size:18px}
+  .card-steps .cap .ms{font-size:24px}
+  .card-cardio .cap .ms{font-size:24px}
+  /* Steps delta chip → solid primary (matches the blue Steps hero) */
+  .phone[data-mode="light"] .card-steps .delta.up{background:var(--primary);color:#fff}
+  /* Sleep score badge, range delta + goal chip → purple family (was green) */
+  .phone[data-mode="light"] .scallop .n,.phone[data-mode="light"] .scallop .lb{color:var(--tertiary)}
+  .phone[data-mode="light"] .scallop svg path{fill:var(--tertiary-container);stroke:color-mix(in srgb, var(--tertiary) 70%, transparent)}
+  .phone[data-mode="light"] .scallop svg{filter:drop-shadow(0 6px 16px color-mix(in srgb, var(--tertiary) 22%, transparent))}
+  .phone[data-mode="light"] .sl-hero .rng .d-up{color:var(--tertiary)}
+  .phone[data-mode="light"] .chip-goal{background:rgba(255,255,255,.72);color:var(--on-tertiary-container)}
+  .phone[data-mode="light"] .chip-goal .ms{color:var(--tertiary)}
+  /* Readiness / calibration → amber container */
+  .phone[data-mode="light"] .card-ready{background:var(--gold-container);border:1px solid transparent;box-shadow:none}
+  .phone[data-mode="light"] .tl-ic,.phone[data-mode="light"] .card-ready .ic,
+  .phone[data-mode="light"] .iconbtn,.phone[data-mode="light"] .sh-close,
+  .phone[data-mode="light"] .week-pills .wp,.phone[data-mode="light"] .log-grid button,
+  .phone[data-mode="light"] .start-chips button,.phone[data-mode="light"] .mst{
+    border:1px solid rgba(25,30,15,.09);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 3px 8px -3px rgba(25,35,20,.16);
+  }
+  .phone[data-mode="light"] .iconbtn,.phone[data-mode="light"] .sh-close{background-color:rgba(0,0,0,.045)}
+  .phone[data-mode="light"] .week-pills .wp{background-color:rgba(0,0,0,.05)}
+  .phone[data-mode="light"] .log-grid button,.phone[data-mode="light"] .start-chips button,
+  .phone[data-mode="light"] .ghostbtn{background-color:rgba(0,0,0,.035);border-color:rgba(25,30,15,.09);color:var(--on-surface)}
+  .phone[data-mode="light"] .ghostbtn{color:var(--on-surface-var)}
+  .phone[data-mode="light"] .scorechip,.phone[data-mode="light"] .chip-goal,
+  .phone[data-mode="light"] .delta,.phone[data-mode="light"] .loadchip,
+  .phone[data-mode="light"] .chip-state,.phone[data-mode="light"] .stg-chips span{
+    border:1px solid rgba(25,30,15,.06);box-shadow:none;
+  }
+  .phone[data-mode="light"] .delta.up{background:rgba(30,122,60,.10)}
+  .phone[data-mode="light"] .delta.flat,.phone[data-mode="light"] .chip-state.cal{background:rgba(0,0,0,.05)}
+  .phone[data-mode="light"] .scorechip{background:rgba(30,122,60,.10)}
+  .phone[data-mode="light"] .loadchip{background:rgba(11,109,168,.10)}
+  .phone[data-mode="light"] .chip-state.ok{background:rgba(30,122,60,.10)}
+  .phone[data-mode="light"] .stg-chips span{background:rgba(0,0,0,.045)}
+  .phone[data-mode="light"] .tl-item:hover{background:rgba(0,0,0,.03)}
+  .phone[data-mode="light"] .tl-item + .tl-item{border-top-color:rgba(0,0,0,.06)}
+  .phone[data-mode="light"] .tl-div{border-top-color:rgba(0,0,0,.06)}
+  .phone[data-mode="light"] .tl-div::after{background:rgba(0,0,0,.06)}
+  .phone[data-mode="light"] .confirm-strip{background:rgba(0,0,0,.025);border-top-color:rgba(0,0,0,.06)}
+  .phone[data-mode="light"] .confirm-strip.done{background:var(--success-container)}
+  .phone[data-mode="light"] .verify.done{background:var(--success-container)}
+  .phone[data-mode="light"] .seg{background:rgba(0,0,0,.05);border-color:rgba(25,30,15,.06)}
+  .phone[data-mode="light"] .seg button.on{background:#fff;box-shadow:0 1px 4px rgba(25,35,20,.18)}
+  .phone[data-mode="light"] .lprog .fill,.phone[data-mode="light"] .lprog .stop{background:#6B8010}
+  .phone[data-mode="light"] .lprog .track{background:rgba(0,0,0,.08)}
+  .phone[data-mode="light"] .caldots i{background:rgba(0,0,0,.08)}
+  .phone[data-mode="light"] .caldots i.on{background:var(--fitness)}
+  .phone[data-mode="light"] .dm-dots i{background:rgba(0,0,0,.08)}
+  .phone[data-mode="light"] .dm-dots i.on{background:var(--fitness)}
+  .phone[data-mode="light"] .zm-bar{background:rgba(0,0,0,.07)}
+  .phone[data-mode="light"] .ebar{background:rgba(0,0,0,.07)}
+  .phone[data-mode="light"] .ebar i{background:var(--primary)}
+  .phone[data-mode="light"] .ministats .mst{background-color:rgba(255,255,255,.7)}
+  /* light chrome is neutral: the one solid action is black (color = data only) */
+  .phone[data-mode="light"] .fab{background:var(--primary);color:var(--on-primary);box-shadow:0 8px 24px -6px rgba(11,87,208,.5),0 2px 6px rgba(0,0,0,.1)}
+  .phone[data-mode="light"] .nv.on .pill{background:var(--primary)}
+  .phone[data-mode="light"] .nv.on .ms{color:#fff}
+  .phone[data-mode="light"] .btn-yes,.phone[data-mode="light"] .cs-yes{background:#1A1B1C;color:#fff}
+  .phone[data-mode="light"] .sheet-cta{background:#1A1B1C;color:#fff}
+  .phone[data-mode="light"] .btn-edit{color:var(--primary);box-shadow:inset 0 0 0 1px rgba(25,30,15,.18)}
+  .phone[data-mode="light"] .navbar{
+    background:rgba(255,255,255,.65);border:1px solid rgba(25,30,15,.07);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 14px 34px -14px rgba(25,35,20,.25);
+  }
+  .phone[data-mode="light"] .sheet{background:rgba(252,253,250,.86);border-top:1px solid rgba(25,30,15,.07)}
+  .phone[data-mode="light"] .scrim{background:rgba(18,19,20,.3)}
+  .phone[data-mode="light"] .map{background:linear-gradient(150deg,#E9F2E4,#DFEBF5 60%,#ECE9F6)}
+  .phone[data-mode="light"] .card-steps::before,.phone[data-mode="light"] .sl-hero::before,
+  .phone[data-mode="light"] .card::before,.phone[data-mode="light"] .tl-card::before,
+  .phone[data-mode="light"] .hypno-card::before,.phone[data-mode="light"] .insight::before,
+  .phone[data-mode="light"] .mcard::before,.phone[data-mode="light"] .hr-card::before,
+  .phone[data-mode="light"] .stat::before{
+    background:none;box-shadow:none;
+  }
+  .phone[data-mode="light"] .scallop::after{background:radial-gradient(58% 42% at 32% 22%,rgba(255,255,255,.65),transparent 62%)}
+  .phone[data-mode="light"] .snack{background:rgba(25,28,21,.92);color:#F2F3EE;border-color:rgba(255,255,255,.08)}
+
+  /* ================= glass v2 — lenses & speculars =================
+     more glass without more blur: light catching edges, not extra layers. */
+  /* every icon container becomes a small glass lens */
+  .tl-ic,.card-ready .ic,.iconbtn,.sh-close,.week-pills .wp,
+  .log-grid button,.start-chips button,.mst{
+    background-image:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,0) 55%);
+    border:1px solid rgba(255,255,255,.13);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 4px 10px -4px rgba(0,0,0,.45);
+  }
+  /* chips catch the light on their top edge */
+  .scorechip,.chip-goal,.delta,.loadchip,.chip-state,.stg-chips span,.snack{
+    border:1px solid rgba(255,255,255,.06);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+  }
+  /* top-edge light on every card — clean inset highlight, no masked ring */
+  .card,.tl-card,.hypno-card,.insight,.mcard,.hr-card,.stat{position:relative}
+  .card::before,.tl-card::before,.hypno-card::before,.insight::before,
+  .mcard::before,.hr-card::before,.stat::before{
+    content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.09);
+  }
+  /* the score badge reads as pressed glass */
+  .scallop svg{filter:drop-shadow(0 6px 16px color-mix(in srgb, var(--success) 22%, transparent))}
+  /* mint edge stroke: the badge boundary reads at 3:1+ against the card */
+  .scallop svg path{stroke:color-mix(in srgb, var(--success) 70%, transparent);stroke-width:2}
+  .scallop::after{
+    content:"";position:absolute;inset:8%;border-radius:50%;pointer-events:none;
+    background:radial-gradient(58% 42% at 32% 22%,rgba(255,255,255,.22),transparent 62%);
+  }
+  /* gel highlight on the one solid action */
+  .fab{box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -10px 16px -10px rgba(0,0,0,.3),
+       0 6px 20px color-mix(in srgb, var(--primary) 30%, transparent)}
+  .nv.on .pill{box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -6px 10px -8px rgba(0,0,0,.35)}
+  /* flat cap/timeline icons — no glow */
+  .cap .ms:first-child,.mk .ms:first-child,.tl-ic .ms{filter:none}
+
+  /* ================= light glass — to the spec =================
+     Layer stack: near-white base → chromatic pastel blobs → BLURRED glass
+     panes (blur 14 / saturate 170) → content. Double-edge borders (white
+     inner rim + dark contact hairline) and key+ambient shadows at light-safe
+     alphas (0.04–0.10). No blur = "floating paper" — the named failure mode. */
+  .phone[data-mode="light"]{--surface:#F8F9FF}
+  /* spec: light blobs = radial fades at .22–.28 alpha, never solid tinted fields */
+  .phone[data-mode="light"] .aurora i{opacity:1;filter:blur(60px)}
+  .phone[data-mode="light"] .aurora .a1{background:radial-gradient(closest-side, rgba(154,193,44,.28), transparent 72%)}
+  .phone[data-mode="light"] .aurora .a2{background:radial-gradient(closest-side, rgba(51,196,164,.24), transparent 72%)}
+  .phone[data-mode="light"] .aurora .a3{background:radial-gradient(closest-side, rgba(176,208,84,.22), transparent 72%)}
+  .phone[data-mode="light"] .grain{mix-blend-mode:multiply;opacity:.04}
+  /* Material 3: separation by TONAL container, not a uniform white card. Shadows → nav/FAB/sheet only. */
+  .phone[data-mode="light"] .card-cardio,.phone[data-mode="light"] .tl-card,
+  .phone[data-mode="light"] .hypno-card,.phone[data-mode="light"] .insight,
+  .phone[data-mode="light"] .stat,.phone[data-mode="light"] .hr-card,
+  .phone[data-mode="light"] .verify,.phone[data-mode="light"] .gcard{
+    background:#FFFFFF;border:1px solid rgba(16,32,43,.07);box-shadow:none;
+  }
+  .phone[data-mode="light"] .card-steps{background:var(--primary-container);border:1px solid transparent;box-shadow:none}
+  /* Steps card = soft yellow #F5DE6B, charcoal ink, orange #F26400 ring + chip (light) */
+  .phone[data-mode="light"] .card-steps{background:#F5DE6B}
+  .phone[data-mode="light"] .card-steps .cap,
+  .phone[data-mode="light"] .card-steps .big,
+  .phone[data-mode="light"] .card-steps .ring-core .pct{color:#33322E}
+  .phone[data-mode="light"] .card-steps .ring-core .pl,
+  .phone[data-mode="light"] .card-steps .sub,
+  .phone[data-mode="light"] .card-steps .goal{color:#45433A;opacity:1}
+  .phone[data-mode="light"] .card-steps .ring-track{stroke:rgba(0,0,0,.10)}
+  .phone[data-mode="light"] .card-steps .ring-fill{stroke:#F26400}
+  .phone[data-mode="light"] .card-steps .delta.up{background:#F26400;color:#fff}
+  .phone[data-mode="light"] .card-sleep,.phone[data-mode="light"] .sl-hero{background:var(--tertiary-container);border:1px solid transparent;box-shadow:none}
+  .phone[data-mode="light"] .card-ready{background:var(--gold-container);border:1px solid transparent;box-shadow:none}
+  .phone[data-mode="light"] .card-ready .ic{background-color:#FFFFFF}
+  /* one tonal treatment for every activity icon — differentiate by glyph, not hue */
+  .phone[data-mode="light"] .tl-ic{background-color:#DCE8FB;color:var(--primary);border-color:transparent;box-shadow:none}
+  .phone[data-mode="light"] .tl-ic.strength{background-color:#DCE8FB;color:var(--primary)}
+  .phone[data-mode="light"] .mst{border-color:transparent;box-shadow:none}
+  /* history filter = segmented control, matches .seg in light */
+  .phone[data-mode="light"] .hist-filter{background:rgba(0,0,0,.05);border-color:transparent}
+  .phone[data-mode="light"] .hist-filter button{background:transparent;border-color:transparent;color:var(--on-surface-var);box-shadow:none}
+  .phone[data-mode="light"] .hist-filter button.on{background:#fff;color:var(--on-surface);box-shadow:0 1px 4px rgba(25,35,20,.18)}
+  /* action icons are neutral in light (act=black); identity color stays in timeline */
+  .phone[data-mode="light"] .start-chips .ms,.phone[data-mode="light"] .log-grid .ms{color:var(--on-surface)}
+  .phone[data-mode="light"] .start-chips .more .ms,.phone[data-mode="light"] .log-grid .custom .ms{color:var(--on-surface-var)}
+  /* kill the dark-glass gradient sheen — light lenses are flat fills */
+  .phone[data-mode="light"] .tl-ic,.phone[data-mode="light"] .card-ready .ic,
+  .phone[data-mode="light"] .iconbtn,.phone[data-mode="light"] .sh-close,
+  .phone[data-mode="light"] .week-pills .wp,.phone[data-mode="light"] .log-grid button,
+  .phone[data-mode="light"] .start-chips button,.phone[data-mode="light"] .mst{background-image:none}
+  /* header buttons float on the canvas: white + shadow (like the card step) */
+  .phone[data-mode="light"] .iconbtn,.phone[data-mode="light"] .sh-close{
+    background-color:#FFFFFF;border-color:transparent;
+    box-shadow:0 1px 2px rgba(0,0,0,.05),0 4px 12px rgba(0,0,0,.07);
+  }
+  /* containers INSIDE white cards step down to soft gray instead */
+  .phone[data-mode="light"] .card-ready .ic{background-color:#F2F2F0;border-color:transparent;box-shadow:none}
+  .phone[data-mode="light"] .week-pills .wp{background-color:#F2F2F0;border-color:transparent;box-shadow:none}
+  .phone[data-mode="light"] .week-pills .wp.done{background-color:color-mix(in srgb, var(--primary-container) 75%, transparent)}
+  .phone[data-mode="light"] .log-grid button,.phone[data-mode="light"] .start-chips button,
+  .phone[data-mode="light"] .ghostbtn{
+    background-color:#FFFFFF;border-color:transparent;
+    box-shadow:0 1px 2px rgba(0,0,0,.04),0 4px 14px rgba(0,0,0,.06);
+  }
+  /* chips: flat tinted fills, no edges */
+  .phone[data-mode="light"] .scorechip,.phone[data-mode="light"] .chip-goal,
+  .phone[data-mode="light"] .delta,.phone[data-mode="light"] .loadchip,
+  .phone[data-mode="light"] .chip-state,.phone[data-mode="light"] .stg-chips span{
+    border:1px solid transparent;box-shadow:none;
+  }
+  .phone[data-mode="light"] .stg-chips span{background:rgba(0,0,0,.045)}
+  .phone[data-mode="light"] .seg{background:rgba(0,0,0,.05);border-color:transparent}
+  .phone[data-mode="light"] .confirm-strip{background:rgba(0,0,0,.02)}
+  /* on-canvas tiles are white cards, same as everything at canvas level */
+  .phone[data-mode="light"] .ministats .mst{background-color:#FFFFFF;box-shadow:0 1px 2px rgba(0,0,0,.03),0 6px 18px rgba(0,0,0,.05)}
+  .phone[data-mode="light"] .navbar{
+    background:#FFFFFF;
+    border:1px solid transparent;
+    box-shadow:0 2px 6px rgba(0,0,0,.05),0 16px 40px rgba(0,0,0,.10);
+    -webkit-backdrop-filter:none;backdrop-filter:none;
+  }
+  .phone[data-mode="light"] .sheet{background:#FAFAF9;border-top:1px solid transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
+
+  @media (prefers-reduced-transparency:reduce){
+    .aurora,.grain{display:none}
+    .card-steps,.card-cardio,.card-sleep,.card-ready,.tl-card,.sl-hero,
+    .hypno-card,.insight,.stat,.hr-card,.verify,.gcard,.sheet,.navbar{
+      -webkit-backdrop-filter:none;backdrop-filter:none;background:var(--sc-low);
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="phone" id="phone" data-tab="today" data-mode="light">
+  <div class="viewport">
+
+    <div class="aurora" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <div class="statusbar">
+      <span>7:19</span>
+      <span class="right">
+        <span class="ms" style="font-size:15px">signal_cellular_alt</span>
+        <span class="ms" style="font-size:15px">wifi</span>
+        <span class="ms" style="font-size:16px">battery_5_bar</span>
+      </span>
+    </div>
+
+    <!-- ============ TODAY ============ -->
+    <div class="screen active" id="scr-today">
+      <div class="home-head">
+        <div class="greet">
+          <div class="title-l" id="greetTxt">Good evening</div>
+          <div class="sync"><span class="ms fill">check_circle</span> Fitbit Air synced · 7:14 PM</div>
+        </div>
+        <button class="iconbtn" id="modeToggle" aria-label="Switch light/dark"><span class="ms">light_mode</span></button>
+        <div class="avatar"><img src="/mockups/assets/gh-avatar-2.png" alt="Profile"></div>
+      </div>
+
+      <div class="dp-label" id="dpLabel">YOUR DAY SO FAR</div>
+      <div class="grid">
+        <!-- steps hero -->
+        <div class="card card-steps">
+          <div class="cap"><span class="ms">steps</span> Steps</div>
+          <div class="steps-body">
+            <div class="steps-ring">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <circle class="ring-track" cx="60" cy="60" r="50"/>
+                <circle class="ring-fill" cx="60" cy="60" r="50"/>
+              </svg>
+              <div class="ring-core"><span class="pct">94%</span><span class="pl">of goal</span></div>
+            </div>
+            <div class="steps-stats">
+              <div class="row"><span class="big">9,389</span><span class="goal">of 10,000</span></div>
+              <span class="delta up">▲ 14% vs usual</span>
+              <div class="sub">611 to go, about an 8-minute walk</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- cardio load: honest calibration -->
+        <div class="card card-cardio">
+          <div class="cap" data-what="cardio-load" style="cursor:pointer"><span class="ms">monitor_heart</span> Cardio load <span class="ms" style="font-size:13px;opacity:.55">help</span></div>
+          <div class="big">42</div>
+          <div class="sub">this week</div>
+          <div class="caldots" aria-label="Calibration: day 4 of 7">
+            <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i>
+          </div>
+          <div class="sub" style="margin-top:6px">Your target arrives in 3&nbsp;days</div>
+        </div>
+
+        <!-- sleep -->
+        <div class="card card-sleep" id="card-sleep" style="cursor:pointer">
+          <div class="cap"><span class="ms">bedtime</span> Sleep</div>
+          <div class="big">9h 23m</div>
+          <div class="sub rng-line">10:09 PM – 8:51 AM</div>
+          <div class="sub delta-line">▲ 1h 05m vs usual</div>
+          <span class="scorechip"><span class="ms fill">hotel</span> 82 · Good</span>
+          <div id="sleepMini" class="msilh"></div>
+          <div class="mix-line">1h 12m deep · 2h 28m REM</div>
+        </div>
+
+        <!-- readiness: designed empty state -->
+        <div class="card card-ready" data-what="readiness" style="cursor:pointer">
+          <div class="ic"><span class="ms">avg_pace</span></div>
+          <div style="flex:1">
+            <div class="tt">Readiness is calibrating <span class="ms" style="font-size:13px;opacity:.55;vertical-align:-1px">help</span></div>
+            <div class="dd">Wear your tracker to sleep 3 more nights. No score is better than a wrong one.</div>
+          </div>
+          <span class="label-m" style="color:var(--on-surface-var)">4/7</span>
+        </div>
+      </div>
+
+      <!-- P0-2: the score drives the day -->
+      <div class="card gcard" style="margin-top:12px">
+        <div class="cap" style="color:var(--primary)"><span class="ms">route</span> Today's plan</div>
+        <div class="plan-tt">A normal day. Sleep came in strong.</div>
+        <div class="zm">
+          <div class="zm-top"><span data-what="zone-mins" style="cursor:pointer">Active Zone Minutes <span class="ms" style="font-size:12px;opacity:.55;vertical-align:-2px">help</span></span><span class="zm-status"><i class="dot"></i>In range</span></div>
+          <div class="zm-bar">
+            <i class="zm-zone"></i>
+            <span class="zm-val">28</span>
+            <i class="zm-dot"></i>
+          </div>
+          <div class="zm-ticks"><span style="left:33.3%">20</span><span style="left:66.7%">30</span></div>
+        </div>
+        <div class="sub" style="margin-top:10px">Step goal held at 10,000. Once readiness finishes calibrating, this plan adapts to your recovery every morning.</div>
+      </div>
+
+      <!-- today so far -->
+      <div class="ministats">
+        <div class="mst gcard"><span class="ms">distance</span><div class="v">6.1<small> km</small></div><div class="l">DISTANCE</div></div>
+        <div class="mst gcard"><span class="ms">floor</span><div class="v">8</div><div class="l">FLOORS</div></div>
+        <div class="mst gcard"><span class="ms">azm</span><div class="v">28<small> min</small></div><div class="l">ZONE MINS</div></div>
+        <div class="mst gcard"><span class="ms">local_fire_department</span><div class="v">1,253</div><div class="l">CAL</div></div>
+      </div>
+
+      <div class="sect">
+        <span class="title-m">Timeline</span>
+        <a href="#" data-history>See all</a>
+      </div>
+
+      <div class="tl-card">
+        <div class="tl-item" id="walk-item">
+          <div class="tl-ic"><span class="ms fill">directions_walk</span></div>
+          <div class="tl-main">
+            <div class="nm">Walk</div>
+            <div class="mt">39 min · 2.61 km</div>
+          </div>
+          <span class="tl-time">6:14 PM</span>
+          <span class="ms chev">chevron_right</span>
+        </div>
+        <div class="confirm-strip" id="strip">
+          <span class="q">Detected automatically. Did we get it right?</span>
+          <button class="btn-sm btn-yes" id="strip-yes"><span class="ms">check</span>Yes</button>
+          <button class="btn-sm btn-edit">Edit</button>
+        </div>
+        <div class="tl-item">
+          <div class="tl-ic strength"><span class="ms fill">exercise</span></div>
+          <div class="tl-main">
+            <div class="nm">Strength training <span class="ms fill">check_circle</span></div>
+            <div class="mt">1h 8m</div>
+          </div>
+          <span class="tl-time">5:00 PM</span>
+          <span class="ms chev">chevron_right</span>
+        </div>
+        <div class="tl-item">
+          <div class="tl-ic"><span class="ms fill">directions_walk</span></div>
+          <div class="tl-main">
+            <div class="nm">Walk <span class="ms fill">check_circle</span></div>
+            <div class="mt">37 min · 2.18 km</div>
+          </div>
+          <span class="tl-time">4:24 PM</span>
+          <span class="ms chev">chevron_right</span>
+        </div>
+        <div class="tl-item">
+          <div class="tl-ic" style="background:var(--tertiary-container);color:var(--tertiary)"><span class="ms fill">monitor_weight</span></div>
+          <div class="tl-main">
+            <div class="nm">Weight <span class="ms fill">check_circle</span></div>
+            <div class="mt">58.6 kg · logged by you</div>
+          </div>
+          <span class="tl-time">12:56 PM</span>
+          <span class="ms chev">chevron_right</span>
+        </div>
+        <div class="tl-div">YESTERDAY</div>
+        <div class="tl-item">
+          <div class="tl-ic strength"><span class="ms fill">exercise</span></div>
+          <div class="tl-main">
+            <div class="nm">Strength training <span class="ms fill">check_circle</span></div>
+            <div class="mt">59 min</div>
+          </div>
+          <span class="tl-time">7:02 PM</span>
+          <span class="ms chev">chevron_right</span>
+        </div>
+        <div class="tl-item">
+          <div class="tl-ic"><span class="ms fill">directions_walk</span></div>
+          <div class="tl-main">
+            <div class="nm">Walk <span class="ms fill">check_circle</span></div>
+            <div class="mt">35 min · 2.49 km</div>
+          </div>
+          <span class="tl-time">5:20 PM</span>
+          <span class="ms chev">chevron_right</span>
+        </div>
+      </div>
+      <button class="ghostbtn" data-history><span class="ms">history</span>Full history</button>
+    </div>
+
+    <!-- ============ SLEEP ============ -->
+    <div class="screen" id="scr-sleep">
+      <div class="sl-head">
+        <div class="headline-s">Sleep</div>
+        <div class="body-m muted">Thursday, July 10</div>
+        <div class="seg">
+          <button class="on">Day</button><button>Week</button><button>Month</button><button>6M</button>
+        </div>
+      </div>
+
+      <div class="sl-hero">
+        <div class="scallop">
+          <svg viewBox="0 0 108 108"><path data-scallop fill="var(--success-container)"/></svg>
+          <div class="in"><div class="n">82</div><div class="lb">Good</div></div>
+        </div>
+        <div class="facts">
+          <div class="dur">9h 23m</div>
+          <div class="rng">10:09 PM – 8:51 AM · <span class="d-up">▲ 6 vs avg</span></div>
+          <span class="chip-goal"><span class="ms fill">flag</span> Goal met</span>
+        </div>
+      </div>
+
+      <div class="hypno-card">
+        <h4>Sleep stages</h4>
+        <div class="hypno" id="hypno"></div>
+        <div class="hyp-axis"><span>10 PM</span><span>1 AM</span><span>4 AM</span><span>7 AM</span><span>9 AM</span></div>
+        <div class="stg-chips">
+          <span><i style="background:var(--st-awake)"></i>Awake · 1h 19m</span>
+          <span><i style="background:var(--st-rem)"></i>REM · 2h 28m</span>
+          <span><i style="background:var(--st-light)"></i>Light · 5h 43m</span>
+          <span><i style="background:var(--st-deep)"></i>Deep · 1h 12m</span>
+        </div>
+      </div>
+
+      <div class="insight">
+        <span class="ms">lightbulb</span>
+        <p>Deep sleep hit its range 5 of the last 7 nights. Your most restorative window starts around 11 PM.</p>
+      </div>
+    </div>
+
+    <!-- ============ FITNESS ============ -->
+    <div class="screen" id="scr-fitness">
+      <div class="sl-head">
+        <div class="headline-s">Fitness</div>
+        <div class="body-m muted">Thursday, July 10</div>
+      </div>
+
+      <div class="card gcard" style="margin-top:14px">
+        <div class="cap" style="color:var(--primary)"><span class="ms">calendar_month</span> This week</div>
+        <div class="big">4 <span style="font-size:15px;font-weight:600;opacity:.7">of 5 exercise days</span></div>
+        <div class="week-pills" aria-label="Exercise days this week">
+          <span class="wp done">M<span class="ms fill">directions_walk</span></span>
+          <span class="wp">T</span>
+          <span class="wp done">W<span class="ms fill">directions_walk</span></span>
+          <span class="wp done">T<span class="ms fill">exercise</span></span>
+          <span class="wp done">F<span class="ms fill">directions_walk</span></span>
+          <span class="wp">S</span>
+          <span class="wp today">S</span>
+        </div>
+        <div class="sub" style="margin-top:10px">One more day hits your goal. Sunday's open.</div>
+      </div>
+
+      <div class="grid" style="margin-top:12px">
+        <div class="card gcard">
+          <div class="cap" style="color:var(--fitness);cursor:pointer" data-what="cardio-load"><span class="ms">monitor_heart</span> Cardio load <span class="ms" style="font-size:13px;opacity:.55">help</span></div>
+          <div class="big">42</div>
+          <div class="sub">this week · target in 3 days</div>
+        </div>
+        <div class="card gcard">
+          <div class="cap" style="color:var(--primary)"><span class="ms">bolt</span> Activities</div>
+          <div class="big">12</div>
+          <div class="sub">this week · 6h 41m total</div>
+        </div>
+      </div>
+
+      <div class="sect"><span class="title-m">Start a workout</span></div>
+      <div class="start-chips">
+        <button data-start="Walk"><span class="ms">directions_walk</span>Walk</button>
+        <button data-start="Run"><span class="ms">directions_run</span>Run</button>
+        <button data-start="Strength"><span class="ms">exercise</span>Strength</button>
+        <button data-start="Yoga"><span class="ms">self_improvement</span>Yoga</button>
+        <button class="more" data-startmore><span class="ms">add</span>More</button>
+      </div>
+
+      <div class="sect"><span class="title-m">Recent</span><a href="#" data-history>See all</a></div>
+      <div class="tl-card">
+        <div class="tl-item">
+          <div class="tl-ic"><span class="ms fill">directions_walk</span></div>
+          <div class="tl-main"><div class="nm">Walk</div><div class="mt">39 min · 2.61 km</div></div>
+          <span class="loadchip">+3 load</span><span class="tl-time">6:14 PM</span>
+        </div>
+        <div class="tl-item">
+          <div class="tl-ic strength"><span class="ms fill">exercise</span></div>
+          <div class="tl-main"><div class="nm">Strength training</div><div class="mt">1h 8m</div></div>
+          <span class="loadchip">+33 load</span><span class="tl-time">5:00 PM</span>
+        </div>
+        <div class="tl-item">
+          <div class="tl-ic"><span class="ms fill">directions_walk</span></div>
+          <div class="tl-main"><div class="nm">Walk</div><div class="mt">37 min · 2.18 km · light</div></div>
+          <span class="loadchip">+0 load</span><span class="tl-time">4:24 PM</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ HEALTH ============ -->
+    <div class="screen" id="scr-health">
+      <div class="sl-head">
+        <div class="headline-s">Health</div>
+        <div class="body-m muted">Thursday, July 10</div>
+      </div>
+
+      <div class="card gcard" style="margin-top:14px">
+        <div class="cap" style="color:var(--success)"><span class="ms">favorite</span> Vitals</div>
+        <div class="big">3 <span style="font-size:15px;font-weight:600;opacity:.7">of 5 in range</span></div>
+        <div class="sub" style="margin-top:6px">HRV and SpO₂ are still calibrating, 2 more nights of data.</div>
+      </div>
+
+      <div class="mgrid" style="margin-top:12px">
+        <div class="mcard gcard">
+          <div class="mk"><span class="ms" style="font-size:14px">ecg_heart</span>RESTING HR</div>
+          <div class="mv">74 <small>bpm</small></div>
+          <svg width="100%" height="26" viewBox="0 0 120 26" preserveAspectRatio="none">
+            <rect x="0" y="10" width="120" height="9" rx="2" fill="rgba(139,230,168,.10)"/>
+            <polyline points="0,16 20,14 40,18 60,12 80,15 100,10 120,13" fill="none" stroke="#8BE6A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="chip-state ok"><span class="ms" style="font-size:12px">check</span>in range · usual 71–76</span>
+        </div>
+        <div class="mcard gcard">
+          <div class="mk"><span class="ms" style="font-size:14px">airwave</span>HRV</div>
+          <div class="mv">26 <small>ms</small></div>
+          <svg width="100%" height="26" viewBox="0 0 120 26" preserveAspectRatio="none">
+            <polyline points="0,18 24,15 48,17 72,13 96,16 120,14" fill="none" stroke="#5A5962" stroke-width="2" stroke-dasharray="3 4" stroke-linecap="round"/>
+          </svg>
+          <span class="chip-state cal">calibrating · 2 nights</span>
+        </div>
+        <div class="mcard gcard">
+          <div class="mk"><span class="ms" style="font-size:14px">spo2</span>BLOOD OXYGEN</div>
+          <div class="mv">97<small>%</small></div>
+          <svg width="100%" height="26" viewBox="0 0 120 26" preserveAspectRatio="none">
+            <polyline points="0,12 24,13 48,11 72,14 96,12 120,12" fill="none" stroke="#5A5962" stroke-width="2" stroke-dasharray="3 4" stroke-linecap="round"/>
+          </svg>
+          <span class="chip-state cal">calibrating · 2 nights</span>
+        </div>
+        <div class="mcard gcard">
+          <div class="mk" data-what="zone-mins" style="cursor:pointer"><span class="ms" style="font-size:14px">azm</span>ZONE MINS <span class="ms" style="font-size:12px;opacity:.55">help</span></div>
+          <div class="mv">28 <small>min</small></div>
+          <svg width="100%" height="26" viewBox="0 0 120 26" preserveAspectRatio="none">
+            <rect x="2" y="14" width="10" height="10" rx="3" fill="#54C7F4"/><rect x="20" y="8" width="10" height="16" rx="3" fill="#54C7F4"/>
+            <rect x="38" y="16" width="10" height="8" rx="3" fill="#54C7F4"/><rect x="56" y="6" width="10" height="18" rx="3" fill="#54C7F4"/>
+            <rect x="74" y="12" width="10" height="12" rx="3" fill="#54C7F4"/><rect x="92" y="18" width="10" height="6" rx="3" fill="#2A2A31"/>
+            <rect x="110" y="10" width="10" height="14" rx="3" fill="#54C7F4"/>
+          </svg>
+          <span class="chip-state ok"><span class="ms" style="font-size:12px">flag</span>goal met · usual 22</span>
+        </div>
+      </div>
+
+      <div class="card gcard" style="margin-top:12px">
+        <div class="cap" style="color:var(--primary)"><span class="ms">local_fire_department</span> Energy</div>
+        <div class="big">1,253 <span style="font-size:15px;font-weight:600;opacity:.7">cal burned</span></div>
+        <div class="ebar"><i style="width:55%"></i></div>
+        <div class="sub" style="margin-top:8px">1,033 left in today's budget</div>
+      </div>
+
+      <div class="card card-ready" style="margin-top:12px">
+        <div class="ic"><span class="ms">ecg</span></div>
+        <div style="flex:1">
+          <div class="tt">Health checks, one setup</div>
+          <div class="dd">High &amp; low heart-rate and rhythm alerts switch on together. Takes about a minute.</div>
+        </div>
+        <button class="btn-sm btn-yes" data-setup>Set up</button>
+      </div>
+    </div>
+
+    <!-- FAB: the biggest button adds an activity -->
+    <button class="fab" id="fab"><span class="ms">add</span> Log</button>
+
+    <!-- ============ ACTIVITY SHEET ============ -->
+    <div class="scrim" id="scrim"></div>
+    <div class="sheet" id="sheet">
+      <div class="grab"></div>
+      <div class="sheet-body">
+        <div class="sh-head">
+          <div class="tl-ic"><span class="ms fill" style="font-size:26px">directions_walk</span></div>
+          <div class="tt">
+            <div class="title-l">Evening walk</div>
+            <div class="when">Today · 6:14 – 6:53 PM</div>
+          </div>
+          <button class="sh-close" id="sh-close"><span class="ms">close</span></button>
+        </div>
+
+        <div class="verify" id="verify">
+          <span class="q">Detected automatically as a <b>walk</b>. Did we get it right?</span>
+          <button class="btn-sm btn-yes" id="verify-yes"><span class="ms">check</span>Yes</button>
+          <button class="btn-sm btn-edit">Change</button>
+        </div>
+
+        <div class="map">
+          <svg viewBox="0 0 372 170" preserveAspectRatio="none">
+            <path d="M40 130 C 90 118, 96 70, 150 66 S 250 92, 292 54 S 330 40, 336 38"
+              fill="none" stroke="#D6F14E" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 9"/>
+          </svg>
+          <span class="pin" style="left:34px;top:124px;background:var(--fitness)"></span>
+          <span class="pin" style="left:330px;top:32px;background:var(--primary)"></span>
+        </div>
+
+        <div class="statgrid">
+          <div class="stat"><div class="k"><span class="ms">timer</span>DURATION</div><div class="v">39<small> min</small></div></div>
+          <div class="stat"><div class="k"><span class="ms">distance</span>DISTANCE</div><div class="v">2.61<small> km</small></div></div>
+          <div class="stat"><div class="k"><span class="ms">speed</span>PACE</div><div class="v">14'56"<small> /km</small></div></div>
+          <div class="stat"><div class="k"><span class="ms">monitor_heart</span>CARDIO LOAD</div><div class="v">+12</div></div>
+        </div>
+
+        <div class="hr-card">
+          <div class="k">HEART RATE</div>
+          <svg width="100%" height="56" viewBox="0 0 340 56" preserveAspectRatio="none">
+            <path d="M0 44 C 20 42, 30 34, 50 30 S 90 18, 120 22 S 170 14, 200 18 S 260 26, 290 24 S 325 34, 340 38"
+              fill="none" stroke="var(--fitness)" stroke-width="3" stroke-linecap="round"/>
+            <line x1="0" y1="28" x2="340" y2="28" stroke="#37363E" stroke-width="1" stroke-dasharray="3 5"/>
+          </svg>
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--on-surface-var);font-weight:550">
+            <span>avg 112 bpm</span><span>peak 134 bpm</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ LOG SHEET ============ -->
+    <div class="sheet logsheet" id="logsheet">
+      <div class="grab"></div>
+      <div class="sheet-body" style="padding-bottom:10px">
+        <div class="sh-head" style="padding-bottom:6px">
+          <div class="tt">
+            <div class="title-l">Log an activity</div>
+            <div class="when">Adds straight to today's timeline</div>
+          </div>
+          <button class="sh-close" id="log-close"><span class="ms">close</span></button>
+        </div>
+        <div class="log-grid">
+          <button data-log="Walk" data-icon="directions_walk"><span class="ms">directions_walk</span>Walk</button>
+          <button data-log="Run" data-icon="directions_run"><span class="ms">directions_run</span>Run</button>
+          <button data-log="Strength" data-icon="exercise"><span class="ms">exercise</span>Strength</button>
+          <button data-log="Yoga" data-icon="self_improvement"><span class="ms">self_improvement</span>Yoga</button>
+          <button data-log="Bike" data-icon="pedal_bike"><span class="ms">pedal_bike</span>Bike</button>
+          <button data-log="Hike" data-icon="hiking"><span class="ms">hiking</span>Hike</button>
+          <button data-log="Swim" data-icon="pool"><span class="ms">pool</span>Swim</button>
+          <button data-log="HIIT" data-icon="sprint"><span class="ms">sprint</span>HIIT</button>
+          <button data-log="Pilates" data-icon="sports_gymnastics"><span class="ms">sports_gymnastics</span>Pilates</button>
+          <button data-log="Rowing" data-icon="rowing"><span class="ms">rowing</span>Rowing</button>
+          <button data-log="Tennis" data-icon="sports_tennis"><span class="ms">sports_tennis</span>Tennis</button>
+          <button data-log="Dance" data-icon="sports_martial_arts"><span class="ms">sports_martial_arts</span>Dance</button>
+          <button data-log="Soccer" data-icon="sports_soccer"><span class="ms">sports_soccer</span>Soccer</button>
+          <button data-log="Skiing" data-icon="downhill_skiing"><span class="ms">downhill_skiing</span>Skiing</button>
+          <button class="custom" data-customlog><span class="ms">add</span>Custom</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ START-WORKOUT SHEET ============ -->
+    <div class="sheet logsheet" id="startsheet">
+      <div class="grab"></div>
+      <div class="sheet-body" style="padding-bottom:10px">
+        <div class="sh-head" style="padding-bottom:6px">
+          <div class="tt">
+            <div class="title-l">Start a workout</div>
+            <div class="when">Live tracking from your Fitbit Air</div>
+          </div>
+          <button class="sh-close" id="start-close"><span class="ms">close</span></button>
+        </div>
+        <div class="log-grid">
+          <button data-startx="Bike"><span class="ms">pedal_bike</span>Bike</button>
+          <button data-startx="Hike"><span class="ms">hiking</span>Hike</button>
+          <button data-startx="Swim"><span class="ms">pool</span>Swim</button>
+          <button data-startx="HIIT"><span class="ms">sprint</span>HIIT</button>
+          <button data-startx="Pilates"><span class="ms">sports_gymnastics</span>Pilates</button>
+          <button data-startx="Rowing"><span class="ms">rowing</span>Rowing</button>
+          <button data-startx="Tennis"><span class="ms">sports_tennis</span>Tennis</button>
+          <button data-startx="Dance"><span class="ms">sports_martial_arts</span>Dance</button>
+          <button data-startx="Skiing"><span class="ms">downhill_skiing</span>Skiing</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ PLAIN-WORDS EXPLAINER SHEET ============ -->
+    <div class="sheet logsheet" id="whatsheet">
+      <div class="grab"></div>
+      <div class="sheet-body" style="padding-bottom:18px">
+        <div class="sh-head" style="padding-bottom:4px">
+          <div class="tt">
+            <div class="title-l" id="whatTitle">Cardio load</div>
+                      </div>
+          <button class="sh-close" id="what-close"><span class="ms">close</span></button>
+        </div>
+        <p class="what-body" id="whatBody"></p>
+      </div>
+    </div>
+
+    <!-- ============ HISTORY SHEET ============ -->
+    <div class="sheet logsheet" id="histsheet">
+      <div class="grab"></div>
+      <div class="sheet-body" style="max-height:70vh;padding-bottom:14px">
+        <div class="sh-head" style="padding-bottom:2px">
+          <div class="tt"><div class="title-l">History</div><div class="when">Last 7 days</div></div>
+          <button class="sh-close" id="hist-close"><span class="ms">close</span></button>
+        </div>
+        <div class="hist-filter" id="histFilter">
+          <button class="on" data-f="all">All</button>
+          <button data-f="walk">Walks</button>
+          <button data-f="strength">Strength</button>
+        </div>
+        <div class="hist-day">THU · JUL 9</div>
+        <div class="tl-card">
+          <div class="tl-item"><div class="tl-ic strength"><span class="ms fill">exercise</span></div><div class="tl-main"><div class="nm">Strength training</div><div class="mt">59 min</div></div><span class="loadchip">+0 load</span><span class="tl-time">7:02 PM</span></div>
+          <div class="tl-item"><div class="tl-ic"><span class="ms fill">directions_walk</span></div><div class="tl-main"><div class="nm">Walk</div><div class="mt">35 min · 2.49 km</div></div><span class="loadchip">+4 load</span><span class="tl-time">5:20 PM</span></div>
+        </div>
+        <div class="hist-day">WED · JUL 8</div>
+        <div class="tl-card">
+          <div class="tl-item"><div class="tl-ic"><span class="ms fill">directions_walk</span></div><div class="tl-main"><div class="nm">Walk</div><div class="mt">36 min · 2.42 km</div></div><span class="loadchip">+14 load</span><span class="tl-time">6:56 PM</span></div>
+          <div class="tl-item"><div class="tl-ic strength"><span class="ms fill">exercise</span></div><div class="tl-main"><div class="nm">Strength training</div><div class="mt">58 min</div></div><span class="loadchip">+34 load</span><span class="tl-time">6:00 PM</span></div>
+          <div class="tl-item"><div class="tl-ic"><span class="ms fill">directions_walk</span></div><div class="tl-main"><div class="nm">Walk</div><div class="mt">39 min · 2.54 km</div></div><span class="loadchip">+21 load</span><span class="tl-time">5:22 PM</span></div>
+          <div class="tl-item"><div class="tl-ic"><span class="ms fill">directions_walk</span></div><div class="tl-main"><div class="nm">Walk</div><div class="mt">28 min · 1.19 km</div></div><span class="loadchip">+0 load</span><span class="tl-time">1:05 PM</span></div>
+        </div>
+        <div class="hist-day">MON · JUL 6</div>
+        <div class="tl-card">
+          <div class="tl-item"><div class="tl-ic"><span class="ms fill">directions_walk</span></div><div class="tl-main"><div class="nm">Walk</div><div class="mt">35 min · 2.36 km</div></div><span class="loadchip">+15 load</span><span class="tl-time">6:59 PM</span></div>
+          <div class="tl-item"><div class="tl-ic strength"><span class="ms fill">exercise</span></div><div class="tl-main"><div class="nm">Strength training</div><div class="mt">1h</div></div><span class="loadchip">+51 load</span><span class="tl-time">5:56 PM</span></div>
+          <div class="tl-item"><div class="tl-ic"><span class="ms fill">directions_walk</span></div><div class="tl-main"><div class="nm">Power walk</div><div class="mt">35 min · 2.28 km</div></div><span class="loadchip">+11 load</span><span class="tl-time">5:23 PM</span></div>
+        </div>
+        <div id="histOlder" hidden>
+          <div class="hist-day">SUN · JUL 5</div>
+          <div class="tl-card">
+            <div class="tl-item"><div class="tl-ic"><span class="ms fill">directions_walk</span></div><div class="tl-main"><div class="nm">Walk</div><div class="mt">41 min · 2.77 km</div></div><span class="loadchip">+18 load</span><span class="tl-time">6:31 PM</span></div>
+            <div class="tl-item"><div class="tl-ic strength"><span class="ms fill">exercise</span></div><div class="tl-main"><div class="nm">Strength training</div><div class="mt">52 min</div></div><span class="loadchip">+29 load</span><span class="tl-time">5:12 PM</span></div>
+          </div>
+          <div class="hist-day">SAT · JUL 4</div>
+          <div class="tl-card">
+            <div class="tl-item"><div class="tl-ic"><span class="ms fill">directions_walk</span></div><div class="tl-main"><div class="nm">Walk</div><div class="mt">24 min · 1.62 km</div></div><span class="loadchip">+7 load</span><span class="tl-time">10:04 AM</span></div>
+          </div>
+        </div>
+        <button class="ghostbtn" id="histMore" style="width:100%;margin-top:12px">Show older</button>
+      </div>
+    </div>
+
+    <!-- ============ CUSTOM ACTIVITY SHEET ============ -->
+    <div class="sheet logsheet" id="customsheet">
+      <div class="grab"></div>
+      <div class="sheet-body" style="padding-bottom:10px">
+        <div class="sh-head" style="padding-bottom:4px">
+          <div class="tt"><div class="title-l">Custom activity</div><div class="when">Name it, we'll learn it</div></div>
+          <button class="sh-close" id="custom-close"><span class="ms">close</span></button>
+        </div>
+        <input class="glass-input" id="customName" type="text" placeholder="e.g. Bouldering" maxlength="24" autocomplete="off">
+        <button class="sheet-cta" id="customAdd">Add to timeline</button>
+      </div>
+    </div>
+
+    <!-- ============ HEALTH CHECKS SETUP SHEET ============ -->
+    <div class="sheet logsheet" id="setupsheet">
+      <div class="grab"></div>
+      <div class="sheet-body" style="padding-bottom:14px">
+        <div class="sh-head" style="padding-bottom:2px">
+          <div class="tt"><div class="title-l">Health checks</div><div class="when">Alerts, based on your usual range</div></div>
+          <button class="sh-close" id="setup-close"><span class="ms">close</span></button>
+        </div>
+        <div class="sw-row"><div style="flex:1"><div class="t">High heart rate</div><div class="d">Alert above your usual range at rest</div></div><div class="sw" data-sw></div></div>
+        <div class="sw-row"><div style="flex:1"><div class="t">Low heart rate</div><div class="d">Alert below your usual range</div></div><div class="sw" data-sw></div></div>
+        <div class="sw-row"><div style="flex:1"><div class="t">Irregular rhythm</div><div class="d">Overnight rhythm screening</div></div><div class="sw" data-sw></div></div>
+        <button class="sheet-cta" id="setupDone" style="margin-top:14px">Done</button>
+      </div>
+    </div>
+
+    <!-- ============ LIVE WORKOUT ============ -->
+    <div class="workout" id="workout">
+      <div class="wo-head">
+        <div class="tl-ic" style="width:48px;height:48px"><span class="ms fill" id="wo-ic" style="font-size:24px">directions_walk</span></div>
+        <div><div class="title-l" id="wo-name">Walk</div><div class="when">Live from your Fitbit Air</div></div>
+      </div>
+      <div class="wo-time" id="wo-time">00:00</div>
+      <div class="wo-grid">
+        <div class="wo-stat"><div class="v" id="wo-hr">–</div><div class="l">BPM · <span id="wo-hrchip">LIGHT</span></div></div>
+        <div class="wo-stat"><div class="v" id="wo-zone">0</div><div class="l">ZONE MINS</div></div>
+        <div class="wo-stat"><div class="v" id="wo-third">0.00</div><div class="l" id="wo-third-l">KM</div></div>
+      </div>
+      <div class="wo-ctl">
+        <button class="wo-pause" id="wo-pause"><span class="ms">pause</span></button>
+        <button class="wo-end" id="wo-end">End workout</button>
+      </div>
+    </div>
+
+    <!-- celebration: goal-completion shape morph -->
+    <div class="celebrate" id="celebrate">
+      <div class="cel-card">
+        <div class="scallop"><svg viewBox="0 0 108 108"><path data-scallop fill="var(--success-container)"/></svg>
+          <div class="in"><span class="ms fill" style="font-size:40px;color:var(--success)">check</span></div>
+        </div>
+        <div class="cel-t">Nice work!</div>
+        <div class="cel-s" id="cel-stats">Walk · 12 min</div>
+      </div>
+    </div>
+
+    <!-- snackbar -->
+    <div class="snack" id="snack" role="status"></div>
+
+    <!-- ============ NAV BAR ============ -->
+    <div class="navbar">
+      <button class="nv on" data-tab="today"><span class="pill"><span class="ms">wb_twilight</span></span><span class="lb">Today</span></button>
+      <button class="nv" data-tab="fitness"><span class="pill"><span class="ms">directions_run</span></span><span class="lb">Fitness</span></button>
+      <button class="nv" data-tab="sleep"><span class="pill"><span class="ms">bedtime</span></span><span class="lb">Sleep</span></button>
+      <button class="nv" data-tab="health"><span class="pill"><span class="ms">favorite</span></span><span class="lb">Health</span></button>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+  const phone = document.getElementById('phone');
+
+  // ---- app-feel: offline cache, haptics, one-time install hint ----
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('gh-sw.js').catch(() => {});
+  const buzz = ms => { try { navigator.vibrate && navigator.vibrate(ms); } catch(e){} };
+  (function installHint(){
+    const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+    if (standalone || innerWidth > 520) return;
+    if (new URLSearchParams(location.search).has('nohint')) return; // clean captures for promo art
+    try {
+      if (localStorage.getItem('gh-hint')) return;
+      localStorage.setItem('gh-hint', '1');
+      setTimeout(() => {
+        const s = document.getElementById('snack');
+        s.textContent = 'Tip: Share → Add to Home Screen for the full app';
+        s.classList.add('on');
+        setTimeout(() => s.classList.remove('on'), 4200);
+      }, 3500);
+    } catch(e){}
+  })();
+
+  // ---- P0-3: time-adaptive, personalized hero ----
+  // greeting = time of day + the user's name. name persists in localStorage;
+  // ?name= sets it for shareable demos (matches ?daypart= / ?theme= convention).
+  // tap the greeting to set or change the name. no name -> graceful time-only.
+  (function(){
+    const params = new URLSearchParams(location.search);
+    const greetEl = document.getElementById('greetTxt');
+    const NAME_KEY = 'gh-name';
+
+    // ?name= wins and is remembered; otherwise use the stored name.
+    const fromUrl = params.get('name');
+    if (fromUrl !== null) { try { localStorage.setItem(NAME_KEY, cleanName(fromUrl)); } catch(e){} }
+    function cleanName(v){ return (v || '').replace(/[<>]/g, '').trim().slice(0, 24); }
+    function getName(){ try { return cleanName(localStorage.getItem(NAME_KEY)); } catch(e){ return ''; } }
+
+    const q = params.get('daypart');
+    const h = (q && {morning:8, day:13, evening:19}[q] !== undefined)
+      ? {morning:8, day:13, evening:19}[q] : new Date().getHours();
+    const dp = h < 11 ? 'morning' : h < 17 ? 'day' : 'evening';
+    phone.dataset.daypart = dp;
+
+    function render(){
+      const base = dp === 'morning' ? 'Good morning' : dp === 'day' ? 'Good afternoon' : 'Good evening';
+      const name = getName();
+      greetEl.textContent = name ? base + ', ' + name : base;
+      greetEl.title = name ? 'Tap to change your name' : 'Tap to add your name';
+    }
+    render();
+
+    greetEl.style.cursor = 'pointer';
+    greetEl.addEventListener('click', () => {
+      const next = window.prompt('What should we call you?', getName());
+      if (next === null) return; // cancelled
+      const clean = cleanName(next);
+      try { clean ? localStorage.setItem(NAME_KEY, clean) : localStorage.removeItem(NAME_KEY); } catch(e){}
+      render();
+    });
+
+    document.getElementById('dpLabel').textContent =
+      dp === 'morning' ? 'Morning brief, sleep first' : dp === 'day' ? 'Midday check' : 'Evening wrap';
+  })();
+
+  // ---- theme + type lab (?theme=volt|glacier|ember|signal, ?type=a|b|c) ----
+  (function(){
+    const params = new URLSearchParams(location.search);
+    function apply(kind, val, valid){
+      if(!valid.includes(val)) val = valid[0];
+      if(val === valid[0]) delete phone.dataset[kind]; else phone.dataset[kind] = val;
+      document.querySelectorAll('[data-' + kind + '-btn]').forEach(b =>
+        b.classList.toggle('on', b.dataset[kind + 'Btn'] === val));
+      const p = new URLSearchParams(location.search);
+      if(val === valid[0]) p.delete(kind); else p.set(kind, val);
+      history.replaceState(null, '', location.pathname + (p.toString() ? '?' + p : ''));
+    }
+    apply('theme', params.get('theme') || 'volt', ['volt','glacier','ember','signal']);
+    apply('type', params.get('type') || 'c', ['c','a','b']);
+    apply('mode', params.get('mode') || 'light', ['dark','light']);
+    document.querySelectorAll('[data-mode-btn]').forEach(b =>
+      b.addEventListener('click', () => { apply('mode', b.dataset.modeBtn, ['dark','light']); syncModeIcon(); }));
+    // in-app toggle: light mode must be reachable on the phone itself
+    const mt = document.getElementById('modeToggle');
+    function syncModeIcon(){ mt.querySelector('.ms').textContent = phone.dataset.mode === 'light' ? 'dark_mode' : 'light_mode'; }
+    mt.addEventListener('click', () => {
+      apply('mode', phone.dataset.mode === 'light' ? 'dark' : 'light', ['dark','light']);
+      syncModeIcon();
+    });
+    syncModeIcon();
+    document.querySelectorAll('[data-theme-btn]').forEach(b =>
+      b.addEventListener('click', () => apply('theme', b.dataset.themeBtn, ['volt','glacier','ember','signal'])));
+    document.querySelectorAll('[data-type-btn]').forEach(b =>
+      b.addEventListener('click', () => apply('type', b.dataset.typeBtn, ['c','a','b'])));
+  })();
+
+  // ---- tabs ----
+  const navBtns = document.querySelectorAll('.nv');
+  function goTab(tab){
+    phone.dataset.tab = tab;
+    navBtns.forEach(b => b.classList.toggle('on', b.dataset.tab === tab));
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('scr-' + tab).classList.add('active');
+    buzz(8);
+    if(tab === 'sleep'){
+      const s = document.getElementById('hypno');
+      s.classList.remove('go'); void s.getBoundingClientRect(); s.classList.add('go');
+    }
+    if(tab === 'today') animateSteps();
+  }
+
+  // steps card: count-up + spring fill + live shimmer (Apple Fitness / Oura / WHOOP)
+  function animateSteps(){
+    const card = document.querySelector('.card-steps');
+    if(!card) return;
+    const big = card.querySelector('.big'), ring = card.querySelector('.ring-fill'), pct = card.querySelector('.pct');
+    const target = 9389, goal = 10000, C = 314.159, dur = 1100;
+    const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+    const setRing = v => { if(ring) ring.style.strokeDashoffset = C * (1 - v / goal); if(pct) pct.textContent = Math.round(v / goal * 100) + '%'; };
+    card.classList.remove('anim','pop'); card.classList.add('anim');
+    // drive the ring per-frame so its fill stays locked to the counting number
+    if(ring) ring.style.transition = 'none';
+    if(reduce){ big.textContent = target.toLocaleString(); setRing(target); card.classList.add('pop'); return; }
+    cancelAnimationFrame(big._raf);
+    let start;
+    const frame = t => {
+      if(start === undefined) start = t;
+      const p = Math.min((t - start) / dur, 1);
+      const e = 1 - Math.pow(1 - p, 3);            // ease-out cubic — one curve for both
+      const v = Math.round(target * e);
+      big.textContent = v.toLocaleString();
+      setRing(v);                                  // ring % === number / goal, every frame
+      if(p < 1){ big._raf = requestAnimationFrame(frame); }
+      else { big.textContent = target.toLocaleString(); setRing(target); card.classList.add('pop'); }
+    };
+    big._raf = requestAnimationFrame(frame);
+  }
+  animateSteps();
+  navBtns.forEach(b => b.addEventListener('click', () => goTab(b.dataset.tab)));
+  document.getElementById('card-sleep').addEventListener('click', () => goTab('sleep'));
+
+  // ---- activity sheet + log sheet (shared scrim) ----
+  const openSheet  = () => phone.classList.add('sheet-open');
+  const closeSheet = () => phone.classList.remove('sheet-open','log-open','start-open','what-open','hist-open','custom-open','setup-open');
+  document.getElementById('walk-item').addEventListener('click', openSheet);
+  document.getElementById('sh-close').addEventListener('click', closeSheet);
+  document.getElementById('scrim').addEventListener('click', closeSheet);
+  document.getElementById('log-close').addEventListener('click', closeSheet);
+  document.getElementById('fab').addEventListener('click', () => phone.classList.add('log-open'));
+
+  // ---- snackbar ----
+  let snackTimer = null;
+  function snack(msg){
+    const s = document.getElementById('snack');
+    s.textContent = msg;
+    s.classList.add('on');
+    clearTimeout(snackTimer);
+    snackTimer = setTimeout(() => s.classList.remove('on'), 2400);
+  }
+
+  // ---- timeline insert (shared by manual log, custom, live workouts) ----
+  function addTimelineRow(type, icon, meta){
+    const now = new Date();
+    const hh = ((now.getHours() + 11) % 12) + 1, mm = String(now.getMinutes()).padStart(2,'0');
+    const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+    const row = document.createElement('div');
+    row.className = 'tl-item';
+    row.innerHTML =
+      '<div class="tl-ic' + (icon === 'exercise' ? ' strength' : '') + '"><span class="ms fill">' + icon + '</span></div>' +
+      '<div class="tl-main"><div class="nm">' + type + ' <span class="ms fill">check_circle</span></div>' +
+      '<div class="mt">' + meta + '</div></div>' +
+      '<span class="tl-time">' + hh + ':' + mm + ' ' + ampm + '</span>';
+    const list = document.querySelector('#scr-today .tl-card');
+    row.style.cssText = 'opacity:0;transform:translateY(-10px);transition:opacity .4s,transform .6s var(--spring)';
+    list.insertBefore(row, list.firstElementChild);
+    requestAnimationFrame(() => requestAnimationFrame(() => { row.style.opacity = 1; row.style.transform = 'none'; }));
+  }
+
+  // ---- log an activity: the biggest button actually works ----
+  document.querySelectorAll('[data-log]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      addTimelineRow(btn.dataset.log, btn.dataset.icon, 'logged by you · just now');
+      closeSheet();
+      goTab('today');
+      buzz(18);
+      snack(btn.dataset.log + ' added to your timeline');
+    });
+  });
+
+  // ---- round two: live workout tracking ----
+  const wo = { t:0, z:0, dist:0, type:null, icon:'', timer:null, paused:false };
+  const SPEED = { Walk:.066, Run:.16, Bike:.30, Hike:.05, 'Power walk':.09 };
+  const BASEHR = { Walk:112, Run:145, Bike:132, Hike:120, Strength:118, Yoga:92, HIIT:150, Swim:135, Pilates:105, Rowing:138, Tennis:130, Dance:125, Skiing:128 };
+  function startWorkout(type, icon){
+    Object.assign(wo, { t:0, z:0, dist:0, type, icon, paused:false });
+    document.getElementById('wo-name').textContent = type;
+    document.getElementById('wo-ic').textContent = icon;
+    document.getElementById('wo-pause').querySelector('.ms').textContent = 'pause';
+    closeSheet();
+    phone.classList.add('wo-open');
+    buzz(15);
+    clearInterval(wo.timer);
+    wo.timer = setInterval(woTick, 1000);
+    woTick(true);
+  }
+  function woTick(first){
+    if (wo.paused && first !== true) return;
+    if (first !== true) wo.t++;
+    const hr = Math.round((BASEHR[wo.type] || 115) + 14*Math.sin(wo.t/35) + (Math.random()*8 - 4));
+    if (hr >= 110) wo.z++;
+    wo.dist += (SPEED[wo.type] || 0) / 60;
+    const m = String(Math.floor(wo.t/60)).padStart(2,'0'), s = String(wo.t%60).padStart(2,'0');
+    document.getElementById('wo-time').textContent = m + ':' + s;
+    document.getElementById('wo-hr').textContent = hr;
+    document.getElementById('wo-hrchip').textContent = hr >= 140 ? 'PEAK' : hr >= 110 ? 'CARDIO' : 'LIGHT';
+    document.getElementById('wo-zone').textContent = Math.floor(wo.z/60);
+    const hasDist = !!SPEED[wo.type];
+    document.getElementById('wo-third').textContent = hasDist ? wo.dist.toFixed(2) : Math.max(1, Math.round(wo.t*0.11));
+    document.getElementById('wo-third-l').textContent = hasDist ? 'KM' : 'CAL';
+  }
+  document.getElementById('wo-pause').addEventListener('click', function(){
+    wo.paused = !wo.paused;
+    this.querySelector('.ms').textContent = wo.paused ? 'play_arrow' : 'pause';
+    buzz(8);
+  });
+  document.getElementById('wo-end').addEventListener('click', () => {
+    clearInterval(wo.timer);
+    phone.classList.remove('wo-open');
+    const mins = Math.max(1, Math.round(wo.t/60));
+    const meta = (SPEED[wo.type] ? mins + ' min · ' + wo.dist.toFixed(2) + ' km' : mins + ' min') + ' · tracked live';
+    document.getElementById('cel-stats').textContent = wo.type + ' · ' + mins + ' min · ' + Math.floor(wo.z/60) + ' zone min';
+    phone.classList.add('cel-open');
+    buzz(30);
+    setTimeout(() => {
+      phone.classList.remove('cel-open');
+      addTimelineRow(wo.type, wo.icon, meta);
+      goTab('today');
+      snack(wo.type + ' saved. Nice work');
+    }, 2300);
+  });
+  const iconOf = btn => btn.querySelector('.ms').textContent.trim();
+  document.querySelectorAll('[data-start]').forEach(btn =>
+    btn.addEventListener('click', () => startWorkout(btn.dataset.start, iconOf(btn))));
+  document.querySelectorAll('[data-startx]').forEach(btn =>
+    btn.addEventListener('click', () => startWorkout(btn.dataset.startx, iconOf(btn))));
+  document.querySelector('[data-startmore]').addEventListener('click', () => phone.classList.add('start-open'));
+  document.getElementById('start-close').addEventListener('click', closeSheet);
+
+  // ---- round two: custom activity ----
+  document.querySelector('[data-customlog]').addEventListener('click', () => {
+    phone.classList.remove('log-open');
+    phone.classList.add('custom-open');
+    setTimeout(() => document.getElementById('customName').focus(), 350);
+  });
+  document.getElementById('custom-close').addEventListener('click', closeSheet);
+  document.getElementById('customAdd').addEventListener('click', () => {
+    const name = (document.getElementById('customName').value || '').trim();
+    if (!name) { document.getElementById('customName').focus(); return; }
+    addTimelineRow(name, 'star', 'logged by you · custom');
+    document.getElementById('customName').value = '';
+    closeSheet();
+    goTab('today');
+    buzz(18);
+    snack(name + ' added to your timeline');
+  });
+
+  // ---- round two: history ----
+  document.querySelectorAll('[data-history]').forEach(el =>
+    el.addEventListener('click', e => { e.preventDefault(); phone.classList.add('hist-open'); }));
+  document.getElementById('hist-close').addEventListener('click', closeSheet);
+
+  // history: filter by type; day groups with no matches collapse away
+  const histSheet = document.getElementById('histsheet');
+  function histApply(f){
+    histSheet.querySelectorAll('.tl-item').forEach(it => {
+      const type = it.querySelector('.tl-ic.strength') ? 'strength' : 'walk';
+      it.style.display = (f === 'all' || f === type) ? '' : 'none';
+    });
+    histSheet.querySelectorAll('.tl-card').forEach(c => {
+      const any = Array.from(c.querySelectorAll('.tl-item')).some(i => i.style.display !== 'none');
+      c.style.display = any ? '' : 'none';
+      const day = c.previousElementSibling;
+      if(day && day.classList.contains('hist-day')) day.style.display = any ? '' : 'none';
+    });
+  }
+  document.querySelectorAll('#histFilter button').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('#histFilter button').forEach(x => x.classList.toggle('on', x === b));
+    buzz(8);
+    histApply(b.dataset.f);
+  }));
+  document.getElementById('histMore').addEventListener('click', function(){
+    document.getElementById('histOlder').hidden = false;
+    histApply(document.querySelector('#histFilter button.on').dataset.f);
+    this.textContent = 'Synced from Jul 4. That’s everything';
+    this.disabled = true; this.style.opacity = .55; this.style.pointerEvents = 'none';
+    buzz(12);
+  });
+
+  // ---- plain-words explainers: the app defines its own jargon (Nielsen #2) ----
+  const TERMS = {
+    'cardio-load': ['Cardio load',
+      'How hard your heart worked, added up. Every minute of raised heart rate earns points. An easy walk might add <b>+3</b>, a hard strength session <b>+33</b>. The weekly number is just those points summed, so you can compare training weeks at a glance.'],
+    'readiness': ['Readiness',
+      'One 0–100 score for <b>how recovered you are this morning</b>, computed overnight from your sleep, resting heart rate and heart-rate variability. High means push today; low means go easy. It needs 7 nights to learn your normal first, which is why it shows progress instead of a made-up number.'],
+    'zone-mins': ['Zone minutes',
+      'Minutes your heart rate spent elevated: the minutes that actually build fitness, whatever the activity. Health guidelines suggest <b>150+ a week</b>; your daily target band rises and falls with your recovery.']
+  };
+  document.querySelectorAll('[data-what]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.stopPropagation();
+      const t = TERMS[el.dataset.what];
+      if(!t) return;
+      document.getElementById('whatTitle').textContent = t[0];
+      document.getElementById('whatBody').innerHTML = t[1];
+      phone.classList.add('what-open');
+    });
+  });
+  document.getElementById('what-close').addEventListener('click', closeSheet);
+  // ---- round two: health-checks setup ----
+  const setupBtn = document.querySelector('[data-setup]');
+  if (setupBtn) setupBtn.addEventListener('click', () => phone.classList.add('setup-open'));
+  document.getElementById('setup-close').addEventListener('click', closeSheet);
+  document.querySelectorAll('[data-sw]').forEach(sw =>
+    sw.addEventListener('click', () => { sw.classList.toggle('on'); buzz(8); }));
+  document.getElementById('setupDone').addEventListener('click', () => {
+    const on = document.querySelectorAll('[data-sw].on').length;
+    closeSheet();
+    if (on && setupBtn) {
+      const chip = document.createElement('span');
+      chip.className = 'chip-state ok';
+      chip.innerHTML = '<span class="ms" style="font-size:12px">check</span>On · ' + on + (on === 1 ? ' check' : ' checks');
+      setupBtn.replaceWith(chip);
+      buzz(15);
+      snack('Health checks are on. Alerts use your usual range');
+    }
+  });
+
+  // ---- one-time confirm: strip in timeline ----
+  const strip = document.getElementById('strip');
+  document.getElementById('strip-yes').addEventListener('click', e => {
+    e.stopPropagation();
+    buzz(15);
+    strip.classList.add('done');
+    strip.innerHTML = '<span class="q"><span class="ms fill">check_circle</span>Confirmed. Google Health learns from this</span>';
+    confirmVerify(); // keep the two surfaces consistent
+  });
+
+  // ---- confirm inside the sheet ----
+  const verify = document.getElementById('verify');
+  function confirmVerify(){
+    verify.classList.add('done');
+    verify.innerHTML = '<span class="q" style="display:flex;align-items:center;gap:8px"><span class="ms fill" style="color:var(--success)">check_circle</span>Confirmed as a walk. We’ll ask less over time.</span>';
+  }
+  document.getElementById('verify-yes').addEventListener('click', () => {
+    confirmVerify();
+    strip.classList.add('done');
+    strip.innerHTML = '<span class="q"><span class="ms fill">check_circle</span>Confirmed. Google Health learns from this</span>';
+  });
+
+  // ---- the night as ONE depth silhouette (smoothed clinical hypnogram) ----
+  // minutes per segment across the night (10:09PM → 8:51AM); depth plots downward
+  const night = [
+    ['awake',8],['light',38],['deep',26],['light',30],['rem',22],
+    ['light',48],['deep',24],['light',36],['rem',34],['light',52],
+    ['deep',22],['light',44],['rem',30],['awake',34],['light',40],
+    ['rem',38],['light',55],['awake',22],['light',40],['rem',24],['awake',15]
+  ];
+  const DEPTH = {awake:10, rem:46, light:82, deep:114};   // y in a 120-tall viewBox
+  function silhouettePath(data, w, depths){
+    depths = depths || DEPTH;
+    const total = data.reduce((s,[,m]) => s + m, 0);
+    const t = Math.min(6, w/data.length/3);
+    let x = 0, d = '', prevY = null;
+    data.forEach(([stage,mins]) => {
+      const y = depths[stage], x1 = x + mins/total*w;
+      if(prevY === null) d = 'M0,' + y;
+      else d += ` L${(x-t).toFixed(1)},${prevY} Q${x.toFixed(1)},${prevY} ${x.toFixed(1)},${((prevY+y)/2).toFixed(1)} Q${x.toFixed(1)},${y} ${(x+t).toFixed(1)},${y}`;
+      prevY = y; x = x1;
+    });
+    return {curve: d + ` L${w},${prevY}`, area: d + ` L${w},${prevY} L${w},0 L0,0 Z`};
+  }
+  // 4-lane stepped hypnogram: one lane per stage, flat rounded capsules by time
+  (function(){
+    const el = document.getElementById('hypno');
+    if(!el) return;
+    const total = night.reduce((s,[,m]) => s + m, 0);
+    const order = ['awake','rem','light','deep'];
+    const labels = {awake:'Awake', rem:'REM', light:'Light', deep:'Deep'};
+    el.innerHTML = order.map(stage => {
+      let x = 0, segs = '';
+      night.forEach(([st,m]) => {
+        const w = m / total * 100;
+        if(st === stage) segs += `<i class="hseg" style="left:${x.toFixed(2)}%;width:${w.toFixed(2)}%;background:var(--st-${stage})"></i>`;
+        x += w;
+      });
+      return `<div class="hlane"><span class="hlab">${labels[stage]}</span><div class="trk">${segs}</div></div>`;
+    }).join('');
+  })();
+  // glanceable stage mix on the Today sleep card — proportions, not a squashed timeline
+  (function(){
+    const el = document.getElementById('sleepMini');
+    if(!el) return;
+    const totals = night.reduce((t,[s,m]) => (t[s] = (t[s]||0) + m, t), {});
+    const sum = Object.values(totals).reduce((a,b) => a + b, 0);
+    el.innerHTML = ['awake','rem','light','deep'].map(s =>
+      `<i style="flex:${(totals[s]/sum*100).toFixed(1)};background:var(--st-${s})"></i>`
+    ).join('');
+  })();
+  // M3E shape container for the score (12-lobe "sunny" scallop)
+  (function(){
+    const el = document.querySelector('[data-scallop]');
+    let d = '', cx = 54, cy = 54;
+    for(let i = 0; i <= 96; i++){
+      const th = i/96*Math.PI*2, r = 48 + 4*Math.cos(12*th);
+      const px = (cx + r*Math.cos(th)).toFixed(2), py = (cy + r*Math.sin(th)).toFixed(2);
+      d += (i ? 'L' : 'M') + px + ',' + py;
+    }
+    el.setAttribute('d', d + 'Z');
+  })();
+  // ?tab=today|fitness|sleep|health — deep-link a screen (case-study embeds pin to one tab).
+  // Runs last so the hypnogram/lanes exist before the sleep reveal fires.
+  (function(){
+    const t = new URLSearchParams(location.search).get('tab');
+    if(t && document.getElementById('scr-' + t)) goTab(t);
+  })();
+</script>
+</body>
+</html>

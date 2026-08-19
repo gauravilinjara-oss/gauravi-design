@@ -1,0 +1,160 @@
+@import url("https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700,800,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap");
+
+/* =============================================================================
+   tokens.css — SINGLE SOURCE OF TRUTH for the whole portfolio.
+   Load this FIRST on every page:  <link rel="stylesheet" href="tokens.css">
+
+   ── MIGRATION (air.inc-style system) ────────────────────────────────────────
+   The portfolio is moving to the system defined in mockups/meadow-ship.html:
+     • ONE type superfamily — Switzer (display + body) + Geist Mono (labels)
+     • Light & airy palette; flat NAVY accent (#16202b), GREEN italic emphasis
+     • One section rhythm, a tight type scale, one signature ease
+   The block below defines the NEW canonical tokens. The LEGACY SHIM at the
+   bottom maps the old --t-* names onto the new values so existing pages keep
+   rendering. It is load-bearing — keep it until every page is rewritten off --t-*.
+   ============================================================================= */
+
+:root{
+  /* ── NEW CANONICAL TOKENS ─────────────────────────────────────────────────── */
+  --ink:#16202b;            /* primary text                                      */
+  --soft:#4E5F74;           /* secondary text                                    */
+  --faint:#8b95a3;          /* tertiary / captions (cool)                        */
+  --accent:#16202b;         /* flat near-black/navy — CTAs, structure            */
+  --accent-deep:#0f1822;    /* pressed / deep                                    */
+  --accent-soft:#e7ecf3;    /* light navy tint fill / chips                      */
+  --on-accent:#ffffff;      /* text on navy fills                                */
+  --green:#0083E7;          /* deep pine — italic emphasis accent                */
+
+  /* surfaces — light & airy (cool near-white) */
+  --page-bg:#ffffff;        /* base page background                              */
+  --surface:#f5f5f5;        /* raised cards                                      */
+  --surface-2:#f5f5f5;      /* secondary surface                                 */
+  --line:rgba(20,32,52,.12);/* hairlines / borders                               */
+
+  /* type */
+  --font-display:"Switzer",system-ui,sans-serif;
+  --font-text:"Switzer",system-ui,sans-serif;
+  --font-accent:"Switzer",system-ui,sans-serif;
+  --font-mono:"Geist Mono",ui-monospace,Menlo,"SF Mono",monospace;
+
+  /* rhythm, scale, motion */
+  --edge:max(22px,8%);
+  --maxw:1080px;
+  --sp-section:clamp(64px,10vh,118px);
+  --ease:cubic-bezier(.22,1,.36,1);          /* air.inc signature ease-out      */
+
+  /* ── CRAFT PASS · scales ──────────────────────────────────────────────────
+     Every spacing, radius, shadow and tracking value should come from here.
+     If a raw value isn't on the scale, snap it to the nearest token.        */
+
+  /* SPACING — 8-pt scale. Use ONLY these for margin/padding/gap. */
+  --s-1:4px;  --s-2:8px;   --s-3:16px; --s-4:24px; --s-5:32px;
+  --s-6:48px; --s-7:64px;  --s-8:96px; --s-9:128px;
+
+  /* RADIUS — one ladder, applied by element size. */
+  --r-1:10px;      /* chips, small controls        */
+  --r-2:16px;      /* cards, inputs                */
+  --r-3:20px;      /* large cards, media frames    */
+  --r-4:28px;      /* full-bleed panels            */
+  --r-pill:999px;
+
+  /* SHADOW — exactly two tiers. No other shadow recipes. */
+  --shadow-1:0 1px 2px rgba(20,32,52,.04), 0 6px 16px -8px rgba(20,32,52,.14);
+  --shadow-2:0 2px 6px rgba(20,32,52,.06), 0 24px 56px -28px rgba(20,32,52,.26);
+
+  /* MOTION — one easing (--ease above) + one duration set. */
+  --dur-1:.18s; --dur-2:.32s; --dur-3:.5s;
+
+  /* TRACKING ladder — size-specific (see §2). */
+  --tr-display:-.045em; --tr-h2:-.03em; --tr-h3:-.02em;
+  --tr-body:0em;        --tr-mono:.14em;
+
+  /* hairline — lighter than --line, for raised surfaces (elevation from light) */
+  --hairline:rgba(20,32,52,.06);
+  --fs-giant:clamp(46px,8.4vw,104px);
+  --fs-h1:clamp(32px,4.4vw,60px);
+  --fs-h2:clamp(30px,3.8vw,52px);
+  --fs-h3:clamp(22px,2.4vw,30px);
+  --fs-h4:clamp(19px,1.9vw,24px);
+
+  /* ── LEGACY SHIM (old --t-* names → new values) ───────────────────────────────
+     LITERAL values on purpose: old pages do `--accent: var(--t-accent)`, so the
+     shim must NOT reference --accent/--ink/etc. or it creates a circular var()
+     loop that nulls the token. Keeps existing pages rendering.
+     KEEP THIS — pages still reference --t-* names everywhere; only remove once every
+     page has been rewritten to use the new canonical tokens directly. */
+  --t-accent:#16202b;
+  --t-accent-bright:#16202b;
+  --t-accent-deep:#0f1822;
+  --t-accent-soft:#e7ecf3;
+  --t-on-accent:#ffffff;
+
+  --t-paper:#ffffff;
+  --t-paper-2:#f5f5f5;
+  --t-ink:#16202b;
+  --t-ink-soft:#4E5F74;
+  --t-ink-faint:#8b95a3;
+  --t-line:rgba(20,32,52,.12);
+
+  /* dark "gallery" surfaces flip to light (work/lab go airy) */
+  --t-paper-dark:#ffffff;
+  --t-ink-on-dark:#16202b;
+  --t-soft-on-dark:#4E5F74;
+  --t-muted-on-dark:#8b95a3;
+  --t-line-on-dark:rgba(20,32,52,.12);
+
+  /* secondary accents retuned to the new palette */
+  --t-sage:#0083E7;
+  --t-gold:#caa86a;
+  --t-blue:#8CC7F4;
+
+  /* type — all collapse onto the one superfamily (no serif / no handwriting) */
+  --t-font-sans:"Switzer",system-ui,sans-serif;
+  --t-font-display:"Switzer",system-ui,sans-serif;
+  --t-font-serif:"Switzer",system-ui,sans-serif;
+  --t-font-hand:"Switzer",system-ui,sans-serif;
+  --t-font-mono:"Geist Mono",ui-monospace,Menlo,"SF Mono",monospace;
+
+  --t-maxw:1080px;
+  --t-edge:max(22px,8%);
+}
+
+/* ── plain white background on every subpage ──
+   .home opts out: the homepage paints its own sky/paper background that shifts
+   with the time of day, so it must not be flattened to white. */
+body:not(.home){ background:#ffffff !important; }
+
+/* =============================================================================
+   CRAFT PASS · global craft layer
+   Page-level <style> blocks load AFTER this file, so any page that defines its
+   own value still wins. These rules only fill in where nothing is set locally.
+   ============================================================================= */
+
+/* §2 · typography — size-specific tracking ladder (the highest-craft change) */
+body{ text-rendering:optimizeLegibility; font-feature-settings:"kern" 1; }
+h1{ letter-spacing:var(--tr-display); line-height:1.02; }
+h2{ letter-spacing:var(--tr-h2);      line-height:1.1;  }
+h3{ letter-spacing:var(--tr-h3);      line-height:1.2;  }
+p { letter-spacing:var(--tr-body); }
+/* figures line up in metric / impact blocks */
+.metric,.metrics,.impact,.ibig,.imp-stat,.big,[data-count],[data-target]{
+  font-variant-numeric:tabular-nums;
+}
+
+/* §6 · focus rings — never outline:none without a replacement */
+:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:inherit; }
+
+/* §7 · materials — selection colour + consistent link affordance */
+::selection{ background:var(--accent-soft); color:var(--ink); }
+a{ text-underline-offset:3px; text-decoration-thickness:1px; }
+
+/* §5 · reduced motion. The blanket rule collapses durations; the second rule is
+   the safety net — reveal wrappers start at opacity:0, so without it any content
+   waiting on a scroll reveal would stay permanently invisible. */
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:.01ms!important; animation-iteration-count:1!important;
+     transition-duration:.01ms!important; scroll-behavior:auto!important; }
+  .reveal,.rv,.case,.anim-w,.wr,.ai-rv,.tri-card{ opacity:1!important; transform:none!important; }
+}
+

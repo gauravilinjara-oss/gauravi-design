@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Selected Work, Gauravi Linjara</title>
+  <link rel="stylesheet" href="tokens.css?v=craft2">
+  <link rel="stylesheet" href="nav.css?v=9">
+<meta name="description" content="Selected product design case studies by Gauravi Linjara: enterprise banking (Mashreq, Emirates NBD) and AI-voice work, from problem to shipped product." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<style>
+  :root{
+    --paper:var(--t-paper); --panel:#f5f5f5; --ink:var(--t-ink); --soft:var(--t-ink-soft); --muted:var(--t-ink-faint);
+    --accent:var(--t-accent); --sun:var(--t-gold); --sage:var(--t-sage);
+    --line:var(--t-line);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background-color:#ffffff;color:var(--ink);font-family:"Switzer",system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+
+  .wrap{max-width:var(--t-maxw);margin:0 auto;padding:0 28px;}
+
+  /* nav */
+  .wnav{display:flex;justify-content:space-between;align-items:center;max-width:var(--t-maxw);margin:0 auto;padding:22px 18px;}
+  .brand{font-family:"Switzer";font-weight:400;font-size:23px;letter-spacing:-.02em;color:var(--ink);text-decoration:none;}
+  .brand .a{color:var(--accent);}
+  .back{font-family:"Geist Mono";font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--soft);text-decoration:none;transition:color .2s;}
+  .back:hover{color:var(--accent);}
+  /* global site nav (work · about · lab) */
+  .snav{display:flex;gap:4px;font-family:"Geist Mono";font-size:12px;text-transform:lowercase;letter-spacing:.06em;}
+  .snav a{color:var(--soft);text-decoration:none;padding:7px 13px;border-radius:20px;border:1px solid transparent;transition:color .2s,border-color .2s;}
+  .snav a:hover{color:var(--ink);border-color:var(--line);}
+  .snav a.on{color:var(--accent);}
+
+  /* header */
+  .whead{padding-block:60px 30px;}
+  .kick{font-family:"Geist Mono";font-size:12px;text-transform:uppercase;letter-spacing:.16em;color:var(--accent);}
+  .whead h1{font-family:"Switzer";font-weight:500;letter-spacing:-.025em;text-transform:lowercase;
+    font-size:clamp(32px,5vw,54px);line-height:.94;margin:18px 0 0;max-width:100%;overflow-wrap:break-word;}
+  .whead h1 .a{color:var(--accent);}
+  .whead p{font-family:"Switzer";font-size:18px;line-height:1.6;color:var(--soft);max-width:560px;margin-top:26px;}
+  .whead .count{margin-top:30px;font-family:"Geist Mono";font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+    border-top:1px solid var(--line);padding-top:18px;}
+
+  /* index rows */
+  main{padding:30px 0 40px;}
+  .case{display:grid;grid-template-columns:1fr 1.12fr;gap:clamp(32px,5vw,72px);align-items:center;
+    padding:56px 0;border-top:1px solid var(--line);position:relative;color:inherit;text-decoration:none;cursor:pointer;
+    opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+  .case.in{opacity:1;transform:none;}
+  .case:nth-child(even) .text{order:2;}
+  .case:nth-child(even) .media{order:1;}
+
+  .num{font-family:"Switzer",serif;font-style:normal;font-weight:400;font-size:clamp(24px,3.2vw,36px);
+    color:var(--accent);opacity:.85;line-height:1;margin-bottom:14px;}
+  .meta{font-family:"Geist Mono";font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);
+    display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px;}
+  .meta .co{color:var(--soft);font-weight:500;}
+  .meta .co-logo{height:26px;width:auto;display:block;}
+  .meta .co-logo[src*="podonos"]{height:20px;}  /* tightly-cropped icon reads larger — balance it */
+  .meta .dot{opacity:.5;}
+  .ttl{font-family:"Switzer";font-weight:500;letter-spacing:-.02em;text-transform:lowercase;
+    font-size:clamp(24px,3.2vw,38px);line-height:1.0;}
+  .ttl .a{color:var(--accent);}
+  .lede{font-family:"Switzer";font-size:16px;line-height:1.62;color:var(--soft);margin-top:18px;max-width:440px;}
+  .row-foot{margin-top:24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  .chip{font-family:"Geist Mono";font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);
+    border:1px solid rgba(20,32,52,.18);border-radius:30px;padding:7px 14px;background:rgba(20,32,52,.03);}
+  .chip b{color:var(--accent);}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px;}
+  .tag{font-family:"Geist Mono";font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);
+    border:1px solid var(--line);border-radius:30px;padding:5px 11px;transition:color .2s ease,border-color .2s ease;}
+  .case:hover .tag{border-color:rgba(22,32,43,.32);color:var(--ink);}
+  .go{font-family:"Geist Mono";font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink);
+    display:inline-flex;align-items:center;gap:8px;text-decoration:none;}
+  .go:hover{color:var(--accent);}
+  .go i{font-style:normal;transition:transform .3s cubic-bezier(.16,1,.3,1);}
+  .case:hover .go i{transform:translateX(6px);}
+  .nda{font-family:"Geist Mono";font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);
+    display:inline-flex;align-items:center;gap:6px;}
+
+  /* media frame */
+  .media{position:relative;}
+  .cover{position:relative;min-height:320px;border-radius:18px;overflow:hidden;display:grid;place-items:center;
+    padding:clamp(22px,3vw,40px);border:1px solid rgba(20,32,52,.08);--ca:#16202b;
+    box-shadow:0 26px 54px -30px rgba(20,32,52,.22);transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s;}
+  .case:hover .cover{transform:translateY(-6px);box-shadow:0 40px 76px -32px rgba(20,32,52,.3);}
+  .cover.c1,.cover.c2,.cover.c3,.cover.voice{background:radial-gradient(130% 110% at 60% 0%,#f5f5f5 0%,#f5f5f5 100%);}
+  /* real screenshot / video covers — exact same media treatment as homepage .sw-media */
+  .cover.shot{padding:0;min-height:0;aspect-ratio:16/10;background:rgba(20,32,52,.06);}
+  .cover.shot img,.cover.shot video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform 1.1s cubic-bezier(.22,1,.36,1);}
+  .case:hover .cover.shot img,.case:hover .cover.shot video{transform:scale(1.04);}
+  .cover.phonecover{padding:0;min-height:0;aspect-ratio:16/10;display:flex;justify-content:center;align-items:flex-start;padding-top:24px;
+    background:linear-gradient(165deg,#d8e5f7 0%,#aecbef 56%,#8eb4e6 100%);}
+  .cover.phonecover video,.cover.phonecover img{width:52%;height:auto;max-width:none;object-fit:contain;align-self:flex-start;position:static;inset:auto;transition:transform 1.1s cubic-bezier(.22,1,.36,1);}
+  .cover.phonecover video{border-radius:26px;box-shadow:0 28px 46px -20px rgba(8,24,52,.62);clip-path:inset(4.5% 0 0 0 round 30px);}
+  /* GH cover video is a framed phone with its own bezel — round it to match, no top trim */
+  .cover.phonecover video.gh-cover{border-radius:26px;clip-path:inset(6% 4% 0 4% round 30px);}
+  .cover.phonecover img{filter:drop-shadow(0 24px 30px rgba(8,24,52,.48));}
+  .case:hover .cover.phonecover video,.case:hover .cover.phonecover img{transform:translateY(-7px);}
+  /* before/after drag compare inside the phone cover */
+  .cover.phonecover .gh-cmp{position:relative;width:52%;aspect-ratio:430/902;border-radius:26px;overflow:hidden;--pos:50%;
+    align-self:flex-start;touch-action:none;cursor:ew-resize;filter:drop-shadow(0 24px 30px rgba(8,24,52,.48));
+    transition:transform 1.1s cubic-bezier(.22,1,.36,1);}
+  .case:hover .cover.phonecover .gh-cmp{transform:translateY(-7px);}
+  .cover.phonecover .gh-cmp.dragging{animation:none;cursor:grabbing;}
+  .cover.phonecover .gh-cmp .gh-ph{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;
+    object-position:top center;filter:none;transition:none;align-self:auto;}
+  .case:hover .cover.phonecover .gh-cmp .gh-ph{transform:none;}
+  .cover.phonecover .gh-cmp .gh-ph.before{clip-path:inset(0 calc(100% - var(--pos)) 0 0);}
+  .cover.phonecover .gh-div{position:absolute;top:0;bottom:0;left:var(--pos);width:2px;margin-left:-1px;z-index:4;pointer-events:none;
+    background:rgba(255,255,255,.96);box-shadow:0 0 0 1px rgba(8,24,52,.14);}
+  .cover.phonecover .gh-handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;
+    background:#fff;box-shadow:0 3px 12px rgba(8,24,52,.34);display:flex;align-items:center;justify-content:center;font-size:12px;color:#16202b;letter-spacing:-1px;}
+  .cover.phonecover .gh-tag{position:absolute;top:11px;z-index:5;font-family:"Geist Mono";font-size:8.5px;font-weight:600;letter-spacing:.1em;
+    text-transform:uppercase;padding:3px 8px;border-radius:999px;pointer-events:none;background:rgba(255,255,255,.92);color:#16202b;}
+  .cover.phonecover .gh-tag.l{left:11px;}
+  .cover.phonecover .gh-tag.r{right:11px;background:#16202b;color:#fff;}
+  @keyframes gh-sweep{0%,100%{--pos:64%;}50%{--pos:36%;}}
+  @media(prefers-reduced-motion:reduce){.cover.phonecover .gh-cmp{animation:none;--pos:50%;}}
+  .cover .live{position:absolute;top:13px;left:13px;z-index:3;font-family:"Geist Mono";font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#16202b;background:rgba(255,255,255,.92);border-radius:8px;padding:5px 11px;}
+  /* NDA cover — exact same as homepage .sw-media.nda */
+  .cover.nda{padding:0;min-height:0;aspect-ratio:16/10;display:grid;place-items:center;position:relative;overflow:hidden;background:linear-gradient(142deg,#dcebf8 0%,#e7ede1 50%,#f7e9d2 100%);}
+  .cover .cover-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:1;transition:transform 1.1s cubic-bezier(.22,1,.36,1);}
+  .case:hover .cover .cover-vid{transform:scale(1.04);}
+  .cover.nda::before,.cover.nda::after{content:"";position:absolute;width:58%;aspect-ratio:1;border-radius:50%;pointer-events:none;}
+  /* when the NDA card has a real video cover, drop the decorative aura */
+  .cover.nda:has(video)::before,.cover.nda:has(video)::after{display:none;}
+  .cover.nda::before{background:
+      radial-gradient(42% 42% at 30% 32%,#bcd4ff 0%,transparent 62%),
+      radial-gradient(46% 46% at 72% 66%,#b3a4ec 0%,transparent 62%),
+      radial-gradient(62% 62% at 52% 48%,#9bb8ee 0%,#c6c2ef 58%,transparent 82%);
+    filter:blur(7px) saturate(1.25);opacity:.94;animation:ndaSwirl 18s ease-in-out infinite;}
+  .cover.nda::after{background:
+      radial-gradient(40% 40% at 68% 30%,#e7bce6 0%,transparent 60%),
+      radial-gradient(44% 44% at 30% 70%,#f3ddc6 0%,transparent 62%),
+      radial-gradient(52% 52% at 58% 60%,#cbb6ea 0%,transparent 80%);
+    filter:blur(11px) saturate(1.25);opacity:.8;animation:ndaSwirl2 23s ease-in-out infinite;}
+  .cover.nda .nda-hover{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;opacity:0;background:rgba(255,255,255,.16);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);transition:opacity .4s cubic-bezier(.22,1,.36,1);color:rgba(20,32,52,.72);}
+  .cover.nda .nda-hover svg{width:30px;height:30px;}
+  .cover.nda .nda-hover span{font-family:"Geist Mono";font-weight:600;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;}
+  .case:hover .cover.nda .nda-hover{opacity:1;}
+  @keyframes ndaSwirl{0%{transform:rotate(0) scale(1)}50%{transform:rotate(180deg) scale(1.08)}100%{transform:rotate(360deg) scale(1)}}
+  @keyframes ndaSwirl2{0%{transform:rotate(0) scale(1.06)}50%{transform:rotate(-200deg) scale(.94)}100%{transform:rotate(-360deg) scale(1.06)}}
+  @media(prefers-reduced-motion:reduce){.cover.nda::before,.cover.nda::after{animation:none;}}
+  .screen{width:100%;max-width:430px;aspect-ratio:16/10;border-radius:11px;overflow:hidden;display:flex;flex-direction:column;
+    background:#f5f5f5;border:1px solid rgba(20,32,52,.1);box-shadow:0 18px 40px -22px rgba(20,32,52,.26);}
+  .screen .bardots{height:26px;flex:0 0 26px;background:#f5f5f5;display:flex;align-items:center;gap:5px;padding-left:12px;border-bottom:1px solid rgba(0,0,0,.07);}
+  .screen .bardots i{width:7px;height:7px;border-radius:50%;background:rgba(0,0,0,.16);}
+  .screen img{flex:1 1 auto;width:100%;min-height:0;object-fit:cover;object-position:top center;
+    filter:grayscale(1) contrast(1.07) brightness(1.04);transition:transform 1s cubic-bezier(.16,1,.3,1);}
+  .case:hover .screen img{transform:scale(1.04);}
+
+  /* NDA voice cover */
+  .voice .wave{display:flex;align-items:center;gap:5px;height:96px;}
+  .voice .wave i{width:5px;border-radius:3px;background:linear-gradient(var(--accent),#0083E7);opacity:.9;
+    animation:vbar 1.4s ease-in-out infinite;}
+  @keyframes vbar{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1)}}
+  .voice .lockline{position:absolute;bottom:18px;left:0;right:0;text-align:center;
+    font-family:"Geist Mono";font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(20,32,52,.5);}
+
+  /* footer */
+  .wfoot{padding:60px 0 90px;border-top:1px solid var(--line);margin-top:20px;}
+  .wfoot a{font-family:"Geist Mono";font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--soft);text-decoration:none;}
+  .wfoot a:hover{color:var(--accent);}
+
+  /* interactive case demos (always on a light card, no blue) */
+  .demo{width:100%;max-width:430px;background:#f5f5f5;border-radius:14px;border:1px solid rgba(0,0,0,.08);
+    box-shadow:0 18px 40px -22px rgba(20,32,52,.24);padding:18px 18px 20px;text-align:left;color:#16202b;}
+  .demo .dh{font-family:"Geist Mono";font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#a3917d;margin-bottom:12px;}
+  .demo .q{font-family:"Switzer";font-weight:400;font-size:19px;letter-spacing:-.01em;text-transform:lowercase;margin-bottom:14px;}
+  .help-search{border:1px solid rgba(0,0,0,.12);border-radius:10px;padding:10px 12px;color:#a39a8d;font-size:13px;margin-bottom:12px;}
+  .help-item{display:block;width:100%;text-align:left;font-family:"Switzer";font-size:13.5px;color:#16202b;background:#f5f5f5;
+    border:1px solid rgba(0,0,0,.1);border-radius:10px;padding:11px 13px;margin-bottom:8px;cursor:pointer;transition:border-color .2s,background .2s;}
+  .help-item:hover{border-color:var(--ca,#16202b);}
+  .help-item.on{border-color:var(--ca,#16202b);background:#e7ecf3;}
+  .help-ans{font-size:13px;line-height:1.5;color:#6b6051;padding:4px 4px 0;min-height:18px;}
+  .fx-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#6b6256;margin-bottom:10px;}
+  .fx-row.big{font-size:14px;color:#16202b;border-top:1px solid rgba(0,0,0,.08);padding-top:12px;margin-top:2px;}
+  .fx-row.big b{font-family:"Switzer";font-weight:400;font-size:21px;}
+  .fx-amt{display:flex;align-items:center;gap:8px;}
+  .fx-amt b{font-family:"Geist Mono";font-size:12px;background:#F1ECE4;border-radius:7px;padding:5px 9px;}
+  .fx-amt input{width:118px;font-family:"Geist Mono";font-size:14px;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:8px 10px;text-align:right;color:#16202b;background:#f5f5f5;}
+  .fx-amt input:focus{outline:none;border-color:var(--ca,#16202b);}
+  .fx-rate{font-family:"Geist Mono";font-size:11px;color:#a3917d;margin-bottom:14px;}
+  .fx-go,.bo-go{width:100%;font-family:"Geist Mono";text-transform:uppercase;letter-spacing:.06em;font-size:12px;color:#fff;
+    background:var(--ca,#16202b);border:none;border-radius:10px;padding:12px;cursor:pointer;transition:filter .2s,transform .12s;}
+  .fx-go:hover,.bo-go:hover{filter:brightness(.92);} .fx-go:active,.bo-go:active{transform:scale(.99);}
+  .fx-go.done{background:#7FA85C;filter:none;}
+  .fx-tabs{display:flex;gap:6px;background:#F1ECE4;border-radius:10px;padding:4px;margin-bottom:14px;}
+  .fx-tab{flex:1;font-family:"Geist Mono";font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#7a7165;
+    background:transparent;border:none;border-radius:7px;padding:8px;cursor:pointer;transition:background .2s,color .2s;}
+  .fx-tab.on{background:#f5f5f5;color:#16202b;box-shadow:0 1px 3px rgba(0,0,0,.1);}
+  .fx-view[hidden]{display:none;}
+  .fx-client{font-size:12px;color:#6b6256;background:#f5f5f5;border:1px solid rgba(0,0,0,.08);border-radius:9px;padding:9px 11px;margin-bottom:11px;}
+  .fx-client b{color:var(--ca,#16202b);}
+  .fx-line{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#6b6256;margin-bottom:9px;}
+  .fx-line i{font-style:normal;color:#a3917d;font-size:11px;}
+  .fx-line b{font-family:"Geist Mono";color:#16202b;}
+  .fx-line.big{border-top:1px solid rgba(0,0,0,.08);padding-top:11px;font-size:14px;color:#16202b;}
+  .fx-line.big b{font-family:"Switzer";font-weight:400;font-size:18px;}
+  .fx-step{display:flex;align-items:center;gap:8px;}
+  .fx-step button{width:26px;height:26px;border-radius:7px;border:1px solid rgba(0,0,0,.14);background:#f5f5f5;cursor:pointer;font-size:15px;color:#16202b;line-height:1;}
+  .fx-step b{font-family:"Geist Mono";min-width:62px;text-align:center;}
+  .fx-timer{margin:4px 0 14px;}
+  .fx-timer span{font-family:"Geist Mono";font-size:11px;color:#a3917d;}
+  .fx-timer span.exp{color:var(--t-accent-deep);}
+  .fx-bar{height:4px;background:#EFE9DF;border-radius:3px;overflow:hidden;margin-top:6px;}
+  .fx-bar i{display:block;height:100%;width:100%;background:var(--ca,#16202b);}
+  .bo-pay{background:#f5f5f5;border:1px solid rgba(0,0,0,.1);border-radius:11px;padding:13px;margin-bottom:12px;}
+  .bo-top{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#6b6256;}
+  .bo-amt{font-family:"Switzer";font-weight:400;font-size:18px;color:#16202b;}
+  .bo-to{font-size:12px;color:#a39a8d;margin-top:6px;}
+  .bo-go.hide{display:none;}
+  .bo-done{display:none;font-family:"Geist Mono";font-size:12px;letter-spacing:.04em;color:#5f7f43;margin-top:12px;text-align:center;}
+  .bo-done.show{display:block;}
+  .vplay{position:absolute;bottom:14px;right:16px;font-family:"Geist Mono";font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+    color:rgba(20,32,52,.7);background:rgba(20,32,52,.05);border:1px solid rgba(20,32,52,.18);border-radius:20px;padding:5px 12px;cursor:pointer;}
+  .vplay:hover{color:var(--accent);border-color:var(--accent);}
+  .voice.playing .wave i{animation-duration:.7s;}
+
+  .badge{position:fixed;left:14px;bottom:14px;z-index:50;font-family:"Geist Mono";font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--muted);background:rgba(244,242,234,.8);border:1px solid var(--line);border-radius:8px;padding:6px 10px;backdrop-filter:blur(6px);}
+
+  @media(max-width:760px){
+    .case{grid-template-columns:1fr;gap:24px;padding:44px 0;}
+    .case:nth-child(even) .text{order:1;}
+    .case:nth-child(even) .media{order:2;}
+    .lede{max-width:none;}
+    .cover{min-height:auto;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .case{opacity:1;transform:none;transition:none;}
+    .voice .wave i{animation:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+<link rel="stylesheet" href="transition.css" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Gauravi Linjara" />
+<meta property="og:url" content="https://gauravi.design/work.html" />
+<meta property="og:title" content="Selected Work, Gauravi Linjara" />
+<meta property="og:description" content="Selected product design case studies by Gauravi Linjara: enterprise banking (Mashreq, Emirates NBD) and AI-voice work, from problem to shipped product." />
+<meta property="og:image" content="https://gauravi.design/assets/og/og-card.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Selected Work, Gauravi Linjara" />
+<meta name="twitter:description" content="Selected product design case studies by Gauravi Linjara: enterprise banking (Mashreq, Emirates NBD) and AI-voice work, from problem to shipped product." />
+<meta name="twitter:image" content="https://gauravi.design/assets/og/og-card.png" />
+  <link rel="stylesheet" href="responsive.css?v=mobile-20260715" />
+  <link rel="stylesheet" href="cinematic.css?v=1" />
+<!-- FIGCAP-START (temporary) -->
+<script src="/mockups/_figcap.js"></script>
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async data-figma-capture></script>
+<!-- FIGCAP-END -->
+  <!-- Microsoft Clarity analytics -->
+  <script src="clarity.js?v=1" defer></script>
+</head>
+<body data-cine="hero parallax tilt magnet grain motes" data-motes="fixed">
+  <!-- shared page transition (ink wipe) — see transition.css/js -->
+  <div class="pgx" id="pgx" aria-hidden="true">
+    <div class="pgx-ink"></div>
+    <div class="pgx-mark"><span class="wm">gauravi<span class="dot">.</span></span></div>
+    <svg width="0" height="0" aria-hidden="true"><filter id="pgxink"><feTurbulence type="fractalNoise" baseFrequency="0.013 0.021" numOctaves="2" seed="6" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="10" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+  </div>
+
+  <nav class="wnav">
+    <a class="brand" href="/">gauravi<span class="a">.</span></a>
+    <nav class="snav">
+      <a href="work.html" class="on">work</a>
+      <a href="beyond.html">lil&nbsp;about&nbsp;me</a>
+      <a href="/lab">art&nbsp;lab</a>
+      <a class="ext" href="https://www.linkedin.com/in/gauravi-linjara/" target="_blank" rel="noopener">linkedin <span class="exti exti-up">↗</span></a><a class="ext" href="../assets/files/Gauravi_Linjara_Resume.pdf" target="_blank" rel="noopener">résumé <span class="exti exti-dn">↓</span></a>
+      <a href="quick.html">quick&nbsp;view</a>
+    </nav>
+  </nav>
+
+  <header class="whead wrap" data-cine-hero>
+    <span class="kick">the work</span>
+    <h1>selected product design <span class="a">case studies</span>.</h1>
+    <p>Six years across India, the UAE and the Bay: enterprise banking, AI voice, and the craft in between. Six deep dives. Five shipped, one built for the craft.</p>
+  </header>
+
+  <main class="wrap">
+
+    <!-- 01 Podonos (NDA) -->
+    <div class="case" data-href="case-podonos.html">
+      <div class="text">
+        <div class="num">01</div>
+        <div class="meta"><img class="co-logo" src="../assets/logos/podonos.svg" alt="Podonos" /><span class="dot">·</span><span>2026 · the Bay</span><span class="dot">·</span><span>Generative Voice</span></div>
+        <div class="ttl">the intelligent layer <span class="a">for global voice.</span></div>
+        <p class="lede">Dozens of TTS models exist; none can tell you which one sounds right, in which language. An AI-voice evaluation product.</p>
+        <div class="tags"><span class="tag">0→1</span><span class="tag">Voice AI</span><span class="tag">Product Design</span></div>
+        <div class="row-foot">
+        </div>
+      </div>
+      <div class="media"><div class="cover nda"><video class="cover-vid" autoplay muted loop playsinline preload="metadata" poster="/assets/case/podonos/onepin-flow-poster.jpg"><source src="/assets/case/podonos/onepin-flow.mp4" type="video/mp4"></video><div class="nda-hover" aria-label="under NDA"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/><circle cx="12" cy="15.2" r="1.25" fill="currentColor" stroke="none"/></svg><span>under nda</span></div></div></div>
+    </div>
+
+    <!-- 02 Mashreq -->
+    <div class="case" data-href="case-mashreq.html">
+      <div class="text">
+        <div class="num">02</div>
+        <div class="meta"><img class="co-logo" src="../assets/logos/mashreq.png" alt="Mashreq Bank" /><span class="dot">·</span><span>2022–24 · Dubai</span><span class="dot">·</span><span>Customer Care</span></div>
+        <div class="ttl">great help, <span class="a">one click away.</span></div>
+        <p class="lede">A customer stranded at the airport with failing cards. The help he needed was buried four clicks deep. A redesign of Mashreq's customer care.</p>
+        <div class="tags"><span class="tag">Enterprise</span><span class="tag">Web + Mobile</span><span class="tag">Product Design</span></div>
+        <div class="row-foot">
+        </div>
+      </div>
+      <div class="media"><div class="cover shot"><img src="../assets/case/mashreq/mq-search.png" alt="Mashreq customer care" loading="lazy"></div></div>
+    </div>
+
+    <!-- 02 FX (now open) -->
+    <div class="case" data-href="case-fxonline.html">
+      <div class="text">
+        <div class="num">03</div>
+        <div class="meta"><img class="co-logo" src="../assets/logos/emirates-nbd.png" alt="Emirates NBD" /><span class="dot">·</span><span>2024–25 · Dubai</span><span class="dot">·</span><span>FX Platform</span></div>
+        <div class="ttl">exchange currency <span class="a">without the fear.</span></div>
+        <p class="lede">Cross-currency money movement is high-stakes and opaque: rates shift, fees hide, one wrong field costs real money. Made calm and legible.</p>
+        <div class="tags"><span class="tag">B2B SaaS</span><span class="tag">Fintech</span><span class="tag">Enterprise</span></div>
+        <div class="row-foot">
+        </div>
+      </div>
+      <div class="media"><div class="cover shot"><video src="../assets/case/fx/cover-loop-hd.mp4?v=4" poster="../assets/case/fx/cover-loop-hd-poster.jpg?v=4" aria-label="FX Online order screen" muted loop playsinline autoplay></video></div></div>
+    </div>
+
+    <!-- 03 Business Online -->
+    <div class="case" data-href="case-business.html">
+      <div class="text">
+        <div class="num">04</div>
+        <div class="meta"><img class="co-logo" src="../assets/logos/emirates-nbd.png" alt="Emirates NBD" /><span class="dot">·</span><span>2024–25 · Dubai</span><span class="dot">·</span><span>Mobile App</span></div>
+        <div class="ttl">corporate banking, <span class="a">in your pocket.</span></div>
+        <p class="lede">Business owners shouldn't need a desktop and a manual to approve a payment. The Business Online mobile app: review and approve payments from anywhere.</p>
+        <div class="tags"><span class="tag">Mobile</span><span class="tag">Fintech</span><span class="tag">Enterprise</span></div>
+        <div class="row-foot">
+        </div>
+      </div>
+      <div class="media"><div class="cover phonecover"><span class="live">▶ live demo</span><video src="../assets/case/bo/flow1.mp4" poster="../assets/case/bo/flow1-poster.png" muted loop playsinline autoplay></video></div></div>
+    </div>
+
+    <!-- 04 smartTRADE -->
+    <div class="case" data-href="case-smarttrade.html">
+      <div class="text">
+        <div class="num">05</div>
+        <div class="meta"><img class="co-logo" src="../assets/logos/emirates-nbd.png" alt="Emirates NBD" /><span class="dot">·</span><span>2023–24 · Dubai</span><span class="dot">·</span><span>Trade Finance</span></div>
+        <div class="ttl">trade finance, <span class="a">out of the paper age.</span></div>
+        <p class="lede">Letters of credit meant couriers, wet ink and a branch visit, with no way to see where anything stood. An online hub to raise and track every trade deal.</p>
+        <div class="tags"><span class="tag">B2B SaaS</span><span class="tag">Trade Finance</span><span class="tag">Enterprise</span></div>
+        <div class="row-foot">
+        </div>
+      </div>
+      <div class="media"><div class="cover shot"><video src="../assets/case/smarttrade/cover-loop.mp4" poster="../assets/case/smarttrade/cover-loop-poster.jpg" aria-label="smartTRADE letter of credit" muted loop playsinline autoplay></video></div></div>
+    </div>
+
+    <!-- 06 Health App, coded prototype (self-initiated build) -->
+    <div class="case" data-href="case-googlehealth.html">
+      <div class="text">
+        <div class="num">06</div>
+        <div class="meta"><span>2026 · the Bay</span><span class="dot">·</span><span>Self-initiated</span><span class="dot">·</span><span>Coded prototype</span></div>
+        <div class="ttl">design that runs, <span class="a">not just renders.</span></div>
+        <p class="lede">A self-initiated front-end build. I took a health app from Figma to a working, coded prototype: real components, real interactions, running in the browser. Not a redesign pitch, just proof I ship what I design.</p>
+        <div class="tags"><span class="tag">Personal</span><span class="tag">Front-end</span><span class="tag">Coded Prototype</span></div>
+        <div class="row-foot">
+        </div>
+      </div>
+      <div class="media"><div class="cover phonecover"><div class="gh-cmp" data-ghcmp><img class="gh-ph after" src="../assets/case/googlehealth/gh-after.png" alt="redesign"><img class="gh-ph before" src="../assets/case/googlehealth/gh-before.png" alt="original"><div class="gh-div"></div><div class="gh-handle">↔</div><span class="gh-tag l">before</span><span class="gh-tag r">after</span></div></div></div>
+    </div>
+
+  </main>
+
+  <!-- portfolio chat assistant (self-contained; talks to /api/chat) -->
+  <link rel="stylesheet" href="assistant.css?v=mobile-20260715">
+  <script src="assistant.js" defer></script>
+
+<script>
+  (function(){
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var cases=document.querySelectorAll('.case');
+    if(reduce || !('IntersectionObserver' in window)){ cases.forEach(function(c){c.classList.add('in');}); return; }
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    },{threshold:0.18});
+    cases.forEach(function(c){ io.observe(c); });
+  })();
+</script>
+<script>
+(function(){
+  function stop(e){ e.stopPropagation(); }
+  document.querySelectorAll('.case').forEach(function(c){
+    c.addEventListener('click',function(e){
+      if(e.target.closest('.demo')||e.target.closest('a')) return;
+      var h=c.dataset.href; if(h) location.href=h;
+    });
+  });
+  // before/after drag compare on the Google Health cover (grab to pause the auto-sweep)
+  document.querySelectorAll('[data-ghcmp]').forEach(function(cmp){
+    function setPos(x){ var r=cmp.getBoundingClientRect();
+      var p=Math.max(4,Math.min(96,(x-r.left)/r.width*100)); cmp.style.setProperty('--pos',p+'%'); }
+    var drag=false,pause=0,t=0;
+    cmp.addEventListener('pointerdown',function(e){ drag=true; cmp.classList.add('dragging');
+      try{ cmp.setPointerCapture(e.pointerId); }catch(_){}
+      setPos(e.clientX); e.preventDefault(); e.stopPropagation(); });
+    cmp.addEventListener('pointermove',function(e){ if(drag) setPos(e.clientX); });
+    function end(){ if(drag){ drag=false; cmp.classList.remove('dragging'); pause=performance.now()+2800; } }
+    cmp.addEventListener('pointerup',end);
+    cmp.addEventListener('pointercancel',end);
+    cmp.addEventListener('click',function(e){ e.stopPropagation(); });
+    if(!matchMedia('(prefers-reduced-motion:reduce)').matches){function loop(now){if(!drag&&now>pause){t+=0.016;cmp.style.setProperty('--pos',(50+22*Math.sin(t))+'%');}requestAnimationFrame(loop);}requestAnimationFrame(loop);}
+  });
+  var ans=document.getElementById('helpAns');
+  document.querySelectorAll('.help-item').forEach(function(b){
+    b.addEventListener('click',function(e){ e.preventDefault(); stop(e);
+      document.querySelectorAll('.help-item').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on'); if(ans) ans.textContent=b.getAttribute('data-a');
+    });
+  });
+  var fxDemo=document.querySelector('.demo-fx');
+  if(fxDemo){
+    fxDemo.querySelectorAll('.fx-tab').forEach(function(t){
+      t.addEventListener('click',function(e){ e.preventDefault(); stop(e);
+        fxDemo.querySelectorAll('.fx-tab').forEach(function(x){ x.classList.remove('on'); });
+        t.classList.add('on'); var v=t.getAttribute('data-v');
+        fxDemo.querySelectorAll('.fx-view').forEach(function(vw){ vw.hidden = vw.getAttribute('data-v')!==v; });
+      });
+    });
+    var rmT=document.getElementById('rmT'), rmBar=document.getElementById('rmBar'), rmBook=document.getElementById('rmBook');
+    var secs=90, timer=null, expired=false;
+    function fmt(s){ return '0:'+(s<10?'0':'')+s; }
+    function tick(){ secs--; if(secs<=0){ secs=0; expired=true; clearInterval(timer);
+        rmT.textContent='rate expired'; rmT.classList.add('exp'); rmBar.style.width='0%'; rmBook.textContent='refresh rate'; return; }
+      rmT.textContent='rate locked · '+fmt(secs); rmBar.style.width=(secs/90*100)+'%'; }
+    function startTimer(){ secs=90; expired=false; if(rmT){rmT.classList.remove('exp');rmT.textContent='rate locked · 0:90';}
+      if(rmBar)rmBar.style.width='100%'; if(rmBook){rmBook.textContent='book deal';rmBook.classList.remove('done');}
+      clearInterval(timer); timer=setInterval(tick,1000); }
+    if(rmBook){ startTimer();
+      rmBook.addEventListener('click',function(e){ e.preventDefault(); stop(e);
+        if(expired){ startTimer(); }
+        else { clearInterval(timer); rmBook.textContent='✓ deal booked'; rmBook.classList.add('done'); if(rmT)rmT.textContent='booked at 3.9712'; }
+      });
+    }
+    var trQuote=document.getElementById('trQuote'), q=3.9712;
+    function setQ(){ if(trQuote) trQuote.textContent=q.toFixed(4); }
+    var trUp=document.getElementById('trUp'), trDown=document.getElementById('trDown'), trSend=document.getElementById('trSend');
+    if(trUp) trUp.addEventListener('click',function(e){ e.preventDefault(); stop(e); q+=0.0005; setQ(); });
+    if(trDown) trDown.addEventListener('click',function(e){ e.preventDefault(); stop(e); q=Math.max(0,q-0.0005); setQ(); });
+    if(trSend) trSend.addEventListener('click',function(e){ e.preventDefault(); stop(e); trSend.textContent='✓ quoted to RM'; trSend.classList.add('done'); });
+  }
+  var boGo=document.getElementById('boGo'), boDone=document.getElementById('boDone');
+  if(boGo){ boGo.addEventListener('click',function(e){ e.preventDefault(); stop(e); boGo.classList.add('hide'); if(boDone) boDone.classList.add('show'); }); }
+  var vp=document.getElementById('vplay');
+  if(vp){ vp.addEventListener('click',function(e){ e.preventDefault(); stop(e); var v=vp.closest('.voice'); v.classList.toggle('playing');
+    vp.textContent=v.classList.contains('playing')?'❚❚ playing':'▶ play sample'; }); }
+})();
+</script>
+  <script src="transition.js" defer></script>
+  <!-- cinematic layer: GSAP scroll choreography + shader grain + Three.js motes -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="cinematic.js?v=1"></script>
+  <!-- global footer -->
+  <link rel="stylesheet" href="footer.css">
+  <script src="footer.js" defer></script>
+  <script src="nav.js?v=6" defer></script>
+  <script src="smooth-scroll.js" defer></script>
+</body>
+</html>

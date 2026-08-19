@@ -1,0 +1,39 @@
+/* ───────────────────────────────────────────────────────────
+   transition.css — shared page-transition (ink wipe)
+   A single warm ink blot spreads diagonally to cover the page on
+   navigation and recedes to reveal it on load. The ragged edge is
+   real SVG turbulence on the clip, so it reads hand-drawn ("inked")
+   rather than a rigid panel. Pairs with transition.js + the .pgx block.
+   ─────────────────────────────────────────────────────────── */
+.pgx{position:fixed;inset:0;z-index:9000;pointer-events:none;}
+
+.pgx-ink{position:absolute;inset:-8%;
+  background:radial-gradient(130% 130% at 72% 112%, #a9cdee 0%, #cfe3f6 46%, #edf5fd 100%);
+  filter:url(#pgxink);
+  clip-path:circle(170% at 72% 112%);
+  transition:clip-path 1s cubic-bezier(.62,0,.34,1);will-change:clip-path;}
+.pgx.reveal .pgx-ink{clip-path:circle(0% at 24% -12%);}
+
+.pgx-mark{position:absolute;inset:0;display:grid;place-items:center;opacity:1;transition:opacity .55s ease;}
+.pgx.reveal .pgx-mark{opacity:0;}
+.pgx-mark .wm{font-family:"Switzer",system-ui,sans-serif;font-weight:600;letter-spacing:-.02em;line-height:1.02;
+  font-size:clamp(38px,7.2vw,92px);color:#16202b;filter:url(#pgxink);
+  text-align:center;max-width:90vw;text-transform:lowercase;}
+.pgx-mark .wm .dot{color:#2f6cb8;}
+
+@media (prefers-reduced-motion:reduce){
+  .pgx{display:none !important;}
+}
+
+/* mobile: keep the unified nav (work · about · lab · 60sec scan) on one line, no overflow.
+   Higher specificity (.wnav …) so it wins over each page's own nav styles. */
+@media (max-width:640px){
+  .wnav .brand{font-size:19px;}
+  .wnav .snav{font-size:11px;gap:1px;min-width:0;flex-shrink:1;}
+  .wnav .snav a{padding:6px 8px;}
+}
+@media (max-width:404px){
+  .wnav .brand{font-size:17px;}
+  .wnav .snav{font-size:10px;}
+  .wnav .snav a{padding:5px 6px;}
+}

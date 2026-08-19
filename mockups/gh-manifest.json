@@ -1,0 +1,27 @@
+{
+  "name": "Google Health redesigned",
+  "short_name": "GH Redesign",
+  "description": "Unsolicited redesign prototype by Gauravi Linjara. Dark M3 Expressive, one volt accent.",
+  "start_url": "gh-redesign.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0b0d",
+  "theme_color": "#0a0b0d",
+  "icons": [
+    {
+      "src": "assets/gh-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/gh-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "id": "gh-redesign.html",
+  "display_override": [
+    "standalone"
+  ]
+}

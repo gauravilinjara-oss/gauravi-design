@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Datadog RUM (real user monitoring), CDN async -->
+<script>
+  (function(h,o,u,n,d) {
+    h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
+    d=o.createElement(u);d.async=1;d.src=n;d.crossOrigin=''
+    n=o.getElementsByTagName(u)[0];n.parentNode.insertBefore(d,n)
+  })(window,document,'script','https://www.datadoghq-browser-agent.com/us5/v7/datadog-rum.js','DD_RUM')
+  window.DD_RUM.onReady(function() {
+    window.DD_RUM.init({
+      applicationId: '5808a513-e647-4310-9e95-2f9eb4dbae4b',
+      clientToken: 'pub9ab484dd3fcba895533fb19651d694e5',
+      site: 'us5.datadoghq.com',
+      service: 'gauravi-portfolio',
+      env: 'prod',
+      sessionSampleRate: 100,
+      sessionReplaySampleRate: 20,
+      trackResources: true,
+      trackUserInteractions: true,
+      trackLongTasks: true,
+      defaultPrivacyLevel: 'mask-user-input',
+    });
+  })
+</script>
+
+<meta charset="UTF-8" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Business Online, Gauravi Linjara</title>
+  <link rel="stylesheet" href="tokens.css?v=craft2">
+  <link rel="stylesheet" href="nav.css?v=9">
+<meta name="description" content="Emirates NBD Business Online, a mobile app to review and approve high-stakes payments from anywhere, with confidence. A case study by Gauravi Linjara." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<style>
+  :root{
+    --paper:var(--t-paper);
+    --paper-2:var(--t-paper-2);
+    --ink:var(--t-ink);
+    --ink-soft:var(--t-ink-soft);
+    --ink-faint:var(--t-ink-faint);
+    --line:var(--t-line);
+    --accent:var(--t-accent);
+    --accent-soft:var(--t-accent-soft);
+    --sage:#8DB67E;
+    --gold:var(--t-gold);
+    --blue:var(--t-blue);
+    --maxw:var(--t-maxw);
+    /* CRAFT PASS · surfaces. Base page is pure white, so elevation comes from
+       light (hairline + shadow), never from a grey fill. */
+    --surface:#ffffff;    /* raised cards */
+    --surface-2:#f5f5f5;  /* recessed: section bands, media stages */
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Switzer',system-ui,sans-serif;
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---- type voices ---- */
+  .eyebrow{
+    font-family:'Geist Mono',monospace;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:14px;
+    color:#32404F;
+    font-weight:500;
+  }
+  h1,h2,h3{font-family:'Switzer',sans-serif;font-weight:400;letter-spacing:-.03em;line-height:1.02;text-transform:lowercase}
+  .accent{color:var(--accent)}
+  .script{font-family:'Switzer',cursive;text-transform:none;letter-spacing:0}
+  .note{font-family:'Switzer',system-ui,sans-serif;color:var(--ink-soft);font-size:13.5px;letter-spacing:0}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+  /* ---- top nav ---- */
+  nav.top{
+    position:sticky;top:18px;z-index:50;margin:18px auto 0;max-width:var(--maxw);
+    padding:0 18px;
+  }
+  nav.top .wrap{
+    display:flex;align-items:center;justify-content:space-between;height:58px;
+    background:rgba(255,255,255,.82);
+    backdrop-filter:saturate(150%) blur(12px);
+    border:1px solid rgba(20,32,52,.06);
+    border-radius:var(--r-2);
+    box-shadow:var(--shadow-2);
+    padding:0 22px;max-width:none;
+  }
+  .back{font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.12em;font-size:12px;color:var(--ink-soft);text-decoration:none;display:inline-flex;gap:8px;align-items:center}
+  .back:hover{color:var(--accent)}
+  .navmeta{font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.12em;font-size:11px;color:var(--ink-faint)}
+  /* unified site header (brand left · work/about/lab right) */
+  .wnav{display:flex;justify-content:space-between;align-items:center;max-width:var(--maxw);margin:0 auto;padding:22px 18px;}
+  .wnav .brand{font-family:'Switzer',sans-serif;font-weight:400;font-size:22px;letter-spacing:-.02em;color:var(--ink);text-decoration:none;}
+  .wnav .brand .a{color:var(--accent);}
+  /* global site nav (work · about · lab) */
+  .snav{display:flex;gap:4px;font-family:'Geist Mono',monospace;font-size:12px;text-transform:lowercase;letter-spacing:.06em}
+  .snav a{color:var(--ink-soft);text-decoration:none;padding:7px 13px;border-radius:var(--r-3);border:1px solid transparent;transition:color .2s,border-color .2s}
+  .snav a:hover{color:var(--ink);border-color:var(--line)}
+  .snav a.on{color:var(--accent)}
+
+  /* ---- hero ---- */
+  header.hero{padding:var(--s-8) 0 var(--s-7)}
+  .kicker-row{display:flex;align-items:center;gap:14px;margin-bottom:22px;flex-wrap:wrap}
+  .pill{font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.1em;font-size:11px;border:1px solid var(--line);border-radius:var(--r-pill);padding:5px 11px;color:var(--ink-soft);background:var(--surface-2)}
+  .pill.brand{border-color:#0083E7;color:#0083E7;background:rgba(0,131,231,.1)}
+  header.hero h1{font-size:clamp(26px,3.6vw,42px);line-height:1.06;margin-bottom:16px}
+  .lede{font-size:clamp(15px,1.3vw,17px);max-width:760px;color:var(--ink-soft);line-height:1.5;font-weight:400}
+  .lede b{color:var(--ink);font-weight:400}
+  /* product-forward hero: text + floating device frames */
+  .hero-grid{display:grid;grid-template-columns:1.04fr .96fr;align-items:center;gap:46px;}
+  header.hero .hero-grid h1{font-size:clamp(30px,4vw,48px);}
+  .hero-stage{position:relative;height:540px;display:flex;align-items:center;justify-content:center;}
+  .hero-stage .glow{position:absolute;width:440px;height:440px;border-radius:50%;background:radial-gradient(circle,rgba(22,32,43,.16),transparent 65%);z-index:0;}
+  .hp-phone{position:absolute;border-radius:40px;background:#1c1a17;padding:11px;box-shadow:0 24px 60px -20px rgba(22,32,43,.18),0 0 0 2px rgba(22,32,43,.06);overflow:hidden;}
+  .hp-phone::before{content:'';position:absolute;top:14px;left:50%;transform:translateX(-50%);width:76px;height:18px;background:#1c1a17;border-radius:0 0 14px 14px;z-index:3;}
+  .hp-phone .scr{width:100%;height:100%;border-radius:29px;overflow:hidden;background:#0c1018;}
+  .hp-phone video,.hp-phone img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;}
+  .hp-center{width:252px;aspect-ratio:546/1183;z-index:3;}
+  .hp-left{width:212px;aspect-ratio:546/1183;z-index:2;left:2%;top:50%;transform:translateY(-50%);}
+  .hp-right{width:212px;aspect-ratio:546/1183;z-index:2;right:2%;top:50%;transform:translateY(-50%);}
+  .hp-tag{position:absolute;z-index:5;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;background:var(--surface-2);color:var(--ink);padding:7px 12px;border-radius:30px;box-shadow:0 12px 30px -14px rgba(0,0,0,.4);border:1px solid var(--line);}
+  .hp-tag.t1{top:7%;right:9%;} .hp-tag.t1 .d{color:var(--accent);font-weight:400;}
+  .hp-tag.t2{bottom:12%;left:8%;}
+  header.hero .metrics{margin-top:var(--s-6);}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:18px}.hero-stage{height:430px;margin-top:6px}.hero-grid h1{font-size:clamp(30px,5vw,48px)}}
+  /* phones are fixed-width (252/212) and overlap badly on a real phone — scale the
+     whole stack with the viewport so all three fan out and fit without clipping */
+  @media(max-width:600px){
+    .hero-stage{height:auto;min-height:118vw;max-height:520px;margin-top:2px}
+    .hp-center{width:min(52vw,212px)}
+    .hp-left{width:min(38vw,156px);left:0}
+    .hp-right{width:min(38vw,156px);right:0}
+    .hero-stage .glow{width:80vw;height:80vw}
+  }
+
+  /* ---- metric hero (3 big numbers) ---- */
+  .metrics{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+    border:1px solid var(--hairline);border-radius:var(--r-3);overflow:hidden;
+    background:var(--surface);margin-top:var(--s-6);
+    box-shadow:var(--shadow-1);
+  }
+  .metric{padding:32px 24px;border-right:1px solid var(--line);position:relative;transition:background .3s,transform .3s}
+  .metric:last-child{border-right:none}
+  .metric:hover{background:linear-gradient(180deg,#fff,var(--accent-soft));z-index:2}
+  .metric .big{font-family:'Switzer',sans-serif;font-weight:400;letter-spacing:-.04em;font-size:clamp(20px,2.4vw,28px);line-height:1;color:var(--ink)}
+  .metric .big .arrow{color:var(--accent);font-weight:400;display:inline-block;transition:transform .35s cubic-bezier(.4,0,.1,1)}
+  .metric:hover .big .arrow{transform:translateX(8px)}
+  /* arrow draws/slides in when the card enters view */
+  .metric .big .arrow{opacity:0;transform:translateX(-6px)}
+  .metric.lit .big .arrow{opacity:1;transform:translateX(0);transition:opacity .5s ease .35s,transform .5s cubic-bezier(.4,0,.1,1) .35s}
+  .metric.lit:hover .big .arrow{transform:translateX(8px)}
+  .metric .label{margin-top:14px;font-size:14.5px;color:var(--ink-soft);line-height:1.45}
+  .metric .tag{margin-top:10px;display:inline-block}
+
+  /* ---- section scaffold ---- */
+  section{padding:var(--s-8) 0;border-top:1px solid rgba(20,32,52,.07)}
+  .sec-head{margin-bottom:var(--s-4)}
+  .sec-head .eyebrow{display:block;margin-bottom:7px}
+  .sec-head h2{font-size:clamp(20px,2.4vw,28px);line-height:1.12}
+  .body-col{max-width:740px}
+  .body-col p{margin-bottom:18px;color:var(--ink-soft)}
+  .body-col p b{color:var(--ink);font-weight:400}
+
+  /* ---- meta grid (role/team/timeline/tags) ---- */
+  .meta-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s-4)}
+  .voices{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-3);margin:4px 0 28px}
+  .voice{border:1px solid var(--hairline);border-radius:var(--r-2);padding:24px 22px;background:var(--surface);box-shadow:var(--shadow-1);display:flex;flex-direction:column;gap:16px}
+  .voice .vq{font-family:'Switzer',serif;font-style:normal;font-size:20px;line-height:1.32;color:var(--ink)}
+  .voice .vq::before{content:'“';color:var(--accent);font-weight:500;margin-right:1px}
+  .voice .vw{font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.1em;font-size:10.5px;color:var(--ink-faint);margin-top:auto}
+  .voices-label{font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.14em;font-size:11px;color:var(--ink-faint);margin:0 0 14px}
+  .meta-grid .cell .eyebrow{display:block;margin-bottom:8px}
+  .meta-grid .cell .v{font-size:16px;color:var(--ink);font-weight:500;line-height:1.4}
+  .meta-grid .cell .v.small{font-size:14.5px;color:var(--ink-soft);font-weight:400}
+
+  /* ---- case snapshot (unified card) ---- */
+  .snapshot-sec{padding-top:var(--s-6);border-top:none}
+  .snap-kicker{display:block;margin-bottom:16px}
+  .snap-card{border:none;border-radius:0;overflow:visible;background:transparent}
+  .snap-facts{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:none;gap:30px 36px}
+  .snap-fact{padding:0;border-right:none}
+  .snap-fact:last-child{border-right:none}
+  .snap-fact .eyebrow{display:block;margin-bottom:6px;color:#32404F}
+  .snap-fact p{font-size:15px;color:var(--ink);line-height:1.45;margin:0;font-weight:400}
+  .snapshot{display:grid;grid-template-columns:repeat(3,1fr);gap:30px 36px;margin-top:34px;padding-top:34px;border-top:1px solid var(--line)}
+  .snap-cell{padding:0;border-right:none}
+  .snap-cell:last-child{border-right:none}
+  .snap-cell .eyebrow{display:block;margin-bottom:9px;color:#32404F}
+  .snap-cell p{font-size:15px;color:var(--ink-soft);line-height:1.6;margin:0}
+  @media(max-width:760px){
+    .snap-facts{grid-template-columns:1fr 1fr}
+    .snap-fact:nth-child(2n){border-right:none}
+    .snap-fact:nth-child(1),.snap-fact:nth-child(2){border-bottom:none}
+    .snapshot{grid-template-columns:1fr}
+    .snap-cell{border-right:none;border-bottom:none}
+    .snap-cell:last-child{border-bottom:none}
+  }
+
+  /* ---- scannable chips (Anushriya-style micro-copy) ---- */
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{font-size:14px;color:var(--ink-soft);background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-1);padding:9px 14px;line-height:1.35}
+  .chip b{font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--accent);margin-right:7px}
+
+  /* ---- word-by-word heading reveal ---- */
+  .wr{display:inline-block;opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.2,1)}
+  .wr.on{opacity:1;transform:none}
+
+  /* ---- problem cards ---- */
+  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s-4)}
+  .card{position:relative;overflow:hidden;border:1px solid var(--hairline);border-radius:var(--r-2);background:var(--surface);padding:30px;box-shadow:var(--shadow-1);
+    transition:transform .45s var(--ease),box-shadow .45s var(--ease),border-color .45s var(--ease),background .45s var(--ease)}
+  /* accent edge that grows on hover */
+  .card::before{content:none}
+  .card:hover{transform:translateY(-5px);border-color:#cfdcee;box-shadow:var(--shadow-2)}
+  .card:hover::before{transform:scaleY(1)}
+  .card .num{font-family:'Geist Mono',monospace;font-size:12px;color:#2f6cb8;letter-spacing:.1em;display:inline-block;transition:transform .35s cubic-bezier(.2,1.4,.4,1)}
+  .card:hover .num{transform:translateX(2px)}
+  .card h3{font-size:18px;margin:10px 0 8px;transition:color .3s}
+  .card:hover h3{color:var(--accent)}
+  .card p{font-size:15px;color:var(--ink-soft);margin:0}
+  /* staggered scroll-in */
+  .card{opacity:0;transform:translateY(20px)}
+  .card.in{opacity:1;transform:none;transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.2,1)}
+  .card.in:hover{transform:translateY(-6px)}
+  /* ---- research pull-quote ---- */
+  .pullquote{margin-top:var(--s-6);text-align:center;position:relative;padding:18px 20px}
+  .pullquote .qmark{font-family:'Switzer';font-weight:400;font-size:120px;line-height:.6;color:var(--accent);opacity:.16;display:block;height:50px}
+  .pullquote .qlabel{font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.16em;font-size:11px;color:var(--ink-faint);margin-bottom:18px}
+  .pullquote .qbig{font-family:'Switzer',serif;font-style:normal;font-size:clamp(28px,4vw,48px);line-height:1.08;color:var(--ink);max-width:860px;margin:0 auto 24px;letter-spacing:-.01em}
+  .pullquote .qsrc{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  .pullquote .qsrc span{font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--ink-soft);border:1px solid var(--line);border-radius:var(--r-pill);padding:6px 13px;background:var(--surface-2)}
+  .pullquote .qfoot{margin-top:18px;font-size:14.5px;color:var(--ink-faint);max-width:560px;margin-left:auto;margin-right:auto}
+
+  /* ---- old vs new pipeline ---- */
+  .flow-compare{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4)}
+  .flow{border:1px solid var(--hairline);border-radius:var(--r-2);padding:28px;background:var(--surface);box-shadow:var(--shadow-1)}
+  .flow.bad{background:var(--surface-2);box-shadow:none}
+  .flow.good{border-color:rgba(20,32,52,.18);box-shadow:var(--shadow-1)}
+  .flow .ftitle{font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.1em;font-size:12px;margin-bottom:18px;color:var(--ink-soft)}
+  .flow.good .ftitle{color:var(--accent)}
+  .step{display:flex;gap:12px;align-items:flex-start;padding:9px 0;font-size:14.5px;color:var(--ink-soft)}
+  .step .dot{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:var(--paper);border:1px solid var(--line);display:grid;place-items:center;font-family:'Geist Mono',monospace;font-size:11px;color:var(--ink-faint)}
+  .flow.good .step .dot{background:var(--accent);border-color:var(--accent);color:#fff}
+  /* AFTER card micro-interaction: checkmarks pop in one-by-one when card enters view */
+  .flow.good{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+  .flow.good:hover{transform:translateY(-5px);box-shadow:var(--shadow-2)}
+  .flow.good .step .dot{transform:scale(0);transition:transform .45s cubic-bezier(.2,1.6,.4,1)}
+  .flow.good.go .step .dot{transform:scale(1)}
+  .flow.good .step{opacity:.35;transition:opacity .4s ease}
+  .flow.good.go .step{opacity:1}
+  .flow.good .step .dot{position:relative}
+  /* tiny ring ping when each check appears */
+  .flow.good.go .step .dot::after{content:'';position:absolute;inset:-4px;border:2px solid var(--accent);border-radius:50%;opacity:0;animation:ping .6s ease-out}
+  @keyframes ping{0%{transform:scale(.6);opacity:.6}100%{transform:scale(1.5);opacity:0}}
+  .flow.good .ftime{transform:translateY(8px);opacity:0;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .5s}
+  .flow.good.go .ftime{transform:none;opacity:1}
+  .flow .ftime{margin-top:16px;font-family:'Switzer';font-weight:400;font-size:30px;letter-spacing:-.03em}
+  .flow.bad .ftime{color:var(--ink-soft)}
+  .flow.good .ftime{color:var(--accent)}
+
+  /* ---- interactive process stepper ---- */
+  .stepper{margin-top:var(--s-5);border:1px solid var(--hairline);border-radius:var(--r-3);background:var(--surface);overflow:hidden;box-shadow:var(--shadow-1)}
+  .step-tabs{position:relative;display:flex;border-bottom:1px solid var(--line);background:var(--surface-2)}
+  .step-tab{flex:1;appearance:none;background:none;border:none;cursor:pointer;padding:18px 16px;text-align:left;
+    font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.08em;font-size:12px;color:var(--ink-faint);transition:color .25s;border-right:1px solid var(--line)}
+  .step-tab:last-of-type{border-right:none}
+  .step-tab .st-n{display:block;font-size:18px;font-family:'Switzer';font-weight:400;letter-spacing:-.02em;color:var(--ink-faint);margin-bottom:4px;transition:color .25s}
+  .step-tab.active{color:var(--ink)} .step-tab.active .st-n{color:var(--accent)}
+  .step-tab:hover{color:var(--ink-soft)}
+  .step-ind{position:absolute;bottom:-1px;left:0;height:2px;background:var(--accent);width:25%;transition:transform .35s cubic-bezier(.4,0,.1,1)}
+  .step-panels{position:relative;padding:34px 32px;min-height:150px}
+  .step-panel{display:none;animation:stepIn .4s ease}
+  .step-panel.active{display:block}
+  @keyframes stepIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .step-panel h3{font-size:22px;margin-bottom:10px}
+  .step-panel p{color:var(--ink-soft);max-width:640px;margin-bottom:16px}
+  @media(max-width:680px){.step-tab{padding:12px 10px;font-size:10px}.step-tab .st-n{font-size:15px}}
+
+  /* process timeline spine + node dots (scoped to this stepper) */
+  #stepper{position:relative;padding-left:34px}
+  #stepper::before{content:'';position:absolute;left:5px;top:20px;bottom:20px;width:2px;background:var(--line)}
+  #stepper .step-panel{position:relative}
+  #stepper .step-panel::before{content:'';position:absolute;left:-35px;top:27px;width:16px;height:16px;border-radius:50%;background:linear-gradient(150deg,rgba(120,195,255,.65),rgba(0,131,231,.4));border:1px solid rgba(255,255,255,.6);box-shadow:inset 0 1px 1.5px rgba(255,255,255,.85),inset 0 -2px 3px rgba(0,70,140,.3),0 5px 12px -3px rgba(0,131,231,.38),0 0 0 5px #fff;-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);z-index:1;transition:transform .45s ease,box-shadow .45s ease,background .45s ease}
+  #stepper.lit .step-panel::before{transform:scale(1.16);background:linear-gradient(150deg,rgba(125,198,255,.92),rgba(0,131,231,.72));box-shadow:inset 0 1px 1.5px rgba(255,255,255,.95),inset 0 -2px 4px rgba(0,70,140,.45),0 6px 16px -3px rgba(0,131,231,.55),0 0 0 5px #fff}
+  #stepper.lit .step-panel:nth-child(1)::before{transition-delay:.05s}
+  #stepper.lit .step-panel:nth-child(2)::before{transition-delay:.22s}
+  #stepper.lit .step-panel:nth-child(3)::before{transition-delay:.39s}
+  #stepper.lit .step-panel:nth-child(4)::before{transition-delay:.56s}
+  @media(max-width:680px){#stepper{padding-left:28px}#stepper .step-panel::before{left:-28px}}
+
+  /* ---- decision callout ---- */
+  .decision{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--hairline);border-radius:var(--r-2);overflow:hidden;margin-top:var(--s-4);box-shadow:var(--shadow-1)}
+  .decision>div{padding:26px}
+  .decision .chose{background:var(--surface)}
+  .decision .rejected{background:var(--surface-2);border-left:1px solid var(--line)}
+  .decision h3{font-size:18px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .decision .rejected h3{color:var(--ink-faint);text-decoration:line-through;text-decoration-color:var(--ink-faint)}
+  .decision p{font-size:14.5px;color:var(--ink-soft);margin:0}
+  .tick{color:var(--accent)}
+
+  /* ---- visual placeholder frames ---- */
+  .visual{border:1.5px dashed var(--line);border-radius:var(--r-2);background:repeating-linear-gradient(45deg,#fff,#fff 12px,var(--paper) 12px,var(--paper) 24px);min-height:300px;display:grid;place-items:center;text-align:center;padding:30px;color:var(--ink-faint)}
+  .visual .vlabel{font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.12em;font-size:12px;margin-bottom:8px;color:var(--ink-soft)}
+  .visual .vhint{font-size:14px;max-width:340px}
+  .visual-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+  .visual.tall{min-height:420px}
+  .visual.wide{min-height:260px}
+
+  /* ---- impact 3-way ---- */
+  .impact{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-4)}
+  .imp{border:1px solid var(--hairline);border-radius:var(--r-2);padding:30px;background:var(--surface);box-shadow:var(--shadow-1)}
+  .imp .eyebrow{display:block;margin-bottom:14px}
+  .imp .ibig{font-family:'Switzer';font-weight:400;font-size:30px;letter-spacing:-.03em;line-height:1.05;margin-bottom:10px}
+  /* unified color system: all headlines ink, accent reserved for emphasis only */
+  .imp .ibig{color:var(--ink)}
+  .imp .ibig .arrow{color:var(--accent)}
+  /* small colored eyebrow dot keeps a hint of variety without clashing headlines */
+  .imp .eyebrow{display:flex;align-items:center;gap:7px}
+  .imp .eyebrow::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  .imp p{font-size:14.5px;color:var(--ink-soft);margin:0}
+  .imp .imp-stat{margin:2px 0 12px}
+  .imp .imp-stat b{display:inline-flex;align-items:center;gap:.04em;white-space:nowrap;font-family:'Switzer';font-weight:500;font-size:44px;letter-spacing:-.03em;line-height:.9;color:var(--ink)}
+  .imp .imp-stat>span{display:block;margin-top:9px;font-family:'Geist Mono';font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-soft);line-height:1.35}
+
+  /* ---- testimonial ---- */
+  .quote{border:1px solid var(--hairline);border-radius:var(--r-3);background:var(--surface);padding:54px 44px;text-align:center;box-shadow:var(--shadow-1)}
+  .quote .q{font-family:'Switzer',serif;font-style:normal;font-size:clamp(20px,2.4vw,28px);line-height:1.22;color:var(--ink);max-width:820px;margin:0 auto 24px;letter-spacing:-.01em}
+  .quote .who{font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.12em;font-size:12px;color:var(--ink-faint)}
+  .pending{border:1px dashed var(--accent);background:var(--accent-soft)}
+  .pending .q{color:var(--ink-soft)}
+
+  /* ---- handoff ---- */
+  .handoff{background:var(--ink);color:#F4F1E8;border-radius:var(--r-2);padding:42px 38px}
+  .handoff .eyebrow{color:#B9AE9C}
+  .handoff h2{color:#fff;font-size:clamp(19px,2.2vw,26px);margin:12px 0 16px}
+  .handoff p{color:#D7CFC1;max-width:720px;font-size:15.5px}
+  .handoff .accent{color:#DB7B50}
+
+  /* ---- footer ---- */
+  footer{padding:34px 0 30px;border-top:1px solid var(--line);text-align:center}
+  footer .eyebrow{display:block;margin-bottom:10px}
+  .nextcase{display:inline-flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--ink)}
+  .nextcase .t{font-family:'Switzer';font-weight:400;font-size:25px;letter-spacing:-.03em;text-transform:lowercase}
+  .nextcase:hover .t{color:var(--accent)}
+  .soon{font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.1em;font-size:10px;color:var(--ink-faint);border:1px solid var(--line);border-radius:var(--r-pill);padding:3px 9px;align-self:center;margin-top:6px}
+
+  /* annotation badge for draft notes (toggle off when shipping) */
+  .draftnote{position:relative}
+  .draftnote{overflow:hidden}
+  .draftnote::after{content:attr(data-note);position:absolute;top:10px;right:10px;font-family:'Switzer',cursive;font-size:11px;color:var(--accent);background:var(--accent-soft);border:1px dashed var(--accent);border-radius:8px;padding:2px 8px;transform:rotate(-2deg);max-width:60%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:5}
+
+  @media(max-width:820px){
+    .impact{grid-template-columns:1fr}
+    .metrics{grid-template-columns:repeat(2,1fr)}
+    .metric:nth-child(2n){border-right:none}
+    .metric:nth-child(-n+2){border-bottom:1px solid var(--line)}
+    .cards,.flow-compare,.decision,.visual-grid{grid-template-columns:1fr}
+    .meta-grid,.voices{grid-template-columns:1fr 1fr}
+    .imp .eyebrow{margin-bottom:8px}
+  }
+
+</style>
+<link rel="stylesheet" href="transition.css" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Gauravi Linjara" />
+<meta property="og:url" content="https://gauravi.design/case-business.html" />
+<meta property="og:title" content="Business Online - Gauravi Linjara" />
+<meta property="og:description" content="Emirates NBD Business Online, a mobile app to review and approve high-stakes payments from anywhere, with confidence. A case study by Gauravi Linjara." />
+<meta property="og:image" content="https://gauravi.design/assets/og/og-card.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Business Online - Gauravi Linjara" />
+<meta name="twitter:description" content="Emirates NBD Business Online, a mobile app to review and approve high-stakes payments from anywhere, with confidence. A case study by Gauravi Linjara." />
+<meta name="twitter:image" content="https://gauravi.design/assets/og/og-card.png" />
+  <link rel="stylesheet" href="responsive.css?v=mobile-20260715" />
+<!-- FIGCAP-START (temporary) -->
+<script src="/mockups/_figcap.js"></script>
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async data-figma-capture></script>
+<!-- FIGCAP-END -->
+  <!-- Microsoft Clarity analytics -->
+  <script src="clarity.js?v=1" defer></script>
+  <link rel="stylesheet" href="cinematic.css?v=1" />
+</head>
+<body data-cine="hero parallax tilt magnet grain">
+  <!-- shared page transition (ink wipe), see transition.css/js -->
+  <div class="pgx" id="pgx" aria-hidden="true">
+    <div class="pgx-ink"></div>
+    <div class="pgx-mark"><span class="wm">gauravi<span class="dot">.</span></span></div>
+    <svg width="0" height="0" aria-hidden="true"><filter id="pgxink"><feTurbulence type="fractalNoise" baseFrequency="0.013 0.021" numOctaves="2" seed="6" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="10" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+  </div>
+
+<nav class="wnav">
+  <a class="brand" href="/">gauravi<span class="a">.</span></a>
+  <nav class="snav">
+    <a href="work.html" class="on">work</a>
+    <a href="beyond.html">lil&nbsp;about&nbsp;me</a>
+    <a href="/lab">art&nbsp;lab</a>
+    <a class="ext" href="https://www.linkedin.com/in/gauravi-linjara/" target="_blank" rel="noopener">linkedin <span class="exti exti-up">↗</span></a><a class="ext" href="../assets/files/Gauravi_Linjara_Resume.pdf" target="_blank" rel="noopener">résumé <span class="exti exti-dn">↓</span></a><a href="quick.html">quick&nbsp;view</a>
+  </nav>
+</nav>
+
+<!-- ================= HERO ================= -->
+<!-- ============ ONE PAYMENT'S JOURNEY · cinematic cold open (scoped boj-) ============ -->
+<section style="padding-block:0;border-top:none">
+<style>
+.boj{height:480vh;position:relative}
+.boj .stick{position:sticky;top:0;height:100vh;padding:clamp(10px,1.6vh,18px);display:grid;place-items:center}
+.boj .stage{position:relative;height:min(100%,760px);width:100%;border-radius:24px;overflow:hidden;
+  background-color:#fff;
+  background-image:radial-gradient(rgba(22,19,15,.08) 1px,transparent 1px);background-size:16px 16px;
+  border:1px solid rgba(22,19,15,.07);box-shadow:0 24px 70px -34px rgba(22,19,15,.22);
+  display:grid;place-items:center}
+.boj .beat{grid-area:1/1;width:min(760px,calc(100% - clamp(40px,7vw,96px)));text-align:center;
+  opacity:0;transform:translateY(16px);pointer-events:none;position:relative;z-index:3;
+  transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1)}
+.boj .beat.on{opacity:1;transform:none}
+.boj .stepk{font-family:'Switzer',system-ui,sans-serif;font-weight:500;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;color:rgba(22,19,15,.55);margin-bottom:10px}
+.boj .steph{font-size:clamp(16px,1.7vw,21px);color:rgba(22,19,15,.8);letter-spacing:-.015em;
+  line-height:1.4;margin-bottom:clamp(20px,3.6vh,36px);text-wrap:balance}
+.boj .big{font-size:clamp(28px,4.2vw,54px);line-height:1.14;letter-spacing:-.035em;color:#16130f}
+.boj .big .a{color:var(--accent,#0083E7)}
+.boj .pile{display:flex;flex-direction:column;gap:9px;align-items:center}
+.boj .pg{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(22,19,15,.11);
+  border-radius:12px;padding:10px 16px;font-size:13.5px;color:rgba(22,19,15,.75);
+  box-shadow:0 8px 20px -12px rgba(22,19,15,.18);min-width:min(380px,84vw);text-align:left;
+  opacity:0;transform:translateY(10px);
+  transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1)}
+.boj .pg.on{opacity:1;transform:none}
+.boj .pg .rl{font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:#1d6b3c;background:#e2f5e8;border-radius:999px;padding:3px 8px;flex:0 0 auto}
+.boj .pg.stuck .rl{color:#b45309;background:#fdf1e3}
+.boj .pg b{font-weight:600;color:#16130f}
+.boj .pile .still{margin-top:8px;font-family:'Geist Mono',ui-monospace,monospace;font-size:11.5px;
+  letter-spacing:.06em;color:#b45309;opacity:0;transition:opacity .4s}
+.boj .pile .still.on{opacity:1}
+/* the phone approval card */
+.boj .ph{display:inline-block;text-align:left;background:#fff;border:1px solid rgba(22,19,15,.09);
+  border-radius:26px;padding:18px;box-shadow:0 18px 44px -20px rgba(22,19,15,.26);width:min(330px,82vw)}
+.boj .ph .hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.boj .ph .hdr b{font-size:14px;color:#16130f}
+.boj .ph .hdr span{font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:#3e77e0;background:#e8f1fd;border-radius:999px;padding:3px 9px}
+.boj .fr{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  border:1px solid rgba(22,19,15,.11);border-radius:11px;padding:8.5px 13px;
+  font-size:12.5px;margin-top:7px}
+.boj .fr .k{color:rgba(22,19,15,.45)}
+.boj .fr .v{color:#16130f;font-weight:600;white-space:nowrap}
+.boj .hold{position:relative;margin-top:13px;border-radius:12px;overflow:hidden;
+  background:#16130f;color:#fff;text-align:center;padding:12px 0;font-size:13.5px;font-weight:500}
+.boj .hold i{position:absolute;inset:0;width:0;background:#1d6b3c;transition:width .2s linear}
+.boj .hold span{position:relative;z-index:1}
+.boj .ph .from{margin-top:11px;text-align:center;font-family:'Geist Mono',ui-monospace,monospace;
+  font-size:10.5px;letter-spacing:.08em;color:rgba(22,19,15,.5)}
+.boj .num{font-size:clamp(54px,8vw,110px);line-height:1;letter-spacing:-.045em;color:#16130f;
+  font-variant-numeric:tabular-nums}
+.boj .num .a{color:var(--accent,#0083E7)}
+.boj .cap{margin-top:14px;font-size:clamp(16px,1.8vw,22px);color:rgba(22,19,15,.75);letter-spacing:-.015em}
+@media(prefers-reduced-motion:reduce){
+  .boj{height:auto}
+  .boj .stick{position:static;height:auto}
+  .boj .stage{display:block;padding:44px 24px;height:auto}
+  .boj .beat{opacity:1;transform:none;margin:0 auto 44px;grid-area:auto}
+  .boj .pg,.boj .pile .still{opacity:1;transform:none}
+  .boj .hold i{width:100%}
+}
+</style>
+
+<div class="boj" id="boj">
+  <div class="stick">
+    <div class="stage">
+
+      <div class="beat on" data-b="0">
+        <div class="stepk">the payment</div>
+        <div class="steph">A supplier is waiting. The deadline is today.</div>
+        <div class="big">AED 2,400,000, ready to go. <span class="a">The Authorizer is boarding a flight.</span></div>
+      </div>
+
+      <div class="beat" data-b="1">
+        <div class="stepk">the old way</div>
+        <div class="steph">Three roles, and the last one is chained to a desk.</div>
+        <div class="pile" id="bojpile">
+          <div class="pg"><span class="rl">maker</span><span>Creates the payment. <b>Done by 9am.</b></span></div>
+          <div class="pg"><span class="rl">checker</span><span>Verifies every detail. <b>Done by 10.</b></span></div>
+          <div class="pg stuck"><span class="rl">authorizer</span><span>Can only release it <b>from the desktop, at the office.</b></span></div>
+          <div class="still" id="bojstill">payment waits &#183; supplier waits &#183; deadline slips</div>
+        </div>
+      </div>
+
+      <div class="beat" data-b="2">
+        <div class="stepk">business online</div>
+        <div class="steph">The same release, from seat 14A.</div>
+        <div class="ph">
+          <div class="hdr"><b>Pending approval</b><span>Authorizer</span></div>
+          <div class="fr"><span class="k">Beneficiary</span><span class="v">Gulf Steel Works</span></div>
+          <div class="fr"><span class="k">Amount</span><span class="v">AED 2,400,000</span></div>
+          <div class="fr"><span class="k">Checked by</span><span class="v">R. Menon &#10003;</span></div>
+          <div class="hold"><i id="bojfill"></i><span id="bojlbl">Hold to approve</span></div>
+          <div class="from">reviewed &#183; approved &#183; released</div>
+        </div>
+      </div>
+
+      <div class="beat" data-b="3">
+        <div class="stepk">shipped &#183; emirates nbd &#183; mena</div>
+        <div class="num"><span id="bojnum">1.0</span><span class="a">&#215;</span></div>
+        <div class="cap">faster approvals and key journeys, from wherever the Authorizer is.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var host=document.getElementById('boj'); if(!host||RM) return;
+  var beats=[].slice.call(host.querySelectorAll('.beat'));
+  var pgs=[].slice.call(host.querySelectorAll('.pg'));
+  var still=document.getElementById('bojstill');
+  var fill=document.getElementById('bojfill');
+  var lbl=document.getElementById('bojlbl');
+  var num=document.getElementById('bojnum');
+  var N=4;
+  function render(p){
+    var idx=Math.min(N-1,Math.floor(p*N));
+    var t=Math.max(0,Math.min(1,p*N-idx));
+    beats.forEach(function(b,k){ b.classList.toggle('on',k===idx); });
+    if(idx===1){
+      pgs.forEach(function(pg,k){ pg.classList.toggle('on', t>0.08+k*0.2); });
+      still.classList.toggle('on', t>0.78);
+    }
+    if(idx===2){
+      var f=Math.max(0,Math.min(1,(t-0.25)/0.5));
+      fill.style.width=(f*100)+'%';
+      lbl.textContent = f>=1 ? '\u2713 Approved \u00b7 released' : 'Hold to approve';
+    }
+    if(idx===3){
+      var e=1-Math.pow(1-Math.min(1,t*1.5),3);
+      num.textContent=(1+2*e).toFixed(1);
+    }
+  }
+  var ticking=false;
+  function onScroll(){
+    var r=host.getBoundingClientRect();
+    var travel=r.height-window.innerHeight;
+    if(travel<=0) return;
+    render(Math.max(0,Math.min(0.9999,(-r.top)/travel)));
+  }
+  function tick(){ if(ticking)return; ticking=true;
+    requestAnimationFrame(function(){ onScroll(); ticking=false; }); }
+  window.addEventListener('scroll',tick,{passive:true});
+  window.addEventListener('resize',tick);
+  setTimeout(onScroll,60);
+})();
+</script>
+</section>
+
+<header class="hero" data-cine-hero="noh1">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-txt">
+        <div class="kicker-row">
+          <span class="eyebrow">mobile app · enterprise banking · iOS &amp; android</span>
+        </div>
+
+        <h1>corporate banking, in your <span class="accent">pocket.</span></h1>
+
+        <p class="lede">
+          Emirates NBD's corporate banking app across MENA. Authorizers were desk-bound for time-sensitive payments. <b>I owned the maker-checker-authorizer experience and device activation</b>, turning a dense desktop system into role-specific iOS and Android journeys.
+        </p>
+      </div>
+
+      <div class="hero-stage" aria-hidden="true">
+        <div class="glow"></div>
+        <div class="hp-phone hp-left"><div class="scr"><img src="../assets/case/bo/ba-after.png?v=6" alt=""></div></div>
+        <div class="hp-phone hp-right"><div class="scr"><img src="../assets/case/bo/before-screen.png?v=6" alt=""></div></div>
+        <div class="hp-phone hp-center"><div class="scr"><video src="../assets/case/bo/flow1.mp4?v=6" poster="../assets/case/bo/flow1-poster.png?v=6" autoplay muted loop playsinline preload="auto"></video></div></div>
+      </div>
+    </div>
+
+    <!-- key metrics -->
+    <div class="metrics">
+      <div class="metric">
+        <div class="big"><span data-target="70" data-suffix="%">70%</span><span class="trend up">↑</span></div>
+        <div class="label">Faster delivery, by aligning design sprints with engineering readiness.</div>
+        <span class="eyebrow tag">Delivery</span>
+      </div>
+      <div class="metric">
+        <div class="big"><span data-target="3" data-suffix="×">3×</span><span class="trend up">↑</span></div>
+        <div class="label">Faster task completion in key journeys like approvals and beneficiary management.</div>
+        <span class="eyebrow tag">Speed</span>
+      </div>
+      <div class="metric">
+        <div class="big"><span data-target="500" data-suffix="+">500+</span><span class="trend up">↑</span></div>
+        <div class="label">Screens designed across end-to-end journeys.</div>
+        <span class="eyebrow tag">Scale</span>
+      </div>
+      <div class="metric">
+        <div class="big"><span data-target="12" data-suffix="">12</span><span class="trend up">↑</span></div>
+        <div class="label">End-to-end journeys created, including dashboard, login and payments.</div>
+        <span class="eyebrow tag">Coverage</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= CASE SNAPSHOT ================= -->
+<section class="snapshot-sec">
+  <div class="wrap">
+    <span class="eyebrow snap-kicker">Case snapshot</span>
+    <div class="snap-card">
+      <div class="snap-facts">
+        <div class="snap-fact">
+          <span class="eyebrow">Role</span>
+          <p>Sr. Product Designer · Business Online, mobile</p>
+        </div>
+        <div class="snap-fact">
+          <span class="eyebrow">Team</span>
+          <p>1 design lead + 3 senior designers (I led UX/UI with 2 others), plus product, iOS &amp; Android eng &amp; business</p>
+        </div>
+        <div class="snap-fact">
+          <span class="eyebrow">Timeline</span>
+          <p>2024 · Emirates NBD, Dubai</p>
+        </div>
+        <div class="snap-fact">
+          <span class="eyebrow">Tools</span>
+          <p>Figma · user research via user testing</p>
+        </div>
+      </div>
+      <div class="snapshot">
+        <div class="snap-cell">
+          <span class="eyebrow">What I did</span>
+          <p>Owned the role-based experience (Maker, Checker, Authorizer) and the full device-activation onboarding, end-to-end. Co-built the mobile component anatomy handed to iOS &amp; Android.</p>
+        </div>
+        <div class="snap-cell">
+          <span class="eyebrow">Impact</span>
+          <p>70% faster delivery and 3× faster task completion in key journeys, across 500+ screens and 12 end-to-end journeys.</p>
+        </div>
+        <div class="snap-cell">
+          <span class="eyebrow">Constraints</span>
+          <p>A small screen carrying high-value payments, multiple user roles, security controls, authorization limits, and dense financial data.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE TEAM ================= -->
+<section>
+  <div class="wrap">
+    <div class="team-grid">
+      <div class="team-text">
+        <div class="sec-head" style="margin-bottom:18px">
+          <span class="eyebrow">The team</span>
+          <h2>four designers, one <span class="accent">redesign.</span></h2>
+        </div>
+        <p>A tight team: <b>one design lead and three senior product designers</b>. I drove the role-based journeys and onboarding, working closely with product and iOS &amp; Android engineering.</p>
+      </div>
+      <figure class="team-photo">
+        <img src="../assets/case/bo/team.png?v=1" alt="The BOX Mobile design team working together at Emirates NBD, one lead and three senior product designers">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE REDESIGN (before/after hook) ================= -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">The redesign</span>
+      <h2>legacy → <span class="accent">redesign.</span></h2>
+    </div>
+    <div class="ba-annotated wipe">
+      <ul class="ba-notes l">
+        <li><span class="t">Basic, functional layout with limited visual hierarchy</span><span class="ln"></span><span class="bar"></span></li>
+        <li><span class="t">No distinction between user types</span><span class="ln"></span><span class="bar"></span></li>
+        <li><span class="t">Limited contextual insights</span><span class="ln"></span><span class="bar"></span></li>
+      </ul>
+      <div class="ba-wipe-col">
+        <div class="bo-ba" id="ba">
+          <img class="before" src="../assets/case/bo/ba-before.png?v=6" alt="legacy Business Online home, before the redesign">
+          <img class="after" src="../assets/case/bo/ba-after.png?v=6" alt="redesigned Business Online home, after">
+          <div class="ba-lbl l">before</div><div class="ba-lbl r">after</div>
+          <div class="ba-handle"></div>
+        </div>
+        <p class="note" style="text-align:center;margin-top:14px">drag ⇆ to reveal the redesign</p>
+      </div>
+      <ul class="ba-notes r">
+        <li><span class="bar"></span><span class="ln"></span><span class="t">Modernized layout with clear segmentation of actions, balances, and insights</span></li>
+        <li><span class="bar"></span><span class="ln"></span><span class="t">Role-based cards (e.g. "Pending Approvals" for Authorizers only) keep focus</span></li>
+        <li><span class="bar"></span><span class="ln"></span><span class="t">Added Payment Tracker, Recent Transactions, and Carbon Footprint widgets</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTEXT ================= -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">01 · Context</span>
+      <h2>banking that fits in a <span class="accent">thumb.</span></h2>
+    </div>
+    <div class="body-col">
+      <p>Corporate banking is built for desktop dashboards. The person approving a multi-million-AED payment is usually away from their desk. <span class="mk">The job: make high-stakes banking feel safe and simple on a phone.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ROLES (maker / checker / authorizer) ================= -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">02 · The roles</span>
+      <h2>one payment, three <span class="accent">roles.</span></h2>
+    </div>
+    <div class="body-col" style="margin-bottom:34px"><p>First, the people. A corporate payment isn't one person's job: a <b>Maker</b> creates it, a <b>Checker</b> verifies it, an <b>Authorizer</b> releases it, each with a focused view and a clear approve-or-reject fork.</p></div>
+
+    <div class="roleflow-wrap">
+      <div class="roleflow" id="roleflow">
+        <svg viewBox="0 0 1000 272" preserveAspectRatio="none" aria-hidden="true">
+          <line class="conn draw" x1="150" y1="136" x2="370" y2="136"/>
+          <line class="conn draw" x1="370" y1="136" x2="535" y2="136"/>
+          <path class="appr draw" d="M685,136 C745,118 770,76 852,74"/>
+          <path class="rej draw" d="M685,136 C745,154 770,196 824,200"/>
+        </svg>
+        <div class="pnode" style="left:15%"><span class="role">Maker</span><div class="act">Creates</div></div>
+        <div class="pnode" style="left:37%"><span class="role">Checker</span><div class="act">Verifies</div></div>
+        <div class="dnode" style="left:61%"><div><span class="role">Authorizer</span><div class="act">Decides</div></div></div>
+        <span class="dbio" style="left:61%">biometric check</span>
+        <div class="dterm" style="left:88%">✓ released</div>
+        <div class="dret" style="left:84.5%">✕ back to maker</div>
+      </div>
+    </div>
+    <p class="note" style="text-align:center;margin-top:16px">maker and checker do the work; the Authorizer decides. Approve releases it, reject returns it to the Maker.</p>
+  </div>
+</section>
+
+<!-- ================= PROBLEM ================= -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">03 · Problem</span>
+      <h2>high stakes on a <span class="accent">small screen.</span></h2>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="num">01</div>
+        <h3>Approvals stuck at the desk</h3>
+        <p>Authorizers had to wait until they were at a desktop to release payments.</p>
+      </div>
+      <div class="card">
+        <div class="num">02</div>
+        <h3>"Did it go through?"</h3>
+        <p>Unclear status after authorizing, no confident confirmation on mobile.</p>
+      </div>
+      <div class="card">
+        <div class="num">03</div>
+        <h3>Dense for a phone</h3>
+        <p>Desktop-grade data crammed onto a small screen, hard to scan.</p>
+      </div>
+      <div class="card">
+        <div class="num">04</div>
+        <h3>Multi-role complexity</h3>
+        <p>Makers, checkers and authorizers each need a different view.</p>
+      </div>
+    </div>
+
+    <div class="pullquote">
+      <span class="qmark">&ldquo;</span>
+      <div class="qlabel">the signal · user + heatmap research</div>
+      <div class="qbig">I just need to approve it and know it's done.</div>
+      <div class="qsrc"><span>Business owners</span><span>Finance teams</span><span>Authorizers</span></div>
+      <div class="qfoot">Confidence and clarity, not more features, was what authorizers asked for.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RESEARCH (heatmaps) ================= -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">04 · Research</span>
+      <h2>the data backed the <span class="accent">complaints.</span></h2>
+    </div>
+    <div class="body-col" style="margin-bottom:30px"><p>We started with daily users. The same frustrations kept surfacing, so before redrawing a screen we validated them with <b>attention heatmaps</b> on the legacy app.</p></div>
+    
+        <p class="voices-label">in their own words</p>
+    <div class="words">
+      <div class="wcard">
+        <blockquote class="wq">“If I'm out of the office, a payment just waits, I can't release anything until I'm back at my desk.”</blockquote>
+        <div class="wpersona"><img class="wav" src="https://api.dicebear.com/9.x/notionists/svg?seed=Imran&backgroundColor=c0e6ff,b6e3f4" alt=""><div><span class="wname">Imran K.</span><span class="wctx">Finance Authorizer</span></div></div>
+      </div>
+      <div class="wcard">
+        <blockquote class="wq">“After I tap approve I'm never quite sure it actually went through.”</blockquote>
+        <div class="wpersona"><img class="wav" src="https://api.dicebear.com/9.x/notionists/svg?seed=Priya&backgroundColor=ffd5dc,ffdfbf" alt=""><div><span class="wname">Priya N.</span><span class="wctx">Business Owner</span></div></div>
+      </div>
+      <div class="wcard">
+        <blockquote class="wq">“There's so much packed onto one screen, I scan for the one number I need and ignore the rest.”</blockquote>
+        <div class="wpersona"><img class="wav" src="https://api.dicebear.com/9.x/notionists/svg?seed=Tariq&backgroundColor=d1d4f9,c0aede" alt=""><div><span class="wname">Tariq M.</span><span class="wctx">Finance Team · Daily user</span></div></div>
+      </div>
+    </div>
+    <p class="heat-kicker">attention heatmaps · legacy app · validating what users told us</p>
+
+    <div class="heatflow">
+      <div class="heat-figlabel"><span class="fl">Fig.01 · Authorizer · approvals</span><span class="heat-verdict">approvals lost in the noise</span></div>
+      <figure class="heat-fig lb-open"><img src="../assets/case/bo/auth.png?v=2" alt="Attention heatmap across the legacy Authorizer approval flow"></figure>
+      <ul class="heat-oid">
+        <li><span class="k">Observed</span><span class="v">Across the approval journey, attention spread evenly over headers, balances and dense request tables, <b>the pending-authorization items never pulled the eye</b>.</span></li>
+        <li class="val"><span class="k">Validates</span><span class="v">Confirms what authorizers described: the one action they open the app for was buried in everything else on screen.</span></li>
+        <li class="dec"><span class="k">Decision</span><span class="v">Led with a task-based home and a focused approval queue, so <b>pending approvals are the first thing an Authorizer sees</b>.</span></li>
+      </ul>
+    </div>
+
+    <div class="heatflow">
+      <div class="heat-figlabel"><span class="fl">Fig.02 · Maker · beneficiary management</span><span class="heat-verdict">no clear path to the action</span></div>
+      <figure class="heat-fig lb-open"><img src="../assets/case/bo/maker.png?v=2" alt="Attention heatmap across the legacy Maker add-beneficiary flow"></figure>
+      <ul class="heat-oid">
+        <li><span class="k">Observed</span><span class="v">Through the add-beneficiary flow, attention scattered down long, undifferentiated lists and form fields, <b>no step made its primary action obvious</b>.</span></li>
+        <li class="val"><span class="k">Validates</span><span class="v">Matches the "I scan for the one thing I need and ignore the rest" feedback, the flow read as a wall to scan, not a path to follow.</span></li>
+        <li class="dec"><span class="k">Decision</span><span class="v">Simplified navigation and surfaced the primary action at each step, turning beneficiary management into a <b>guided, faster path</b>.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE SHIFT (before vs after) ================= -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">05 · The shift</span>
+      <h2>from desk-bound to <span class="accent">on the go.</span></h2>
+    </div>
+    <div class="body-col" style="margin-bottom:30px">
+      <p>Approving a pending payment, the core task. Before vs. after the mobile redesign.</p>
+    </div>
+    <div class="body-col" style="margin-bottom:30px">
+      <p><b>The bet behind it.</b> The obvious move is the whole portal on a phone. But a finance lead on the go needs one thing: authorize a pending payment, fast, and know it released. I scoped to that moment, not feature parity. Saying no to everything else is what made it quick.</p>
+    </div>
+    <div class="shiftblk">
+      <div><span class="old">approvals tethered to a desk</span><span class="arw">→</span></div>
+      <span class="new">released in <em>seconds</em>, from anywhere.</span>
+      <p class="ssub">What needed a desktop and a wait is now a pending-first home screen, authorizers see and clear tasks the moment they land.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROCESS ================= -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">06 · Process</span>
+      <h2>designed for the <span class="accent">thumb zone.</span></h2>
+    </div>
+    <div class="body-col">
+      <p>Research how authorizers really work on mobile, prototype the flows, and validate with heatmaps and testing.</p>
+    </div>
+
+    <!-- key decision: chose vs rejected -->
+    <div class="reframe">
+      <span class="re-eyebrow">the bet</span>
+      <p class="re-line">Cramming the full desktop dashboard onto a phone would keep the very density that made approvals slow. Instead I led with a <em>pending-first</em> home, <strong>what needs action, at the top.</strong></p>
+    </div>
+
+    <!-- interactive process stepper -->
+    <div class="stepper" id="stepper">
+      <div class="step-tabs" role="tablist">
+        <button class="step-tab active" data-step="0"><span class="st-n">01</span> reframe</button>
+        <button class="step-tab" data-step="1"><span class="st-n">02</span> prototype</button>
+        <button class="step-tab" data-step="2"><span class="st-n">03</span> validate</button>
+        <button class="step-tab" data-step="3"><span class="st-n">04</span> ship</button>
+        <span class="step-ind" id="stepInd"></span>
+      </div>
+      <div class="step-panels">
+        <div class="step-panel active" data-panel="0">
+          <h3>map the roles</h3>
+          <p>Makers create, checkers verify, authorizers release. Each needed a focused mobile view, not one crowded screen.</p>
+        </div>
+        <div class="step-panel" data-panel="1">
+          <h3>prototype the flows</h3>
+          <p>Designed a pending-first home, a clear authorize action, and a frictionless device-activation journey.</p>
+        </div>
+        <div class="step-panel" data-panel="2">
+          <h3>validate with heatmaps</h3>
+          <p>Ran heatmap + usability testing on the new screens, attention landed exactly where the key actions live.</p>
+        </div>
+        <div class="step-panel" data-panel="3">
+          <h3>ship across iOS &amp; Android</h3>
+          <p>Delivered a documented component anatomy so the app stayed consistent across both platforms and future releases.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SOLUTION (mobile) ================= -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">07 · Solution</span>
+      <h2>the app, <span class="accent">in hand.</span></h2>
+    </div>
+    <div class="body-col" style="margin-bottom:36px"><p>A Maker and a Checker don't need the same screen. Each home is tuned to what that role actually does, here are the key decisions, on the live build.</p></div>
+    
+    <div class="annrole">
+      <figure class="bo-vid"><video src="../assets/case/bo/flow1.mp4?v=6" poster="../assets/case/bo/flow1-poster.png?v=6" autoplay muted loop playsinline preload="auto"></video></figure>
+      <div class="annrole-info">
+        <span class="rd-role">Checker</span>
+        <ul class="annlist">
+          <li><b>Pending Approvals, upfront</b><span>Task-based prioritisation, the approval queue leads the dashboard instead of sitting in a menu.</span></li>
+          <li><b>Approve / Reject in context</b><span>Role-aware CTAs replace the one generic button.</span></li>
+          <li><b>Workflow tab</b><span>Every step of a transaction is visible, for full transparency.</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="annrole">
+      <figure class="bo-vid"><video src="../assets/case/bo/flow2.mp4?v=6" poster="../assets/case/bo/flow2-poster.png?v=6" autoplay muted loop playsinline preload="auto"></video></figure>
+      <div class="annrole-info">
+        <span class="rd-role">Maker</span>
+        <ul class="annlist">
+          <li><b>Create New, front and centre</b><span>The Maker's primary action leads, in place of a generic CTA.</span></li>
+          <li><b>Role-relevant quick links</b><span>Action cards for the Maker's common tasks replace the generic shortcut.</span></li>
+          <li><b>Workflow tab</b><span>See exactly where a submitted payment sits in the approval chain.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TRUST SIGNALS (hotspots) ================= -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">08 · Trust by design</span>
+      <h2>moving money <span class="accent">needs trust.</span></h2>
+    </div>
+    <div class="body-col" style="margin-bottom:30px"><p>In corporate banking, confidence is designed. Every element here does quiet work to make a CFO trust an irreversible transfer, hover the markers.</p></div>
+    <div class="bo-trust-wrap">
+      <div class="bo-trust">
+        <img src="../assets/case/bo/authorizer-checker.png" alt="business online home screen">
+        <button class="bo-hot" style="top:15.5%;left:32%" aria-label="balance"><span class="dot"></span><span class="tip"><b>Balance to the fil</b>Shown to two decimals, in real time, precision signals the numbers can be trusted, down to the cent.</span></button>
+        <button class="bo-hot" style="top:30%;left:21%"><span class="dot"></span><span class="tip"><b>Nothing slips through</b>12 pending approvals surfaced up front, every payment awaiting action is visible, never buried.</span></button>
+        <button class="bo-hot" style="top:30%;left:73%"><span class="dot"></span><span class="tip"><b>Risk, proactively flagged</b>Action &amp; alerts brings issues to the user instead of waiting to be found.</span></button>
+        <button class="bo-hot" style="top:51%;left:44%"><span class="dot"></span><span class="tip"><b>Masked account numbers</b>Sensitive details are partially hidden by default, privacy on a shared or shoulder-surfed screen.</span></button>
+        <button class="bo-hot" style="top:71.5%;left:64%"><span class="dot"></span><span class="tip"><b>The loop is closed</b>"Credited to beneficiary" confirms the money actually arrived, not just that it was sent.</span></button>
+      </div>
+    </div>
+    <p class="note" style="text-align:center;margin-top:14px">hover a ● marker to see the trust signal</p>
+  </div>
+</section>
+
+<!-- ================= ONBOARDING (device activation) ================= -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">09 · Onboarding</span>
+      <h2>secure setup, no <span class="accent">branch visit.</span></h2>
+    </div>
+    <div class="body-col" style="margin-bottom:34px"><p>Before touching a file, a corporate user has to prove who they are. I designed the full <b>device-activation</b> journey, subscriber ID, OTP, password, Smart Pass PIN, so first-time users sign in without visiting a branch.</p></div>
+
+    <div class="bo-scrolly">
+      <div class="bo-sticky">
+        <div class="bo-stickyphone">
+          <img data-i="0" class="on" src="../assets/case/bo/onb-identify.png?v=5" alt="Activate your device, enter subscriber and user ID">
+          <img data-i="1" src="../assets/case/bo/onb-verify.png?v=5" alt="Verify your number, six-digit OTP with live countdown">
+          <img data-i="2" src="../assets/case/bo/onb-secure.png?v=5" alt="Set up your password with live rule validation">
+          <img data-i="3" src="../assets/case/bo/onb-activated.png?v=5" alt="Device activated, quick login with Touch ID or MPIN">
+        </div>
+      </div>
+      <div class="bo-sc-steps" id="boSteps">
+        <div class="bo-sc-step act" data-i="0">
+          <span class="n">01 · identify</span>
+          <h3>prove who you are</h3>
+          <p>Subscriber and user ID from the welcome email. The bank already knows the corporate, so there's nothing to invent, just confirm.</p>
+        </div>
+        <div class="bo-sc-step" data-i="1">
+          <span class="n">02 · verify</span>
+          <h3>a one-time code</h3>
+          <p>A six-digit OTP to the registered number, with a live countdown and a resend path. Verify the channel before any credential is set.</p>
+          <div class="bo-sc-note"><span class="k">decision</span><span class="v">Countdown and Resend are visible from second one, so no one's left guessing whether the code is stuck.</span></div>
+        </div>
+        <div class="bo-sc-step" data-i="2">
+          <span class="n">03 · secure</span>
+          <h3>set a password it can trust</h3>
+          <p>Rules validate live and turn green as you type, then a four-digit Smart Pass PIN for fast re-entry. No guessing what "strong enough" means.</p>
+          <div class="bo-sc-note"><span class="k">decision</span><span class="v">Rules check as you type, not on submit, so a weak password gets fixed in the moment instead of bounced after.</span></div>
+        </div>
+        <div class="bo-sc-step" data-i="3">
+          <span class="n">04 · activated</span>
+          <h3>in, and ready</h3>
+          <p>Device activated, with Touch ID and MPIN offered for faster, safer access next time, all without a branch visit.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= IMPACT 3-WAY ================= -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">10 · Impact</span>
+      <h2>3× faster, off the <span class="accent">desk.</span></h2>
+    </div>
+    <div class="impact-sky">
+    <div class="impact">
+      <div class="imp user">
+        <span class="eyebrow">For the user</span>
+        <div class="imp-stat"><b>3×<span class="trend up">↑</span></b><span>faster task completion</span></div>
+        <p>Role-specific UI and simplified navigation cut the steps in key journeys like approvals and beneficiary management, so the work that mattered got done three times faster.</p>
+      </div>
+      <div class="imp biz">
+        <span class="eyebrow">For the business</span>
+        <div class="imp-stat"><b>70%<span class="trend up">↑</span></b><span>faster delivery</span></div>
+        <p>Aligning design sprints with engineering readiness cut delivery time, so the redesign shipped faster without stalling on handoff.</p>
+      </div>
+      <div class="imp org">
+        <span class="eyebrow">For the org</span>
+        <div class="imp-stat"><b>500+<span class="trend up">↑</span></b><span>screens, one system</span></div>
+        <p>A documented mobile component anatomy keeps iOS and Android consistent and lets every future release build on a real system, not one-off screens.</p>
+      </div>
+    </div>
+    </div>
+    <p class="note" style="text-align:center;margin-top:18px">measured across approvals and beneficiary-management journeys</p>
+  </div>
+</section>
+
+<!-- ================= REFLECTION ================= -->
+<section>
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:24px">
+      <span class="eyebrow">11 · Reflection</span>
+    </div>
+    <div class="refl-split">
+      <h2 class="rs-big">We built something <em>better than polished.</em></h2>
+      <div class="rs-body">
+        <p>This wasn't just a redesign. It was a re-alignment of roles, priorities, and how we want business users to feel when they interact with BOX Mobile.</p>
+        <p>Every decision was rooted in real user insight and built to scale. We simplified complexity without removing depth.</p>
+        <p>Working on this project wasn't linear, and that's what made it real. It involved sketching, unlearning, reworking, and lots of back-and-forth.</p>
+        <p>And as always, the process continues. Because great design isn't ever done, it just keeps getting sharper with every scroll, tap, and insight.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIAL ================= -->
+<section>
+  <div class="wrap">
+    <div class="quote">
+      <div class="q">Great mobile banking design is invisible, a business owner approves a huge payment from their phone and never once feels nervous.</div>
+      <div class="who">The principle behind the app</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HANDOFF ================= -->
+<section>
+  <div class="wrap">
+    <div class="handoff-grid">
+      <div class="handoff">
+        <span class="eyebrow">12 · Beyond the Figma file</span>
+        <h2>I shipped a <span class="accent">mobile system</span>, not just screens.</h2>
+        <p>A documented component anatomy handed to iOS and Android, so the experience stayed consistent and every release built on a real system.</p>
+        <p>Accessible by default: large touch targets, AA-contrast tokens, and clear focus states for every authorizer.</p>
+      </div>
+      <figure class="handoff-vid">
+        <video src="../assets/case/bo/design-lib.mp4?v=1" poster="../assets/case/bo/design-lib-poster.jpg?v=1" autoplay muted loop playsinline preload="metadata"></video>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NEXT ================= -->
+<footer>
+  <div class="wrap">
+    <span class="eyebrow">Next chapter · the Bay</span>
+    <a class="nextcase" href="case-podonos.html">
+      <span class="t">podonos · onepin →</span>
+    </a>
+  </div>
+</footer>
+
+<!-- ============ INTERACTION KIT (scroll reveals · count-up metrics · smooth scroll · sticky section nav) ============ -->
+<style>
+  /* scroll reveal */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity 1.1s cubic-bezier(.19,1,.22,1),transform 1.1s cubic-bezier(.19,1,.22,1);}
+  .reveal.in{opacity:1;transform:none;}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important;transition:none!important}}
+  /* sticky section dot-nav (right edge) */
+  #secnav{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:14px;}
+  #secnav a{position:relative;width:11px;height:11px;border-radius:50%;border:2px solid var(--ink-faint);background:transparent;transition:all .3s;}
+  #secnav a.on{background:var(--accent);border-color:var(--accent);transform:scale(1.25);}
+  #secnav a .lbl{position:absolute;right:22px;top:50%;transform:translateY(-50%);white-space:nowrap;font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.1em;font-size:10px;color:var(--ink-soft);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:4px 9px;opacity:0;pointer-events:none;transition:opacity .25s;}
+  #secnav a:hover .lbl{opacity:1;}
+  #secnav a.on .lbl{opacity:1;}
+  @media(max-width:900px){#secnav{display:none}}
+</style>
+
+<!-- interactions -->
+<script>
+(function(){
+  /* native scroll, no Lenis (it was hijacking + lagging the wheel) */
+
+  /* ---- scroll reveals (tag sections + key blocks, stagger their children) ---- */
+  var blocks=document.querySelectorAll('header.hero .lede, .metrics, .meta-grid, .sec-head, .body-col, .chips, .cards, .pullquote, .flow-compare, .decision, .visual, .visual-grid, .words, .impact, .quote, .handoff, footer .nextcase');
+  blocks.forEach(function(b){ b.classList.add('reveal'); });
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); },{threshold:.16});
+  blocks.forEach(function(b){ io.observe(b); });
+
+  /* ---- count-up on the metric hero numbers ---- */
+  function animateNum(el){
+    var raw=el.getAttribute('data-num'); if(!raw) return;
+    var target=parseFloat(raw), suffix=el.getAttribute('data-suffix')||'', dur=1100, t0=null;
+    function step(ts){ if(!t0)t0=ts; var p=Math.min(1,(ts-t0)/dur); var eased=1-Math.pow(1-p,3);
+      var val=Math.round(target*eased); el.firstChild.nodeValue=val.toLocaleString();
+      if(p<1) requestAnimationFrame(step); else el.firstChild.nodeValue=target.toLocaleString(); }
+    requestAnimationFrame(step);
+  }
+  // (legacy hero count-up disabled, replaced by the looping countEl system below)
+  document.querySelectorAll('.metric .big.__legacy_off').forEach(function(big){
+    var txt=big.textContent.trim();
+    if(/^[\d,]+\+?$/.test(txt)){
+      var plus=txt.indexOf('+')>-1; var n=parseInt(txt.replace(/[,+]/g,''),10);
+      big.setAttribute('data-num',n); big.textContent=''; var tn=document.createTextNode('0'); big.appendChild(tn);
+      if(plus){ var s=document.createElement('span'); s.textContent='+'; big.appendChild(s);}
+      var mo=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ animateNum(big); mo.unobserve(e.target);} }); },{threshold:.5});
+      mo.observe(big);
+    }
+  });
+
+  /* ---- sticky section dot-nav ---- */
+  var secs=Array.prototype.slice.call(document.querySelectorAll('section'));
+  // keep only sections that have an eyebrow label
+  var nav=document.createElement('div'); nav.id='secnav';
+  var entries=[];
+  secs.forEach(function(s){ var eb=s.querySelector('.sec-head .eyebrow'); if(!eb) return;
+    var id=s.id||('sec-'+entries.length); s.id=id;
+    var label=eb.textContent.replace(/^\d+[a-z]?\s*·\s*/i,'').trim();
+    var a=document.createElement('a'); a.href='#'+id; a.innerHTML='<span class="lbl">'+label+'</span>';
+    a.addEventListener('click',function(ev){ ev.preventDefault(); document.getElementById(id).scrollIntoView({behavior:'smooth'}); });
+    nav.appendChild(a); entries.push({s:s,a:a});
+  });
+  if(entries.length){ document.body.appendChild(nav);
+    var navIo=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){
+      entries.forEach(function(en){ en.a.classList.toggle('on', en.s===e.target); }); } }); },{threshold:.4,rootMargin:'-30% 0px -50% 0px'});
+    entries.forEach(function(en){ navIo.observe(en.s); });
+  }
+
+  /* ---- AFTER card: stagger the checkmarks in (delays per step), replays in view ---- */
+  var good=document.querySelector('.flow.good');
+  if(good){
+    var steps=good.querySelectorAll('.step');
+    steps.forEach(function(s,k){ var d=s.querySelector('.dot'); if(d) d.style.transitionDelay=(k*0.13)+'s'; s.style.transitionDelay=(k*0.13)+'s'; });
+    var ft=good.querySelector('.ftime'); if(ft) ft.style.transitionDelay=(steps.length*0.13+0.1)+'s';
+    var gio=new IntersectionObserver(function(es){ es.forEach(function(e){
+      if(e.isIntersecting){ good.classList.add('go'); }
+      else { good.classList.remove('go'); } // replay each time it re-enters
+    }); },{threshold:.45});
+    gio.observe(good);
+  }
+
+  /* ---- staggered reveal for problem cards ---- */
+  var cardIo=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){
+    var cards=Array.prototype.slice.call(e.target.querySelectorAll('.card'));
+    cards.forEach(function(c,k){ setTimeout(function(){ c.classList.add('in'); }, k*110); });
+    cardIo.unobserve(e.target); } }); },{threshold:.2});
+  document.querySelectorAll('.cards').forEach(function(g){ cardIo.observe(g); });
+
+  /* ---- count-up on every metric number + reveal its arrow ---- */
+  function countEl(el){
+    var target=parseFloat(el.getAttribute('data-target')); var suffix=el.getAttribute('data-suffix')||'';
+    if (matchMedia('(max-width: 760px)').matches) { el.textContent=target.toLocaleString()+suffix; return; }
+    var delay=parseInt(el.getAttribute('data-delay')||'0',10)*180; var dur=1000, t0=null;
+    setTimeout(function(){ requestAnimationFrame(function step(ts){ if(!t0)t0=ts; var p=Math.min(1,(ts-t0)/dur); var e=1-Math.pow(1-p,3);
+      el.textContent=Math.round(target*e).toLocaleString()+(p>=1?suffix:''); if(p<1) requestAnimationFrame(step); else el.textContent=target.toLocaleString()+suffix; }); }, delay);
+  }
+  // count-up that LOOPS while the metrics are on screen (replays every ~3.4s)
+  var metricLoop=null;
+  function runMetrics(grid){ grid.querySelectorAll('.metric').forEach(function(c){ c.classList.add('lit'); c.querySelectorAll('[data-target]').forEach(countEl); }); }
+  var mio=new IntersectionObserver(function(es){ es.forEach(function(e){
+    if(e.isIntersecting){ runMetrics(e.target); }
+  }); },{threshold:.4});
+  var mgrid=document.querySelector('.metrics'); if(mgrid) mio.observe(mgrid);
+  // impact-card numbers (also loop)
+  var impLoop=null;
+  var iio=new IntersectionObserver(function(es){ es.forEach(function(e){
+    if(e.isIntersecting){ e.target.querySelectorAll('[data-target]').forEach(countEl); }
+  }); },{threshold:.4});
+  var igrid=document.querySelector('.impact'); if(igrid) iio.observe(igrid);
+
+  /* ---- word-by-word reveal on big section headings as you scroll ---- */
+  function splitWords(h){
+    if(h.dataset.split) return;
+    h.dataset.split='1';
+    // walk DOM nodes; only split TEXT nodes into word-spans, leave element nodes (<span class="accent">, <br>) intact
+    var out=[];
+    function walk(node){
+      Array.prototype.forEach.call(node.childNodes,function(n){
+        if(n.nodeType===3){ // text
+          var frag=n.textContent.split(/(\s+)/).map(function(t){ return /\S/.test(t)?'<span class="wr">'+t+'</span>':t; }).join('');
+          out.push(frag);
+        } else if(n.nodeType===1){
+          if(n.tagName==='BR'){ out.push('<br>'); }
+          else { out.push('<'+n.tagName.toLowerCase()+(n.className?' class="'+n.className+'"':'')+'>'); walk(n); out.push('</'+n.tagName.toLowerCase()+'>'); }
+        }
+      });
+    }
+    walk(h);
+    h.innerHTML=out.join('');
+    // also wrap the accent spans themselves so they animate
+    h.querySelectorAll('.accent .wr').forEach(function(){});
+  }
+  var headings=document.querySelectorAll('.sec-head h2, header.hero h1');
+  headings.forEach(splitWords);
+  var hio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){
+    var words=e.target.querySelectorAll('.wr');
+    words.forEach(function(w,k){ setTimeout(function(){ w.classList.add('on'); }, k*70); });
+    hio.unobserve(e.target); } }); },{threshold:.4});
+  headings.forEach(function(h){ hio.observe(h); });
+
+  /* ---- interactive process stepper (click tabs + gentle auto-advance in view) ---- */
+  var stepper=document.getElementById('stepper');
+  if(stepper){
+    var tabs=stepper.querySelectorAll('.step-tab');
+    var panels=stepper.querySelectorAll('.step-panel');
+    var ind=document.getElementById('stepInd');
+    var nSteps=tabs.length, autoTimer=null, cur=0;
+    function showStep(i){ cur=i;
+      tabs.forEach(function(t,k){ t.classList.toggle('active',k===i); });
+      panels.forEach(function(p,k){ p.classList.toggle('active',k===i); });
+      ind.style.width=(100/nSteps)+'%'; ind.style.transform='translateX('+(i*100)+'%)';
+    }
+    function stopAuto(){ clearInterval(autoTimer); autoTimer=null; }
+    function startAuto(){ if(!autoTimer) autoTimer=setInterval(function(){ showStep((cur+1)%nSteps); },4200); }
+    tabs.forEach(function(t){ t.addEventListener('click',function(){ stopAuto(); showStep(+t.getAttribute('data-step')); }); });
+    var sio=new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting?startAuto():stopAuto(); }); },{threshold:.4});
+    sio.observe(stepper);
+    showStep(0);
+  }
+})();
+</script>
+<link rel="stylesheet" href="../assets/case/case-bo-ix.css?v=33">
+<div id="lb"><span class="x">✕</span><img src="" alt=""></div>
+<script src="../assets/case/case-bo-ix.js?v=9"></script>
+  <!-- persistent case-study left rail (metadata + scroll-spy nav) -->
+  <link rel="stylesheet" href="case-sidebar.css?v=bloom1">
+  <script src="case-sidebar.js?v=name2" defer></script>
+  <!-- global footer -->
+  <link rel="stylesheet" href="footer.css?v=blue1">
+  <script src="footer.js" defer></script>
+  <script src="transition.js" defer></script>
+  <script src="nav.js?v=6" defer></script>
+  <!-- cinematic layer: GSAP scroll choreography + shader grain -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="cinematic.js?v=1"></script>
+  <script src="smooth-scroll.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+/* ============================================================
+   responsive.css  —  shared safety + consistency layer
+   Loaded right before </head>, AFTER each page's own <style>,
+   so it can layer on top without fighting page-specific design.
+   NOT loaded on journey.html (which manages its own mobile layout).
+
+   Goals (2026 best practice):
+   1. No element may force horizontal scroll on a phone.
+   2. Media (img / svg / video / canvas) is fluid by default.
+   3. Touch / coarse-pointer devices keep a real cursor + tappable targets.
+   4. The site nav wraps/shrinks gracefully on narrow phones.
+   ============================================================ */
+
+/* 1 — fluid media. Zero-specificity :where() so any page rule still wins. */
+:where(img, svg, video, canvas) { max-width: 100%; }
+:where(img, video)              { height: auto; }
+
+/* 2 — horizontal-overflow guard.
+   `clip` (not `hidden`) so position:sticky / scroll anchoring keep working. */
+html { overflow-x: clip; }
+
+/* 3 — touch & coarse pointer:
+   never hide the system cursor, and guarantee finger-sized hit areas. */
+@media (hover: none), (pointer: coarse) {
+  * { cursor: auto !important; }
+  .snav a,
+  .navpills a,
+  .back,
+  .go {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* 4 — narrow phones: let the global site nav wrap instead of overflowing.
+   Mirrors the handling beyond.html / quick.html already ship. */
+@media (max-width: 480px) {
+  .wnav { flex-wrap: wrap; gap: 8px; padding-inline: max(16px, 4.5vw); }
+  .snav { flex-wrap: wrap; font-size: 11px; }
+  .snav a { padding: 6px 9px; }
+  .navpills { flex-wrap: wrap; }
+}
+@media (max-width: 360px) {
+  .snav { gap: 2px; font-size: 10px; }
+  .snav a { padding: 5px 7px; }
+}
+
+/* ============================================================
+   Shared mobile menu — hamburger → full-screen overlay.
+   Behaviour is injected by nav-menu.js. Auto-themes via each
+   page's own --paper / --ink / --accent variables.
+   (The home page has its own menu and loads neither this nor JS.)
+   ============================================================ */
+.navtoggle { display: none; }
+.navmenu { display: none; }   /* hidden on desktop; the mobile media query below shows it */
+
+@media (max-width: 768px) {
+  /* collapse the inline links; the hamburger replaces them */
+  .wnav .snav, .wnav .navpills { display: none !important; }
+
+  .navtoggle {
+    display: inline-flex; flex-direction: column; justify-content: center; gap: 5px;
+    width: 44px; height: 44px; padding: 0; background: none; border: 0; cursor: pointer;
+    position: relative; z-index: 9001;
+  }
+  .navtoggle span {
+    display: block; width: 23px; height: 2px; margin: 0 auto; border-radius: 2px;
+    background: var(--ink, #EDF1E6);
+    transition: transform .35s cubic-bezier(.22,1,.36,1), opacity .25s;
+  }
+  body.navmenu-open .navtoggle span:nth-child(1) { transform: translateY(3.5px) rotate(45deg); }
+  body.navmenu-open .navtoggle span:nth-child(2) { transform: translateY(-3.5px) rotate(-45deg); }
+
+  .navmenu {
+    position: fixed; inset: 0; z-index: 9000; display: flex;
+    background: var(--paper, #15211B);
+    opacity: 0; visibility: hidden;
+    transition: opacity .45s cubic-bezier(.22,1,.36,1), visibility .45s;
+  }
+  body.navmenu-open { overflow: hidden; }
+  body.navmenu-open .navmenu { opacity: 1; visibility: visible; }
+
+  .navmenu-inner {
+    margin: auto 0; width: 100%; display: flex; flex-direction: column; align-items: flex-start;
+    gap: 2px; padding: 0 max(22px, 7vw);
+  }
+  .navmenu-inner a {
+    color: var(--ink, #EDF1E6); text-decoration: none;
+    font-family: "Archivo", "Geist", system-ui, sans-serif; font-weight: 900;
+    text-transform: lowercase; letter-spacing: -.03em; line-height: 1.16;
+    font-size: clamp(34px, 12vw, 58px); padding: 6px 0;
+    transform: translateY(24px); opacity: 0;
+    transition: transform .55s cubic-bezier(.22,1,.36,1), opacity .5s, color .2s;
+  }
+  body.navmenu-open .navmenu-inner a { transform: none; opacity: 1; }
+  body.navmenu-open .navmenu-inner a:nth-child(1) { transition-delay: .10s; }
+  body.navmenu-open .navmenu-inner a:nth-child(2) { transition-delay: .16s; }
+  body.navmenu-open .navmenu-inner a:nth-child(3) { transition-delay: .22s; }
+  body.navmenu-open .navmenu-inner a:nth-child(4) { transition-delay: .28s; }
+  body.navmenu-open .navmenu-inner a:nth-child(5) { transition-delay: .34s; }
+  .navmenu-inner a.on, .navmenu-inner a:active { color: var(--accent, #E07B53); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navmenu, .navmenu-inner a, .navtoggle span { transition: none !important; }
+}
+
+/* ============================================================
+   Capsule nav (desktop) — links live in a frosted pill, with
+   "quick view" as the terracotta accent CTA. Shared across pages.
+   ============================================================ */
+@media (min-width: 769px) {
+  .snav { display: inline-flex; align-items: center; gap: 22px;
+    background: none; border: 0; box-shadow: none; padding: 0;
+    -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .snav a { position: relative; text-decoration: none; white-space: nowrap;
+    padding: 4px 0; border: 0 !important; border-radius: 0 !important; background: transparent !important; }
+  .snav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: 0; height: 1.5px;
+    background: var(--t-accent, #cf5a2f); transition: right .3s cubic-bezier(.5,.5,0,1); }
+  .snav a:hover::after { right: 0; }
+  .snav a.on { color: var(--t-accent, #cf5a2f) !important; }
+  .snav a[href*="quick"] { background: var(--t-accent, #cf5a2f) !important; color: #f7ede1 !important;
+    padding: 8px 16px !important; border-radius: 999px !important; transition: transform .2s, box-shadow .2s; }
+  .snav a[href*="quick"]::after { display: none; }
+  .snav a[href*="quick"]:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -10px var(--t-accent, #cf5a2f); }
+  .snav .exti { font-size: .82em; opacity: .55; display: inline-block; margin-left: 2px; transition: transform .25s, opacity .2s; }
+  .snav a:hover .exti { opacity: .9; }
+  .snav a:hover .exti-up { transform: translate(2px,-2px); }
+  .snav a:hover .exti-dn { transform: translateY(2px); }
+  .snav a[href*="quick"] .exti { opacity: .8; }
+}
+
+/* brand "gauravi." — the dot gives a little pop on hover (keyframe, so it won't fight any entrance animation) */
+.brand .a { display: inline-block; }
+.brand:hover .a { animation: dotpop .42s cubic-bezier(.34,1.55,.5,1); }
+@keyframes dotpop { 0% { transform: scale(1); } 45% { transform: scale(1.55); } 100% { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .brand:hover .a { animation: none; } }
+
+/* ============================================================
+   Case-study mobile — dense mockups & wide blocks (2026).
+   The framed product screenshots (.bw) and the wide reference
+   table / role swimlane are unreadable squeezed onto a phone.
+   On small screens we keep them at a legible size inside a
+   horizontal "swipe" container instead of shrinking to nothing.
+   These classes only exist on case-study pages, so the rules
+   are inert everywhere else. Loaded after each page's own
+   <style>, so they layer on top without being overridden.
+   ============================================================ */
+@media (max-width: 760px) {
+  /* framed browser/product screenshots → pan, don't shrink */
+  .bw {
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+  }
+  .bw .shot { width: max-content; max-width: none; overflow: visible; }
+  .bw img {
+    width: 720px !important;   /* legible zoom; the frame box stays viewport-wide */
+    max-width: none !important;
+    height: auto;
+    scroll-snap-align: start;
+  }
+  /* the decorative "back" frame just clutters a phone */
+  .bw.bw-back { display: none !important; }
+
+  /* a thin track is the swipe affordance, shared by all 3 scrollers */
+  .bw::-webkit-scrollbar,
+  .matrix::-webkit-scrollbar,
+  .roleflow-wrap::-webkit-scrollbar { height: 6px; }
+  .bw::-webkit-scrollbar-thumb,
+  .matrix::-webkit-scrollbar-thumb,
+  .roleflow-wrap::-webkit-scrollbar-thumb {
+    background: rgba(120,120,120,.45); border-radius: 99px;
+  }
+  .matrix, .roleflow-wrap { scrollbar-width: thin; }
+}
+
+/* ============================================================
+   Mobile overflow hardening — portfolio QA pass, July 2026.
+   Grids/flex rows with product screenshots, mono labels, and
+   animated line wrappers were letting the document grow wider than
+   a phone viewport. Because horizontal overflow is clipped, that
+   showed up as sliced headings instead of obvious scrollbars.
+   ============================================================ */
+html, body { max-width: 100%; }
+body { overflow-x: clip; }
+
+@media (max-width: 760px) {
+  :where(*, *::before, *::after) { min-width: 0; }
+
+  :where(.wrap, .qhero, .whead, main, section, footer,
+    .hero-grid, .hero-stage, .metrics, .metric, .meta-grid,
+    .snap-facts, .snapshot, .impact, .impact-sky, .body-col,
+    .sec-head, .cards, .flow-compare, .decision, .visual-grid,
+    .work-stack, .wcard, .case, .case > *, .text, .media,
+    .cover, .screen, .demo, .bw, .bw-main, .ix-ba, .ix-scrolly,
+    .bo-scrolly, .bo-trust-wrap, .handoff, .handoff-grid) {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  :where(.hero-grid, .case, .metrics, .meta-grid, .snap-facts,
+    .snapshot, .impact, .cards, .flow-compare, .decision,
+    .visual-grid, .handoff-grid) {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  :where(.hero-grid > *, .case > *, .metrics > *, .meta-grid > *,
+    .snap-facts > *, .snapshot > *, .impact > *, .qspec > *,
+    .c-hero > *, .wcard > *, .row-foot > *, .tags > *) {
+    min-width: 0;
+  }
+
+  :where(h1, h2, h3, p, li, .lede, .ttl, .whead h1, .whead p,
+    .qhead, .qident, .qcell, .qcell .qv, .eyebrow, .meta,
+    .count, .label, .cap, .snap-fact p, .snap-cell p) {
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .wrap { padding-inline: max(22px, 6vw) !important; }
+
+  /* Animated line wrappers are great on desktop, but on phones they
+     can clip text once the line needs to wrap. */
+  .qhead .ln,
+  .qhead .ln > span {
+    overflow: visible !important;
+    white-space: normal !important;
+  }
+
+  .qhead {
+    font-size: clamp(38px, 12.2vw, 54px) !important;
+    line-height: 1.02 !important;
+    max-width: 100% !important;
+  }
+  .qident { line-height: 1.65; }
+  .qident .dash { margin-inline: 8px; }
+  .qcell,
+  .qcell .qv { max-width: 100%; }
+  .qcell .qv {
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 1.55;
+  }
+
+  .whead h1 {
+    font-size: clamp(30px, 8.5vw, 38px) !important;
+    line-height: 1.02 !important;
+  }
+  .whead p {
+    max-width: 100%;
+    font-size: 16px;
+  }
+  .whead .count,
+  .meta { line-height: 1.5; }
+
+  header.hero {
+    padding-top: clamp(92px, 22vw, 118px);
+  }
+  header.hero .hero-grid h1,
+  .hero-grid h1 {
+    font-size: clamp(27px, 8.6vw, 39px) !important;
+    line-height: 1.08 !important;
+    max-width: 100%;
+  }
+  header.hero .lede {
+    max-width: 100%;
+    font-size: clamp(15px, 4.1vw, 17px);
+  }
+  .hero-stage {
+    width: 100%;
+    overflow: hidden;
+  }
+  .bw-main,
+  .bw {
+    width: 100% !important;
+  }
+
+  .metrics {
+    width: 100%;
+    overflow: hidden;
+  }
+  .metric {
+    padding: 26px 24px !important;
+    border-right: none !important;
+  }
+  .metric .label { max-width: 100%; }
+
+  .row-foot { gap: 10px 14px; }
+  .go,
+  .chip,
+  .tag { white-space: normal; }
+}
+
+@media (max-width: 420px) {
+  .wrap { padding-inline: 22px !important; }
+  .qhero { padding-inline: 22px !important; }
+  .qhead { font-size: clamp(34px, 11.4vw, 45px) !important; }
+  .qspec { gap: 16px 0; }
+  .qcell { flex: 1 1 100%; }
+
+  .whead h1,
+  header.hero .hero-grid h1,
+  .hero-grid h1 {
+    font-size: clamp(26px, 8.4vw, 34px) !important;
+  }
+}

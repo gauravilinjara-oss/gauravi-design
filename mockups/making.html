@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>We Forgot That Making Things Is Supposed to Feel Good, Gauravi Linjara</title>
+<meta name="description" content="AI can make things in seconds. But the joy of creating was never just the result. It was the dialogue with the material. An essay, with clay.">
+
+<link rel="stylesheet" href="tokens.css?v=craft2">
+<link rel="stylesheet" href="nav.css?v=9">
+<link rel="stylesheet" href="footer.css">
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="We Forgot That Making Things Is Supposed to Feel Good" />
+<meta property="og:description" content="AI can make things in seconds. But the joy of creating was never just the result. An essay, with clay." />
+<meta property="og:image" content="https://gauravi.design/assets/making/clay/frame-4.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<style>
+  /* ── essay-local tokens — pure white, navy/teal ink (Wattenberger style) ── */
+  .essay{
+    --paper:#ffffff;
+    --ink:#16202b;            /* site navy — headings/text    */
+    --ink-2:#2c4d57;          /* body text                    */
+    --soft:#5d757d;           /* secondary                    */
+    --faint:#9aabb0;          /* captions / labels            */
+    --clay:#9a4a28;           /* warm terracotta — functional accent only (links/progress) */
+    --line:rgba(22,50,61,.12);
+    --serif:"Switzer","Geist",system-ui,sans-serif;
+    --mono:"Geist Mono",ui-monospace,Menlo,monospace;
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0}
+  .essay{
+    background:var(--paper);color:var(--ink-2);
+    font-family:var(--serif);font-optical-sizing:auto;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    overflow-x:clip;   /* clip, NOT hidden — hidden breaks position:sticky */
+  }
+  .essay ::selection{background:rgba(200,100,60,.18)}
+
+  /* atmosphere — a warm wash of light + the faintest film grain, fixed to the viewport */
+  .atmos{position:fixed;inset:0;pointer-events:none;z-index:50;background:radial-gradient(135% 95% at 50% -12%,rgba(255,237,212,.16),rgba(255,255,255,0) 56%)}
+  .grain{position:fixed;inset:0;pointer-events:none;z-index:51;opacity:.05;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+  /* a quiet bridge line between acts — a pause beat, not a heading */
+  .essay .bridge{text-align:center;font-family:var(--serif);font-style:normal;font-size:clamp(20px,2.7vw,31px);line-height:1.28;color:var(--soft);max-width:22ch;margin:clamp(12px,3vh,40px) auto clamp(52px,10vh,120px);padding:0 26px;text-wrap:balance}
+  /* poetic stanza — centered lines that rise in one by one */
+  .essay .stanza{text-align:center;font-family:var(--serif);font-size:clamp(20px,2.7vw,30px);line-height:1.3;color:var(--ink);max-width:none;margin:0 auto}
+  .stanza .st-line{display:block;margin:.12em 0}
+  .stanza .st-line strong{font-weight:600;color:var(--ink)}
+  .bridge b{font-style:normal;font-weight:600;color:var(--ink)}
+
+  .e-prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--clay);z-index:60;transition:width .08s linear}
+
+  .col{max-width:65ch;margin:0 auto;padding:0 26px}   /* ~ ideal reading measure */
+  .essay p{font-size:clamp(16px,1rem + 0.45vw,18px);line-height:1.7;font-weight:400;margin:0 0 1.5em;color:var(--ink-2);text-wrap:pretty}
+  .lead{font-size:clamp(18px,1rem + 0.7vw,21px)!important;line-height:1.55!important;color:var(--ink)!important}
+  /* storytelling type: graceful wrapping, hanging punctuation, tight cadence between short lines */
+  .essay{hanging-punctuation:first allow-end}
+  /* balance short statement lines so they split evenly — no lonely two-word last line.
+     `.essay`-scoped so it beats `.essay p{text-wrap:pretty}` on <p> beats/leads. */
+  .essay .disp,.essay .sec-h,.essay .e-title,.essay .close-line,.essay .h-lbl,.essay .beat,.essay .big-beat,.essay .coldline,.essay .fcap,.essay .bridge,.essay .lead{text-wrap:balance}
+  .essay .lead{margin-bottom:.7em}
+  .essay .kick{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--clay);margin:0 0 20px}
+  .mono{font-family:var(--mono)}
+  em{font-style:italic}
+  .essay strong{font-weight:600;color:var(--ink)}
+
+  /* heavy display serif (matches the reference's bold serif headline) */
+  .disp{font-family:var(--serif);font-weight:600;font-variation-settings:"opsz" 144,"wght" 640,"SOFT" 40;letter-spacing:-.018em;color:var(--ink);line-height:1.02}
+
+  /* ── INTRO (centered, like the reference) ───────────────────────────────── */
+  .intro{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10vh 24px 8vh;position:relative}
+  .e-title{font-size:clamp(32px,4.6vw,58px);margin:0 0 .48em;max-width:16em;line-height:1.06}
+  .e-title em{font-variation-settings:"opsz" 144,"wght" 600,"SOFT" 60;font-style:italic;color:var(--ink)}
+  .intro .lead{max-width:48ch}   /* wider measure → fewer lines, sentences stay whole */
+  .e-by{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--faint);margin-top:26px}
+  .e-by a{color:var(--clay);text-decoration:none}
+  .stagger{opacity:0;transform:translateY(20px);filter:blur(3px);transition:opacity .85s var(--ease),transform .85s var(--ease),filter .85s var(--ease)}
+  .stagger.in{filter:blur(0)}
+  .stagger.in{opacity:1;transform:none}
+  .scroll-cue{position:absolute;left:50%;bottom:84px;transform:translateX(-50%);font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:lowercase;color:var(--faint);display:flex;flex-direction:column;align-items:center;gap:8px}
+  .scroll-cue .ln{width:1px;height:32px;background:linear-gradient(var(--faint),transparent);animation:cuemove 2s ease-in-out infinite}
+  @keyframes cuemove{0%,100%{transform:scaleY(.5);transform-origin:top;opacity:.4}50%{transform:scaleY(1);opacity:1}}
+
+  /* ── CLAY HERO — sticky cut-out figure (right) + text beats (left) ──────── */
+  .clay{position:relative;height:560vh;background:var(--paper)}
+  .clay-sticky{position:sticky;top:0;height:100vh;overflow:hidden;
+    display:grid;grid-template-columns:44% 56%;align-items:center;
+    max-width:1240px;margin:0 auto;padding:0 max(22px,4vw)}
+  .clay-label{display:none}   /* eyebrow labels removed */
+  .clay-text{position:relative;height:56vh}
+  .beat{position:absolute;top:50%;left:0;right:0;transform:translateY(calc(-50% + 14px));
+    font-family:var(--serif);font-weight:420;font-size:clamp(24px,3.2vw,40px);line-height:1.16;letter-spacing:-.015em;color:var(--ink);
+    opacity:0;transition:opacity .26s ease,transform .26s ease;padding-right:10px}
+  /* incoming beat waits for the outgoing one to clear → no doubled text mid-scroll */
+  .beat.on{opacity:1;transform:translateY(-50%);transition:opacity .5s ease .18s,transform .5s ease .18s}
+  .beat b{font-weight:600;color:var(--ink)}
+  .clay-figure{position:relative;height:100vh}
+  /* fixed box: all four frames occupy the exact same space (no resize/jump) */
+  .figwrap{position:absolute;bottom:6vh;left:50%;transform:translateX(-50%);
+    height:min(80vh,640px);aspect-ratio:1000/967;max-width:100%;
+    filter:drop-shadow(0 26px 30px rgba(22,50,61,.10))}
+  .figwrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:bottom center;
+    opacity:0;will-change:opacity}        /* hard cut — no crossfade, no intermediate blend */
+  .figwrap img.show{opacity:1}
+
+  /* painting hero — figure on the LEFT, text on the RIGHT */
+  .paint{height:480vh}
+  .paint-sticky{grid-template-columns:56% 44%}
+  .paint-figure .figwrap{aspect-ratio:1100/982}
+  .paint-text{padding-left:12px;padding-right:0}
+
+  /* ── BODY SECTIONS ──────────────────────────────────────────────────────── */
+  .sec{padding:clamp(56px,9vh,108px) 0}
+  .reveal{opacity:0;transform:translateY(30px);filter:blur(4px);transition:opacity .85s var(--ease),transform .9s var(--ease),filter .85s var(--ease)}
+  .reveal.in{opacity:1;transform:none;filter:blur(0)}
+  .sec-h{font-size:clamp(25px,3.3vw,40px);margin:0 0 .6em}
+  .sec-h em{font-style:italic;color:var(--ink);font-variation-settings:"opsz" 144,"wght" 600,"SOFT" 60}
+  /* one heading made huge + upright (no italics) */
+  .essay .big-h{font-size:clamp(28px,6vw,78px);line-height:1.04;letter-spacing:-.03em;margin:0 0 .4em;max-width:94vw;width:max-content}
+  .essay .big-h em{font-style:normal;color:var(--ink);font-variation-settings:"opsz" 144,"wght" 640,"SOFT" 40}
+  /* centered heading + subhead (this section) — blow-up scales from centre, not the left edge */
+  .essay .col.centered{text-align:center;max-width:840px}   /* wide enough for the big display line to centre on the page */
+  .essay .col.centered .big-h{margin-left:auto;margin-right:auto;max-width:100%;transform-origin:center center}
+  /* "blow up" entrance — explodes in from small with an overshoot, then settles */
+  .blowup{opacity:0;transform:scale(.34);filter:blur(10px);transform-origin:left center;
+    transition:opacity .55s cubic-bezier(.2,.8,.2,1),transform 1.05s cubic-bezier(.2,1.45,.32,1),filter .7s ease}
+  .blowup.in{opacity:1;transform:scale(1);filter:blur(0)}
+  @media (prefers-reduced-motion:reduce){ .blowup{opacity:1!important;transform:none!important;filter:none!important;transition:none} }
+
+  .uline{position:relative;white-space:nowrap}
+  .uline svg{position:absolute;left:-2%;bottom:-.36em;width:104%;height:.5em;overflow:visible;pointer-events:none}
+  .uline path{fill:none;stroke:var(--clay);stroke-width:3.4;stroke-linecap:round;stroke-dasharray:var(--len,300);stroke-dashoffset:var(--len,300);transition:stroke-dashoffset 1s ease .15s}
+  .uline.in path{stroke-dashoffset:0}
+
+  .brush{max-width:760px;margin:10px auto 0;padding:0 26px}
+  .brush svg{width:100%;height:120px;display:block}
+  .brush path{fill:none;stroke:var(--clay);stroke-width:16;stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:1400;stroke-dashoffset:1400;transition:stroke-dashoffset 1.6s cubic-bezier(.5,0,.2,1);opacity:.85}
+  .brush.in path{stroke-dashoffset:0}
+  .brush .cap{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--faint);text-align:center;margin-top:4px}
+
+  .play{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:center;margin:30px auto 6px;max-width:660px;padding:0 26px}
+  .play .hintline{flex-basis:100%;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--faint);margin-bottom:4px}
+  .bbtn{font-family:var(--mono);font-size:14px;color:#fff;background:var(--clay);border:none;border-radius:30px;padding:13px 26px;cursor:pointer;box-shadow:0 6px 16px rgba(200,100,60,.26);transition:transform .15s cubic-bezier(.34,1.7,.5,1),box-shadow .2s}
+  .bbtn:hover{box-shadow:0 9px 22px rgba(200,100,60,.34)}
+  .bbtn:active{transform:scale(.9)}
+  .bbtn.boing{animation:boing .55s cubic-bezier(.34,1.7,.4,1)}
+  @keyframes boing{0%{transform:scale(.9)}40%{transform:scale(1.12)}70%{transform:scale(.97)}100%{transform:scale(1)}}
+  .toggle{width:60px;height:32px;border-radius:30px;background:#dbe3e5;border:none;cursor:pointer;position:relative;transition:background .3s}
+  .toggle::after{content:"";position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.18);transition:left .32s cubic-bezier(.34,1.6,.5,1)}
+  .toggle.on{background:var(--clay)}.toggle.on::after{left:31px}
+  .loader{display:flex;gap:7px;align-items:center;height:32px}
+  .loader span{width:10px;height:10px;border-radius:50%;background:var(--clay);animation:bob 1.1s ease-in-out infinite}
+  .loader span:nth-child(2){animation-delay:.16s}.loader span:nth-child(3){animation-delay:.32s}
+  @keyframes bob{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-9px);opacity:1}}
+
+  /* ── DIGITAL DELIGHTS — horizontal-scroll gallery (essay fonts) ────────── */
+  .scroll-side{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--clay);white-space:nowrap}
+  .hwrap{position:relative;height:420vh;background:#fff;--cl:#c8643c;--cl-deep:#9a4a28;--cl-lt:#e0855c}
+  .hsticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+  .glass{display:contents}   /* no card, no background — diagrams sit on the page */
+  .htrack{display:flex;height:100vh;will-change:transform}
+  .hpanel{flex:0 0 100vw;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:0 8vw;text-align:center}
+  .h-num{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--faint)}
+  .h-lbl{font-size:clamp(20px,2.4vw,30px);line-height:1.1;color:var(--ink);max-width:none;white-space:nowrap;margin:0}
+  .h-lbl em{font-style:normal;color:inherit;font-variation-settings:inherit}
+  .h-note{font-family:var(--serif);font-style:italic;font-size:clamp(18px,2.2vw,23px);color:var(--soft);margin:2px 0 0}
+  .hint{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:2px}
+  .hint a{color:var(--clay);cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+  .hbar{position:absolute;left:8vw;right:8vw;bottom:13vh;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
+  .hbar span{display:block;height:100%;width:25%;background:var(--clay);border-radius:2px;transform:translateX(0);transition:transform .12s linear}
+  /* demos — clean lines, meadow colors */
+  svg.s{display:block;width:100%;max-width:330px;margin:0 auto;overflow:visible;touch-action:none}
+  .ink{fill:none;stroke:var(--soft);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+  .gdot{fill:#b0764c;opacity:.3}   /* warm clay dot grid */
+  #blob{fill:url(#clayGrad);cursor:grab;outline:none;filter:url(#clayLift);transition:transform .12s cubic-bezier(.34,1.6,.6,1)}
+  #blob.drag{cursor:grabbing;transition:none;filter:url(#clayLiftBig)}
+  .coord{font-family:var(--serif);font-style:italic;color:var(--cl-deep)}
+  .curve-ink{fill:none;stroke:var(--cl);stroke-width:3.4;stroke-linecap:round}
+  .curve-ghost{fill:none;stroke:#e6dcd3;stroke-width:1.6;stroke-dasharray:4 5}
+  .leg{stroke:rgba(200,100,60,.45);stroke-width:1.4}
+  .chandle{fill:url(#clayGrad);stroke:none;cursor:grab;filter:url(#clayLift)}
+  .chandle:active{cursor:grabbing}
+  #roller{fill:url(#clayGrad);filter:url(#clayLift)}
+  /* claymorphic terracotta button */
+  .sunbtn{font-family:var(--mono);font-size:14px;letter-spacing:.03em;color:#fff;background:var(--cl);border:none;cursor:pointer;
+    padding:13px 30px;border-radius:36px 32px 38px 34px/34px 38px 32px 36px;box-shadow:0 6px 0 var(--cl-deep),0 10px 18px rgba(154,74,40,.32);transition:transform .09s ease,box-shadow .09s ease}
+  .sunbtn:active{transform:translateY(5px);box-shadow:0 1px 0 var(--cl-deep),0 4px 10px rgba(154,74,40,.3)}
+  .sunbtn.pop{animation:pop .5s cubic-bezier(.34,1.56,.64,1)}
+  @keyframes pop{0%{transform:translateY(5px) scale(.96)}40%{transform:translateY(-2px) scale(1.06)}100%{transform:none}}
+  #loadSvg{cursor:pointer}
+  .lring{stroke:var(--cl)} .p-sun,.p-peach,.p-sage{fill:url(#clayGrad);filter:url(#clayLift)}
+
+  @media (prefers-reduced-motion:reduce){
+    .hwrap{height:auto}
+    .hsticky{position:relative;height:auto;display:block;overflow:visible}
+    .htrack{flex-direction:column;transform:none!important;height:auto}
+    .hpanel{flex:none;height:auto;padding:7vh 8vw}
+    .hbar{display:none}
+  }
+  @media (max-width:640px){ svg.s{max-width:280px} .h-lbl{font-size:24px;white-space:normal;max-width:18ch} }
+
+  /* ── CONTRAST (cold prompt) — stays white, clinical ─────────────────────── */
+  .contrast .col{max-width:65ch;text-align:center}
+  .promptbox{max-width:520px;margin:6px auto 0;text-align:left;background:#f6f8f8;border:1px solid var(--line);border-radius:14px;padding:20px 22px;font-family:var(--mono)}
+  .promptbox .row{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--soft);min-height:22px}
+  .promptbox .typed{color:var(--ink)}
+  .promptbox .caret{display:inline-block;width:8px;height:16px;background:var(--clay);margin-left:1px;animation:blink 1s step-end infinite;vertical-align:middle}
+  @keyframes blink{50%{opacity:0}}
+  .steps{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+  .step{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);border:1px solid var(--line);border-radius:20px;padding:6px 13px;opacity:.45;transition:all .4s}
+  .step.on{opacity:1;color:var(--ink);border-color:var(--clay)}
+  .gen-result{margin:26px auto 0;max-width:280px;text-align:center;opacity:0;transform:scale(.96);transition:opacity .4s,transform .4s}
+  .gen-result.on{opacity:1;transform:none}
+  .gen-result img{width:100%;filter:grayscale(.6) contrast(.92) opacity(.78)}
+  .gen-result .tag{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:8px}
+  .essay .coldline{text-align:center;font-style:normal;font-size:clamp(16px,1rem + 0.5vw,20px);margin:4.5vh auto 0;max-width:none;color:var(--ink);font-family:var(--serif);line-height:1.4}
+  .coldline em{color:var(--ink);font-style:normal;font-weight:600}
+
+  /* optimized-away — the word loses its weight, then dissolves into nothing,
+     leaving the gap where it was. (blur-dissolve + variable-weight thinning) */
+  .optimized{margin:4vh 0 1vh}
+  .essay .opt-line{font-family:var(--serif);font-size:clamp(34px,6vw,64px);line-height:1.04;letter-spacing:-.02em;margin:0 0 3.2vh;color:var(--ink);font-weight:420}
+  .essay .opt-line:last-child{margin-bottom:0}
+  .opt-line .pre{display:inline-block;font-size:.36em;font-weight:400;letter-spacing:.02em;color:var(--soft);vertical-align:middle;margin-right:.4em;font-variation-settings:"opsz" 20}
+  .opt-line .word{display:inline-block;white-space:nowrap;color:var(--ink);will-change:filter,opacity;
+    animation:optDissolve 4.6s ease-in-out infinite;animation-play-state:paused}     /* loops, but only once in view */
+  .opt-line.in .word{animation-play-state:running}
+  .optimized .opt-line:nth-child(2) .word{animation-delay:.5s}
+  .optimized .opt-line:nth-child(3) .word{animation-delay:1s}
+  @keyframes optDissolve{
+    0%      {font-variation-settings:"opsz" 144,"wght" 560,"SOFT" 0;filter:blur(5px);opacity:0}
+    11%     {font-variation-settings:"opsz" 144,"wght" 560,"SOFT" 0;filter:blur(0);opacity:1}
+    48%     {font-variation-settings:"opsz" 144,"wght" 560,"SOFT" 0;filter:blur(0);opacity:1}
+    72%     {font-variation-settings:"opsz" 144,"wght" 100,"SOFT" 100;filter:blur(2px);opacity:.85}
+    90%,100%{font-variation-settings:"opsz" 144,"wght" 100,"SOFT" 100;filter:blur(13px);opacity:0}
+  }
+  @media (prefers-reduced-motion:reduce){ .opt-line .word{animation:none;opacity:.32;font-variation-settings:"opsz" 144,"wght" 200,"SOFT" 100} }
+  @media (prefers-reduced-motion:reduce){ .close-aura,.fleck{animation:none} .fleck{opacity:.4} }
+  @media (prefers-reduced-motion:reduce){ .close-throw .throw-fr{opacity:0!important} .close-throw .throw-fr:last-child{opacity:1!important} } /* hold the finished vessel */
+
+  /* the turn — each realization rises in as its own beat */
+  .turn .big-beat{font-family:var(--serif);font-style:italic;font-size:clamp(26px,3.7vw,44px);line-height:1.14;letter-spacing:-.01em;color:var(--ink);margin:.08em 0}
+  .turn .big-beat em{font-style:normal;color:var(--ink);font-variation-settings:"opsz" 144,"wght" 560,"SOFT" 50}
+
+  /* contrast — the maker who made nothing (clean hands) */
+  /* contrast — the maker (hands clean) + identical machine-perfect pots snap in */
+  .sameness{display:flex;align-items:flex-end;justify-content:center;gap:clamp(22px,6vw,64px);margin:clamp(66px,13vh,150px) auto 0;flex-wrap:wrap}
+  .same-fig{width:min(54vw,240px);display:block}
+  .same-pots{display:flex;gap:clamp(12px,2vw,20px);align-items:flex-end;padding-bottom:6px}
+  .same-pot{display:block;width:clamp(56px,11vw,88px);height:auto;opacity:0;transform:translateY(7px) scale(.95);filter:drop-shadow(0 7px 10px rgba(120,60,30,.16))}
+  .same-pot.in{opacity:1;transform:none;transition:opacity .07s linear,transform .07s linear} /* cold instant snap — no easing */
+  .same-cap{flex-basis:100%;text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-top:14px}
+
+  /* turn — beats paired with clay figures */
+  .turn{overflow:hidden}
+  .beat-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center;max-width:760px;margin:5vh auto;padding:0 26px}
+  .beat-row.flip .beat-fig{order:-1}
+  .beat-row .big-beat,.beat-row .lead{margin:0}
+  .beat-fig{width:100%;max-width:300px;margin:0 auto;display:block;filter:drop-shadow(0 18px 24px rgba(22,32,43,.10))}
+  /* fingerprint — full-bleed climax */
+  /* fingerprint — contained, framed, caption set calmly below */
+  .fingerprint{margin:7vh auto;max-width:860px;padding:0 26px;text-align:center}
+  .fingerprint img{width:100%;aspect-ratio:16/8;object-fit:cover;display:block;border-radius:14px;
+    box-shadow:0 28px 56px rgba(40,22,10,.16),0 4px 12px rgba(40,22,10,.10)}
+  .fingerprint .fcap{margin:24px auto 0;font-family:var(--serif);font-style:italic;font-size:clamp(19px,2.4vw,26px);line-height:1.32;color:var(--ink);max-width:30ch}
+  .fingerprint .fcap em{font-style:normal;font-weight:600;color:var(--ink)}
+  @media (max-width:640px){ .beat-row{grid-template-columns:1fr;gap:8px} .beat-row.flip .beat-fig{order:0} .beat-fig{max-width:230px} }
+  /* turn — sticky "dialogue" scene: figure swaps resistance↔surprise on scroll */
+  .tscene{height:300vh}
+  .tscene .clay-sticky{grid-template-columns:46% 54%;gap:clamp(24px,4vw,56px);padding:0 max(22px,5vw)}
+  /* center the figure so it shares the headline's optical center (not bottom-anchored) */
+  .tscene .figwrap{aspect-ratio:1100/942;height:min(60vh,470px);top:50%;bottom:auto;transform:translate(-50%,-50%)}
+  .tscene .beat{font-size:clamp(34px,5vw,60px);padding-right:0}
+
+  /* moldable clay — press & drag the real slab, the material gives back */
+  .turn .col-mold{text-align:center}
+  .mold{margin:clamp(20px,4vh,40px) auto 0;width:min(500px,86vw);display:flex;flex-direction:column;align-items:center;gap:16px}
+  .moldslab{position:relative;width:100%;line-height:0;cursor:grab;touch-action:none;-webkit-tap-highlight-color:transparent}
+  .moldslab:active{cursor:grabbing}
+  .moldslab canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .mold-hint{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);transition:opacity .5s}
+  .mold-hint.gone{opacity:0}
+  /* the payoff line under the slab — big, upright, blows up from centre */
+  .essay .mold-payoff{text-align:center;font-family:var(--serif);font-size:clamp(30px,6.2vw,78px);line-height:1.0;letter-spacing:-.03em;color:var(--ink);margin:clamp(40px,7vh,92px) auto 0;max-width:16ch;padding:0 22px;transform-origin:center center}
+  .essay .mold-payoff em{font-style:normal;color:var(--ink);font-variation-settings:"opsz" 144,"wght" 640,"SOFT" 40}
+
+  /* ── CLOSE — a layered, luminous climax ─────────────────────────────────── */
+  .close-stage{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:clamp(80px,15vh,190px) 24px 0}
+  /* warm aura of light behind the maker (far layer) */
+  .close-aura{position:absolute;left:50%;top:42%;width:min(88vw,780px);aspect-ratio:1/1;transform:translate(-50%,-50%);z-index:-2;pointer-events:none;
+    background:radial-gradient(circle at 50% 46%,rgba(255,221,178,.62),rgba(255,226,190,.18) 40%,rgba(255,255,255,0) 70%);
+    animation:auraBreath 9s ease-in-out infinite}
+  @keyframes auraBreath{0%,100%{opacity:.62}50%{opacity:1}}
+  /* dust motes drifting in the light (mid/near layers, parallax-driven) */
+  .fleck{position:absolute;z-index:-1;border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle,rgba(193,104,58,.55),rgba(193,104,58,0) 70%);animation:fleckPulse 6s ease-in-out infinite}
+  .fleck:nth-child(3){animation-duration:7.5s} .fleck:nth-child(4){animation-duration:5.2s} .fleck:nth-child(5){animation-duration:8s}
+  @keyframes fleckPulse{0%,100%{opacity:.22}50%{opacity:.55}}
+  .close-fig{width:min(52vw,236px);object-fit:contain;filter:drop-shadow(0 20px 26px rgba(22,50,61,.1));will-change:transform}
+  /* the clay, worked — a slow stop-motion loop, floating (cut out) on the page */
+  .close-throw{position:relative;width:min(92vw,640px);aspect-ratio:900/557;will-change:transform;filter:drop-shadow(0 26px 32px rgba(22,50,61,.12))}
+  .close-throw .throw-fr{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity 190ms ease-in-out}
+  .close-throw .throw-fr.on{opacity:1}
+  .essay .close-line{font-size:clamp(22px,3vw,34px);margin:.5em auto 0;max-width:none;color:var(--ink);line-height:1.12}
+  .close-line em{font-style:italic;color:var(--ink)}
+  /* climax headline placed diagonally in the gutters beside the gif (off the image): "More clay." top-right, "Not more finished pots." bottom-left */
+  .throw-wrap{position:relative;width:min(96vw,1020px);margin:0 auto}
+  .throw-wrap .close-throw{width:min(520px,52%);margin:0 auto}
+  .essay .cl-tr,.essay .cl-bl{position:absolute;margin:0;z-index:3;font-size:clamp(17px,2.2vw,29px);line-height:1.1;
+    font-variation-settings:"opsz" 144,"wght" 420,"SOFT" 0;letter-spacing:0}
+  .essay .cl-tr{top:9%;left:83%;text-align:left;max-width:9ch}
+  .essay .cl-bl{bottom:9%;right:83%;text-align:left;max-width:9ch}
+  .essay .cl-bl em{font-style:italic;font-variation-settings:"opsz" 144,"wght" 420,"SOFT" 0}
+  @media (max-width:760px){
+    .throw-wrap .close-throw{width:min(360px,60%)}
+    .essay .cl-tr,.essay .cl-bl{position:static;text-align:center;max-width:none;margin:.4em auto 0;display:block}
+    .essay .cl-tr{margin-top:.7em}
+  }
+  /* ── line-mask reveal — each line rises from behind a hard edge (premium, no ghost) ── */
+  .ml{transform:scale(.99);transition:transform 1.1s cubic-bezier(.16,1,.3,1)}
+  .ml.in{transform:scale(1)}
+  .ml .ml-line{display:block;overflow:hidden;padding-bottom:.16em;margin-bottom:-.16em}
+  .ml .ml-in{display:block;transform:translateY(120%);will-change:transform;transition:transform .95s cubic-bezier(.16,1,.3,1)}
+  .ml.in .ml-in{transform:translateY(0)}
+  .ml .ml-line:nth-child(2) .ml-in{transition-delay:.10s}
+  .ml .ml-line:nth-child(3) .ml-in{transition-delay:.20s}
+  .ml .ml-line:nth-child(4) .ml-in{transition-delay:.30s}
+  @media (prefers-reduced-motion:reduce){ .ml,.ml .ml-in{transform:none!important;transition:none} }
+  /* thesis: two lines that slide in from opposite sides on scroll */
+  .close-thesis .th-line{display:block}
+  .slide-r,.slide-l{opacity:0;transition:opacity .8s var(--ease),transform .9s var(--ease)}
+  .slide-r{transform:translateX(56px)}
+  .slide-l{transform:translateX(-56px);transition-delay:.12s}
+  .slide-r.in,.slide-l.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){ .slide-r,.slide-l{opacity:1!important;transform:none!important;transition:none} }
+  .close-coda{max-width:600px;margin:0 auto;text-align:center;padding:4.5vh 26px clamp(60px,9vh,110px)}
+  .essay .coda-line{font-size:clamp(16px,1rem + 0.45vw,18px);line-height:1.6;color:var(--ink-2);margin:0 0 .4em}
+  .essay .close-thesis{font-size:clamp(21px,2.8vw,28px);line-height:1.36;color:var(--ink);margin:1.7em auto 0;max-width:24ch}
+  .close-thesis strong{font-weight:600}
+  /* your turn — press the real clay slab to leave a fingerprint */
+  .yourturn{max-width:600px;margin:4vh auto 0;text-align:center;padding:0 26px}
+  .invite{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:16px}
+  .slab{position:relative;display:inline-block;width:min(92vw,520px);cursor:pointer;line-height:0;-webkit-tap-highlight-color:transparent}
+  .slab-img{width:100%;display:block;filter:drop-shadow(0 16px 26px rgba(120,60,30,.22));pointer-events:none;-webkit-user-select:none;user-select:none}
+  .slab-hint{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(90,45,20,.5);transition:opacity .3s;pointer-events:none}
+  .slab.touched .slab-hint{opacity:0}
+  .prints{position:absolute;inset:0;pointer-events:none}
+  .print{position:absolute;width:50px;height:60px;transform:translate(-50%,-50%) scale(.5);opacity:0;
+    animation:press .42s cubic-bezier(.34,1.56,.64,1) forwards;background:radial-gradient(closest-side,rgba(70,32,12,.20),transparent 72%)}
+  .print svg{position:absolute;inset:0}
+  @keyframes press{to{transform:translate(-50%,-50%) scale(1);opacity:1}}
+  .count{font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:var(--clay);margin-top:18px;min-height:18px}
+  .essay .sign{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--faint);margin-top:5vh}
+  .essay .sign a{color:var(--clay);text-decoration:none}
+  /* back-to-top — quiet pill that returns the reader to the start of the essay */
+  .essay .totop{display:inline-flex;align-items:center;gap:9px;margin-top:clamp(30px,5vh,54px);
+    font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);
+    background:none;border:1px solid rgba(154,74,40,.30);border-radius:999px;padding:12px 22px;cursor:pointer;
+    transition:border-color .22s,color .22s,background .22s;-webkit-tap-highlight-color:transparent}
+  .essay .totop .ar{font-style:normal;transition:transform .22s}
+  .essay .totop:hover{border-color:var(--clay);color:var(--clay);background:rgba(154,74,40,.06)}
+  .essay .totop:hover .ar{transform:translateY(-3px)}
+
+  @media (max-width:760px){
+    /* intro is a compact opener on phones (its content is only ~360px) so the
+       clay hero pins within ONE scroll instead of two — no full-screen of dead space */
+    .intro{min-height:auto;padding:16vh 24px 11vh}
+    /* "Even digital design used to have some of this." — keep line 2 fitting on phones */
+    .essay .big-h{font-size:clamp(22px,6.3vw,30px);letter-spacing:-.02em}
+    /* "AI shouldn't erase that conversation." → 2 clean lines (size so line 1 fits) */
+    .essay .lead.richer{font-size:clamp(15px,4.4vw,19px)!important}
+    /* sticky scroll scenes (clay / paint / turn) on phones: a centred column so the
+       text beat sits just ABOVE the figure with only a small gap — no dead space. */
+    .clay-sticky{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2vh;padding:3vh 20px}
+    .clay-text{position:relative;top:auto;left:auto;right:auto;width:100%;height:15vh;padding:0}
+    .beat{top:auto;bottom:0;left:0;right:0;padding:0 22px;text-align:center;
+      font-size:clamp(20px,5.4vw,28px);transform:translateY(10px)}
+    .beat.on{transform:none}
+    .beat b{background:none}
+    .tscene .beat{font-size:clamp(22px,6vw,31px)}
+    .clay-figure{position:relative;left:auto;right:auto;bottom:auto;width:100%;height:46vh}
+    .clay-sticky .figwrap{position:absolute;inset:0;top:auto;left:auto;bottom:auto;
+      width:100%;height:100%;max-width:none;aspect-ratio:auto;transform:none}
+    /* paint scene has figure-before-text in the DOM → keep text on top like the others */
+    .paint-text{order:-1}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .stagger,.reveal{opacity:1!important;transform:none!important;filter:none!important;transition:none}
+    .clay{height:auto}
+    .clay-sticky{position:relative;height:auto;grid-template-columns:1fr;padding:6vh 22px}
+    .clay-text{height:auto}
+    .beat{position:relative;top:auto;opacity:1;transform:none;margin:0 0 20px}
+    .clay-figure{height:auto}
+    .figwrap{position:relative;bottom:auto;left:auto;transform:none;width:min(78vw,420px);margin:0 auto}
+    .figwrap img{opacity:1!important}
+    .figwrap img:not(:last-child){display:none}
+    .brush path,.uline path{stroke-dashoffset:0!important;transition:none}
+    .scroll-cue{display:none}
+    .landfoot .land-img{transform:none!important}
+  }
+
+  /* ── LAND FOOTER — a clay dreamworld sign-off (this page only) ─────────── */
+  .landfoot{position:relative;width:100%;min-height:clamp(440px,46vw,660px);overflow:hidden;background:#cda07a;isolation:isolate}
+  /* melt the top edge into the white page so the clay world emerges, no hard seam */
+  .landfoot::before{content:"";position:absolute;left:0;right:0;top:0;height:clamp(90px,16vh,190px);z-index:1;pointer-events:none;
+    background:linear-gradient(to bottom,#fff 0%,rgba(255,255,255,.55) 38%,rgba(255,255,255,0) 100%)}
+  .reveal.landfoot{transform:none!important}                 /* never slide the full-bleed footer */
+  .landfoot .land-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;z-index:-1;
+    transform:scale(1.06);transition:transform 1.5s cubic-bezier(.22,1,.36,1)}
+  .landfoot.in .land-img{transform:none}
+  @media (max-width:680px){
+    .landfoot{min-height:560px}
+  }
+</style>
+  <!-- Microsoft Clarity analytics -->
+  <script src="clarity.js?v=1" defer></script>
+<link rel="stylesheet" href="transition.css?v=1">
+</head>
+<body>
+<!-- shared page transition (ink wipe) — see transition.css/js -->
+<div class="pgx" id="pgx" aria-hidden="true">
+  <div class="pgx-ink"></div>
+  <div class="pgx-mark"><span class="wm">gauravi<span class="dot">.</span></span></div>
+  <svg width="0" height="0" aria-hidden="true"><filter id="pgxink"><feTurbulence type="fractalNoise" baseFrequency="0.013 0.021" numOctaves="2" seed="6" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="10" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+</div>
+
+<div class="atmos" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="essay">
+
+  <svg width="0" height="0" aria-hidden="true" style="position:absolute"><filter id="wob"><feTurbulence type="fractalNoise" baseFrequency="0.013" numOctaves="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3"/></filter></svg>
+
+  <div class="e-prog" id="eprog"></div>
+
+  <!-- ── INTRO ──────────────────────────────────────────────────────────── -->
+  <header class="intro">
+    <h1 class="e-title disp stagger" style="transition-delay:.06s">We forgot that making things is supposed to <em>feel good.</em></h1>
+    <p class="lead stagger" style="transition-delay:.16s">AI is incredible.</p>
+    <p class="lead stagger" style="transition-delay:.30s">It writes. It paints. It codes. It designs.</p>
+    <p class="lead stagger" style="transition-delay:.44s">Faster than I can finish explaining what I want.</p>
+    <p class="lead stagger" style="transition-delay:.62s">And that's exactly what scares me.</p>
+    <p class="lead stagger" style="transition-delay:.80s">Not because I'm afraid AI will replace creativity.</p>
+    <p class="lead stagger" style="transition-delay:.94s"><strong>I'm afraid it'll replace the <em>feeling</em> of creating.</strong></p>
+  </header>
+
+  <!-- ── CLAY HERO ──────────────────────────────────────────────────────── -->
+  <section class="clay" id="clay">
+    <div class="clay-sticky">
+      <span class="clay-label">on the wheel</span>
+      <div class="clay-text" id="beats">
+        <p class="beat" data-from="0"    data-to="0.20">There is a strange joy in making something with your <b>hands.</b></p>
+        <p class="beat" data-from="0.20" data-to="0.44">The clay <b>pushes back.</b> Your fingers learn before your brain does.</p>
+        <p class="beat" data-from="0.44" data-to="0.66">The bowl leans too far. You ruin it. <b>You start over.</b></p>
+        <p class="beat" data-from="0.66" data-to="0.84">Hours disappear.</p>
+        <p class="beat" data-from="0.84" data-to="1.01">The joy was never just the bowl. It was becoming someone <b>capable of making one.</b></p>
+      </div>
+      <div class="clay-figure">
+        <div class="figwrap" id="frames">
+          <img src="../assets/making/clay/wheel-1.png" alt="A clay figure sits at a wheel with a fresh lump of clay" loading="eager">
+          <img src="../assets/making/clay/wheel-2.png" alt="Hands centering the clay on the wheel" loading="lazy">
+          <img src="../assets/making/clay/wheel-3.png" alt="The walls of a small bowl beginning to rise" loading="lazy">
+          <img src="../assets/making/clay/wheel-4.png" alt="A tall finished vessel risen on the wheel" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PAINTING (scroll hero — figure left, text right) ───────────────── -->
+  <section class="clay paint" id="paint">
+    <div class="clay-sticky paint-sticky">
+      <span class="clay-label">at the easel</span>
+      <div class="clay-figure paint-figure">
+        <div class="figwrap" id="pframes">
+          <img src="../assets/making/paint/paint-1.png" alt="The painter before a blank canvas" loading="lazy">
+          <img src="../assets/making/paint/paint-2.png" alt="A sun and green hills taking shape on the canvas" loading="lazy">
+          <img src="../assets/making/paint/paint-3.png" alt="A full sunset landscape, finished" loading="lazy">
+        </div>
+      </div>
+      <div class="clay-text paint-text" id="pbeats">
+        <p class="beat" data-from="0"    data-to="0.28">Painting is <b>the same.</b></p>
+        <p class="beat" data-from="0.28" data-to="0.56">The smell of acrylic. The scratch of charcoal.</p>
+        <p class="beat" data-from="0.56" data-to="0.80" style="font-size:clamp(18px,1rem + 0.7vw,21px);line-height:1.5">Stepping back every few minutes. Seeing if the composition still works.</p>
+        <p class="beat" data-from="0.80" data-to="1.01">These aren't inefficiencies. <b>They're the experience.</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DIGITAL DESIGN — horizontal gallery of tiny delights ───────────── -->
+  <section class="sec">
+    <div class="col centered">
+      <h2 class="sec-h disp big-h blowup">Even digital design<br>used to have <em>some of this.</em></h2>
+      <p class="reveal">Finding delight in the tiny things, the moments a user never names,<br>but always feels.</p>
+    </div>
+  </section>
+
+  <section class="hwrap" id="hdelights">
+    <svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs>
+      <radialGradient id="clayGrad" cx="34%" cy="28%" r="82%">
+        <stop offset="0" stop-color="#eca679"/><stop offset="52%" stop-color="#cf6d42"/><stop offset="100%" stop-color="#9a4a28"/>
+      </radialGradient>
+      <filter id="clayLift" x="-120%" y="-120%" width="340%" height="340%"><feDropShadow dx="0" dy="4" stdDeviation="3.4" flood-color="#7a3a1c" flood-opacity="0.34"/></filter>
+      <filter id="clayLiftBig" x="-140%" y="-140%" width="380%" height="380%"><feDropShadow dx="0" dy="9" stdDeviation="7" flood-color="#7a3a1c" flood-opacity="0.36"/></filter>
+      <pattern id="claydots" width="34" height="26" patternUnits="userSpaceOnUse"><circle cx="8" cy="6" r="2" class="gdot"/></pattern>
+    </defs></svg>
+    <div class="hsticky">
+      <div class="htrack" id="htrack">
+
+        <div class="hpanel" data-study="pixel">
+          <h3 class="h-lbl disp">Moving objects <em>one pixel at a time.</em></h3>
+          <div class="glass"><svg class="s" viewBox="0 0 300 130" id="nudgeSvg">
+            <rect x="8" y="12" width="284" height="106" fill="url(#claydots)"></rect>
+            <rect id="blob" x="22" y="42" width="26" height="26" rx="7" tabindex="0" role="button" aria-label="nudge with arrow keys"></rect>
+          </svg></div>
+          <p class="h-note">a single step · <span class="coord" id="coord">0, 0</span></p>
+          <div class="hint">drag · arrow keys</div>
+        </div>
+
+        <div class="hpanel" data-study="curve">
+          <h3 class="h-lbl disp">Experimenting with <em>motion curves.</em></h3>
+          <div class="glass"><svg class="s" viewBox="0 0 300 150" id="curveSvg">
+            <rect x="8" y="10" width="284" height="130" fill="url(#claydots)"></rect>
+            <path class="curve-ghost" d="M20,125 L280,25"></path>
+            <line class="leg" id="leg1" x1="20" y1="125" x2="95" y2="70"></line>
+            <line class="leg" id="leg2" x1="280" y1="25" x2="205" y2="70"></line>
+            <path class="curve-ink" id="curvePath"></path>
+            <circle id="roller" r="8" cx="20" cy="125"></circle>
+            <circle class="chandle" id="ch1" r="10" cx="95" cy="70"></circle>
+            <circle class="chandle" id="ch2" r="10" cx="205" cy="70"></circle>
+          </svg></div>
+          <p class="h-note" id="curveNote">drag the dots, feel the difference</p>
+          <div class="hint">try: <a data-c="55,40,150,25">spring</a> · <a data-c="95,125,205,25">ease</a> · <a data-c="40,205,165,-25">bounce</a></div>
+        </div>
+
+        <div class="hpanel" data-study="button">
+          <h3 class="h-lbl disp">A button that <em>gently bounces.</em></h3>
+          <div class="glass"><button class="sunbtn" id="sunBtn">click me</button></div>
+          <p class="h-note">squash · spring · a tiny click</p>
+        </div>
+
+        <div class="hpanel" data-study="loader">
+          <h3 class="h-lbl disp">A playful <em>loading state.</em></h3>
+          <div class="glass"><svg class="s" viewBox="0 0 300 130" id="loadSvg">
+            <circle class="ink lring" cx="150" cy="62" r="32" stroke-dasharray="13 11" opacity=".9">
+              <animateTransform attributeName="transform" id="spin" type="rotate" from="0 150 62" to="360 150 62" dur="2.2s" repeatCount="indefinite"></animateTransform>
+            </circle>
+            <circle class="p-sun" cx="150" cy="30" r="6"></circle>
+            <circle class="p-peach" cx="150" cy="62" r="6"></circle>
+            <circle class="p-sage" cx="150" cy="94" r="5"></circle>
+          </svg></div>
+          <p class="h-note">round and round…</p>
+          <div class="hint">hover to hurry it</div>
+        </div>
+
+      </div>
+      <div class="hbar"><span id="hbarfill"></span></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="col">
+      <p class="stanza ml">
+        <span class="ml-line"><span class="ml-in">Most never notice these small moments.</span></span>
+        <span class="ml-line"><span class="ml-in"><strong>But they feel them.</strong></span></span>
+        <span class="ml-line"><span class="ml-in">The designer always did.</span></span>
+      </p>
+    </div>
+  </section>
+
+  <p class="bridge reveal">Then the tools got faster than the <b>feeling.</b></p>
+
+  <!-- ── CONTRAST ───────────────────────────────────────────────────────── -->
+  <section class="sec contrast" id="contrast">
+    <div class="col reveal">
+      <h2 class="sec-h disp">Today, creation increasingly starts with a <em>prompt.</em></h2>
+      <div class="promptbox">
+        <div class="row">&gt; <span class="typed" id="typed"></span><span class="caret"></span></div>
+        <div class="steps" id="steps">
+          <span class="step">describe</span><span class="step">wait</span><span class="step">receive</span><span class="step">approve</span>
+        </div>
+      </div>
+      <p style="margin-top:36px">We've compressed hours of exploration into seconds of generation.</p>
+      <div class="optimized">
+        <p class="opt-line reveal"><span class="pre">Optimized away</span><span class="word">wandering.</span></p>
+        <p class="opt-line reveal"><span class="pre">Optimized away</span><span class="word">mistakes.</span></p>
+        <p class="opt-line reveal"><span class="pre">Optimized away</span><span class="word">touch.</span></p>
+      </div>
+      <div class="sameness reveal">
+        <img class="same-fig" src="../assets/making/contrast/idle.png" alt="The maker, hands clean, nothing made" loading="lazy">
+        <div class="same-pots" id="samePots">
+          <img class="same-pot" src="../assets/making/contrast/pot.png" alt="a finished pot" loading="lazy">
+          <img class="same-pot" src="../assets/making/contrast/pot.png" alt="the same pot" loading="lazy">
+          <img class="same-pot" src="../assets/making/contrast/pot.png" alt="the same pot again" loading="lazy">
+        </div>
+      </div>
+      <p class="coldline">You get the bowl. <em>Never the hours that change you.</em></p>
+    </div>
+  </section>
+
+  <!-- ── THE TURN ───────────────────────────────────────────────────────── -->
+  <section class="sec turn">
+    <div class="col col-mold">
+      <p class="lead reveal">The satisfaction never came from the result.</p>
+      <p class="lead reveal" style="transition-delay:.06s">It comes from the dialogue between you and the material.</p>
+    </div>
+
+    <figure class="mold reveal" id="mold">
+      <div class="moldslab" id="moldSlab" role="button" aria-label="press and drag to mold the clay">
+        <img class="slab-img" src="../assets/making/close/slab.png" alt="a slab of soft clay you can press and mold">
+        <canvas id="moldCv" width="300" height="221"></canvas>
+      </div>
+      <figcaption class="mold-hint" id="moldHint">press &amp; drag, mold it</figcaption>
+    </figure>
+
+    <p class="mold-payoff disp blowup">You push, and it <em>pushes back.</em></p>
+  </section>
+
+  <!-- the dialogue with the material — the figure CHANGES as you scroll -->
+  <section class="clay tscene" id="turnscene">
+    <div class="clay-sticky">
+      <span class="clay-label">the dialogue</span>
+      <div class="clay-text" id="tbeats">
+        <p class="beat" data-from="0" data-to="0.5">The <b>resistance.</b></p>
+        <p class="beat" data-from="0.5" data-to="1.01">The <b>surprise.</b></p>
+      </div>
+      <div class="clay-figure">
+        <div class="figwrap" id="tframes">
+          <img src="../assets/making/turn/resistance.png?v=2" alt="The maker pressing into clay that pushes back">
+          <img src="../assets/making/turn/surprise.png?v=2" alt="The maker delighted by a wonky, unexpected pot" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- the emotional anchor — full-bleed fingerprint -->
+  <section class="fingerprint reveal">
+    <img src="../assets/making/turn/fingerprint.jpg?v=2" alt="A thumbprint pressed into wet clay">
+    <p class="fcap">The little imperfections that remind you <em>another human was here.</em></p>
+  </section>
+
+  <section class="sec turn">
+    <div class="beat-row reveal">
+      <p class="lead richer">AI shouldn't erase that conversation.<br class="rbr">It should make it richer.</p>
+      <img class="beat-fig" src="../assets/making/turn/collab.png" alt="The maker and a small clay robot working together" loading="lazy" style="max-width:330px">
+    </div>
+  </section>
+
+  <!-- ── CLOSE ──────────────────────────────────────────────────────────── -->
+  <section class="close">
+    <div class="close-stage" id="closeStage">
+      <div class="close-aura" aria-hidden="true"></div>
+      <span class="fleck" aria-hidden="true" data-par="2.6" style="left:19%;top:30%;width:9px;height:9px"></span>
+      <span class="fleck" aria-hidden="true" data-par="1.5" style="left:79%;top:23%;width:7px;height:7px"></span>
+      <span class="fleck" aria-hidden="true" data-par="3.1" style="left:71%;top:55%;width:6px;height:6px"></span>
+      <span class="fleck" aria-hidden="true" data-par="2.0" style="left:25%;top:62%;width:5px;height:5px"></span>
+      <span class="fleck" aria-hidden="true" data-par="1.2" style="left:50%;top:14%;width:8px;height:8px"></span>
+      <div class="throw-wrap">
+        <div class="close-throw" data-par="0.9" id="closeThrow" role="img" aria-label="A mound of clay, broken apart, then shaped into a vessel, and begun again">
+          <img class="throw-fr on" src="../assets/making/climax/throw-1.png" alt="" aria-hidden="true">
+          <img class="throw-fr" src="../assets/making/climax/throw-2.png" alt="" aria-hidden="true">
+          <img class="throw-fr" src="../assets/making/climax/throw-3.png" alt="" aria-hidden="true">
+        </div>
+        <p class="close-line cl-tr disp ml"><span class="ml-line"><span class="ml-in">More clay.</span></span></p>
+        <p class="close-line cl-bl disp ml"><span class="ml-line"><span class="ml-in"><em>Not more finished pots.</em></span></span></p>
+      </div>
+    </div>
+    <div class="close-coda">
+      <p class="coda-line reveal">Maybe the future isn't one where we generate everything.</p>
+      <p class="coda-line reveal" style="transition-delay:.12s">Maybe it's one where AI gives us better materials to play with.</p>
+      <p class="close-thesis">
+        <span class="th-line slide-r">The best tools have never simply produced things for us.</span>
+        <span class="th-line slide-l"><strong>They've made us want to keep making.</strong></span>
+      </p>
+
+      <p class="sign">By Gauravi Linjara</p>
+      <button class="totop" type="button" onclick="window.scrollTo({top:0})" aria-label="Back to the top of the essay"><span class="ar" aria-hidden="true">↑</span> Back to top</button>
+    </div>
+  </section>
+
+</div>
+
+<!-- ── LAND FOOTER — the clay dreamworld (replaces the shared footer here) ── -->
+<footer class="landfoot reveal" id="landfoot">
+  <img class="land-img" src="../assets/making/land/land.jpg" alt="A handmade clay dreamworld: rolling terracotta hills, clay clouds, and the maker standing before a low sun">
+</footer>
+
+<script>
+(function(){
+  var rm = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  function showIntro(){ document.querySelectorAll('.intro .stagger').forEach(function(el){ el.classList.add('in'); }); }
+  setTimeout(showIntro, 80);
+
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ e.target.classList.toggle('in', e.isIntersecting); });   /* re-fires every time, scrolling up or down */
+  }, {threshold:0, rootMargin:'0px 0px -10% 0px'});
+  document.querySelectorAll('.reveal, .uline, .brush, .blowup, .slide-r, .slide-l, .ml').forEach(function(el){ io.observe(el); });
+
+  if(rm) return;
+
+  var prog = document.getElementById('eprog');
+  var ticking = false;
+  function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+
+  /* each scrubbed scene: a section, its stacked frames, and its text beats */
+  function makeScene(sectionId){
+    var sec = document.getElementById(sectionId);
+    if(!sec) return null;
+    var frames = Array.prototype.slice.call(sec.querySelectorAll('.figwrap img'));
+    var beats  = Array.prototype.slice.call(sec.querySelectorAll('.beat'));
+    if(frames[0]) frames[0].classList.add('show');   /* visible before first tick */
+    return {sec:sec, frames:frames, beats:beats};
+  }
+  var scenes = [makeScene('clay'), makeScene('paint'), makeScene('turnscene')].filter(Boolean);
+
+  function updateScene(s){
+    var r = s.sec.getBoundingClientRect();
+    var total = s.sec.offsetHeight - window.innerHeight;
+    var p = clamp((-r.top)/total, 0, 1);
+    /* scroll drives the frame — discrete switch, one at a time (no blend) */
+    var idx = Math.min(s.frames.length-1, Math.floor(p*s.frames.length));
+    s.frames.forEach(function(f,i){ f.classList.toggle('show', i===idx); });
+    s.beats.forEach(function(b){
+      var from = parseFloat(b.dataset.from), to = parseFloat(b.dataset.to);
+      b.classList.toggle('on', p>=from && p<to);
+    });
+  }
+  /* ── close climax: parallax depth across the layers ── */
+  var cstage = document.getElementById('closeStage');
+  var clayers = cstage ? Array.prototype.slice.call(cstage.querySelectorAll('[data-par]')) : [];
+  function closeParallax(){
+    if(!cstage) return;
+    var r = cstage.getBoundingClientRect();
+    if(r.bottom < -80 || r.top > window.innerHeight + 80) return;   /* skip when off-screen */
+    var off = ((window.innerHeight/2) - (r.top + r.height/2)) / window.innerHeight;   /* ~ -0.5 … 0.5 */
+    for(var i=0;i<clayers.length;i++){
+      var el = clayers[i], f = parseFloat(el.getAttribute('data-par')) || 0;
+      el.style.transform = 'translate3d(0,' + (off * f * -40).toFixed(1) + 'px,0)';
+    }
+  }
+
+  function update(){
+    ticking = false;
+    var sh = document.documentElement.scrollHeight - window.innerHeight;
+    prog.style.width = (clamp(window.scrollY/sh,0,1)*100) + '%';
+    scenes.forEach(updateScene);
+    closeParallax();
+  }
+
+  /* ── close climax: the maker throws a pot, forever — a slow stop-motion loop.
+     lump → centre → bowl → tall vessel → back to a fresh lump = "more clay." ── */
+  (function(){
+    var box = document.getElementById('closeThrow'); if(!box) return;
+    var frs = Array.prototype.slice.call(box.querySelectorAll('.throw-fr'));
+    if(frs.length < 2) return;
+    var holds = [980,840,1120];   /* per-frame hold (ms) — a touch slower/calmer loop */
+    var cur = 0, started = false, z = 1;
+    /* Fade the INCOMING frame in ON TOP of the still-opaque outgoing one, then drop
+       the old frame only after it's fully covered. The static surround (pedestal,
+       flowers, stool) always has a solid layer beneath it during the transition, so
+       it never dips toward the white bg — no "blink". Only the clay dissolves. */
+    function step(){
+      var nxt = (cur+1) % frs.length;
+      var incoming = frs[nxt], outgoing = frs[cur];
+      incoming.style.zIndex = (++z);      /* always stacked above the current frame */
+      incoming.classList.add('on');       /* fade 0→1 over the opaque outgoing → no luminance dip */
+      (function(out){ setTimeout(function(){ out.classList.remove('on'); }, 240); })(outgoing); /* hide old AFTER new fully covers */
+      cur = nxt;
+      setTimeout(step, holds[cur]);
+    }
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting && !started){ started = true; setTimeout(step, holds[cur]); } });
+    }, {threshold:0.4}).observe(box);
+  })();
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  update();
+  window.__update = update;
+
+  /* ── digital delights — interactions + horizontal-scroll storytelling ── */
+  var demos = {};
+
+  // 1 · pixel nudge
+  (function(){
+    var blob=document.getElementById('blob'); if(!blob) return;
+    var svg=document.getElementById('nudgeSvg'), coord=document.getElementById('coord');
+    var x=0,y=0;
+    function set(){ x=Math.max(0,Math.min(60,x)); y=Math.max(-2,Math.min(11,y)); blob.style.transform='translate('+x+'px,'+y+'px)'; coord.textContent=x+', '+(y+2); }
+    blob.addEventListener('keydown',function(e){ var d=e.shiftKey?10:1,k=e.key; if(k==='ArrowRight')x+=d; else if(k==='ArrowLeft')x-=d; else if(k==='ArrowDown')y+=d; else if(k==='ArrowUp')y-=d; else return; e.preventDefault(); set(); });
+    var drag=false,sx,sy,ox,oy;
+    blob.addEventListener('pointerdown',function(e){ drag=true; blob.classList.add('drag'); blob.focus(); blob.setPointerCapture(e.pointerId); sx=e.clientX; sy=e.clientY; ox=x; oy=y; });
+    blob.addEventListener('pointermove',function(e){ if(!drag)return; var sc=300/svg.getBoundingClientRect().width; x=ox+(e.clientX-sx)*sc; y=oy+(e.clientY-sy)*sc; set(); });
+    blob.addEventListener('pointerup',function(){ drag=false; blob.classList.remove('drag'); });
+    demos.pixel=function(){ x=0;y=0;set(); setTimeout(function(){ x=1; set(); },300); };   /* one nudge — matches "a single step" */
+  })();
+
+  // 2 · motion curves (draggable handles + rolling ball)
+  (function(){
+    var svg=document.getElementById('curveSvg'); if(!svg) return;
+    var path=document.getElementById('curvePath'), roller=document.getElementById('roller'),
+        ch1=document.getElementById('ch1'), ch2=document.getElementById('ch2'),
+        leg1=document.getElementById('leg1'), leg2=document.getElementById('leg2'), note=document.getElementById('curveNote');
+    var c1={x:95,y:70}, c2={x:205,y:70};
+    function redraw(){ path.setAttribute('d','M20,125 C'+c1.x+','+c1.y+' '+c2.x+','+c2.y+' 280,25');
+      ch1.setAttribute('cx',c1.x); ch1.setAttribute('cy',c1.y); ch2.setAttribute('cx',c2.x); ch2.setAttribute('cy',c2.y);
+      leg1.setAttribute('x2',c1.x); leg1.setAttribute('y2',c1.y); leg2.setAttribute('x2',c2.x); leg2.setAttribute('y2',c2.y); }
+    function roll(){ var len=path.getTotalLength(),t0=null; (function step(ts){ if(!t0)t0=ts; var p=Math.min(1,(ts-t0)/1100); var pt=path.getPointAtLength(p*len); roller.setAttribute('cx',pt.x); roller.setAttribute('cy',pt.y); if(p<1)requestAnimationFrame(step); })(performance.now()); }
+    function drag(h,pt){ h.addEventListener('pointerdown',function(e){ h.setPointerCapture(e.pointerId);
+      function mv(ev){ var r=svg.getBoundingClientRect(); pt.x=(ev.clientX-r.left)*(300/r.width); pt.y=(ev.clientY-r.top)*(150/r.height); redraw(); }
+      function up(){ h.removeEventListener('pointermove',mv); h.removeEventListener('pointerup',up); note.textContent='nice. tap to roll it.'; roll(); }
+      h.addEventListener('pointermove',mv); h.addEventListener('pointerup',up); }); }
+    drag(ch1,c1); drag(ch2,c2);
+    svg.addEventListener('click',function(e){ if(e.target.classList.contains('chandle'))return; roll(); });
+    [].forEach.call(document.querySelectorAll('.hint a[data-c]'),function(a){ a.addEventListener('click',function(){ var v=a.dataset.c.split(',').map(Number); c1={x:v[0],y:v[1]}; c2={x:v[2],y:v[3]}; note.textContent=a.textContent+' — tap to roll'; redraw(); roll(); }); });
+    redraw();
+    demos.curve=function(){ roll(); };
+  })();
+
+  // 3 · sun button (pop + click sound)
+  (function(){ var b=document.getElementById('sunBtn'); if(!b) return; var AC;
+    function pop(silent){
+      b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop');
+      if(silent) return;
+      try{ AC=AC||new (window.AudioContext||window.webkitAudioContext)(); var o=AC.createOscillator(),g=AC.createGain();
+        o.type='triangle'; o.frequency.value=430; g.gain.setValueAtTime(.0001,AC.currentTime);
+        g.gain.exponentialRampToValueAtTime(.16,AC.currentTime+.005); g.gain.exponentialRampToValueAtTime(.0001,AC.currentTime+.12);
+        o.connect(g); g.connect(AC.destination); o.start(); o.stop(AC.currentTime+.13); }catch(e){}
+    }
+    b.addEventListener('click',function(){ pop(false); });
+    demos.button=function(){ pop(true); };
+  })();
+
+  // 4 · loading doodle (hover hurries)
+  (function(){ var svg=document.getElementById('loadSvg'), spin=document.getElementById('spin'); if(!svg) return;
+    svg.addEventListener('mouseenter',function(){ spin.setAttribute('dur','0.7s'); });
+    svg.addEventListener('mouseleave',function(){ spin.setAttribute('dur','2.2s'); });
+    demos.loader=function(){};
+  })();
+
+  // ── horizontal-scroll driver: vertical scroll slides the panels sideways ──
+  (function(){
+    var wrap=document.getElementById('hdelights'); if(!wrap) return;
+    var track=document.getElementById('htrack'), bar=document.getElementById('hbarfill');
+    var panels=Array.prototype.slice.call(track.children), n=panels.length, last=-1, tick=false;
+    function upd(){
+      tick=false;
+      var rect=wrap.getBoundingClientRect(), total=wrap.offsetHeight-window.innerHeight;
+      var p=clamp((-rect.top)/total,0,1);
+      var maxX=track.scrollWidth-window.innerWidth;
+      track.style.transform='translateX('+(-(p*maxX))+'px)';
+      if(bar) bar.style.transform='translateX('+(p*(n-1)*100)+'%)';
+      var idx=Math.min(n-1,Math.round(p*(n-1)));
+      if(idx!==last){ last=idx; var k=panels[idx].getAttribute('data-study'); if(demos[k]) demos[k](); }
+    }
+    function onS(){ if(!tick){ tick=true; requestAnimationFrame(upd); } }
+    window.addEventListener('scroll',onS,{passive:true});
+    window.addEventListener('resize',onS);
+    upd();
+    window.__hupd=upd; /* test hook */
+  })();
+
+  var contrast = document.getElementById('contrast');
+  var typed = document.getElementById('typed');
+  var steps = Array.prototype.slice.call(document.querySelectorAll('#steps .step'));
+  var played = false;
+  var phrase = 'make me a bowl';
+  function playCold(){
+    if(played) return; played = true;
+    var i=0;
+    (function type(){
+      if(i<=phrase.length){ typed.textContent = phrase.slice(0,i); i++; setTimeout(type, 70); }
+      else { runSteps(); }
+    })();
+    function runSteps(){
+      var s=0;
+      (function step(){
+        if(s<steps.length){
+          steps[s].classList.add('on');
+          if(s>0) steps[s-1].classList.remove('on');
+          s++; setTimeout(step, s===2?900:600);
+        } else { steps[steps.length-1].classList.add('on'); }
+      })();
+    }
+  }
+  var io2 = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) playCold(); }); }, {threshold:.4});
+  if(contrast) io2.observe(contrast);
+})();
+</script>
+
+<script>
+/* ── contrast: identical pots snap in, cold and instant, when scrolled to ── */
+(function(){
+  var pots=Array.prototype.slice.call(document.querySelectorAll('#samePots .same-pot')); if(!pots.length) return;
+  var done=false;
+  new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting&&!done){ done=true;
+    pots.forEach(function(p,i){ setTimeout(function(){ p.classList.add('in'); }, 250 + i*150); }); } }); },{threshold:.5}).observe(document.getElementById('samePots'));
+})();
+
+/* ── your turn: press the clay slab to leave a fingerprint (runs always) ── */
+(function(){
+  var slab=document.getElementById('slab'); if(!slab) return;
+  var prints=document.getElementById('prints'), count=document.getElementById('markCount'), n=0;
+  var ell='<ellipse cx="25" cy="30" rx="5" ry="7"/><ellipse cx="25" cy="30" rx="9.5" ry="12.5"/><ellipse cx="25" cy="30" rx="14" ry="18"/><ellipse cx="25" cy="30" rx="18.5" ry="23.5"/><path d="M25,21 q5,9 0,18"/><path d="M13,30 q12,-4 24,0"/>';
+  function fp(){
+    var rot=(Math.random()*30-15).toFixed(1), s=(0.82+Math.random()*0.5).toFixed(2);
+    return '<svg width="50" height="60" viewBox="0 0 50 60" style="transform:rotate('+rot+'deg) scale('+s+')">'+
+      '<g fill="none" stroke="rgba(255,238,222,.30)" stroke-width="1.2" stroke-linecap="round" transform="translate(-1,-1.3)">'+ell+'</g>'+
+      '<g fill="none" stroke="rgba(74,33,12,.62)" stroke-width="1.3" stroke-linecap="round">'+ell+'</g></svg>';
+  }
+  slab.addEventListener('pointerdown',function(e){
+    slab.classList.add('touched');
+    var r=slab.getBoundingClientRect();
+    var d=document.createElement('div'); d.className='print';
+    d.style.left=((e.clientX-r.left)/r.width*100)+'%';
+    d.style.top=((e.clientY-r.top)/r.height*100)+'%';
+    d.innerHTML=fp(); prints.appendChild(d);
+    n++; count.textContent='you left your mark — '+n+(n===1?' print ✦':' prints ✦');
+  });
+})();
+
+/* ── the dialogue: press & drag to mold the real clay slab (runs always) ──
+   Height-field renderer: each press stamps an inverted Laplacian-of-Gaussian
+   (a soft dip with a squeezed-up rim) into a heightmap; we shade by the surface
+   SLOPE under a top-left light (N·L), so dent floors keep the clay's own tone and
+   only the walls catch shadow/light — matte, shallow, and slowly self-settling. */
+(function(){
+  var slab=document.getElementById('moldSlab'); if(!slab) return;
+  var cv=document.getElementById('moldCv'); if(!cv||!cv.getContext) return;
+  var ctx=cv.getContext('2d'), hint=document.getElementById('moldHint');
+  var img=slab.querySelector('.slab-img');
+  var GW=cv.width, GH=cv.height, N=GW*GH;
+
+  var hmap=new Float32Array(N), tmp=new Float32Array(N);
+  var buf=ctx.createImageData(GW,GH), bd=buf.data;
+
+  // press shape + limits (heightmap units ≈ grid pixels of depth)
+  var SIG=15, SIG2=SIG*SIG, RAD=Math.ceil(SIG*3);
+  var MAXD=5.6, RIM=1.5;            // depth clamp (shallow) / max rim height
+  // matte directional light, upper-left
+  var Lx=-0.42, Ly=-0.46, Lz=0.78, ll=Math.sqrt(Lx*Lx+Ly*Ly+Lz*Lz); Lx/=ll;Ly/=ll;Lz/=ll;
+  var BUMP=2.4;                     // slope→relief strength (low = gentle clay)
+  var KH=2.2, KS=1.7, HC=120, SC=140;  // highlight/shadow gain + alpha caps
+
+  function shade(){
+    for(var y=0;y<GH;y++){
+      for(var x=0;x<GW;x++){
+        var i=y*GW+x;
+        var xl=x>0?i-1:i, xr=x<GW-1?i+1:i, yu=y>0?i-GW:i, yd=y<GH-1?i+GW:i;
+        var dx=(hmap[xr]-hmap[xl])*0.5, dy=(hmap[yd]-hmap[yu])*0.5;
+        var nx=-dx*BUMP, ny=-dy*BUMP;
+        var inv=1/Math.sqrt(nx*nx+ny*ny+1);
+        var del=(nx*Lx+ny*Ly+Lz)*inv - Lz;   // N·L minus the flat response
+        var p=i*4, a;
+        if(del>=0){ a=del*255*KH; if(a>HC)a=HC; bd[p]=255;bd[p+1]=233;bd[p+2]=206;bd[p+3]=a; }
+        else      { a=-del*255*KS; if(a>SC)a=SC; bd[p]=56;bd[p+1]=25;bd[p+2]=12;bd[p+3]=a; }
+      }
+    }
+    ctx.putImageData(buf,0,0);
+    if(img && img.complete && img.naturalWidth){
+      ctx.globalCompositeOperation='destination-in';
+      ctx.drawImage(img,0,0,GW,GH);
+      ctx.globalCompositeOperation='source-over';
+    }
+  }
+  if(img){ if(img.complete && img.naturalWidth) shade(); else img.addEventListener('load',shade); }
+
+  function stamp(gx,gy,amp){
+    var x0=Math.max(1,Math.floor(gx-RAD)), x1=Math.min(GW-2,Math.ceil(gx+RAD));
+    var y0=Math.max(1,Math.floor(gy-RAD)), y1=Math.min(GH-2,Math.ceil(gy+RAD));
+    for(var y=y0;y<=y1;y++) for(var x=x0;x<=x1;x++){
+      var ex=x-gx, ey=y-gy, u=(ex*ex+ey*ey)/SIG2; if(u>9) continue;
+      var v=hmap[y*GW+x] - amp*(1-0.5*u)*Math.exp(-0.5*u);   // dip centre, raised ring
+      hmap[y*GW+x]= v<-MAXD?-MAXD:(v>RIM?RIM:v);
+    }
+  }
+  function pt(e){ var b=slab.getBoundingClientRect();
+    return {x:(e.clientX-b.left)/b.width*GW, y:(e.clientY-b.top)/b.height*GH}; }
+
+  var pressing=false, last=null;
+  function down(e){
+    last=pt(e); pressing=true; stamp(last.x,last.y,2.4);
+    if(slab.setPointerCapture){ try{ slab.setPointerCapture(e.pointerId); }catch(_){} }
+    if(hint) hint.classList.add('gone');
+    shade(); e.preventDefault();
+  }
+  function move(e){
+    if(!pressing) return;
+    var p=pt(e), dx=p.x-last.x, dy=p.y-last.y, dist=Math.sqrt(dx*dx+dy*dy);
+    var steps=Math.max(1,Math.floor(dist/(SIG*0.5)));
+    for(var i=1;i<=steps;i++) stamp(last.x+dx*i/steps, last.y+dy*i/steps, 1.5);
+    last=p; shade(); e.preventDefault();
+  }
+  slab.addEventListener('pointerdown',down);
+  slab.addEventListener('pointermove',move);
+  window.addEventListener('pointerup',function(){ pressing=false; });
+
+  /* clay flows: gentle volume-preserving diffusion + faint decay, so dents
+     soften and settle over a few seconds (setInterval ticks in bg tabs too) */
+  setInterval(function(){
+    if(pressing) return;
+    var any=false, i;
+    for(i=0;i<N;i++){ if(hmap[i]>0.04||hmap[i]<-0.04){ any=true; break; } }
+    if(!any) return;
+    for(var y=0;y<GH;y++) for(var x=0;x<GW;x++){
+      var k=y*GW+x;
+      var s=hmap[x>0?k-1:k]+hmap[x<GW-1?k+1:k]+hmap[y>0?k-GW:k]+hmap[y<GH-1?k+GW:k];
+      tmp[k]=(hmap[k]+(s*0.25-hmap[k])*0.16)*0.99;
+    }
+    hmap.set(tmp); shade();
+  },140);
+})();
+</script>
+
+<script src="nav.js?v=6" defer></script>
+<script src="smooth-scroll.js" defer></script>
+<script src="transition.js" defer></script>
+</body>
+</html>

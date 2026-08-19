@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How I built this, Gauravi Linjara</title>
+<meta name="description" content="A colophon for gauravi.design — the hand-written stack, the design system and tokens, and how the homepage sky was built. No framework, no page-builder." />
+<link rel="stylesheet" href="tokens.css?v=craft2">
+<link rel="stylesheet" href="nav.css?v=9">
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Gauravi Linjara" />
+<meta property="og:url" content="https://gauravi.design/site-info" />
+<meta property="og:title" content="How I built this, Gauravi Linjara" />
+<meta property="og:description" content="The hand-written stack, the design system and tokens, and how the homepage sky was built." />
+<meta property="og:image" content="https://gauravi.design/assets/og/og-card.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="How I built this, Gauravi Linjara" />
+<meta name="twitter:description" content="The hand-written stack, the design system and tokens, and how the homepage sky was built." />
+<meta name="twitter:image" content="https://gauravi.design/assets/og/og-card.png" />
+<script src="clarity.js?v=1" defer></script>
+<link rel="stylesheet" href="transition.css?v=1">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  :root{ --card-bg:rgba(255,255,255,.55); --card-line:rgba(255,255,255,.7); }
+  body{color:var(--ink);font-family:var(--font-text);-webkit-font-smoothing:antialiased;overflow-x:hidden;
+    background:radial-gradient(70% 55% at 50% -5%,#ffffff,transparent 60%),#f2f3f4 !important;background-attachment:fixed}
+  .col{max-width:920px;margin:0 auto;padding:0 clamp(18px,4vw,32px)}
+  a{color:var(--green);text-decoration:none}
+
+  .lead{padding:clamp(30px,6vh,70px) 0 clamp(20px,4vh,40px)}
+  .kick{font-family:var(--font-mono);font-size:12px;letter-spacing:.2em;text-transform:lowercase;color:var(--green);
+    display:inline-flex;align-items:center;gap:12px;margin-bottom:18px}
+  .kick::before{content:"";width:28px;height:1px;background:var(--green)}
+  h1{font-family:var(--font-display);font-weight:800;font-size:var(--fs-giant);letter-spacing:var(--tr-display);line-height:.98}
+  .lead .intro{font-family:var(--font-display);font-weight:400;font-size:clamp(17px,1.7vw,21px);line-height:1.55;color:var(--soft);margin-top:22px;max-width:56ch}
+
+  /* section scaffolding */
+  section.blk{padding:clamp(30px,5vh,56px) 0;border-top:1px solid var(--line)}
+  .seclabel{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+  .sectitle{font-family:var(--font-display);font-weight:700;font-size:var(--fs-h2);letter-spacing:var(--tr-h2);line-height:1.05}
+  .secsub{font-family:var(--font-display);font-weight:400;font-size:clamp(15px,1.4vw,17px);color:var(--soft);margin-top:12px;max-width:60ch;line-height:1.55}
+  .secsub b{font-weight:600;color:var(--ink)}
+
+  /* frosted card */
+  .card{background:var(--card-bg);-webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6);
+    border:1px solid var(--card-line);border-radius:var(--r-3);box-shadow:var(--shadow-2);}
+
+  /* spec rows */
+  .rows{padding:clamp(16px,2.4vw,26px) clamp(18px,3vw,30px)}
+  .row{display:grid;grid-template-columns:150px 1fr;gap:24px;padding:16px 0;border-top:1px solid var(--line)}
+  .row:first-child{border-top:0;padding-top:2px}.row:last-child{padding-bottom:2px}
+  .row .k{font-family:var(--font-mono);font-size:12px;letter-spacing:.05em;text-transform:lowercase;color:var(--faint);padding-top:3px}
+  .row .v{font-size:15.5px;line-height:1.55}.row .v b{font-weight:600}
+  @media(max-width:600px){.row{grid-template-columns:1fr;gap:5px}}
+
+  /* ── palette ── */
+  .swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-top:22px}
+  .sw{border-radius:var(--r-2);overflow:hidden;border:1px solid var(--line);background:#fff}
+  .sw .chip{height:74px}
+  .sw .meta{padding:11px 13px 13px}
+  .sw .nm{font-family:var(--font-display);font-weight:600;font-size:14px}
+  .sw .hex{font-family:var(--font-mono);font-size:11px;color:var(--faint);margin-top:3px;text-transform:uppercase;letter-spacing:.04em}
+  .sw .use{font-family:var(--font-mono);font-size:10.5px;color:var(--faint);margin-top:7px;letter-spacing:.02em;line-height:1.5}
+
+  /* ── type specimens ── */
+  .type-row{display:flex;align-items:baseline;gap:20px;padding:18px 0;border-top:1px solid var(--line);flex-wrap:wrap}
+  .type-row:first-child{border-top:0}
+  .type-aa{font-size:56px;line-height:.9;letter-spacing:-.03em}
+  .type-meta{font-family:var(--font-mono);font-size:11.5px;color:var(--faint);letter-spacing:.03em;line-height:1.7}
+  .type-meta b{color:var(--ink);font-weight:500}
+  .type-samp{flex:1;min-width:220px;font-size:19px;color:var(--soft);letter-spacing:-.01em}
+  .f-switzer{font-family:var(--font-display)} .f-mono{font-family:var(--font-mono)} .f-fraunces{font-family:"Switzer","Geist",system-ui,sans-serif}
+
+  /* type scale ladder */
+  .scale{margin-top:6px}
+  .scale div{border-top:1px solid var(--line);padding:10px 0;display:flex;align-items:baseline;gap:16px;color:var(--ink);font-family:var(--font-display);font-weight:600;letter-spacing:-.02em;line-height:1;overflow:hidden;white-space:nowrap}
+  .scale div:first-child{border-top:0}
+  .scale .tok{font-family:var(--font-mono);font-weight:400;font-size:11px;color:var(--faint);flex:0 0 84px;letter-spacing:.03em}
+
+  /* scales grid: spacing / radius / shadow / motion */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+  @media(max-width:680px){.grid2{grid-template-columns:1fr}}
+  .mini{padding:20px 22px;border-radius:var(--r-2);background:#fff;border:1px solid var(--line)}
+  .mini h4{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:16px}
+  .sp-bars{display:flex;align-items:flex-end;gap:8px;height:64px}
+  .sp-bars i{display:block;width:14px;background:var(--accent-soft);border-radius:3px 3px 0 0;border-top:2px solid var(--green)}
+  .rad-row{display:flex;align-items:flex-end;gap:12px}
+  .rad-row i{display:block;width:46px;height:46px;background:var(--accent-soft);border:1.5px solid var(--green)}
+  .rad-row .lbl{font-family:var(--font-mono);font-size:10px;color:var(--faint)}
+  .sh-row{display:flex;gap:16px}
+  .sh-row i{flex:1;height:54px;border-radius:var(--r-2);background:#fff}
+  .sh-row .s1{box-shadow:var(--shadow-1)} .sh-row .s2{box-shadow:var(--shadow-2)}
+  .sh-cap,.rad-lbls{display:flex;justify-content:space-between;margin-top:10px;font-family:var(--font-mono);font-size:10px;color:var(--faint)}
+  .motion{position:relative;height:56px;border-radius:var(--r-1);background:var(--accent-soft);overflow:hidden;cursor:pointer}
+  .motion .dot{position:absolute;top:50%;left:8px;width:20px;height:20px;margin-top:-10px;border-radius:50%;background:var(--green);
+    animation:slide 2.6s var(--ease) infinite alternate}
+  @keyframes slide{to{left:calc(100% - 28px)}}
+  .motion .ease{position:absolute;left:12px;bottom:8px;font-family:var(--font-mono);font-size:10px;color:var(--accent)}
+
+  /* ── THE SKY demo ── */
+  .sky-wrap{margin-top:22px;border-radius:var(--r-3);overflow:hidden;position:relative;border:1px solid var(--line);box-shadow:var(--shadow-2)}
+  .sky-demo{--s1:#2f6cb8;--s2:#5a93cf;--s3:#8cbce9;--s4:#b9dcf4;
+    position:relative;height:300px;background:linear-gradient(180deg,var(--s1) 0%,var(--s2) 42%,var(--s3) 72%,var(--s4) 100%);
+    overflow:hidden;transition:background 1.1s ease}
+  .sky-demo.night{--s1:#0f1830;--s2:#1c2b4d;--s3:#2b3a55;--s4:#3a4a68}
+  .sun{position:absolute;top:38px;left:52px;width:56px;height:56px;border-radius:50%;background:radial-gradient(circle at 40% 38%,#fff3cf,#ffd45e 60%,#ffbf3c);
+    box-shadow:0 0 44px 12px rgba(255,214,94,.55);transition:background 1s,box-shadow 1s,transform 1.1s var(--ease)}
+  .sky-demo.night .sun{background:radial-gradient(circle at 38% 36%,#fdfdff,#dfe6f5 62%,#c3ccdf);box-shadow:0 0 30px 6px rgba(200,214,255,.4);transform:translateX(6px)}
+  .cloud{position:absolute;background:#fff;border-radius:50%;filter:blur(11px);opacity:.9;transition:background 1s,opacity 1s}
+  .cloud::before,.cloud::after{content:"";position:absolute;background:inherit;border-radius:50%}
+  .cloud.a{width:150px;height:44px;top:24%;left:-30%;animation:cd 26s linear infinite}
+  .cloud.a::before{width:90px;height:90px;left:24px;top:-34px}.cloud.a::after{width:60px;height:60px;left:92px;top:-16px}
+  .cloud.b{width:200px;height:56px;top:52%;left:-40%;opacity:.72;animation:cd 38s linear infinite;animation-delay:-8s}
+  .cloud.b::before{width:110px;height:104px;left:40px;top:-44px}.cloud.b::after{width:76px;height:76px;left:128px;top:-22px}
+  .sky-demo.night .cloud{background:#5d6f92;opacity:.34}
+  @keyframes cd{to{transform:translateX(360px)}}
+  .stars{position:absolute;inset:0;opacity:0;transition:opacity 1s}
+  .sky-demo.night .stars{opacity:1}
+  .stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;animation:tw 3s ease-in-out infinite}
+  @keyframes tw{0%,100%{opacity:.25}50%{opacity:1}}
+  .sky-toggle{position:absolute;top:14px;right:14px;z-index:3;display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:lowercase;color:#16202b;cursor:pointer;
+    background:rgba(255,255,255,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.7);border-radius:999px;padding:8px 14px}
+  .sky-cap{padding:14px 18px;font-family:var(--font-mono);font-size:11.5px;color:var(--faint);letter-spacing:.02em;background:#fff;border-top:1px solid var(--line)}
+  .how{margin-top:20px;display:flex;flex-direction:column;gap:2px}
+  .how div{display:grid;grid-template-columns:26px 1fr;gap:14px;padding:13px 2px;border-top:1px solid var(--line);align-items:baseline}
+  .how div:first-child{border-top:0}
+  .how .n{font-family:var(--font-mono);font-size:12px;color:var(--green)}
+  .how p{font-size:14.5px;line-height:1.55;color:var(--soft)}.how p b{color:var(--ink);font-weight:600}
+
+  /* ground-up timeline */
+  .steps{margin-top:20px;display:flex;flex-direction:column;gap:2px}
+  .steps div{padding:16px 0;border-top:1px solid var(--line)}.steps div:first-child{border-top:0}
+  .steps h4{font-family:var(--font-display);font-weight:600;font-size:17px;letter-spacing:-.01em}
+  .steps p{font-size:14.5px;color:var(--soft);margin-top:6px;line-height:1.55;max-width:64ch}
+
+  /* AI note */
+  .ainote{margin-top:22px;padding:clamp(22px,3vw,32px);border-radius:var(--r-3);border:1px solid rgba(0,131,231,.24);
+    background:linear-gradient(180deg,rgba(0,131,231,.06),rgba(255,255,255,.5))}
+  .ainote .tag{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);display:inline-flex;align-items:center;gap:9px;margin-bottom:14px}
+  .ainote .tag::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(0,131,231,.16)}
+  .ainote h3{font-family:var(--font-display);font-weight:700;font-size:clamp(19px,2.2vw,25px);letter-spacing:-.02em;line-height:1.14}
+  .ainote p{font-size:clamp(15px,1.4vw,17px);color:var(--soft);margin-top:12px;line-height:1.6;max-width:62ch}
+  .ainote p b{color:var(--ink);font-weight:600}
+
+  .door{text-align:center;padding:clamp(34px,6vh,64px) 0 20px}
+  .door .k{font-family:var(--font-mono);font-size:12px;letter-spacing:.2em;text-transform:lowercase;color:var(--green)}
+  .door h2{font-family:var(--font-display);font-weight:800;font-size:clamp(26px,4vw,44px);letter-spacing:-.03em;margin:12px 0 6px}
+  .door p{font-size:clamp(15px,1.5vw,19px);color:var(--soft);font-family:"Switzer","Geist",system-ui,sans-serif;font-style:italic}
+  .door .links{display:inline-flex;gap:10px;margin-top:24px;flex-wrap:wrap;justify-content:center}
+  .door .links a{font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;text-transform:lowercase;color:var(--ink);
+    padding:10px 18px;border-radius:999px;background:#fff;border:1px solid var(--line)}
+</style>
+</head>
+<body>
+<!-- shared page transition (ink wipe) — see transition.css/js -->
+<div class="pgx" id="pgx" aria-hidden="true">
+  <div class="pgx-ink"></div>
+  <div class="pgx-mark"><span class="wm">gauravi<span class="dot">.</span></span></div>
+  <svg width="0" height="0" aria-hidden="true"><filter id="pgxink"><feTurbulence type="fractalNoise" baseFrequency="0.013 0.021" numOctaves="2" seed="6" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="10" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+</div>
+  <div class="col">
+    <header class="lead">
+      <span class="kick">colophon</span>
+      <h1>How I built this</h1>
+      <p class="intro">No template, no page-builder — every page here is hand-written, one file at a time. Here's the system underneath it, and how the parts that move were made.</p>
+    </header>
+
+    <!-- STACK -->
+    <section class="blk">
+      <div class="seclabel">01 — the stack</div>
+      <h2 class="sectitle">Plain files, on purpose.</h2>
+      <div class="card rows" style="margin-top:22px">
+        <div class="row"><div class="k">built with</div><div class="v"><b>Hand-written HTML &amp; CSS.</b> No framework, no build step, no bundler. A little vanilla JavaScript where something needed to move, and GSAP for the scroll-tied motion.</div></div>
+        <div class="row"><div class="k">hosting</div><div class="v">Deployed on <b>Vercel</b>. A few small serverless functions power the “ask me anything” assistant, which runs on Claude.</div></div>
+        <div class="row"><div class="k">type</div><div class="v"><b>Switzer</b> for everything you read, <b>Geist Mono</b> for the little labels.</div></div>
+        <div class="row"><div class="k">analytics</div><div class="v">Microsoft Clarity — anonymized, aggregate, never sold. No ad trackers.</div></div>
+      </div>
+    </section>
+
+    <!-- DESIGN SYSTEM -->
+    <section class="blk">
+      <div class="seclabel">02 — the design system</div>
+      <h2 class="sectitle">One file is the source of truth.</h2>
+      <p class="secsub">Every colour, size, space, radius and easing comes from a single <b>tokens.css</b>. It's deliberately small: <b>one cool neutral ramp, one accent, and tints derived from it</b> — never a pile of one-off colours. Change it there, it changes everywhere.</p>
+
+      <div class="swatches">
+        <div class="sw"><div class="chip" style="background:#16202b"></div><div class="meta"><div class="nm">text</div><div class="hex">#16202B</div><div class="use">primary text &amp; structure</div></div></div>
+        <div class="sw"><div class="chip" style="background:#4E5F74"></div><div class="meta"><div class="nm">text-2</div><div class="hex">#4E5F74</div><div class="use">secondary text</div></div></div>
+        <div class="sw"><div class="chip" style="background:#8B95A3"></div><div class="meta"><div class="nm">text-3</div><div class="hex">#8B95A3</div><div class="use">captions · labels</div></div></div>
+        <div class="sw"><div class="chip" style="background:#0083E7"></div><div class="meta"><div class="nm">accent</div><div class="hex">#0083E7</div><div class="use">links · emphasis · actions</div></div></div>
+        <div class="sw"><div class="chip" style="background:#8CC7F4"></div><div class="meta"><div class="nm">accent-tint</div><div class="hex">#8CC7F4</div><div class="use">derived · the daytime sky</div></div></div>
+        <div class="sw"><div class="chip" style="background:#f5f5f5;box-shadow:inset 0 0 0 1px rgba(20,32,52,.08)"></div><div class="meta"><div class="nm">surface</div><div class="hex">#F5F5F5</div><div class="use">raised cards</div></div></div>
+      </div>
+
+      <div class="card" style="margin-top:16px;padding:clamp(18px,3vw,30px)">
+        <div class="type-row"><span class="type-aa f-switzer">Aa</span><div class="type-samp f-switzer">Switzer — the whole site reads in one geometric sans, 400 → 900.</div><div class="type-meta"><b>Switzer</b><br>display + body</div></div>
+        <div class="type-row"><span class="type-aa f-mono">Aa</span><div class="type-samp f-mono">Geist Mono — the small print, kicks &amp; labels.</div><div class="type-meta"><b>Geist Mono</b><br>labels</div></div>
+        <div class="scale" style="margin-top:14px;border-top:1px solid var(--line);padding-top:12px">
+          <div style="font-size:clamp(30px,6vw,52px)"><span class="tok">--fs-giant</span> the loud one</div>
+          <div style="font-size:clamp(26px,4vw,40px)"><span class="tok">--fs-h1</span> section titles</div>
+          <div style="font-size:clamp(22px,3vw,30px)"><span class="tok">--fs-h2</span> sub-heads</div>
+          <div style="font-size:19px"><span class="tok">--fs-h4</span> lead paragraphs</div>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="mini"><h4>spacing · 8-pt scale</h4>
+          <div class="sp-bars"><i style="height:8px"></i><i style="height:16px"></i><i style="height:24px"></i><i style="height:32px"></i><i style="height:44px"></i><i style="height:56px"></i><i style="height:64px"></i></div>
+          <div class="sh-cap"><span>4</span><span>8</span><span>16</span><span>24</span><span>32</span><span>48</span><span>64…</span></div>
+        </div>
+        <div class="mini"><h4>radius · one ladder</h4>
+          <div class="rad-row"><i style="border-radius:10px"></i><i style="border-radius:16px"></i><i style="border-radius:20px"></i><i style="border-radius:28px"></i></div>
+          <div class="rad-lbls"><span>10</span><span>16</span><span>20</span><span>28</span></div>
+        </div>
+        <div class="mini"><h4>shadow · exactly two</h4>
+          <div class="sh-row"><i class="s1"></i><i class="s2"></i></div>
+          <div class="sh-cap"><span>--shadow-1 · raised</span><span>--shadow-2 · floating</span></div>
+        </div>
+        <div class="mini"><h4>motion · one ease</h4>
+          <div class="motion"><span class="dot"></span><span class="ease">cubic-bezier(.22, 1, .36, 1)</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE SKY -->
+    <section class="blk">
+      <div class="seclabel">03 — the homepage sky</div>
+      <h2 class="sectitle">A sky that knows what time it is.</h2>
+      <p class="secsub">The landing page isn't a photo or a video — it's <b>divs and gradients</b>. The whole sky is drawn in CSS and quietly retinted to match the actual hour where you're standing. Here it is in miniature — <b>flip it</b>:</p>
+
+      <div class="sky-wrap">
+        <div class="sky-demo" id="skyDemo">
+          <button class="sky-toggle" id="skyToggle">◐ day → night</button>
+          <div class="sun"></div>
+          <div class="stars" id="stars"></div>
+          <div class="cloud a"></div>
+          <div class="cloud b"></div>
+        </div>
+        <div class="sky-cap">a working miniature of the real hero — same gradient stops, same drift.</div>
+      </div>
+
+      <div class="how">
+        <div><span class="n">1</span><p><b>The gradient.</b> Four CSS colour-stops (<span class="f-mono" style="font-size:12px">--sky1…4</span>) from deep blue up to pale horizon. That's the entire sky — one <span class="f-mono" style="font-size:12px">linear-gradient</span>.</p></div>
+        <div><span class="n">2</span><p><b>Time of day.</b> A small script reads your clock and swaps the four stops — morning, noon, golden hour, night — so the sky is honest about the hour. You can also set it yourself with the day/dusk/night/auto toggle.</p></div>
+        <div><span class="n">3</span><p><b>The clouds.</b> Blurred white circles (a div with two pseudo-elements) drifting on a <span class="f-mono" style="font-size:12px">@keyframes</span> loop. At night they turn slate-grey so the hero text stays legible.</p></div>
+        <div><span class="n">4</span><p><b>The life.</b> The sun becomes a moon, stars fade in, and the daytime bees become fireflies. Hand-drawn SVG, flapping on a 0.12s wing loop. No canvas, no WebGL, no library — just the browser.</p></div>
+      </div>
+    </section>
+
+    <!-- GROUND UP -->
+    <section class="blk">
+      <div class="seclabel">04 — from the ground up</div>
+      <h2 class="sectitle">How it came together.</h2>
+      <div class="steps">
+        <div><h4>Start with the words, not the layout.</h4><p>Every page began as a sentence I was trying to say. The design came after, in service of it.</p></div>
+        <div><h4>One tokens file, before anything else.</h4><p>Colours, type, spacing, motion — decided once, in <span class="f-mono" style="font-size:12px">tokens.css</span>, so nothing drifts. Consistency is a system, not willpower.</p></div>
+        <div><h4>Hand-write it, keep it flat.</h4><p>Plain HTML &amp; CSS a browser reads directly. No framework to outgrow, no build to break. Motion is CSS first, GSAP only where scroll needs choreography.</p></div>
+        <div><h4>Make one thing sing per page.</h4><p>The sky here, a drag-to-reveal painting there. One idea, obsessed over, beats ten that are fine.</p></div>
+      </div>
+    </section>
+
+    <!-- AI -->
+    <div class="ainote">
+      <span class="tag">made with a machine, on purpose</span>
+      <h3>I design for AI for a living. It felt right to build this with one.</h3>
+      <p>Every page was coded side-by-side with <b>Claude</b>. I brought the taste and the stubbornness; it brought the patience for the hundredth revision. The <b>ideas, the words, and the final call on every pixel</b> are mine.</p>
+    </div>
+
+    <div class="door">
+      <div class="k">the door's open</div>
+      <h2>Say hi.</h2>
+      <p>Tell me what you'd build differently.</p>
+      <div class="links"><a href="mailto:gauravilinjara@gmail.com">email</a><a href="https://www.linkedin.com/in/gauravi-linjara/" target="_blank" rel="noopener">linkedin</a><a href="https://x.com/gauravi_linjara" target="_blank" rel="noopener">x</a><a href="/lab">the art lab</a></div>
+    </div>
+  </div>
+
+<script>
+  // sky day/night toggle
+  var demo=document.getElementById('skyDemo'),tog=document.getElementById('skyToggle'),stars=document.getElementById('stars');
+  for(var i=0;i<34;i++){var s=document.createElement('i');s.style.left=(Math.random()*100)+'%';s.style.top=(Math.random()*70)+'%';s.style.animationDelay=(-Math.random()*3)+'s';stars.appendChild(s);}
+  tog.addEventListener('click',function(){var night=demo.classList.toggle('night');tog.textContent=night?'◑ night → day':'◐ day → night';});
+  // open the miniature in the state that matches the visitor's clock, like the real hero
+  (function(){var h=new Date().getHours();if(h<6||h>=19){demo.classList.add('night');tog.textContent='◑ night → day';}})();
+</script>
+<script src="nav.js?v=6" defer></script>
+<script src="transition.js" defer></script>
+</body>
+</html>

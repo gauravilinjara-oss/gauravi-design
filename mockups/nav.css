@@ -1,0 +1,91 @@
+/* ============================================================
+   NAV — air.inc-style brand mark + bottom floating dock (migration).
+   Self-injecting via nav.js, scoped under #gnav so it never collides
+   with a page's own inline .nav/.snav/.brand rules. Light-page tuned.
+     <link rel="stylesheet" href="nav.css">
+     <script src="nav.js" defer></script>
+   ============================================================ */
+#gnav{position:relative;z-index:90;}
+#gnav .gnav-bar{display:flex;align-items:center;padding:24px var(--edge,max(22px,8%)) 0;}
+#gnav .gnav-brand{font-family:var(--font-display);font-weight:600;font-size:24px;color:var(--ink,#22271e);display:inline-flex;align-items:center;text-decoration:none;letter-spacing:-.02em;}
+#gnav .gnav-dot{color:var(--ink,#22271e);}
+#gnav .gnav-mark{flex:0 0 auto;width:1.02em;height:.9em;margin-right:9px;color:#FFC93C;overflow:visible;}
+#gnav .gnav-mark .sun{color:#FFC93C;transform-origin:15px 18px;animation:sunRise 3.6s ease-in-out infinite;}
+@keyframes sunRise{0%{transform:translateY(6px);opacity:.35}28%,62%{transform:translateY(0);opacity:1}100%{transform:translateY(6px);opacity:.35}}
+
+/* the old bottom dock is retired — kept in the DOM (hidden) only as the link
+   source that gets cloned into the full-screen overlay menu below */
+#gnav .gnav-dock{display:none;}
+
+/* ── MENU TRIGGER — a small fixed pill, on every width ── */
+#gnav .gnav-burger{display:inline-flex;align-items:center;gap:10px;position:fixed;top:18px;right:max(16px,4vw);z-index:98;
+  font-family:var(--font-mono,monospace);font-size:12px;letter-spacing:.14em;text-transform:lowercase;color:var(--ink,#16202b);
+  padding:10px 17px;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,.22));-webkit-backdrop-filter:blur(20px) saturate(1.9) brightness(1.06);backdrop-filter:blur(20px) saturate(1.9) brightness(1.06);
+  border:1px solid rgba(255,255,255,.55);border-radius:999px;box-shadow:inset 0 1px 1px rgba(255,255,255,.92),inset 0 -8px 14px -10px rgba(255,255,255,.55),0 12px 28px -12px rgba(8,22,48,.42);
+  transition:background .2s,box-shadow .2s;}
+#gnav .gnav-burger:hover{box-shadow:inset 0 1px 1px rgba(255,255,255,.92),inset 0 -8px 14px -10px rgba(255,255,255,.6),0 14px 32px -12px rgba(8,22,48,.5);}
+#gnav .gnav-burger .gb-ico{display:inline-flex;flex-direction:column;justify-content:center;gap:4px;width:16px;height:11px;}
+#gnav .gnav-burger .gb-l{display:block;width:16px;height:1.7px;border-radius:2px;background:var(--ink,#16202b);transition:transform .3s ease,opacity .3s ease;}
+#gnav.menu-open .gnav-burger{background:rgba(255,255,255,.97);}
+#gnav.menu-open .gnav-burger .gb-l:first-child{transform:translateY(2.85px) rotate(45deg);}
+#gnav.menu-open .gnav-burger .gb-l:last-child{transform:translateY(-2.85px) rotate(-45deg);}
+
+/* ── FULL-SCREEN OVERLAY MENU — big editorial links, staggered in ── */
+/* the homepage's soft blue day-sky with drifting clouds — no meadow scene */
+#gnav .gnav-menu{position:fixed;inset:0;z-index:97;opacity:0;visibility:hidden;overflow:hidden;
+  background:linear-gradient(180deg,#2f6cb8 0%,#4b83c6 42%,#5f97d2 74%,#79aadd 100%);
+  transition:opacity .38s ease,visibility .38s ease;}
+#gnav.menu-open .gnav-menu{opacity:1;visibility:visible;}
+/* soft drifting clouds */
+#gnav .gnav-menu::before,#gnav .gnav-menu::after{content:"";position:absolute;border-radius:50%;pointer-events:none;z-index:0;filter:blur(34px);will-change:transform;}
+#gnav .gnav-menu::before{width:56vmax;height:56vmax;left:-16vmax;top:-16vmax;background:radial-gradient(closest-side,rgba(255,255,255,.82),rgba(255,255,255,0) 70%);animation:gnavCloudA 20s ease-in-out infinite;}
+#gnav .gnav-menu::after{width:48vmax;height:48vmax;right:-14vmax;bottom:-6vmax;background:radial-gradient(closest-side,rgba(255,255,255,.66),rgba(255,255,255,0) 70%);animation:gnavCloudB 24s ease-in-out infinite;}
+@keyframes gnavCloudA{0%,100%{transform:translate(0,0)}50%{transform:translate(5vw,3vh)}}
+@keyframes gnavCloudB{0%,100%{transform:translate(0,0)}50%{transform:translate(-5vw,2vh)}}
+#gnav .gnav-menu-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;height:100%;padding:0 24px;}
+#gnav .gnav-menu-inner a{font-family:var(--font-display,"Switzer",system-ui,sans-serif);font-weight:500;font-size:clamp(34px,6.4vw,62px);line-height:1.12;letter-spacing:-.01em;
+  text-transform:lowercase;text-align:center;color:#fff;text-decoration:none;padding:4px 16px;text-shadow:0 1px 16px rgba(18,38,66,.22);
+  opacity:0;transform:translateY(16px);transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1),color .2s,opacity .2s;}
+#gnav.menu-open .gnav-menu-inner a{opacity:1;transform:none;}
+#gnav .gnav-menu-inner a:hover{color:#fff;opacity:.64;}
+/* CTAs styled exactly like the homepage hero buttons: white-fill primary + ghost, mono, arrow */
+#gnav .gnav-menu-inner a.cta{display:inline-flex;align-items:center;gap:9px;margin-top:26px;text-shadow:none;
+  font-family:var(--font-mono,monospace);font-weight:400;font-size:13px;letter-spacing:.04em;text-transform:lowercase;line-height:1;
+  background:#fff;color:#16202b;border:1px solid #fff;border-radius:9px;padding:14px 22px;}
+#gnav .gnav-menu-inner a.cta:hover{opacity:1;background:#eef1f6;color:#16202b;border-color:#eef1f6;}
+#gnav .gnav-menu-inner a.cta-ghost{margin-top:10px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.62);}
+#gnav .gnav-menu-inner a.cta-ghost:hover{background:#fff;border-color:#fff;color:#16202b;}
+#gnav .gnav-menu-inner a.cta .arw{display:inline-block;transition:transform .3s cubic-bezier(.22,1,.36,1);}
+#gnav .gnav-menu-inner a.cta:hover .arw{transform:translateX(4px);}
+#gnav .gnav-menu-inner a .exti{font-size:.4em;opacity:.55;vertical-align:.3em;}
+#gnav.menu-open .gnav-menu-inner a:nth-child(1){transition-delay:.05s;}
+#gnav.menu-open .gnav-menu-inner a:nth-child(2){transition-delay:.09s;}
+#gnav.menu-open .gnav-menu-inner a:nth-child(3){transition-delay:.13s;}
+#gnav.menu-open .gnav-menu-inner a:nth-child(4){transition-delay:.17s;}
+#gnav.menu-open .gnav-menu-inner a:nth-child(5){transition-delay:.21s;}
+#gnav.menu-open .gnav-menu-inner a:nth-child(6){transition-delay:.25s;}
+#gnav.menu-open .gnav-menu-inner a:nth-child(7){transition-delay:.29s;}
+#gnav.menu-open .gnav-menu-inner a:nth-child(8){transition-delay:.33s;}
+
+@media(prefers-reduced-motion:reduce){
+  #gnav .gnav-mark .sun{animation:none;}
+  #gnav .gnav-menu-inner a{transition:none!important;transform:none!important;}
+  #gnav .gnav-menu::before,#gnav .gnav-menu::after{animation:none;}
+}
+@media(max-width:600px){
+  /* phones: smaller trigger + links (same overlay system, no separate layout) */
+  #gnav .gnav-burger{top:14px;right:14px;padding:9px 15px;font-size:11px;letter-spacing:.12em;}
+  #gnav .gnav-menu-inner a{font-size:clamp(27px,8.4vw,36px);}
+  #gnav .gnav-menu-inner a.cta{margin-top:16px;font-size:12px;padding:14px 30px;}
+}
+
+/* case-study back-to-work link */
+#gnav .gnav-back{font-family:var(--font-mono,monospace);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft,#4a4a40);text-decoration:none;display:inline-flex;align-items:center;gap:7px;margin-right:20px;transition:color .2s}
+#gnav .gnav-back:hover{color:var(--ink,#22271e)}
+#gnav .gnav-back .exti{font-size:13px}
+
+/* case pages: align nav to content column + back-as-button */
+#gnav.is-case .gnav-bar{max-width:var(--maxw,1080px);margin:0 auto;padding:26px 28px 0;justify-content:flex-start}
+#gnav .gnav-back{border:1px solid var(--line,rgba(20,32,52,.12));border-radius:999px;padding:9px 16px;background:#fff;margin-right:0;gap:8px}
+#gnav .gnav-back:hover{border-color:var(--accent,#16202b);background:#fff}
