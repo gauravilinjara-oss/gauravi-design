@@ -83,7 +83,9 @@ function outputPathFor(url, routeMap) {
     return decodedPath;
   }
 
-  if (/^[^/]+\.html$/i.test(decodedPath)) return `mockups/${decodedPath}`;
+  if (/^[^/]+\.(?:css|html|js|json|svg|webmanifest)$/i.test(decodedPath)) {
+    return `mockups/${decodedPath}`;
+  }
   return null;
 }
 
@@ -103,6 +105,7 @@ export async function mirrorSite({
   destination,
   routeMap = ROUTE_MAP,
   fetchImpl = fetch,
+  requestTimeoutMs = 20_000,
 }) {
   const siteOrigin = new URL(origin);
   const queue = routeMap.map(({ urlPath }) => new URL(urlPath, siteOrigin));
@@ -122,33 +125,54 @@ export async function mirrorSite({
       continue;
     }
 
-    let response;
+    const controller = new AbortController();
+    let timeout;
+    let loaded;
     try {
-      response = await fetchImpl(url.href);
+      loaded = await Promise.race([
+        (async () => {
+          const response = await fetchImpl(url.href, { signal: controller.signal });
+          if (!response.ok) return { response };
+
+          const contentType = response.headers.get('content-type') ?? 'application/octet-stream';
+          const isText = /^text\/|javascript|json|xml/i.test(contentType);
+          const body = isText
+            ? await response.text()
+            : new Uint8Array(await response.arrayBuffer());
+          return { response, contentType, isText, body };
+        })(),
+        new Promise((_, reject) => {
+          timeout = setTimeout(() => {
+            const error = new Error(`Request timed out after ${requestTimeoutMs}ms`);
+            controller.abort(error);
+            reject(error);
+          }, requestTimeoutMs);
+        }),
+      ]);
     } catch (error) {
       report.failed.push({ url: url.href, reason: error.message });
       continue;
+    } finally {
+      clearTimeout(timeout);
     }
 
-    if (!response.ok) {
-      report.failed.push({ url: url.href, status: response.status });
+    if (!loaded.response.ok) {
+      report.failed.push({ url: url.href, status: loaded.response.status });
       continue;
     }
 
-    const contentType = response.headers.get('content-type') ?? 'application/octet-stream';
     const outputFile = path.resolve(destination, relativeOutput);
     await mkdir(path.dirname(outputFile), { recursive: true });
 
-    if (/^text\/|javascript|json|xml/i.test(contentType)) {
-      const content = await response.text();
-      await writeFile(outputFile, content, 'utf8');
-      for (const reference of collectReferences(content, contentType, url)) {
+    if (loaded.isText) {
+      await writeFile(outputFile, loaded.body, 'utf8');
+      for (const reference of collectReferences(loaded.body, loaded.contentType, url)) {
         const referenceOutput = outputPathFor(reference, routeMap);
         if (referenceOutput && isAllowedOutput(referenceOutput)) queue.push(reference);
         else report.excluded.push(reference.href);
       }
     } else {
-      await writeFile(outputFile, new Uint8Array(await response.arrayBuffer()));
+      await writeFile(outputFile, loaded.body);
     }
 
     report.written.push(relativeOutput);

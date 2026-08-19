@@ -43,9 +43,10 @@ test('collects url references from CSS', () => {
 test('mirrors a route and its same-origin assets to deterministic paths', async () => {
   const destination = await mkdtemp(path.join(tmpdir(), 'gauravi-mirror-'));
   const responses = new Map([
-    ['https://gauravi.design/', new Response('<link href="/assets/site.css"><img src="/assets/hero.webp">', { headers: { 'content-type': 'text/html' } })],
+    ['https://gauravi.design/', new Response('<link href="/assets/site.css"><img src="/assets/hero.webp"><script src="/nav.js"></script>', { headers: { 'content-type': 'text/html' } })],
     ['https://gauravi.design/assets/site.css', new Response('body{color:#16202b}', { headers: { 'content-type': 'text/css' } })],
     ['https://gauravi.design/assets/hero.webp', new Response(new Uint8Array([1, 2, 3]), { headers: { 'content-type': 'image/webp' } })],
+    ['https://gauravi.design/nav.js', new Response('export const nav = true;', { headers: { 'content-type': 'text/javascript' } })],
   ]);
 
   try {
@@ -65,8 +66,55 @@ test('mirrors a route and its same-origin assets to deterministic paths', async 
       'assets/hero.webp',
       'assets/site.css',
       'mockups/meadow-ship.html',
+      'mockups/nav.js',
     ]);
     assert.match(await readFile(path.join(destination, 'mockups/meadow-ship.html'), 'utf8'), /site\.css/);
+  } finally {
+    await rm(destination, { recursive: true, force: true });
+  }
+});
+
+test('records a timed-out request instead of stalling recovery', async () => {
+  const destination = await mkdtemp(path.join(tmpdir(), 'gauravi-timeout-'));
+
+  try {
+    const report = await mirrorSite({
+      origin: 'https://gauravi.design',
+      destination,
+      routeMap: [{ urlPath: '/', outputPath: 'mockups/meadow-ship.html' }],
+      requestTimeoutMs: 5,
+      fetchImpl: async (_url, { signal }) => new Promise((_, reject) => {
+        signal.addEventListener('abort', () => reject(signal.reason), { once: true });
+      }),
+    });
+
+    assert.equal(report.failed.length, 1);
+    assert.equal(report.failed[0].url, 'https://gauravi.design/');
+    assert.match(report.failed[0].reason, /timed out/i);
+  } finally {
+    await rm(destination, { recursive: true, force: true });
+  }
+});
+
+test('times out while reading a slow response body', async () => {
+  const destination = await mkdtemp(path.join(tmpdir(), 'gauravi-slow-body-'));
+
+  try {
+    const report = await mirrorSite({
+      origin: 'https://gauravi.design',
+      destination,
+      routeMap: [{ urlPath: '/', outputPath: 'mockups/meadow-ship.html' }],
+      requestTimeoutMs: 5,
+      fetchImpl: async () => ({
+        ok: true,
+        status: 200,
+        headers: new Headers({ 'content-type': 'text/html' }),
+        text: async () => new Promise((resolve) => setTimeout(() => resolve('<html></html>'), 20)),
+      }),
+    });
+
+    assert.equal(report.failed.length, 1);
+    assert.match(report.failed[0].reason, /timed out/i);
   } finally {
     await rm(destination, { recursive: true, force: true });
   }

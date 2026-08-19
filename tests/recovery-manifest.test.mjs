@@ -14,6 +14,7 @@ test('maps every production route to an authored file', () => {
   assert.equal(routes.get('/beyond.html'), 'mockups/beyond.html');
   assert.equal(routes.get('/lab'), 'mockups/lab.html');
   assert.equal(routes.get('/blog.html'), 'mockups/blog.html');
+  assert.equal(routes.get('/blog'), 'mockups/blog.html');
   assert.equal(routes.get('/case-googlehealth.html'), 'mockups/case-googlehealth.html');
 });
 

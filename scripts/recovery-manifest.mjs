@@ -4,6 +4,7 @@ export const ROUTE_MAP = Object.freeze([
   { urlPath: '/beyond.html', outputPath: 'mockups/beyond.html' },
   { urlPath: '/lab', outputPath: 'mockups/lab.html' },
   { urlPath: '/blog.html', outputPath: 'mockups/blog.html' },
+  { urlPath: '/blog', outputPath: 'mockups/blog.html' },
   { urlPath: '/quick.html', outputPath: 'mockups/quick.html' },
   { urlPath: '/case-podonos.html', outputPath: 'mockups/case-podonos.html' },
   { urlPath: '/case-fxonline.html', outputPath: 'mockups/case-fxonline.html' },
