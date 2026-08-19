@@ -2,7 +2,11 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import * as cheerio from 'cheerio';
-import { ROUTE_MAP, isAllowedOutput } from './recovery-manifest.mjs';
+import {
+  DYNAMIC_PUBLIC_PATHS,
+  ROUTE_MAP,
+  isAllowedOutput,
+} from './recovery-manifest.mjs';
 
 const HTML_ATTRIBUTES = Object.freeze([
   ['a', 'href'],
@@ -104,11 +108,15 @@ export async function mirrorSite({
   origin,
   destination,
   routeMap = ROUTE_MAP,
+  assetPaths = routeMap === ROUTE_MAP ? DYNAMIC_PUBLIC_PATHS : [],
   fetchImpl = fetch,
   requestTimeoutMs = 20_000,
 }) {
   const siteOrigin = new URL(origin);
-  const queue = routeMap.map(({ urlPath }) => new URL(urlPath, siteOrigin));
+  const queue = [
+    ...routeMap.map(({ urlPath }) => new URL(urlPath, siteOrigin)),
+    ...assetPaths.map((urlPath) => new URL(urlPath, siteOrigin)),
+  ];
   const visited = new Set();
   const report = { written: [], failed: [], external: [], excluded: [] };
 

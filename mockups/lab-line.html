@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>the line — the lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--accent:#16202b;--accent-deep:#0f1822;--ink:#16202b;--ink-soft:#4E5F74;--panel:#ffffff;--line:rgba(20,32,52,.07);
+    --sans:"Geist",system-ui,sans-serif;--disp:"Archivo",sans-serif;--serif:"Switzer","Geist",system-ui,sans-serif;--mono:"Geist Mono",monospace;--ease:cubic-bezier(.32,.72,0,1);}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{min-height:100vh;background:radial-gradient(120% 80% at 50% -8%,rgba(20,32,52,.12),transparent 60%),#ffffff;color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;padding:0 0 40px}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:16px max(18px,4vw)}
+  .brand{font-family:var(--serif);font-weight:500;font-size:19px;letter-spacing:-.01em;color:var(--ink);text-decoration:none}.brand .a{color:var(--accent)}
+  .navr{display:flex;align-items:center;gap:16px}
+  .snd{font-family:var(--mono);font-size:12px;text-transform:lowercase;letter-spacing:.06em;color:var(--ink-soft);background:none;border:0;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+  .snd:hover{color:var(--accent)}.snd .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}.snd.off .dot{opacity:.25;box-shadow:none}
+  .back{font-family:var(--mono);font-size:12px;text-transform:lowercase;letter-spacing:.06em;color:var(--ink-soft);text-decoration:none}.back:hover{color:var(--accent)}
+  .wrap{max-width:1060px;margin:0 auto;padding:4px max(18px,4vw) 0}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:26px;box-shadow:0 40px 100px -50px #000;overflow:hidden;display:grid;grid-template-columns:1fr 1.02fr}
+  .rail{padding:42px 40px;display:flex;flex-direction:column;justify-content:center;min-width:0;position:relative}
+  .rail::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.04;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .rail>*{position:relative}
+  .eyebrow{align-self:flex-start;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:lowercase;color:var(--accent);display:inline-flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--accent);opacity:.7}
+  h1{font-family:var(--serif);font-weight:300;font-size:clamp(34px,4vw,54px);letter-spacing:-.025em;text-transform:lowercase;line-height:.98;margin:18px 0 26px}
+  h1 .a{font-style:italic;font-weight:400;color:var(--accent)}
+  .steps{list-style:none;display:flex;flex-direction:column;gap:11px;transition:opacity .5s var(--ease)}
+  .steps li{display:flex;align-items:center;gap:11px;font-weight:500;font-size:15px;color:var(--ink-soft);opacity:0;transform:translateX(-8px);animation:stepIn .5s var(--ease) forwards}
+  .steps li:nth-child(1){animation-delay:.08s}.steps li:nth-child(2){animation-delay:.24s}
+  .steps li{font-weight:400}
+  .steps .n{flex:none;width:21px;height:21px;border-radius:50%;border:1px solid rgba(20,32,52,.55);color:var(--accent);background:transparent;font-weight:500;font-family:var(--mono);font-size:11px;display:grid;place-items:center}
+  @keyframes stepIn{to{opacity:1;transform:none}}
+  .anim-w{display:inline-block;opacity:0;transform:translateY(.55em) rotate(.6deg);filter:blur(5px);transition:opacity .6s var(--ease),transform .75s var(--ease),filter .6s var(--ease)}.anim-w.in{opacity:1;transform:none;filter:none}
+  .reveal{display:none;flex-direction:column;margin-top:26px}.reveal.show{display:flex}
+  .lesson{font-family:var(--serif);font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-.02em;text-transform:lowercase;line-height:1.06}.lesson .a{font-style:italic;font-weight:400;color:var(--accent)}
+  .note{font-size:15px;color:var(--ink-soft);margin-top:14px;opacity:0;transition:opacity .6s var(--ease) .5s}.reveal.show .note{opacity:1}
+  .cta{align-self:flex-start;display:inline-flex;align-items:center;gap:11px;margin-top:24px;font-family:var(--mono);font-size:12px;text-transform:lowercase;letter-spacing:.04em;color:var(--ink);
+    background:rgba(20,32,52,.04);border:1px solid rgba(20,32,52,.14);border-radius:999px;padding:7px 7px 7px 18px;cursor:pointer;opacity:0;transition:opacity .6s var(--ease) .8s,background .4s var(--ease),color .4s var(--ease)}
+  .cta .ic{width:28px;height:28px;border-radius:50%;background:rgba(20,32,52,.2);display:grid;place-items:center;transition:transform .4s var(--ease),background .4s}
+  .cta:hover{background:var(--accent);color:#ffffff}.cta:hover .ic{background:rgba(0,0,0,.2);transform:rotate(-130deg)}.reveal.show .cta{opacity:1}
+  .meterwrap{display:flex;align-items:center;gap:12px;margin-top:32px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:lowercase;color:var(--ink-soft)}
+  .meter{flex:1;height:6px;border-radius:6px;background:rgba(20,32,52,.08);overflow:hidden}.meter i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+  .rst{margin-left:4px;width:26px;height:26px;border-radius:50%;border:1px solid rgba(20,32,52,.14);background:rgba(20,32,52,.04);color:var(--ink-soft);font-size:13px;cursor:pointer;display:grid;place-items:center;transition:transform .4s var(--ease),background .3s,color .3s}
+  .rst:hover{background:var(--accent);color:#ffffff;border-color:var(--accent);transform:rotate(-130deg)}
+  .artwrap{padding:14px;display:flex}
+  .frame{position:relative;flex:1;background:#f3f2f0;border:1px solid rgba(20,32,52,.06);border-radius:18px;padding:7px;display:flex;overflow:hidden;min-height:460px}
+  canvas{width:100%;height:100%;display:block;border-radius:12px;cursor:crosshair}
+  .whisper{position:absolute;top:15px;left:15px;font-weight:600;font-size:14px;color:var(--ink);background:rgba(255,255,255,.82);backdrop-filter:blur(4px);padding:7px 13px;border-radius:11px;opacity:0;transform:translateY(6px);transition:opacity .35s var(--ease),transform .35s var(--ease);pointer-events:none;width:fit-content;max-width:80%}
+  @media(max-width:760px){.rail{padding:24px 22px 26px}.wrap{padding-left:max(10px,3vw);padding-right:max(10px,3vw)}.panel{grid-template-columns:1fr}.artwrap{order:-1}}
+  /* embedded in the popup → fill the sheet, drop own chrome */
+  body.embed{padding:0;background:var(--panel)}
+  body.embed .wrap{max-width:none;padding:0}
+  body.embed .panel{min-height:100vh;border:0;border-radius:0;box-shadow:none}
+  @media(max-width:760px){body.embed .panel{min-height:0}}
+</style>
+  <!-- Microsoft Clarity analytics -->
+  <script src="clarity.js?v=1" defer></script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="panel">
+      <div class="rail">
+        <h1>let the water <span class="a">settle</span>.</h1>
+        <ol class="steps" id="steps">
+          <li><span class="n">1</span>stir the pond — churn it up</li>
+          <li><span class="n">2</span>then stop, and let it still</li>
+        </ol>
+        <div class="reveal" id="reveal">
+          <div class="lesson">flow is surrender, not <span class="a">force</span>.</div>
+          <div class="note">you can't stir the water clear. it clears the moment you stop. the line, the wave, a restless mind — all settle only when you let them.</div>
+          <button class="cta" id="cta">stir again<span class="ic">↺</span></button>
+        </div>
+        <div class="meterwrap"><span>stillness</span><div class="meter"><i id="bar"></i></div><span id="pct">0%</span><button class="rst" id="rst" title="start over">↺</button></div>
+      </div>
+      <div class="artwrap">
+        <div class="frame">
+          <canvas id="cv" width="900" height="900"></canvas>
+          <div class="whisper" id="whisper"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+  if(window.self!==window.top){document.documentElement.style.background="var(--panel)";document.body&&document.body.classList.add("embed");}
+  addEventListener("DOMContentLoaded",()=>{if(window.self!==window.top)document.body.classList.add("embed");});
+  const cv=document.getElementById('cv'),ctx=cv.getContext('2d'),W=900,H=900;
+  const bar=document.getElementById('bar'),pct=document.getElementById('pct'),reveal=document.getElementById('reveal'),steps=document.getElementById('steps'),
+        whisper=document.getElementById('whisper'),cta=document.getElementById('cta'),rst=document.getElementById('rst');
+  let actx=null,muted=true,washGain=null,calmDrone=null;
+  function ensureAudio(){ if(!actx){try{actx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}} if(actx&&actx.state==='suspended')actx.resume(); startAudio(); }
+  function tone(f,dur,type,vol,delay){ if(muted||!actx)return; const t=actx.currentTime+(delay||0),o=actx.createOscillator(),g=actx.createGain();
+    o.type=type||'sine';o.frequency.value=f;o.connect(g);g.connect(actx.destination);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol||0.05,t+0.02);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);o.start(t);o.stop(t+dur+0.03); }
+  function startAudio(){ if(washGain||!actx)return;
+    const n=actx.sampleRate*2,buf=actx.createBuffer(1,n,actx.sampleRate),d=buf.getChannelData(0); for(let i=0;i<n;i++)d[i]=Math.random()*2-1;
+    const src=actx.createBufferSource();src.buffer=buf;src.loop=true; const f=actx.createBiquadFilter();f.type='bandpass';f.frequency.value=650;f.Q.value=0.5;
+    washGain=actx.createGain();washGain.gain.value=0; src.connect(f);f.connect(washGain);washGain.connect(actx.destination);src.start();
+    const o=actx.createOscillator();o.type='sine';o.frequency.value=120;calmDrone=actx.createGain();calmDrone.gain.value=0;o.connect(calmDrone);calmDrone.connect(actx.destination);o.start(); }
+  function setAudio(turb,calm){ if(washGain&&actx)washGain.gain.setTargetAtTime(muted?0:turb*0.07,actx.currentTime,0.15); if(calmDrone&&actx)calmDrone.gain.setTargetAtTime(muted?0:calm*0.035,actx.currentTime,0.5); }
+  const sfx={ reveal(){tone(392,0.6,'sine',0.06);tone(587.33,0.7,'sine',0.05,0.16);}, restart(){tone(330,0.3,'sine',0.05);} };
+  function animateIn(el){ if(!el||el.dataset.split)return; el.dataset.split=1; const nodes=[...el.childNodes],out=[];el.textContent='';
+    nodes.forEach(node=>{ if(node.nodeType===3){ node.textContent.split(/(\s+)/).forEach(tok=>{ if(tok==='')return; if(/^\s+$/.test(tok))el.appendChild(document.createTextNode(tok));
+      else{const s=document.createElement('span');s.className='anim-w';s.textContent=tok;el.appendChild(s);out.push(s);} }); } else{node.classList.add('anim-w');el.appendChild(node);out.push(node);} });
+    out.forEach((s,i)=>setTimeout(()=>s.classList.add('in'),60+i*55)); }
+  animateIn(document.querySelector('h1'));
+  let wstate=''; function setW(tx){ if(tx===wstate)return; wstate=tx; whisper.style.opacity=0; whisper.style.transform='translateY(6px)';
+    setTimeout(()=>{whisper.textContent=tx;whisper.style.opacity=1;whisper.style.transform='none';},150); }
+  const img=new Image(); img.referrerPolicy='no-referrer';
+  const off=document.createElement('canvas'); off.width=W; off.height=H; const oc=off.getContext('2d'); let imgReady=false;
+  img.onload=()=>{ const sc=Math.max(W/img.naturalWidth,H/img.naturalHeight),w=img.naturalWidth*sc,h=img.naturalHeight*sc; oc.drawImage(img,(W-w)/2,(H-h)/2,w,h); imgReady=true; };
+  img.src='https://commons.wikimedia.org/wiki/Special:FilePath/Claude_Monet_-_Water_Lilies_-_1906,_Ryerson.jpg?width=900';
+  let turb=0, calm=0, calmTime=0, stirred=false, shown=false, mx=-1,my=-1,lx=-1,ly=-1;
+  const BANDS=120, bh=H/BANDS;
+  function frame(t){ if(mx<0) turb*=0.95; turb=Math.max(0,Math.min(1,turb)); calm=1-turb;
+    if(stirred && turb<0.1) calmTime+=16; else calmTime=0;
+    ctx.clearRect(0,0,W,H);
+    if(imgReady){ const amp=1.5+turb*24, amp2=turb*6;
+      for(let k=0;k<BANDS;k++){ const y=k*bh; const ox=Math.sin(y*0.035+t/300+k*0.1)*amp + Math.sin(y*0.011+t/520)*amp; const oy=Math.cos(y*0.02+t/360)*amp2;
+        ctx.drawImage(off, 0, Math.max(0,y-2), W, bh+4, ox, y+oy-2, W, bh+4); }
+    } else { ctx.fillStyle='#2c4744'; ctx.fillRect(0,0,W,H); }
+    setAudio(turb, stirred?calm:0);
+    const cm=Math.round(calm*100); bar.style.width=cm+'%'; pct.textContent=cm+'%';
+    if(!stirred)setW('stir the pond — drag through it.'); else if(turb>0.35)setW('churning it only muddies it.'); else if(calmTime<2000)setW('…now stop. let it settle.'); else setW('see? still water, clear again.');
+    if(stirred && calmTime>2600 && !shown){ shown=true; steps.style.opacity=0; setTimeout(()=>{steps.style.display='none';reveal.classList.add('show');animateIn(reveal.querySelector('.lesson'));sfx.reveal();},360); }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  function move(e){ ensureAudio(); stirred=true; const r=cv.getBoundingClientRect(); const cx=e.touches?e.touches[0].clientX:e.clientX,cy=e.touches?e.touches[0].clientY:e.clientY;
+    mx=(cx-r.left)/r.width*W; my=(cy-r.top)/r.height*H; if(lx>=0){ turb=Math.min(1,turb+Math.hypot(mx-lx,my-ly)/130); } lx=mx;ly=my; }
+  cv.addEventListener('pointermove',move); cv.addEventListener('pointerleave',()=>{mx=my=lx=ly=-1;}); cv.addEventListener('touchmove',move,{passive:true});
+  function restart(){ shown=false; stirred=false; turb=0; calm=0; calmTime=0; reveal.classList.remove('show'); steps.style.display=''; steps.style.opacity=1; setW('stir the pond — drag through it.'); }
+  cta.addEventListener('click',()=>{ ensureAudio(); restart(); sfx.restart(); });
+  rst.addEventListener('click',()=>{ ensureAudio(); restart(); sfx.restart(); });
+  setW('stir the pond — drag through it.');
+</script>
+
+  <style id="polish">
+  /* physical sliders */
+  input[type=range]{cursor:grab}
+  input[type=range]:active{cursor:grabbing}
+  input[type=range]::-webkit-slider-thumb{transition:transform .12s ease,box-shadow .16s ease,background .16s ease}
+  input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 7px rgba(224,123,83,.16),0 0 14px 2px rgba(224,123,83,.32)}
+  input[type=range]:active::-webkit-slider-thumb{transform:scale(.84);box-shadow:0 0 0 10px rgba(224,123,83,.24),0 0 20px 5px rgba(224,123,83,.5)}
+  input[type=range]::-moz-range-thumb{transition:transform .12s ease,box-shadow .16s ease}
+  input[type=range]:active::-moz-range-thumb{transform:scale(.84)}
+  /* responsive meter with a soft glow */
+  .meter i{transition:width .09s ease!important;box-shadow:0 0 10px -1px rgba(224,123,83,.5)}
+  /* reset that reads as 'rewind', not a generic spin */
+  .rst{transition:transform .45s cubic-bezier(.34,1.56,.64,1),background .3s,color .3s,border-color .3s!important}
+  .rst:hover{transform:rotate(-24deg) scale(1.06)!important}
+  .rst.spin{animation:rstSpin .62s cubic-bezier(.34,1.56,.64,1)}
+  @keyframes rstSpin{0%{transform:rotate(0)}100%{transform:rotate(-360deg)}}
+  #cv{cursor:grab}#cv:active{cursor:grabbing}
+
+  /* immediate feedback the moment you press the art */
+  .frame{transition:box-shadow .16s ease}
+  .frame.pressing{box-shadow:inset 0 0 0 1.5px rgba(224,123,83,.4)}
+  .pdrip{position:absolute;pointer-events:none;z-index:9;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;border:1.5px solid var(--accent);opacity:0}
+  .pdrip.go{animation:pdrip .52s ease-out forwards}
+  @keyframes pdrip{0%{opacity:.7;transform:scale(.35)}100%{opacity:0;transform:scale(2.6)}}
+  @media(prefers-reduced-motion:reduce){.rst.spin{animation:none}.pdrip{display:none!important}}
+  </style>
+  <script>
+  (function(){
+    document.querySelectorAll('.rst').forEach(function(b){b.addEventListener('click',function(){b.classList.remove('spin');void b.offsetWidth;b.classList.add('spin');});});
+    var frame=document.querySelector('.frame');
+    if(frame){
+      frame.addEventListener('pointerdown',function(e){
+        var r=frame.getBoundingClientRect(),d=document.createElement('div');d.className='pdrip';
+        d.style.left=(e.clientX-r.left)+'px';d.style.top=(e.clientY-r.top)+'px';
+        frame.appendChild(d);requestAnimationFrame(function(){d.classList.add('go');});
+        setTimeout(function(){d.remove();},560);
+        frame.classList.add('pressing');
+      });
+      window.addEventListener('pointerup',function(){frame.classList.remove('pressing');});
+      window.addEventListener('pointercancel',function(){frame.classList.remove('pressing');});
+    }
+  })();
+  </script>
+</body>
+</html>

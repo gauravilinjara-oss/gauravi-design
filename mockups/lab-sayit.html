@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>say my name — the lab</title>
+<meta name="description" content="gauravi — three even syllables. a tiny windows-xp game that teaches you to say my name, mic test included.">
+<meta property="og:title" content="say my name.exe — learn to pronounce Gauravi">
+<meta property="og:description" content="GOW · ra · vee. a tiny XP game with a real mic test and an official certificate. i will be checking.">
+<meta property="og:image" content="https://gauravi.design/assets/og/og-sayit.jpg">
+<meta property="og:url" content="https://gauravi.design/say-my-name">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gauravi.design/assets/og/og-sayit.jpg">
+<style>
+  :root{
+    --tb1:#3a81e8; --tb2:#2664c9; --tb3:#0a49a5;        /* title bar gradient stops */
+    --face:#ece9d8; --face-hi:#fdfdfb; --face-lo:#d8d4c0; /* window face */
+    --xp-border:#0a49a5; --btn-edge:#003c74; --close:#e0402a;
+    --ink:#1a1a1a; --ink-soft:#5a564a;
+    --xp:Tahoma,"Segoe UI",Verdana,Geneva,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:var(--xp);color:var(--ink);overflow:hidden;background:#0a49a5}
+
+  /* ---- bliss desktop (the wallpaper; gradient sky behind it as load fallback) ---- */
+  #desktop{position:fixed;inset:0;overflow:hidden;
+    background:url("assets/bliss.jpg") center/cover no-repeat,
+      linear-gradient(180deg,#1e63c8 0%,#4a90d9 26%,#8ec2f0 52%,#cfe6fa 64%)}
+
+  /* ---- xp window chrome ---- */
+  .xpwin{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:min(560px,calc(100vw - 28px));
+    background:var(--face);border:3px solid var(--xp-border);border-top:0;border-radius:8px 8px 3px 3px;
+    box-shadow:0 22px 60px rgba(0,20,60,.45);display:none;flex-direction:column;max-height:calc(100vh - 90px)}
+  .xpwin.open{display:flex}
+  .tbar{flex:none;display:flex;align-items:center;gap:8px;padding:5px 6px 5px 9px;cursor:default;user-select:none;
+    color:#fff;font-size:13px;font-weight:bold;text-shadow:1px 1px 1px rgba(0,0,0,.35);
+    background:linear-gradient(180deg,var(--tb1) 0%,var(--tb2) 10%,#1653b5 45%,var(--tb3) 100%);
+    border-radius:5px 5px 0 0}
+  .tbar .tico{width:16px;height:16px;flex:none;border-radius:3px;display:grid;place-items:center;
+    background:linear-gradient(135deg,#ffd23f,#f5a623);font-size:10px;text-shadow:none}
+  .tbar .ttl{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tx{flex:none;width:21px;height:21px;border-radius:3px;border:1px solid rgba(255,255,255,.7);cursor:pointer;
+    background:linear-gradient(180deg,#f0906f,var(--close) 45%,#b32e18);color:#fff;font-size:11px;font-weight:bold;
+    display:grid;place-items:center;text-shadow:none}
+  .tx:hover{filter:brightness(1.15)}
+  .tb{flex:none;width:21px;height:21px;border-radius:3px;border:1px solid rgba(255,255,255,.7);cursor:pointer;
+    background:linear-gradient(180deg,#5a8ee8,#2664c9 45%,#1653b5);color:#fff;font-size:10px;font-weight:bold;
+    display:grid;place-items:center;text-shadow:none}
+  .tb:hover{filter:brightness(1.15)}
+  @keyframes wshake{20%{translate:-4px 0}40%{translate:4px 0}60%{translate:-2px 0}80%{translate:2px 0}}
+  .xpwin.shake{animation:wshake .3s ease}
+  .wbody{padding:20px 22px;overflow:auto;font-size:14px;line-height:1.55}
+  .wbody.center{text-align:center}
+
+  /* ---- xp buttons ---- */
+  .xpbtn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-width:88px;
+    padding:5px 18px;font-family:var(--xp);font-size:13px;color:var(--ink);cursor:pointer;
+    background:linear-gradient(180deg,var(--face-hi),#eceada 46%,var(--face-lo));
+    border:1px solid var(--btn-edge);border-radius:3px;box-shadow:inset 0 1px 0 #fff}
+  .xpbtn:hover{box-shadow:inset 0 0 0 2px rgba(245,166,35,.55),inset 0 1px 0 #fff}
+  .xpbtn:active{background:linear-gradient(180deg,var(--face-lo),var(--face-hi))}
+  .xpbtn.primary{box-shadow:inset 0 0 0 2px rgba(38,100,201,.4),inset 0 1px 0 #fff}
+  .btnrow{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+
+  /* ---- taskbar ---- */
+  #taskbar{position:fixed;left:0;right:0;bottom:0;height:38px;z-index:60;display:flex;align-items:stretch;
+    background:linear-gradient(180deg,#3f8ef0 0%,#2664c9 8%,#1653b5 55%,#0a49a5 100%);
+    box-shadow:0 -1px 0 rgba(255,255,255,.25)}
+  #startBtn{display:flex;align-items:center;gap:7px;padding:0 20px 0 12px;cursor:pointer;border:0;
+    color:#fff;font-family:var(--xp);font-size:16px;font-weight:bold;font-style:italic;text-shadow:1px 1px 1px rgba(0,0,0,.4);
+    background:linear-gradient(180deg,#59c04d 0%,#3c9838 45%,#2d7a2a 100%);border-radius:0 12px 12px 0;
+    box-shadow:2px 0 6px rgba(0,0,0,.3)}
+  #startBtn .sun{width:17px;height:17px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffe680,#f5c518 70%);box-shadow:0 0 6px #ffe680}
+  #clock{margin-left:auto;display:flex;align-items:center;padding:0 16px;color:#fff;font-size:12px;
+    background:linear-gradient(180deg,#2a7ade,#1257b8);box-shadow:inset 1px 0 0 rgba(255,255,255,.2);text-shadow:1px 1px 1px rgba(0,0,0,.3)}
+
+  /* ---- start menu ---- */
+  #startMenu{position:fixed;left:4px;bottom:44px;z-index:70;width:270px;display:none;flex-direction:column;
+    background:#fff;border:2px solid var(--xp-border);border-radius:8px 8px 0 0;overflow:hidden;
+    box-shadow:4px -2px 22px rgba(0,20,60,.35);font-size:13.5px}
+  #startMenu.open{display:flex}
+  #startMenu .smhead{display:flex;align-items:center;gap:10px;padding:12px 14px;color:#fff;font-weight:bold;font-size:15px;
+    background:linear-gradient(180deg,var(--tb1),var(--tb3));text-shadow:1px 1px 1px rgba(0,0,0,.35)}
+  #startMenu .smhead .sun{width:30px;height:30px;border-radius:8px;border:2px solid rgba(255,255,255,.75);
+    background:radial-gradient(circle at 35% 35%,#ffe680,#f5c518 72%)}
+  #startMenu .smitems{display:flex;flex-direction:column;padding:6px 0}
+  #startMenu .smitems a,#startMenu .smitems button,#startMenu .smfoot button{display:flex;align-items:center;gap:10px;
+    padding:9px 16px;border:0;background:none;font-family:var(--xp);font-size:13.5px;color:var(--ink);
+    text-decoration:none;cursor:pointer;text-align:left;width:100%}
+  #startMenu .smitems a:hover,#startMenu .smitems button:hover,#startMenu .smfoot button:hover{background:#2664c9;color:#fff}
+  #startMenu .smfoot{border-top:1px solid #d8d4c0;background:#ece9d8}
+
+  /* ---- desktop icons ---- */
+  #icons{position:absolute;top:22px;left:20px;display:flex;flex-direction:column;gap:26px;z-index:5}
+  .icon{width:92px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;border:0;background:none;font-family:var(--xp)}
+  .icon .glyph{font-size:34px;filter:drop-shadow(1px 2px 2px rgba(0,20,60,.45))}
+  .icon .lbl{color:#fff;font-size:11.5px;text-align:center;line-height:1.25;text-shadow:1px 1px 2px rgba(0,20,60,.9);padding:1px 3px;border-radius:2px}
+  .icon:hover .lbl,.icon:focus .lbl{background:rgba(10,73,165,.75)}
+
+  /* ---- learn window ---- */
+  .bigname{font-size:46px;font-weight:bold;letter-spacing:-1px;margin:2px 0 4px}
+  .phon{color:var(--ink-soft);font-size:14px}
+  .syls{display:flex;gap:10px;justify-content:center;margin:18px 0 6px}
+  .syl{padding:10px 16px;min-width:74px;border:2px solid #b8b2a0;border-radius:6px;background:#fffdf6;
+    font-size:19px;font-weight:bold;transition:all .18s ease}
+  .syl small{display:block;font-size:10.5px;font-weight:normal;color:var(--ink-soft);margin-top:3px}
+  .syl.hot{border-color:#2664c9;background:#eaf2ff;color:#0a49a5;transform:translateY(-3px);box-shadow:0 4px 10px rgba(38,100,201,.25)}
+  .keypts{text-align:left;margin:16px auto 0;max-width:400px;font-size:13.5px;color:var(--ink-soft);display:flex;flex-direction:column;gap:7px}
+  .keypts li{list-style:none;padding-left:16px;position:relative}
+  .keypts li::before{content:"·";position:absolute;left:2px;font-weight:bold;color:#2664c9}
+
+  /* ---- boot screen: XP welcome ---- */
+  #boot{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:14px;cursor:pointer;transition:opacity .6s ease;
+    background:
+      linear-gradient(180deg,#00247e 0%,#00247e 11%,rgba(0,36,126,0) 12%),
+      linear-gradient(0deg,#00206e 0%,#00206e 11%,rgba(0,32,110,0) 12%),
+      radial-gradient(85% 65% at 50% 46%,#7f9ff0 0%,#5a7edc 55%,#4468cc 100%)}
+  #boot::before{content:"";position:absolute;left:0;right:0;bottom:11%;height:2px;
+    background:linear-gradient(90deg,transparent 8%,#e8a33d 35%,#f5c064 50%,#e8a33d 65%,transparent 92%)}
+  #boot::after{content:"";position:absolute;left:0;right:0;top:11%;height:1px;background:rgba(255,255,255,.35)}
+  #boot.done{opacity:0;pointer-events:none}
+  #boot .wtile{display:flex;align-items:center;gap:20px;color:#fff}
+  #boot .wtile .sun{width:52px;height:52px;flex:none;border-radius:12px;border:2px solid rgba(255,255,255,.75);
+    background:radial-gradient(circle at 35% 35%,#ffe680,#f5c518 72%);box-shadow:0 0 26px rgba(255,230,128,.7);animation:wsun 2.4s ease infinite}
+  @keyframes wsun{50%{box-shadow:0 0 40px rgba(255,230,128,.95)}}
+  #boot .wword{font-style:italic;font-weight:600;font-size:clamp(38px,7vw,56px);letter-spacing:.5px;
+    text-shadow:0 3px 12px rgba(0,20,90,.55)}
+  #boot .wsub{color:rgba(255,255,255,.85);font-size:13px;text-shadow:0 1px 4px rgba(0,20,90,.4)}
+  #boot .hint{color:rgba(255,255,255,.5);font-size:11px;letter-spacing:.08em;margin-top:8px}
+
+  /* ---- test window ---- */
+  .stage{margin:6px 0 4px;padding:26px 16px;border:2px solid var(--xp-border);border-radius:6px;
+    background:radial-gradient(120% 100% at 50% 0%,#35404d,#141a22);color:#fff}
+  .stage .megaico{font-size:44px;display:block;margin-bottom:10px}
+  .stage .saywhat{font-size:19px;font-weight:bold;text-shadow:1px 1px 2px rgba(0,0,0,.5)}
+  .stage .count{font-size:40px;font-weight:bold;min-height:48px;display:block;margin-top:8px}
+  #recBtn{margin-top:14px}
+  #recBtn.listening{box-shadow:inset 0 0 0 2px #e0402a,inset 0 1px 0 #fff;animation:pulse 1s ease infinite}
+  @keyframes pulse{50%{filter:brightness(1.12)}}
+  .tiphint{margin-top:12px;font-size:11.5px;color:var(--ink-soft)}
+  /* error / message dialogs sit above game windows */
+  .xpwin.dlg{z-index:40;width:min(430px,calc(100vw - 40px))}
+  .dlg .wbody{display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center}
+  .dlg .dico{font-size:40px}
+
+  /* ---- certificate ---- */
+  .cert{margin:4px auto 0;padding:22px 18px;background:#fffdf4;border:3px double #0a49a5;
+    box-shadow:inset 0 0 0 3px #fffdf4,inset 0 0 0 4px #c9a227;max-width:420px}
+  .cert .chead{font-size:11px;letter-spacing:.28em;color:#c9a227;text-transform:uppercase}
+  .cert h2{font-family:Georgia,'Times New Roman',serif;font-size:21px;margin:8px 0 2px;font-weight:normal}
+  .cert .cname{font-family:Georgia,serif;font-style:italic;font-size:26px;margin:12px 0 2px;border:0;border-bottom:1px dashed #b8b2a0;
+    background:none;text-align:center;width:85%;outline:none;color:var(--ink)}
+  .cert .cline{font-size:12.5px;color:var(--ink-soft);margin-top:8px}
+  .cert .sig{margin-top:14px;font-size:13px}
+  .cert .sun{display:inline-block;width:14px;height:14px;border-radius:50%;vertical-align:-2px;
+    background:radial-gradient(circle at 35% 35%,#ffe680,#f5c518 70%)}
+
+  /* ---- embed + mobile ---- */
+  body.embed #desktop{border-radius:0}
+  @media(max-width:640px){
+    #icons{flex-direction:row;top:14px;left:12px;right:12px;gap:8px;justify-content:space-around}
+    .icon{width:84px}
+    .xpwin{top:auto;bottom:52px;left:8px;right:8px;transform:none;width:auto;max-height:calc(100vh - 120px)}
+    .xpwin.dlg{width:auto;left:16px;right:16px;top:50%;bottom:auto;transform:translateY(-50%)}
+    .wbody{padding:16px 14px}
+  }
+</style>
+  <!-- Microsoft Clarity analytics -->
+  <script src="clarity.js?v=1" defer></script>
+</head>
+<body>
+<script>
+  if(window.self!==window.top){document.documentElement.style.background="#0a49a5";addEventListener("DOMContentLoaded",()=>document.body.classList.add("embed"));}
+</script>
+
+<div id="boot" aria-label="loading">
+  <div class="wtile"><span class="sun"></span><span class="wword">welcome</span></div>
+  <div class="wsub">starting say my name.exe…</div>
+  <div class="hint">click anywhere to skip</div>
+</div>
+
+<div id="desktop">
+  <div id="icons"></div>
+  <!-- windows get appended here by later tasks -->
+</div>
+
+<div id="startMenu">
+  <div class="smhead"><span class="sun"></span>Gauravi Linjara</div>
+  <div class="smitems">
+    <button data-act="play">🎮 play the game</button>
+    <a href="/work.html" target="_top">💼 my work</a>
+    <a href="/lab" target="_top">🧪 the lab</a>
+    <a href="/assets/files/Gauravi_Linjara_Resume.pdf" target="_blank" rel="noopener">📄 résumé</a>
+    <a href="https://www.linkedin.com/in/gauravi-linjara/" target="_blank" rel="noopener">🤝 linkedin</a>
+  </div>
+  <div class="smfoot"><button data-act="logoff">🔌 log off (back to real life)</button></div>
+</div>
+
+<div id="taskbar">
+  <button id="startBtn"><span class="sun"></span>start</button>
+  <div id="clock"></div>
+</div>
+
+<script>
+  /* ---- tiny window manager ---- */
+  const $=s=>document.querySelector(s);
+  const track=n=>{try{if(typeof clarity==='function')clarity('event',n);}catch(e){}};
+  function openWin(el){el.classList.add('open');}
+  function closeWin(el){el.classList.remove('open');}
+  function makeWin(id,title,bodyHTML,cls){
+    const w=document.createElement('div');w.className='xpwin';w.id=id;
+    w.innerHTML=`<div class="tbar"><span class="tico">✿</span><span class="ttl">${title}</span><button class="tb" aria-label="minimize">▂</button><button class="tb" aria-label="maximize">▢</button><button class="tx" aria-label="close">✕</button></div>
+      <div class="wbody ${cls||''}">${bodyHTML}</div>`;
+    w.querySelector('.tx').addEventListener('click',()=>closeWin(w));
+    w.querySelectorAll('.tb').forEach(b=>b.addEventListener('click',()=>{  // nice try
+      w.classList.remove('shake');void w.offsetWidth;w.classList.add('shake');}));
+    makeDraggable(w);
+    $('#desktop').appendChild(w);
+    return w;
+  }
+  function makeDraggable(w){
+    const bar=w.querySelector('.tbar');let sx,sy,ox,oy,drag=false;
+    bar.addEventListener('pointerdown',e=>{
+      if(e.target.closest('.tx')||innerWidth<=640)return;
+      drag=true;sx=e.clientX;sy=e.clientY;const r=w.getBoundingClientRect();ox=r.left;oy=r.top;
+      w.style.transform='none';w.style.left=ox+'px';w.style.top=oy+'px';
+      bar.setPointerCapture(e.pointerId);
+    });
+    bar.addEventListener('pointermove',e=>{if(!drag)return;w.style.left=(ox+e.clientX-sx)+'px';w.style.top=(oy+e.clientY-sy)+'px';});
+    bar.addEventListener('pointerup',()=>drag=false);
+  }
+  /* ---- taskbar clock ---- */
+  function tick(){const d=new Date();$('#clock').textContent=d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});}
+  tick();setInterval(tick,30000);
+
+  /* ---- desktop icons ---- */
+  const ICONS=[
+    ['🎤','say my<br>name.exe',()=>startGame()],
+    ['🗑️','recycle bin',()=>openWin(winRecycle)],
+    ['🌻','my portfolio<br>.lnk',()=>{location.href='/mockups/lab.html';}]
+  ];
+  ICONS.forEach(([g,l,fn])=>{
+    const b=document.createElement('button');b.className='icon';
+    b.innerHTML=`<span class="glyph">${g}</span><span class="lbl">${l}</span>`;
+    b.addEventListener('click',fn);$('#icons').appendChild(b);
+  });
+
+  /* ---- recycle bin ---- */
+  const winRecycle=makeWin('winRecycle','Recycle Bin',`
+    <p style="margin-bottom:12px;color:var(--ink-soft)">pronunciations i had to throw away:</p>
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:9px;font-size:13.5px">
+      <li>📄 <b>gravy.wav</b> — i am not a sauce</li>
+      <li>📄 <b>gaurav-i.doc</b> — close, but that's my dad's friend</li>
+      <li>📄 <b>gow-RAH-vee.tmp</b> — why is the middle yelling</li>
+      <li>📄 <b>garvey.bak</b> — respectfully, no</li>
+    </ul>
+    <p style="margin-top:14px;font-size:12px;color:var(--ink-soft)">(empty recycle bin? never. these are funny.)</p>`);
+
+  /* ---- start menu ---- */
+  const startMenu=$('#startMenu');
+  $('#startBtn').addEventListener('click',e=>{e.stopPropagation();startMenu.classList.toggle('open');if(startMenu.classList.contains('open'))track('sayit-start-menu');});
+  startMenu.querySelector('[data-act="play"]').addEventListener('click',()=>{startMenu.classList.remove('open');startGame();});
+  startMenu.querySelector('[data-act="logoff"]').addEventListener('click',()=>{track('sayit-logoff');window.top.location.href='/';});
+  addEventListener('click',e=>{if(!e.target.closest('#startMenu')&&!e.target.closest('#startBtn'))startMenu.classList.remove('open');});
+
+  /* ---- pronunciation audio ---- */
+  const sayAudio=new Audio('/assets/audio/gauravi.m4a');
+  const sayAudioSlow=new Audio('/assets/audio/gauravi-slow.m4a');
+  // [start,end] ms of each syllable per clip (takes 3 + 1 of Gauravi's voice memo, 100ms lead-ins)
+  const SYL_MS=[[100,340],[360,470],[480,660]];
+  const SYL_SLOW=[[280,560],[600,700],[760,930]];
+  let sylTimers=[];
+  function playName(slow){
+    const a=slow?sayAudioSlow:sayAudio, times=slow?SYL_SLOW:SYL_MS;
+    sayAudio.pause();sayAudioSlow.pause();
+    a.currentTime=0;
+    a.play().then(()=>{
+      sylTimers.forEach(clearTimeout);sylTimers=[];
+      document.querySelectorAll('.syl').forEach(s=>s.classList.remove('hot'));
+      times.forEach(([x,y],i)=>{
+        sylTimers.push(setTimeout(()=>{const el=document.querySelector(`.syl[data-i="${i}"]`);if(el)el.classList.add('hot');},x));
+        sylTimers.push(setTimeout(()=>{const el=document.querySelector(`.syl[data-i="${i}"]`);if(el)el.classList.remove('hot');},y));
+      });
+    }).catch(()=>{/* audio missing/blocked: phonetic text still on screen, game stays playable */});
+  }
+
+  /* ---- window: why this exists ---- */
+  const winIntro=makeWin('winIntro','why this exists',`
+    <img src="/assets/sayit/gauravi-cutout.png" alt="" onerror="this.remove()"
+      style="max-height:130px;max-width:70%;margin-bottom:10px;filter:drop-shadow(2px 4px 6px rgba(0,20,60,.3))">
+    <p style="font-size:15px">hi :)) i'm gauravi</p>
+    <p style="margin-top:12px">my name gets remixed a lot — gravy, gaurav-i, gow-RAH-vee (why is the middle yelling)</p>
+    <p style="margin-top:12px">so i made a tiny game to help you say it right &lt;3</p>
+    <div class="btnrow"><button class="xpbtn primary" id="toLearn">let's learn →</button></div>`,'center');
+  $('#toLearn').addEventListener('click',()=>{closeWin(winIntro);openWin(winLearn);});
+
+  /* ---- window: how to say gauravi ---- */
+  const winLearn=makeWin('winLearn','how to say gauravi',`
+    <p class="phon">my name is:</p>
+    <div class="bigname">Gauravi</div>
+    <p class="phon">गौरवी · /ˈɡaʊ.rə.viː/</p>
+    <div class="syls">
+      <span class="syl" data-i="0">GOW<small>like "cow"</small></span>
+      <span class="syl" data-i="1">ra<small>soft, quick</small></span>
+      <span class="syl" data-i="2">vee<small>like the letter V</small></span>
+    </div>
+    <div class="btnrow"><button class="xpbtn primary" id="playBtn">🔊 play pronunciation</button><button class="xpbtn" id="playSlowBtn">🐢 hear it slow</button></div>
+    <ul class="keypts">
+      <li>three even syllables — no syllable is the boss</li>
+      <li>"gow" rhymes with "cow", not "go"</li>
+      <li>ends in a clean "vee", like the letter V</li>
+    </ul>
+    <div class="btnrow"><button class="xpbtn" id="toTest">i'm ready, test me →</button></div>`,'center');
+  $('#playBtn').addEventListener('click',()=>playName());
+  $('#playSlowBtn').addEventListener('click',()=>playName(true));
+  $('#toTest').addEventListener('click',()=>{closeWin(winLearn);openWin(winTest);});
+
+  /* ---- game flow ---- */
+  function startGame(){
+    track('sayit-start');
+    fails=0;
+    const d=$('#dlg');if(d)d.remove();
+    [winRecycle,winLearn,winTest,winWin].forEach(w=>{if(w)closeWin(w);});
+    openWin(winIntro);
+  }
+
+  /* ---- final pronunciation test ---- */
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  const ACCEPT=new Set(['gauravi','gowravi','gowravee','gauravee','gauravy','gowruhvee','gaurvi','gouravi','gowrave','gowravey','gaurawi']);
+  let fails=0;
+
+  function editDist(a,b){
+    const m=[...Array(a.length+1)].map((_,i)=>[i,...Array(b.length)]);
+    for(let j=0;j<=b.length;j++)m[0][j]=j;
+    for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)
+      m[i][j]=Math.min(m[i-1][j]+1,m[i][j-1]+1,m[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
+    return m[a.length][b.length];
+  }
+  const norm=s=>s.toLowerCase().replace(/[^a-z]/g,'');
+  const MISS=/^(gaurav|gorav|garav|gravy|grevy)$/;
+  function isCorrect(alts){
+    return alts.some(t=>{const n=norm(t);
+      if(MISS.test(n))return false;
+      return ACCEPT.has(n)||n.includes('gauravi')||editDist(n,'gauravi')<=2;});
+  }
+
+  const winTest=makeWin('winTest','FINAL PRONUNCIATION TEST',`
+    <p style="font-size:12.5px;border:1px solid var(--ink);padding:8px;background:#fff">✳ say <b>Gauravi</b> (गौरवी) — three even syllables — and you win ✳</p>
+    <div class="stage">
+      <span class="megaico">📣</span>
+      <span class="saywhat">say "Gauravi" (GOW·ra·vee)</span>
+      <span class="count" id="countTxt"></span>
+      <button class="xpbtn" id="recBtn">🎙️ press to record</button>
+      <p style="font-size:11px;margin-top:10px;opacity:.75" id="spaceHint">or press spacebar · you'll have ~5 seconds</p>
+    </div>
+    <p class="tiphint">tip: not "gravy" — i am not a sauce</p>`,'center');
+
+  /* ---- generic dialog ---- */
+  function showDialog(title,ico,html,buttons){
+    const old=$('#dlg');if(old)old.remove();
+    const d=makeWin('dlg',title,`<span class="dico">${ico}</span><div>${html}</div>
+      <div class="btnrow">${buttons.map((b,i)=>`<button class="xpbtn ${i===0?'primary':''}" data-b="${i}">${b[0]}</button>`).join('')}</div>`);
+    d.classList.add('dlg');
+    d.querySelectorAll('[data-b]').forEach(btn=>btn.addEventListener('click',()=>{d.remove();buttons[+btn.dataset.b][1]();}));
+    openWin(d);
+  }
+
+  /* ---- recording flow ---- */
+  const recBtn=$('#recBtn'),countTxt=$('#countTxt');
+  let busy=false;
+  recBtn.addEventListener('click',beginAttempt);
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'&&winTest.classList.contains('open')&&!busy&&!$('#dlg')&&!e.target.closest('input')){e.preventDefault();beginAttempt();}
+  });
+
+  function beginAttempt(){
+    if(busy||$('#dlg'))return;
+    track('sayit-attempt');
+    if(!SR){honorMode("this browser can't do speech recognition");return;}
+    busy=true;let n=3;countTxt.textContent=n;
+    const cd=setInterval(()=>{
+      if(!winTest.classList.contains('open')){clearInterval(cd);countTxt.textContent='';busy=false;return;}
+      n--;if(n>0){countTxt.textContent=n;}else{clearInterval(cd);countTxt.textContent='🎧';listen();}},600);
+  }
+
+  function listen(){
+    const rec=new SR();
+    rec.lang='en-IN';rec.interimResults=false;rec.maxAlternatives=5;
+    recBtn.classList.add('listening');recBtn.textContent='listening…';
+    let done=false;
+    const finish=fn=>{if(done)return;done=true;
+      recBtn.classList.remove('listening');recBtn.textContent='🎙️ press to record';countTxt.textContent='';busy=false;fn&&fn();};
+    const safety=setTimeout(()=>{try{rec.stop()}catch(e){} finish(didntCatch);},6500);
+    rec.onresult=ev=>{clearTimeout(safety);
+      const alts=[...ev.results[0]].map(r=>r.transcript);
+      finish(()=>score(alts));};
+    rec.onerror=ev=>{clearTimeout(safety);
+      finish(()=>{ if(ev.error==='not-allowed'||ev.error==='service-not-allowed')honorMode("my mic's being shy (permission denied)");
+        else didntCatch(); });};
+    rec.onend=()=>{clearTimeout(safety);finish(()=>{});};
+    try{rec.start();}catch(e){finish(()=>honorMode("the mic didn't start"));}
+  }
+
+  const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  function score(alts){
+    if(isCorrect(alts)){winGame(false);return;}
+    fails++;
+    const heard=esc(alts[0]||'…nothing');
+    const joined=norm(alts.join(' '));
+    let title,ico,msg;
+    track(/gravy|grevy/.test(joined)?'sayit-fail-gravy':/gaurav|gorav|garav/.test(joined)?'sayit-fail-gaurav':'sayit-fail-other');
+    if(/gravy|grevy/.test(joined)){title='not quite :/';ico='🍗';
+      msg=`i heard <b>"${heard}"</b> — i love gravy but i am not a sauce.<br>it's <b>GOW·ra·vee</b>, promise it's easier than it looks`;}
+    else if(/gaurav|gorav|garav/.test(joined)){title='SO close';ico='🥹';
+      msg=`i heard <b>"${heard}"</b> — that's the boy version!<br>just add the <b>vee</b> at the end: GOW·ra·<b>vee</b>`;}
+    else{title='not quite :/';ico='🫠';
+      msg=`i heard <b>"${heard}"</b>. it's <b>GOW·ra·vee</b> — gow like cow, quick little ra, vee like the letter V`;}
+    const btns=[['listen again',()=>{playName();}],['try again',()=>{}]];
+    if(fails>=3)btns.push(['okay just trust me 🤞',()=>winGame(true)]);
+    showDialog(title,ico,msg,btns);
+  }
+
+  function didntCatch(){
+    showDialog('hm?','👂',`i didn't catch anything — mic might be off, or you were too shy. one more time?`,
+      [['try again',()=>{}],['listen first',()=>playName()]]);
+  }
+
+  function honorMode(why){
+    track('sayit-honor-offered');
+    showDialog('honor system activated','🤞',
+      `${why}, so we're doing this the old-fashioned way:<br><br>say <b>"GOW·ra·vee"</b> out loud, right now, and pinky promise you did.`,
+      [['i said it, promise 🤞',()=>winGame(true)],['let me hear it again',()=>playName()]]);
+  }
+
+  /* ---- win: confetti + certificate ---- */
+  const winWin=makeWin('winWin','🏆 Certified Gauravi Pronouncer',`
+    <img src="/assets/sayit/gauravi-point.png" alt="" onerror="this.remove()"
+      style="max-height:110px;margin-bottom:8px;filter:drop-shadow(2px 4px 6px rgba(0,20,60,.3))">
+    <div class="cert">
+      <div class="chead">official · very real · no take-backs</div>
+      <h2>Certificate of Correct Pronunciation</h2>
+      <p class="cline">this certifies that</p>
+      <input class="cname" id="certName" placeholder="type your name" maxlength="30">
+      <p class="cline">can flawlessly say <b>Gauravi</b> (GOW·ra·vee · गौरवी)<br><span id="certDate"></span></p>
+      <p class="sig"><span class="sun"></span> certified by gauravi :)</p>
+    </div>
+    <div class="btnrow">
+      <button class="xpbtn primary" id="certDl">⬇ download certificate</button>
+      <button class="xpbtn" id="certShare">📤 challenge a friend</button>
+      <button class="xpbtn" id="certAgain">play again</button>
+    </div>`,'center');
+
+  function ding(){try{
+    const ac=new (window.AudioContext||window.webkitAudioContext)();
+    [[660,0],[880,.18]].forEach(([f,t])=>{const o=ac.createOscillator(),g=ac.createGain();
+      o.type='sine';o.frequency.value=f;o.connect(g);g.connect(ac.destination);
+      g.gain.setValueAtTime(0,ac.currentTime+t);g.gain.linearRampToValueAtTime(.16,ac.currentTime+t+.02);
+      g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+t+.6);
+      o.start(ac.currentTime+t);o.stop(ac.currentTime+t+.65);});
+  }catch(e){}}
+
+  function winGame(honor){
+    track(honor?'sayit-win-honor':'sayit-win-mic');
+    const d=$('#dlg');if(d)d.remove();
+    closeWin(winTest);
+    $('#certDate').textContent=(honor?'(on the honor system) · ':'')+new Date().toLocaleDateString([],{year:'numeric',month:'long',day:'numeric'});
+    openWin(winWin);confetti();ding();
+    setTimeout(()=>$('#certName').focus(),300);
+  }
+
+  $('#certShare').addEventListener('click',async()=>{
+    track('sayit-share');
+    const data={title:'say my name.exe',text:'think you can pronounce Gauravi? there is a mic test. and a certificate.',url:'https://gauravi.design/say-my-name'};
+    if(navigator.share){try{await navigator.share(data);}catch(e){}}
+    else{try{await navigator.clipboard.writeText(data.url);
+      const b=$('#certShare');b.textContent='✅ link copied!';setTimeout(()=>{b.textContent='📤 challenge a friend';},1800);}catch(e){}}
+  });
+  $('#certAgain').addEventListener('click',()=>{fails=0;closeWin(winWin);startGame();});
+
+  /* ---- confetti ---- */
+  function confetti(){
+    const cv=document.createElement('canvas');cv.style.cssText='position:fixed;inset:0;z-index:90;pointer-events:none';
+    cv.width=innerWidth;cv.height=innerHeight;document.body.appendChild(cv);
+    const cx=cv.getContext('2d');const cols=['#2664c9','#59c04d','#f5c518','#e0402a','#fff'];
+    const ps=[...Array(130)].map(()=>({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.5,
+      s:5+Math.random()*6,vy:2.2+Math.random()*3,vx:-1.4+Math.random()*2.8,r:Math.random()*Math.PI,
+      c:cols[Math.random()*cols.length|0]}));
+    const t0=performance.now();
+    (function f(t){const el=t-t0;cx.clearRect(0,0,cv.width,cv.height);
+      ps.forEach(p=>{p.y+=p.vy;p.x+=p.vx;p.r+=.08;
+        cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);cx.restore();});
+      if(el<3200)requestAnimationFrame(f);else cv.remove();})(t0);
+  }
+
+  /* ---- certificate PNG ---- */
+  $('#certDl').addEventListener('click',()=>{
+    const name=($('#certName').value||'a brave stranger').trim();
+    const cv=document.createElement('canvas');cv.width=880;cv.height=620;const c=cv.getContext('2d');
+    c.fillStyle='#fffdf4';c.fillRect(0,0,880,620);
+    c.strokeStyle='#0a49a5';c.lineWidth=6;c.strokeRect(18,18,844,584);
+    c.strokeStyle='#c9a227';c.lineWidth=2;c.strokeRect(32,32,816,556);
+    c.textAlign='center';c.fillStyle='#c9a227';c.font='600 15px Tahoma,sans-serif';
+    c.fillText('O F F I C I A L   ·   V E R Y   R E A L   ·   N O   T A K E - B A C K S',440,96);
+    c.fillStyle='#1a1a1a';c.font='34px Georgia,serif';
+    c.fillText('Certificate of Correct Pronunciation',440,160);
+    c.fillStyle='#5a564a';c.font='17px Tahoma,sans-serif';c.fillText('this certifies that',440,220);
+    c.fillStyle='#1a1a1a';c.font='italic 44px Georgia,serif';c.fillText(name,440,286);
+    c.strokeStyle='#b8b2a0';c.setLineDash([5,5]);c.beginPath();c.moveTo(240,300);c.lineTo(640,300);c.stroke();c.setLineDash([]);
+    c.fillStyle='#5a564a';c.font='18px Tahoma,sans-serif';
+    c.fillText('can flawlessly say  Gauravi  (GOW · ra · vee · गौरवी)',440,352);
+    c.fillText($('#certDate').textContent,440,388);
+    c.fillStyle='#f5c518';c.beginPath();c.arc(360,470,13,0,7);c.fill();
+    c.fillStyle='#1a1a1a';c.font='20px Tahoma,sans-serif';c.fillText('certified by gauravi :)',460,477);
+    c.fillStyle='#8a8272';c.font='15px Tahoma,sans-serif';
+    c.fillText('think you can say it too?  gauravi.design/say-my-name',440,552);
+    track('sayit-cert-download');
+    const a=document.createElement('a');a.download='certified-gauravi-pronouncer.png';a.href=cv.toDataURL('image/png');a.click();
+  });
+
+  /* ---- boot ---- */
+  const boot=$('#boot');
+  function endBoot(){if(boot.classList.contains('done'))return;boot.classList.add('done');}
+  boot.addEventListener('click',endBoot);
+  addEventListener('keydown',e=>{if(!boot.classList.contains('done'))endBoot();},{once:false});
+  setTimeout(endBoot,2300);
+</script>
+</body>
+</html>

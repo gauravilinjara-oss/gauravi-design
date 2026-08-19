@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>the domino effect — the lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--accent:#16202b;--accent-deep:#0f1822;--ink:#16202b;--ink-soft:#4E5F74;--panel:#ffffff;--line:rgba(20,32,52,.07);
+    --sans:"Geist",system-ui,sans-serif;--disp:"Archivo",sans-serif;--serif:"Switzer","Geist",system-ui,sans-serif;--mono:"Geist Mono",monospace;--ease:cubic-bezier(.32,.72,0,1);}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{min-height:100vh;background:radial-gradient(120% 80% at 50% -8%,rgba(20,32,52,.12),transparent 60%),#ffffff;color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;padding:0 0 40px}
+  .wrap{max-width:1060px;margin:0 auto;padding:4px max(18px,4vw) 0}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:26px;box-shadow:0 40px 100px -50px #000;overflow:hidden;display:grid;grid-template-columns:1fr 1.02fr}
+  .rail{padding:42px 40px;display:flex;flex-direction:column;justify-content:center;min-width:0;position:relative}
+  .rail::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.04;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .rail>*{position:relative}
+  .eyebrow{align-self:flex-start;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:lowercase;color:var(--accent);display:inline-flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--accent);opacity:.7}
+  h1{font-family:var(--serif);font-weight:300;font-size:clamp(34px,4vw,54px);letter-spacing:-.025em;text-transform:lowercase;line-height:.98;margin:18px 0 26px}
+  h1 .a{font-style:italic;font-weight:400;color:var(--accent)}
+  .steps{list-style:none;display:flex;flex-direction:column;gap:11px;transition:opacity .5s var(--ease)}
+  .steps li{display:flex;align-items:center;gap:11px;font-weight:500;font-size:15px;color:var(--ink-soft);opacity:0;transform:translateX(-8px);animation:stepIn .5s var(--ease) forwards}
+  .steps li:nth-child(1){animation-delay:.08s}.steps li:nth-child(2){animation-delay:.24s}
+  .steps li{font-weight:400}
+  .steps .n{flex:none;width:21px;height:21px;border-radius:50%;border:1px solid rgba(20,32,52,.55);color:var(--accent);background:transparent;font-weight:500;font-family:var(--mono);font-size:11px;display:grid;place-items:center}
+  @keyframes stepIn{to{opacity:1;transform:none}}
+  .anim-w{display:inline-block;opacity:0;transform:translateY(.55em) rotate(.6deg);filter:blur(5px);transition:opacity .6s var(--ease),transform .75s var(--ease),filter .6s var(--ease)}.anim-w.in{opacity:1;transform:none;filter:none}
+  .reveal{display:none;flex-direction:column;margin-top:26px}.reveal.show{display:flex}
+  .lesson{font-family:var(--serif);font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-.02em;text-transform:lowercase;line-height:1.06}.lesson .a{font-style:italic;font-weight:400;color:var(--accent)}
+  .note{font-size:15px;color:var(--ink-soft);margin-top:14px;opacity:0;transition:opacity .6s var(--ease) .5s}.reveal.show .note{opacity:1}
+  .cta{align-self:flex-start;display:inline-flex;align-items:center;gap:11px;margin-top:24px;font-family:var(--mono);font-size:12px;text-transform:lowercase;letter-spacing:.04em;color:var(--ink);
+    background:rgba(20,32,52,.04);border:1px solid rgba(20,32,52,.14);border-radius:999px;padding:7px 7px 7px 18px;cursor:pointer;opacity:0;transition:opacity .6s var(--ease) .8s,background .4s var(--ease),color .4s var(--ease)}
+  .cta .ic{width:28px;height:28px;border-radius:50%;background:rgba(20,32,52,.2);display:grid;place-items:center;transition:transform .4s var(--ease),background .4s}
+  .cta:hover{background:var(--accent);color:#ffffff}.cta:hover .ic{background:rgba(0,0,0,.2);transform:rotate(-130deg)}.reveal.show .cta{opacity:1}
+  .meterwrap{display:flex;align-items:center;gap:12px;margin-top:32px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:lowercase;color:var(--ink-soft)}
+  .meter{flex:1;height:6px;border-radius:6px;background:rgba(20,32,52,.08);overflow:hidden}.meter i{display:block;height:100%;width:0;background:var(--accent);transition:width .12s var(--ease)}
+  .rst{margin-left:4px;width:26px;height:26px;border-radius:50%;border:1px solid rgba(20,32,52,.14);background:rgba(20,32,52,.04);color:var(--ink-soft);font-size:13px;cursor:pointer;display:grid;place-items:center;transition:transform .4s var(--ease),background .3s,color .3s}
+  .rst:hover{background:var(--accent);color:#ffffff;border-color:var(--accent);transform:rotate(-130deg)}
+  .artwrap{padding:14px;display:flex}
+  .frame{position:relative;flex:1;background:#f3f2f0;border:1px solid rgba(20,32,52,.06);border-radius:18px;padding:7px;display:flex;overflow:hidden;min-height:460px}
+  canvas{width:100%;height:100%;display:block;border-radius:12px;cursor:pointer}
+  .whisper{position:absolute;top:15px;left:15px;font-weight:600;font-size:14px;color:var(--ink);background:rgba(255,255,255,.82);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);padding:7px 13px;border-radius:11px;opacity:0;transform:translateY(6px);transition:opacity .35s var(--ease),transform .35s var(--ease);pointer-events:none;width:fit-content;max-width:80%}
+  @media(max-width:760px){.rail{padding:24px 22px 26px}.wrap{padding-left:max(10px,3vw);padding-right:max(10px,3vw)}.panel{grid-template-columns:1fr}.artwrap{order:-1}}
+  body.embed{padding:0;background:var(--panel)}
+  body.embed .wrap{max-width:none;padding:0}
+  body.embed .panel{min-height:100vh;border:0;border-radius:0;box-shadow:none}
+  @media(max-width:760px){body.embed .panel{min-height:0}}
+</style>
+  <!-- Microsoft Clarity analytics -->
+  <script src="clarity.js?v=1" defer></script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="panel">
+      <div class="rail">
+        <h1>tip the <span class="a">first</span> one.</h1>
+        <ol class="steps" id="steps">
+          <li><span class="n">1</span>click the painting to tip the first slice</li>
+          <li><span class="n">2</span>then try to take it back</li>
+        </ol>
+        <div class="reveal" id="reveal">
+          <div class="lesson">some things, once tipped, only go <span class="a">one way</span>.</div>
+          <div class="note">a word, a trust, a war — each starts with a single push you can't take back.</div>
+          <button class="cta" id="cta">stand them up<span class="ic">↺</span></button>
+        </div>
+        <div class="meterwrap"><span>fallen</span><div class="meter"><i id="bar"></i></div><span id="pct">0%</span><button class="rst" id="rst" title="start over">↺</button></div>
+      </div>
+      <div class="artwrap">
+        <div class="frame">
+          <canvas id="cv" width="1000" height="920"></canvas>
+          <div class="whisper" id="whisper"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+  if(window.self!==window.top){document.documentElement.style.background="var(--panel)";addEventListener("DOMContentLoaded",()=>document.body.classList.add("embed"));}
+  const cv=document.getElementById('cv'),ctx=cv.getContext('2d'),W=1000,H=920;
+  const reveal=document.getElementById('reveal'),steps=document.getElementById('steps'),whisper=document.getElementById('whisper'),
+        bar=document.getElementById('bar'),pct=document.getElementById('pct'),cta=document.getElementById('cta'),rst=document.getElementById('rst');
+  function animateIn(el){ if(!el||el.dataset.split)return; el.dataset.split=1; const nodes=[...el.childNodes],out=[];el.textContent='';
+    nodes.forEach(node=>{ if(node.nodeType===3){ node.textContent.split(/(\s+)/).forEach(tok=>{ if(tok==='')return; if(/^\s+$/.test(tok))el.appendChild(document.createTextNode(tok));
+      else{const s=document.createElement('span');s.className='anim-w';s.textContent=tok;el.appendChild(s);out.push(s);} }); } else{node.classList.add('anim-w');el.appendChild(node);out.push(node);} });
+    out.forEach((s,i)=>setTimeout(()=>s.classList.add('in'),60+i*55)); }
+  addEventListener('DOMContentLoaded',()=>animateIn(document.querySelector('h1')));
+  let wstate=''; function setW(tx){ if(tx===wstate)return; wstate=tx; whisper.style.opacity=0; whisper.style.transform='translateY(6px)';
+    setTimeout(()=>{whisper.textContent=tx;whisper.style.opacity=1;whisper.style.transform='none';},150); }
+
+  /* ── the painting stands as a row of slices; tip one and the fall sweeps across, irreversibly ── */
+  const N=14, TW=W/N, FLOOR=H*0.85, TH=H*0.62, TOP=FLOOR-TH, MAXA=1.36;
+  const SPEED=2.6, NEXT_AT=0.4, FADE_AT=0.66;          // cascade tuning
+  // off-screen copy of the painting, cover-fit into the standing band
+  const off=document.createElement('canvas'); let ready=false;
+  const art=new Image(); art.referrerPolicy='no-referrer';
+  art.onload=()=>{ off.width=W; off.height=TH; const o=off.getContext('2d');
+    const sc=Math.max(W/art.naturalWidth, TH/art.naturalHeight), w=art.naturalWidth*sc, h=art.naturalHeight*sc;
+    o.drawImage(art,(W-w)/2,(TH-h)/2,w,h); ready=true; };
+  art.src="https://commons.wikimedia.org/wiki/Special:FilePath/Pieter_Bruegel_the_Elder_-_Landscape_with_the_Fall_of_Icarus_-_WGA03322.jpg?width=900";
+
+  let slats=[], tipped=false, shown=false, last=performance.now();
+  function reset(){ slats=[]; for(let i=0;i<N;i++) slats.push({fall:0,started:false}); tipped=false; shown=false; }
+  reset();
+  const easeOut=f=>1-(1-f)*(1-f);
+
+  function drawSlat(i){
+    const s=slats[i], il=i*TW, a=MAXA*easeOut(s.fall);
+    const alpha = s.fall<FADE_AT ? 1 : Math.max(0,1-(s.fall-FADE_AT)/(1-FADE_AT));
+    // floor shadow (grounds the standing slice, stretches a touch as it goes)
+    ctx.save(); ctx.globalAlpha=alpha*0.34; ctx.fillStyle='#000';
+    ctx.beginPath(); ctx.ellipse(il+TW*0.5+a*22, FLOOR+4, TW*0.62*(1+a*0.5), 9, 0, 0, 7); ctx.fill(); ctx.restore();
+    if(alpha<=0) return;
+    ctx.save(); ctx.translate(il+TW, FLOOR); ctx.rotate(a); ctx.globalAlpha=alpha;
+    if(ready) ctx.drawImage(off, il,0,TW,TH, -TW,-TH, TW,TH);
+    else { ctx.fillStyle='#2c2620'; ctx.fillRect(-TW,-TH,TW,TH); }
+    // light from the left → a soft shade toward each slice's right edge gives standing depth; deepens as it tips
+    const sh=ctx.createLinearGradient(-TW,0,0,0); sh.addColorStop(0,'rgba(0,0,0,0)'); sh.addColorStop(1,'rgba(0,0,0,'+(0.1+a/MAXA*0.5)+')');
+    ctx.fillStyle=sh; ctx.fillRect(-TW,-TH,TW,TH);
+    // thin seam on the leading edge
+    ctx.strokeStyle='rgba(0,0,0,0.28)'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(-0.5,-TH); ctx.lineTo(-0.5,0); ctx.stroke();
+    ctx.restore();
+  }
+  function frame(now){
+    const dt=Math.min(0.05,(now-last)/1000); last=now;
+    // dark room
+    const g=ctx.createLinearGradient(0,0,0,H); g.addColorStop(0,'#1a1512'); g.addColorStop(1,'#0c0907'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    // a faint memory of the painting where it stood
+    if(ready){ ctx.globalAlpha=0.07; ctx.drawImage(off,0,TOP,W,TH); ctx.globalAlpha=1; }
+    // a quiet floor line
+    ctx.strokeStyle='rgba(255,255,255,0.05)'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(0,FLOOR+0.5); ctx.lineTo(W,FLOOR+0.5); ctx.stroke();
+    // advance the cascade
+    let fallen=0;
+    slats.forEach((s,i)=>{ if(s.started){ s.fall=Math.min(1,s.fall+dt*SPEED); if(s.fall>NEXT_AT && i+1<N && !slats[i+1].started) slats[i+1].started=true; } if(s.fall>0.6) fallen++; });
+    // draw right→left so each toppling slice falls in front of its neighbour
+    for(let i=N-1;i>=0;i--) drawSlat(i);
+    const v=Math.round(fallen/N*100); bar.style.width=v+'%'; pct.textContent=v+'%';
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  function tip(){ if(tipped)return; tipped=true; slats[0].started=true; setW('…and the next, and the next.');
+    setTimeout(()=>{ setW("you can't stand them back up.");
+      if(!shown){ shown=true; steps.style.opacity=0;
+        setTimeout(()=>{steps.style.display='none';reveal.classList.add('show');animateIn(reveal.querySelector('.lesson'));},360); } }, 2500); }
+  cv.addEventListener('click',tip);
+  function restart(){ reset(); reveal.classList.remove('show'); steps.style.display=''; steps.style.opacity=1; bar.style.width='0%'; pct.textContent='0%'; setW('click the painting to tip the first slice.'); }
+  cta.addEventListener('click',restart); rst.addEventListener('click',restart);
+  setW('click the painting to tip the first slice.');
+</script>
+
+  <style id="polish">
+  /* physical sliders */
+  input[type=range]{cursor:grab}
+  input[type=range]:active{cursor:grabbing}
+  input[type=range]::-webkit-slider-thumb{transition:transform .12s ease,box-shadow .16s ease,background .16s ease}
+  input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 7px rgba(224,123,83,.16),0 0 14px 2px rgba(224,123,83,.32)}
+  input[type=range]:active::-webkit-slider-thumb{transform:scale(.84);box-shadow:0 0 0 10px rgba(224,123,83,.24),0 0 20px 5px rgba(224,123,83,.5)}
+  input[type=range]::-moz-range-thumb{transition:transform .12s ease,box-shadow .16s ease}
+  input[type=range]:active::-moz-range-thumb{transform:scale(.84)}
+  /* responsive meter with a soft glow */
+  .meter i{transition:width .09s ease!important;box-shadow:0 0 10px -1px rgba(224,123,83,.5)}
+  /* reset that reads as 'rewind', not a generic spin */
+  .rst{transition:transform .45s cubic-bezier(.34,1.56,.64,1),background .3s,color .3s,border-color .3s!important}
+  .rst:hover{transform:rotate(-24deg) scale(1.06)!important}
+  .rst.spin{animation:rstSpin .62s cubic-bezier(.34,1.56,.64,1)}
+  @keyframes rstSpin{0%{transform:rotate(0)}100%{transform:rotate(-360deg)}}
+
+  /* immediate feedback the moment you press the art */
+  .frame{transition:box-shadow .16s ease}
+  .frame.pressing{box-shadow:inset 0 0 0 1.5px rgba(224,123,83,.4)}
+  .pdrip{position:absolute;pointer-events:none;z-index:9;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;border:1.5px solid var(--accent);opacity:0}
+  .pdrip.go{animation:pdrip .52s ease-out forwards}
+  @keyframes pdrip{0%{opacity:.7;transform:scale(.35)}100%{opacity:0;transform:scale(2.6)}}
+  @media(prefers-reduced-motion:reduce){.rst.spin{animation:none}.pdrip{display:none!important}}
+  </style>
+  <script>
+  (function(){
+    document.querySelectorAll('.rst').forEach(function(b){b.addEventListener('click',function(){b.classList.remove('spin');void b.offsetWidth;b.classList.add('spin');});});
+    var frame=document.querySelector('.frame');
+    if(frame){
+      frame.addEventListener('pointerdown',function(e){
+        var r=frame.getBoundingClientRect(),d=document.createElement('div');d.className='pdrip';
+        d.style.left=(e.clientX-r.left)+'px';d.style.top=(e.clientY-r.top)+'px';
+        frame.appendChild(d);requestAnimationFrame(function(){d.classList.add('go');});
+        setTimeout(function(){d.remove();},560);
+        frame.classList.add('pressing');
+      });
+      window.addEventListener('pointerup',function(){frame.classList.remove('pressing');});
+      window.addEventListener('pointercancel',function(){frame.classList.remove('pressing');});
+    }
+  })();
+  </script>
+</body>
+</html>

@@ -1,10 +1,19 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  DYNAMIC_PUBLIC_PATHS,
   ROUTE_MAP,
   isAllowedOutput,
   EXCLUDED_SEGMENTS,
 } from '../scripts/recovery-manifest.mjs';
+
+test('includes only explicitly confirmed dynamic production paths', () => {
+  assert.ok(DYNAMIC_PUBLIC_PATHS.includes('/assets/bees/bee1_body.png'));
+  assert.ok(DYNAMIC_PUBLIC_PATHS.includes('/assets/conferences/conf-config-group.jpg'));
+  assert.ok(DYNAMIC_PUBLIC_PATHS.includes('/mockups/lab-sfumato.html'));
+  assert.ok(DYNAMIC_PUBLIC_PATHS.includes('/mockups/assets/fogmirror-poster.jpg'));
+  assert.ok(DYNAMIC_PUBLIC_PATHS.every((urlPath) => /^\/(?:assets|mockups)\//.test(urlPath)));
+});
 
 test('maps every production route to an authored file', () => {
   const routes = new Map(ROUTE_MAP.map(({ urlPath, outputPath }) => [urlPath, outputPath]));
