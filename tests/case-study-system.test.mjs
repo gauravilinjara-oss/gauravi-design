@@ -14,6 +14,12 @@ const requiredLabels = {
   'case-smarttrade.html': ['Overview', 'Context', 'Problem', 'Research', 'Strategy', 'Solution', 'Flow', 'Impact', 'Reflection'],
 };
 
+Object.assign(requiredLabels, {
+  'case-business.html': ['Overview','Context','People','Problem','Research','Strategy','Solution','Trust','Onboarding','Impact','Reflection'],
+  'case-mashreq.html': ['Overview','Context','Problem','Research','Competitive analysis','Strategy','Solution','Flow','Impact','Reflection'],
+  'case-googlehealth.html': ['Overview','Context','Audit','Principles','Solution','System','Prototype','Testing','Reflection'],
+});
+
 test('shared shell applies only one desktop content offset', async () => {
   const css = await readFile('mockups/case-editorial.css', 'utf8');
   assert.match(css, /\.case-study\s*\{[^}]*padding-left:0;/s,
