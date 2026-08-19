@@ -6,6 +6,7 @@
 node_modules/
 test-results/
 playwright-report/
+work/
 
 # Private and unrelated material retained by earlier deployments.
 .agents/
