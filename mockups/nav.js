@@ -25,7 +25,7 @@
       '<a href="work.html">work</a>' +
       '<a href="beyond.html">about</a>' +
       '<a href="/lab">art lab</a>' +
-      '<a href="blog.html">blogs</a>' +
+      '<a href="blog.html">writing</a>' +
       '<a href="https://www.linkedin.com/in/gauravi-linjara/" target="_blank" rel="noopener">linkedin <span class="exti">↗</span></a>' +
       '<a href="assets/files/Gauravi_Linjara_Resume.pdf" target="_blank" rel="noopener">résumé <span class="exti">↓</span></a>' +
       '<a class="cta" href="quick.html">quick view <span class="arw">&rarr;</span></a>' +

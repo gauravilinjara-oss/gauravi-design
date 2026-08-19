@@ -25,8 +25,9 @@
         '<nav class="gf-cols" aria-label="footer">' +
           '<div class="gf-col"><span class="gf-h">explore</span>' +
             '<a href="work.html">work</a>' +
-            '<a href="beyond.html">lil about me</a>' +
-            '<a href="lab.html">art lab</a>' +
+            '<a href="beyond.html">about</a>' +
+            '<a href="/lab">art lab</a>' +
+            '<a href="/blog">writing</a>' +
             '<a href="assets/files/Gauravi_Linjara_Resume.pdf" target="_blank" rel="noopener">résumé ↓</a>' +
           '</div>' +
           '<div class="gf-col"><span class="gf-h">connect</span>' +
