@@ -1,1 +1,24 @@
 .worktrees/
+.env
+.env.*
+!.env.example
+.vercel/
+node_modules/
+test-results/
+playwright-report/
+
+# Private and unrelated material retained by earlier deployments.
+.agents/
+.claude/
+.superpowers/
+Resumes/
+job-search/
+_fxcheck_tmp/
+Mashreq screenshots/
+.archive/
+.responsive-backup/
+.unify-backup/
+_backup-cinematic-20260722/
+_migration-backup/
+.fuse_hidden*
+*.bak
