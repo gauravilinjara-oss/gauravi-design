@@ -169,3 +169,21 @@
 .case-study[data-case-accent] :is(.cards .card,.themes .theme,.voices .voice):hover{background:#fff;box-shadow:none;transform:none}
 .case-study[data-case-accent] .impact-sky .imp{background:#fff;box-shadow:none}
 .case-study[data-case-accent] .impact-sky .imp:hover{background:#fff;box-shadow:none;transform:none}
+
+/* Case-study motion stays fail-soft: page reveal systems own initial visibility. */
+.case-study .rv,.case-study .reveal{
+  transition:opacity 600ms var(--ease-expressive),transform 600ms var(--ease-expressive);
+}
+.case-study .rv.in,.case-study .reveal.in{opacity:1;transform:none}
+.case-study section[id]{scroll-margin-top:88px}
+.case-study :focus-visible{
+  outline:2px solid var(--focus-inner);outline-offset:2px;
+  box-shadow:0 0 0 5px var(--focus-ring);
+}
+@media(prefers-reduced-motion:reduce){
+  .case-study *{scroll-behavior:auto!important}
+  .case-study .rv,.case-study .reveal,.case-study .words .wcard,
+  .case-study .shiftblk .new,.case-study .shiftblk .arw,.case-study .shiftblk .ssub{
+    opacity:1!important;transform:none!important;animation:none!important;transition:none!important;
+  }
+}

@@ -33,6 +33,7 @@
 
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var coarse = matchMedia('(pointer: coarse)').matches;
+  var isCaseStudy = body.classList.contains('case-study');
   if (reduce) return;                       // content is never pre-hidden, so this is safe
 
   var gsap = window.gsap, ST = window.ScrollTrigger;
@@ -178,7 +179,7 @@
   })();
 
   /* ═══ TILT — cursor 3D tilt + specular sheen (dynamic light) ═════════ */
-  if (has('tilt') && !coarse) (function () {
+  if (has('tilt') && !coarse && !isCaseStudy) (function () {
     var AUTO = '.case .media, .wcard, .snap-card, [data-tilt]';
     var els = document.querySelectorAll(AUTO);
     [].forEach.call(els, function (el) {

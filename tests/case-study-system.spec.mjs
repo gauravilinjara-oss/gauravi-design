@@ -93,3 +93,45 @@ test('mobile navigation changes sections and follows reading position', async ({
 
   await expect(select).toHaveValue('2');
 });
+
+test('case studies remain visible with reduced motion', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/case-googlehealth.html');
+
+  const hidden = await page
+    .locator('.rv,.reveal,.words .wcard,.shiftblk .new')
+    .evaluateAll((nodes) => nodes.filter((node) => getComputedStyle(node).opacity === '0').length);
+
+  expect(hidden).toBe(0);
+});
+
+test('anchored chapter is not hidden by sticky navigation', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/case-mashreq.html#research');
+  await page.locator('#research').evaluate((node) => node.scrollIntoView({ block: 'start' }));
+
+  const targetTop = await page.locator('#research').evaluate((node) => node.getBoundingClientRect().top);
+  const navigationBottom = await page.locator('#caseMobileNav').evaluate((node) => {
+    return getComputedStyle(node).display === 'none' ? 0 : node.getBoundingClientRect().bottom;
+  });
+
+  expect(targetTop).toBeGreaterThanOrEqual(Math.max(88, navigationBottom));
+});
+
+test('case studies do not initialize decorative tilt', async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('desktop'));
+  await page.goto('/case-googlehealth.html');
+
+  await page.evaluate(async () => {
+    document.body.setAttribute('data-cine', 'tilt');
+    await new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = `/cinematic.js?tilt-test=${Date.now()}`;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.body.appendChild(script);
+    });
+  });
+
+  await expect(page.locator('.snap-card')).not.toHaveClass(/cn-tilt/);
+});
