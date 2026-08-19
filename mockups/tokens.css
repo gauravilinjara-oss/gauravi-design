@@ -17,7 +17,7 @@
 
 :root{
   /* ── NEW CANONICAL TOKENS ─────────────────────────────────────────────────── */
-  --ink:#16202b;            /* primary text                                      */
+  --ink: #16202b;           /* primary text                                      */
   --soft:#4E5F74;           /* secondary text                                    */
   --faint:#8b95a3;          /* tertiary / captions (cool)                        */
   --accent:#16202b;         /* flat near-black/navy — CTAs, structure            */
@@ -25,24 +25,32 @@
   --accent-soft:#e7ecf3;    /* light navy tint fill / chips                      */
   --on-accent:#ffffff;      /* text on navy fills                                */
   --green:#0083E7;          /* deep pine — italic emphasis accent                */
+  --sun: #ffc93c;
+  --link: #2f6cb8;
 
   /* surfaces — light & airy (cool near-white) */
   --page-bg:#ffffff;        /* base page background                              */
-  --surface:#f5f5f5;        /* raised cards                                      */
+  --surface: #f4f7fc;       /* raised cards                                      */
   --surface-2:#f5f5f5;      /* secondary surface                                 */
   --line:rgba(20,32,52,.12);/* hairlines / borders                               */
 
   /* type */
-  --font-display:"Switzer",system-ui,sans-serif;
-  --font-text:"Switzer",system-ui,sans-serif;
-  --font-accent:"Switzer",system-ui,sans-serif;
-  --font-mono:"Geist Mono",ui-monospace,Menlo,"SF Mono",monospace;
+  --font-display: Switzer, system-ui, sans-serif;
+  --font-text: Switzer, system-ui, sans-serif;
+  --font-accent: Switzer, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, Menlo, "SF Mono", monospace;
 
   /* rhythm, scale, motion */
   --edge:max(22px,8%);
   --maxw:1080px;
   --sp-section:clamp(64px,10vh,118px);
   --ease:cubic-bezier(.22,1,.36,1);          /* air.inc signature ease-out      */
+  --ease-standard: cubic-bezier(.2, 0, 0, 1);
+  --ease-expressive: cubic-bezier(.22, 1, .36, 1);
+  --motion-fast: 160ms;
+  --motion-standard: 260ms;
+  --motion-expressive: 500ms;
+  --hit-target: 44px;
 
   /* ── CRAFT PASS · scales ──────────────────────────────────────────────────
      Every spacing, radius, shadow and tracking value should come from here.
@@ -64,7 +72,7 @@
   --shadow-2:0 2px 6px rgba(20,32,52,.06), 0 24px 56px -28px rgba(20,32,52,.26);
 
   /* MOTION — one easing (--ease above) + one duration set. */
-  --dur-1:.18s; --dur-2:.32s; --dur-3:.5s;
+  --dur-1:var(--motion-fast); --dur-2:var(--motion-standard); --dur-3:var(--motion-expressive);
 
   /* TRACKING ladder — size-specific (see §2). */
   --tr-display:-.045em; --tr-h2:-.03em; --tr-h3:-.02em;
@@ -157,4 +165,3 @@ a{ text-underline-offset:3px; text-decoration-thickness:1px; }
      transition-duration:.01ms!important; scroll-behavior:auto!important; }
   .reveal,.rv,.case,.anim-w,.wr,.ai-rv,.tri-card{ opacity:1!important; transform:none!important; }
 }
-
