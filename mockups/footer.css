@@ -31,7 +31,7 @@
 #gfooter .gf-line{font-family:var(--font-text);font-size:15px;color:var(--soft,#4a4a40);}
 #gfooter .gf-line b{color:var(--ink,#22271e);font-weight:500;font-variant-numeric:tabular-nums;}
 
-#gfooter .gf-mark{display:inline-flex;align-items:flex-end;gap:clamp(7px,1vw,12px);font-family:var(--font-display);font-weight:900;font-size:clamp(28px,3.4vw,48px);letter-spacing:-.03em;color:var(--ink,#22271e);text-decoration:none;line-height:.85;text-transform:lowercase;}
+#gfooter .gf-mark{display:inline-flex;align-items:flex-end;gap:clamp(7px,1vw,12px);font-family:var(--font-display);font-weight:600;font-size:clamp(28px,3.4vw,48px);letter-spacing:-.03em;color:var(--ink,#22271e);text-decoration:none;line-height:.85;text-transform:lowercase;}
 #gfooter .gf-mark svg{width:.66em;height:.6em;flex:0 0 auto;margin-bottom:.04em;color:var(--sun,#ffc93c);}
 #gfooter .gf-bar{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:clamp(40px,8vh,80px);padding-top:22px;border-top:1px solid var(--line,rgba(20,32,52,.12));}
 #gfooter .gf-meta{display:flex;flex-direction:column;gap:3px;text-align:right;font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;text-transform:lowercase;color:var(--faint,#8b95a3);}

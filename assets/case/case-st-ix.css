@@ -15,7 +15,7 @@
 .st-steps .st-step{min-height:82vh;display:flex;flex-direction:column;justify-content:center;opacity:.4;transition:opacity .4s}
 .st-steps .st-step.act{opacity:1}
 .st-step .n{font-family:'Satoshi',monospace;font-size:12px;color:var(--accent);letter-spacing:.1em}
-.st-step h3{font-family:'Satoshi',sans-serif;font-weight:400;font-size:25px;letter-spacing:-.02em;margin:8px 0 10px;text-transform:lowercase}
+.st-step h3{font-family:'Satoshi',sans-serif;font-weight:500;font-size:25px;letter-spacing:-.02em;margin:8px 0 10px;}
 .st-step.act h3{color:var(--accent)}
 .st-step p{color:var(--ink-soft);font-size:15.5px;max-width:430px}
 @media(max-width:820px){

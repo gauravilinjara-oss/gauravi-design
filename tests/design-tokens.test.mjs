@@ -35,7 +35,49 @@ test('uses Satoshi as the single portfolio family', async () => {
     'assets/case/case-fx-ix.css',
     'assets/case/case-st-ix.css',
   ].map((path) => readFile(path, 'utf8')))).join('\n');
-  assert.doesNotMatch(source, /font-family\s*:[^;}]*\b(?:Switzer|Geist Mono|Fraunces|Archivo)\b/i);
+  assert.equal(source.match(/\b(?:Switzer|Geist\s*Mono|Fraunces|Archivo)\b/i)?.[0], undefined);
+});
+
+test('portfolio headings preserve their HTML casing', async () => {
+  const files = (await readdir('mockups'))
+    .filter((name) => /\.(?:css|html)$/.test(name));
+  const source = (await Promise.all([
+    ...files.map((name) => `mockups/${name}`),
+    'assets/case/case-bo-ix.css',
+    'assets/case/case-fx-ix.css',
+    'assets/case/case-st-ix.css',
+  ].map((path) => readFile(path, 'utf8')))).join('\n');
+  assert.equal(
+    source.match(/(?:^|})\s*[^{}]*\bh[1-4]\b[^{}]*\{[^{}]*text-transform\s*:\s*lowercase/i)?.[0],
+    undefined,
+  );
+});
+
+test('portfolio typography stays within the imported Satoshi weights', async () => {
+  const files = (await readdir('mockups'))
+    .filter((name) => /\.(?:css|html)$/.test(name))
+    .filter((name) => !['case-googlehealth.html', 'gh-redesign.html'].includes(name));
+  const source = (await Promise.all([
+    ...files.map((name) => `mockups/${name}`),
+    'assets/case/case-bo-ix.css',
+    'assets/case/case-fx-ix.css',
+    'assets/case/case-st-ix.css',
+  ].map((path) => readFile(path, 'utf8')))).join('\n');
+  assert.equal(source.match(/font-weight\s*:\s*[789]00\b|font\s*:\s*[789]00\b/i)?.[0], undefined);
+});
+
+test('portfolio heading overrides retain the editorial weight hierarchy', async () => {
+  const files = (await readdir('mockups'))
+    .filter((name) => /\.(?:css|html)$/.test(name))
+    .filter((name) => !['case-googlehealth.html', 'gh-redesign.html'].includes(name));
+  const source = (await Promise.all([
+    ...files.map((name) => `mockups/${name}`),
+    'assets/case/case-bo-ix.css',
+    'assets/case/case-fx-ix.css',
+    'assets/case/case-st-ix.css',
+  ].map((path) => readFile(path, 'utf8')))).join('\n');
+  assert.equal(source.match(/\bh1\b[^{}]*\{[^{}]*font-weight\s*:\s*(?!400\b)\d+/i)?.[0], undefined);
+  assert.equal(source.match(/\bh[2-4]\b[^{}]*\{[^{}]*font-weight\s*:\s*(?!500\b)\d+/i)?.[0], undefined);
 });
 
 test('shared controls do not use Arial or transition all', async () => {

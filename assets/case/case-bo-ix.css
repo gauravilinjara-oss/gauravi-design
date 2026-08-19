@@ -51,7 +51,7 @@
 .rrole.checker{background:rgba(232,181,60,.20);color:#9a6f17}
 .rrole.auth{background:var(--accent-soft);color:var(--accent)}
 .rnum{font-family:'Satoshi',monospace;font-size:11px;letter-spacing:.12em;color:var(--accent);margin-bottom:5px}
-.rstep h4{font-family:'Satoshi',sans-serif;font-weight:400;font-size:15.5px;line-height:1.2;margin:0 0 5px}
+.rstep h4{font-family:'Satoshi',sans-serif;font-weight:500;font-size:15.5px;line-height:1.2;margin:0 0 5px}
 .rstep p{font-size:13px;color:var(--ink-soft);margin:0;line-height:1.45}
 .rfork{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto;padding-top:13px}
 .rfork .fork{font-family:'Satoshi',monospace;font-size:10px;letter-spacing:.02em;padding:5px 9px;border-radius:8px;white-space:nowrap}
@@ -74,7 +74,7 @@
 .bo-sc-step{min-height:70vh;display:flex;flex-direction:column;justify-content:center;opacity:.32;transition:opacity .4s ease}
 .bo-sc-step.act{opacity:1}
 .bo-sc-step .n{font-family:'Satoshi',monospace;font-size:12px;letter-spacing:.14em;color:var(--accent)}
-.bo-sc-step h3{font-family:'Satoshi',sans-serif;font-weight:400;font-size:clamp(22px,3vw,30px);letter-spacing:-.02em;margin:8px 0 10px;line-height:1.1}
+.bo-sc-step h3{font-family:'Satoshi',sans-serif;font-weight:500;font-size:clamp(22px,3vw,30px);letter-spacing:-.02em;margin:8px 0 10px;line-height:1.1}
 .bo-sc-step p{font-size:16px;color:var(--ink-soft);max-width:440px;margin:0;line-height:1.55}
 @media(max-width:760px){.bo-scrolly{grid-template-columns:1fr;gap:0}.bo-sticky{position:static;margin-bottom:30px}.bo-sc-steps{gap:8vh;padding:6vh 0}.bo-sc-step{opacity:1;min-height:auto}}
 
@@ -137,7 +137,7 @@
 .bo-branch{margin:66px auto 0;max-width:800px}
 .bo-branch .bb-head{margin-bottom:6px}
 .bo-branch .bb-eyebrow{font-family:'Satoshi',monospace;font-size:12px;letter-spacing:.14em;color:var(--accent)}
-.bo-branch .bb-head h3{font-family:'Satoshi',sans-serif;font-weight:400;font-size:clamp(20px,2.6vw,27px);letter-spacing:-.02em;margin:9px 0 9px;line-height:1.12}
+.bo-branch .bb-head h3{font-family:'Satoshi',sans-serif;font-weight:500;font-size:clamp(20px,2.6vw,27px);letter-spacing:-.02em;margin:9px 0 9px;line-height:1.12}
 .bo-branch .bb-head p{font-size:15px;color:var(--ink-soft);max-width:580px;margin:0;line-height:1.55}
 .bb-gate{display:grid;grid-template-columns:172px 142px 22px 1fr;gap:18px;align-items:center;padding:19px 0;border-top:1px solid var(--line)}
 .bb-gate:last-child{border-bottom:1px solid var(--line)}
