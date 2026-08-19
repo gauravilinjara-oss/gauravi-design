@@ -28,6 +28,20 @@ test('shared shell offsets the entire case-study flow on desktop', async () => {
     'a main-only offset cannot leave sibling content beneath the rail');
 });
 
+test('shared case-study typography follows the restrained Bridgeway scale', async () => {
+  const css = await readFile('mockups/case-editorial.css', 'utf8');
+  assert.match(css, /header\.hero h1\{[\s\S]*?font-size:clamp\(42px,4\.4vw,56px\)/,
+    'desktop case-study titles cap at the 56px reference size');
+  assert.match(css, /\.sec-head h2\{[\s\S]*?font-size:clamp\(28px,2\.5vw,32px\)[^}]*line-height:1\.18/,
+    'section headings use the 32px reference size and leading');
+  assert.match(css, /\.section-lede\{[^}]*margin-top:16px[^}]*font-size:15px[^}]*line-height:1\.5/,
+    'section introductions keep the reference 16px gap and 15px\/22.5px text rhythm');
+  assert.match(css, /\.case-study section\{padding-block:56px;/,
+    'standard sections use the reference 56px vertical rhythm');
+  assert.match(css, /\.case-study \.trust-sec\{padding-block:48px 32px\}/,
+    'the social-proof strip remains compact');
+});
+
 test('project accent is inherited and consumed by editorial chrome', async () => {
   const css = await readFile('mockups/case-editorial.css', 'utf8');
   assert.doesNotMatch(css, /--case-accent\s*:/,
