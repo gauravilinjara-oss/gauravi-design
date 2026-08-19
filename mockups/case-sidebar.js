@@ -1,103 +1,146 @@
 /* ============================================================
-   case-sidebar.js — builds the persistent left rail.
-   Zero per-page config: it reads the project name from <title>,
-   Role + Timeline from the existing "Case snapshot" card, and the
-   section list from every .sec-head eyebrow on the page, then wires
-   scroll-spy + smooth-scroll + a reading-progress meter.
-   Only meaningful >=1180px (CSS hides it below that).
+   case-sidebar.js — builds responsive case-study navigation.
+   It reads project metadata from the snapshot card and creates
+   one shared section model for the desktop rail and mobile select.
    ============================================================ */
 (function(){
-  // bail on small screens — the rail is desktop-only; re-check on resize.
-  function active(){ return window.matchMedia('(min-width:1180px)').matches; }
-  if(document.getElementById('caserail')) return;
+  if(document.getElementById('caserail') || document.getElementById('caseMobileNav')) return;
 
-  /* ---- project name from <title> ("FX Online - Gauravi Linjara") ---- */
-  var proj=(document.title||'case study').split(/\s*[,\-–—]\s+/)[0].trim();
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
-  /* ---- Role + Timeline from the snapshot card ---- */
   function fact(name){
     var facts=document.querySelectorAll('.snap-card .snap-fact');
     for(var i=0;i<facts.length;i++){
-      var eb=facts[i].querySelector('.eyebrow');
-      if(eb && eb.textContent.trim().toLowerCase()===name){
-        var p=facts[i].querySelector('p'); return p?p.textContent.trim():'';
+      var eyebrow=facts[i].querySelector('.eyebrow');
+      if(eyebrow && eyebrow.textContent.trim().toLowerCase()===name){
+        var p=facts[i].querySelector('p');
+        return p?p.textContent.trim():'';
       }
     }
     return '';
   }
+
+  function getSectionEntries(){
+    var entries=[];
+    var hero=document.querySelector('header.hero');
+    if(hero){
+      hero.id=hero.id||'overview';
+      entries.push({el:hero,num:'',label:hero.dataset.navLabel||'Overview',a:null});
+    }
+    document.querySelectorAll('section').forEach(function(section,index){
+      var eyebrow=section.querySelector('.sec-head .eyebrow');
+      if(!eyebrow) return;
+      var match=eyebrow.textContent.trim().match(/^(\d+)\s*·\s*(.+)$/);
+      section.id=section.id||'chapter-'+(index+1);
+      entries.push({
+        el:section,
+        num:section.dataset.navNumber||(match&&match[1])||'',
+        label:section.dataset.navLabel||(match&&match[2])||eyebrow.textContent.trim(),
+        a:null
+      });
+    });
+    return entries;
+  }
+
+  function scrollToEntry(entry){
+    var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    entry.el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+    history.replaceState(null,'','#'+entry.el.id);
+  }
+
+  function buildMobileNav(entries){
+    var holder=document.createElement('div');
+    holder.id='caseMobileNav';
+    holder.innerHTML='<label for="caseSectionSelect">In this case study</label><select id="caseSectionSelect" aria-label="Jump to a section"></select>';
+    var select=holder.querySelector('select');
+    entries.forEach(function(entry,index){
+      select.add(new Option((entry.num?entry.num+' · ':'')+entry.label,String(index)));
+    });
+    var content=document.querySelector('main')||document.querySelector('header.hero');
+    content?.before(holder);
+    return {holder:holder,select:select};
+  }
+
+  var entries=getSectionEntries();
+  if(entries.length<2) return;
+
+  var proj=(document.title||'case study').split(/\s*[,\-–—]\s+/)[0].trim();
   var roleRaw=fact('role'), timeline=fact('timeline');
-  // split "Sr. Product Designer — FX Online, Emirates NBD" into role + org line
   var roleParts=roleRaw.split(/\s+[—–·]\s+/);
   var role=roleParts[0]||roleRaw, org=roleParts.slice(1).join(' · ');
 
-  /* ---- sections: every block with a .sec-head eyebrow ---- */
-  var entries=[];
-  // overview anchor = the hero
-  var hero=document.querySelector('header.hero');
-  if(hero){ if(!hero.id) hero.id='top'; entries.push({el:hero,num:'',label:'overview',a:null}); }
-  Array.prototype.forEach.call(document.querySelectorAll('section'),function(s){
-    var eb=s.querySelector('.sec-head .eyebrow'); if(!eb) return;
-    var raw=eb.textContent.trim();
-    var m=raw.match(/^(\d+)\s*·\s*(.+)$/);   // "01 · Context"
-    var num=m?m[1]:'', label=(m?m[2]:raw).toLowerCase();
-    if(!s.id) s.id='sec-'+entries.length;
-    entries.push({el:s,num:num,label:label,a:null});
-  });
-  if(entries.length<2) return;   // not a case-study layout
-
-  /* ---- build the rail ---- */
   var rail=document.createElement('aside');
-  rail.id='caserail'; rail.setAttribute('aria-label','Case study contents');
-
-  var html='<a class="cr-proj" href="#'+(hero?hero.id:entries[0].el.id)+'">'+esc(proj)+'<span class="a">.</span></a>';
+  rail.id='caserail';
+  rail.setAttribute('aria-label','Case study contents');
+  var html='<a class="cr-proj" href="#'+entries[0].el.id+'">'+esc(proj)+'<span class="a">.</span></a>';
   html+='<div class="cr-meta">';
   if(role) html+='<div class="cr-fact"><span>Role</span><p>'+esc(role)+(org?'<span class="org">'+esc(org)+'</span>':'')+'</p></div>';
   if(timeline) html+='<div class="cr-fact"><span>Timeline</span><p>'+esc(timeline)+'</p></div>';
   html+='</div><div class="cr-rule"></div>';
-  html+='<div class="cr-navlabel">contents</div><nav class="cr-nav" id="crNav"></nav>';
+  html+='<div class="cr-navlabel">Contents</div><nav class="cr-nav" id="crNav"></nav>';
   html+='<div class="cr-foot"><div class="cr-prog"><i id="crProgBar"></i></div><div class="cr-pct" id="crPct">0%</div></div>';
   rail.innerHTML=html;
   document.body.appendChild(rail);
 
   var navEl=rail.querySelector('#crNav');
-  entries.forEach(function(en){
+  entries.forEach(function(entry){
     var a=document.createElement('a');
-    a.href='#'+en.el.id;
-    a.innerHTML='<i>'+(en.num||'')+'</i><span>'+esc(en.label)+'</span>';
-    a.addEventListener('click',function(ev){
-      ev.preventDefault();
-      en.el.scrollIntoView({behavior:'smooth',block:'start'});
-    });
-    en.a=a; navEl.appendChild(a);
+    a.href='#'+entry.el.id;
+    a.innerHTML='<i>'+entry.num+'</i><span>'+esc(entry.label)+'</span>';
+    entry.a=a;
+    navEl.appendChild(a);
   });
 
-  /* ---- scroll-spy: highlight the section nearest the top third ---- */
-  var spy=new IntersectionObserver(function(es){
-    es.forEach(function(e){ e.target.__vis=e.isIntersecting; });
-    // pick the topmost visible entry
-    var win=null;
-    for(var i=0;i<entries.length;i++){ if(entries[i].el.__vis){ win=entries[i]; break; } }
-    if(win){ entries.forEach(function(en){
-      var on=en===win; en.a.classList.toggle('on',on);
-      if(on) en.a.setAttribute('aria-current','true'); else en.a.removeAttribute('aria-current');
-    }); }
-  },{rootMargin:'-12% 0px -70% 0px',threshold:0});
-  entries.forEach(function(en){ spy.observe(en.el); });
+  var mobile=buildMobileNav(entries);
 
-  /* ---- reading progress ---- */
+  function setActive(index){
+    entries.forEach(function(entry,entryIndex){
+      var on=entryIndex===index;
+      entry.a.classList.toggle('on',on);
+      if(on) entry.a.setAttribute('aria-current','location');
+      else entry.a.removeAttribute('aria-current');
+    });
+    mobile.select.value=String(index);
+  }
+
+  entries.forEach(function(entry,index){
+    entry.a.addEventListener('click',function(event){
+      event.preventDefault();
+      setActive(index);
+      scrollToEntry(entry);
+    });
+  });
+  mobile.select.addEventListener('change',function(){
+    var index=Number(mobile.select.value);
+    setActive(index);
+    scrollToEntry(entries[index]);
+  });
+  setActive(0);
+
+  var spy=new IntersectionObserver(function(changes){
+    changes.forEach(function(change){ change.target.__caseVisible=change.isIntersecting; });
+    for(var i=0;i<entries.length;i++){
+      if(entries[i].el.__caseVisible){
+        setActive(i);
+        break;
+      }
+    }
+  },{rootMargin:'-12% 0px -70% 0px',threshold:0});
+  entries.forEach(function(entry){ spy.observe(entry.el); });
+
   var bar=rail.querySelector('#crProgBar'), pct=rail.querySelector('#crPct'), ticking=false;
   function paint(){
     ticking=false;
-    var h=document.documentElement, max=(h.scrollHeight-h.clientHeight)||1;
-    var p=Math.max(0,Math.min(1,(window.scrollY||h.scrollTop)/max));
-    bar.style.width=(p*100).toFixed(1)+'%';
-    pct.textContent=Math.round(p*100)+'%';
+    var root=document.documentElement, max=(root.scrollHeight-root.clientHeight)||1;
+    var progress=Math.max(0,Math.min(1,(window.scrollY||root.scrollTop)/max));
+    bar.style.width=(progress*100).toFixed(1)+'%';
+    pct.textContent=Math.round(progress*100)+'%';
   }
-  window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(paint); } },{passive:true});
+  window.addEventListener('scroll',function(){
+    if(!ticking){ ticking=true; requestAnimationFrame(paint); }
+  },{passive:true});
   window.addEventListener('resize',paint);
   paint();
-
-  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 })();
 
 /* shift blocks: kinetic reveal (rolled out across cases) */
