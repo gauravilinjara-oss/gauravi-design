@@ -30,11 +30,87 @@ for (const path of cases) {
       await expect(page.locator('#caseSectionSelect option')).toHaveCount(expectedTargets.length);
     }
 
+    await expect(page.locator('#caserail:visible,#caseMobileNav:visible,#secnav:visible')).toHaveCount(1);
+    expect(await page.locator('#caserail,#caseMobileNav').evaluateAll((navigators) => {
+      const content = document.querySelector('body > main, body > header.hero, body > section');
+      return navigators.every((navigator) => Boolean(
+        navigator.compareDocumentPosition(content) & Node.DOCUMENT_POSITION_FOLLOWING
+      ));
+    })).toBe(true);
+
     const overflow = await page.evaluate(() =>
       document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow).toBeLessThanOrEqual(1);
   });
 }
+
+test('case content clears the desktop rail at every supported desktop boundary', async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('desktop'));
+
+  for (const path of cases) {
+    await page.setViewportSize({ width: 1180, height: 900 });
+    await page.goto(path, { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#caserail')).toBeVisible();
+
+    for (const width of [1180, 1280, 1366, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.evaluate(() => new Promise(requestAnimationFrame));
+      const geometry = await page.evaluate(() => {
+        const rail = document.querySelector('#caserail').getBoundingClientRect();
+        const flow = Array.from(document.querySelectorAll(
+          'body > main, body > header.hero, body > section, body > footer'
+        )).filter((element) => {
+          const style = getComputedStyle(element);
+          const rect = element.getBoundingClientRect();
+          return style.display !== 'none' && style.visibility !== 'hidden' && rect.height > 0;
+        }).map((element) => ({
+          tag: element.tagName,
+          id: element.id,
+          left: element.getBoundingClientRect().left,
+        }));
+        return { railRight: rail.right, flow };
+      });
+
+      expect(geometry.flow.length, `${path} at ${width}px`).toBeGreaterThan(0);
+      for (const entry of geometry.flow) {
+        expect(entry.left, `${path} ${entry.tag}#${entry.id} at ${width}px`)
+          .toBeGreaterThanOrEqual(geometry.railRight - .5);
+      }
+    }
+  }
+});
+
+test('case content remains full width on mobile', async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('mobile'));
+
+  for (const path of cases) {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(path);
+    const geometry = await page.evaluate(() => {
+      const content = document.querySelector('body > main, body > header.hero, body > section');
+      const rect = content.getBoundingClientRect();
+      return {
+        paddingLeft: Number.parseFloat(getComputedStyle(document.body).paddingLeft),
+        left: rect.left,
+        right: rect.right,
+      };
+    });
+    expect(geometry.paddingLeft, path).toBe(0);
+    expect(geometry.left, path).toBeCloseTo(0, 1);
+    expect(geometry.right, path).toBeCloseTo(390, 1);
+  }
+});
+
+test('intermediate desktop exposes exactly one case navigator', async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('desktop'));
+  await page.setViewportSize({ width: 1024, height: 900 });
+
+  for (const path of cases) {
+    await page.goto(path);
+    await expect(page.locator('#caserail:visible,#caseMobileNav:visible,#secnav:visible')).toHaveCount(1);
+    await expect(page.locator('#caseMobileNav')).toBeVisible();
+  }
+});
 
 test('desktop navigation updates the URL and honors reduced motion', async ({ page }, testInfo) => {
   test.skip(!testInfo.project.name.startsWith('desktop'));
@@ -103,6 +179,30 @@ test('case studies remain visible with reduced motion', async ({ page }) => {
     .evaluateAll((nodes) => nodes.filter((node) => getComputedStyle(node).opacity === '0').length);
 
   expect(hidden).toBe(0);
+});
+
+test('substantive reveal modules remain visible with JavaScript disabled', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 1280, height: 900 } });
+  const page = await context.newPage();
+
+  await page.goto('/case-googlehealth.html');
+  await expect(page.locator('.rv')).not.toHaveCount(0);
+  expect(await page.locator('.rv').evaluateAll((nodes) => nodes.filter((node) => {
+    const style = getComputedStyle(node);
+    return style.opacity === '0' || style.visibility === 'hidden';
+  }).length)).toBe(0);
+
+  await page.goto('/case-mashreq.html');
+  await expect(page.locator('.reveal')).not.toHaveCount(0);
+  await expect(page.locator('.words .wcard')).not.toHaveCount(0);
+  await expect(page.locator('.shiftblk')).not.toHaveCount(0);
+  expect(await page.locator('.reveal,.words .wcard,.shiftblk .new,.shiftblk .arw,.shiftblk .ssub')
+    .evaluateAll((nodes) => nodes.filter((node) => {
+      const style = getComputedStyle(node);
+      return style.opacity === '0' || style.visibility === 'hidden';
+    }).length)).toBe(0);
+
+  await context.close();
 });
 
 test('anchored chapter is not hidden by sticky navigation', async ({ page }) => {

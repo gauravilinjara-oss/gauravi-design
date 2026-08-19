@@ -7,7 +7,7 @@
    Markup contract kept: <span class="lbl">…</span>, <span class="arw">→</span>.
    ─────────────────────────────────────────────────────────── */
 .ink-btn{position:relative;display:inline-flex;align-items:center;gap:9px;
-  font-family:var(--font-mono,"Satoshi",monospace);font-size:13px;letter-spacing:.04em;text-transform:lowercase;text-decoration:none;line-height:1;
+  font-family:var(--font-mono,"Satoshi",system-ui,sans-serif);font-size:13px;letter-spacing:.04em;text-transform:lowercase;text-decoration:none;line-height:1;
   padding:14px 22px;border:1px solid var(--accent,#16202b);color:var(--accent,#16202b);background:transparent;cursor:pointer;
   border-radius:8px;
   transition:background-color var(--motion-standard,260ms) var(--ease-standard,ease),color var(--motion-standard,260ms) var(--ease-standard,ease),border-color var(--motion-standard,260ms) var(--ease-standard,ease),transform var(--motion-expressive,500ms) var(--ease-expressive,cubic-bezier(.22,1,.36,1));

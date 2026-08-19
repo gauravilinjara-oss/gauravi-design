@@ -14,8 +14,8 @@
 .st-stage::after{content:'';position:absolute;left:0;right:0;bottom:0;height:64px;background:linear-gradient(transparent,#fff);pointer-events:none;z-index:2}
 .st-steps .st-step{min-height:82vh;display:flex;flex-direction:column;justify-content:center;opacity:.4;transition:opacity .4s}
 .st-steps .st-step.act{opacity:1}
-.st-step .n{font-family:'Satoshi',monospace;font-size:12px;color:var(--accent);letter-spacing:.1em}
-.st-step h3{font-family:'Satoshi',sans-serif;font-weight:500;font-size:25px;letter-spacing:-.02em;margin:8px 0 10px;}
+.st-step .n{font-family:'Satoshi',system-ui,sans-serif;font-size:12px;color:var(--accent);letter-spacing:.1em}
+.st-step h3{font-family:'Satoshi',system-ui,sans-serif;font-weight:500;font-size:25px;letter-spacing:-.02em;margin:8px 0 10px;}
 .st-step.act h3{color:var(--accent)}
 .st-step p{color:var(--ink-soft);font-size:15.5px;max-width:430px}
 @media(max-width:820px){
@@ -28,10 +28,10 @@
 /* ---- hotspot annotations on a single screen ---- */
 .ix-hs{position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(42,37,32,.12);box-shadow:0 26px 64px -32px rgba(42,37,32,.3)}
 .ix-hs img{display:block;width:100%}
-.ix-pin{position:absolute;width:28px;height:28px;border-radius:50%;background:var(--accent);border:3px solid #fff;cursor:pointer;box-shadow:0 3px 12px rgba(0,0,0,.3);display:grid;place-items:center;color:#fff;font-size:13px;font-family:'Satoshi',monospace;z-index:2;transform:translate(-50%,-50%)}
+.ix-pin{position:absolute;width:28px;height:28px;border-radius:50%;background:var(--accent);border:3px solid #fff;cursor:pointer;box-shadow:0 3px 12px rgba(0,0,0,.3);display:grid;place-items:center;color:#fff;font-size:13px;font-family:'Satoshi',system-ui,sans-serif;z-index:2;transform:translate(-50%,-50%)}
 .ix-pin::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid var(--accent);animation:ixping 1.9s ease-out infinite}
 @keyframes ixping{0%{transform:scale(.6);opacity:.7}100%{transform:scale(1.6);opacity:0}}
-.ix-pin .tip{position:absolute;bottom:150%;left:50%;transform:translateX(-50%);width:230px;background:var(--ink);color:#fff;font-family:'Satoshi',sans-serif;font-size:13px;line-height:1.42;padding:11px 13px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;text-transform:none;letter-spacing:0;z-index:5}
+.ix-pin .tip{position:absolute;bottom:150%;left:50%;transform:translateX(-50%);width:230px;background:var(--ink);color:#fff;font-family:'Satoshi',system-ui,sans-serif;font-size:13px;line-height:1.42;padding:11px 13px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;text-transform:none;letter-spacing:0;z-index:5}
 .ix-pin .tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:var(--ink)}
 .ix-pin:hover .tip,.ix-pin.open .tip{opacity:1;bottom:165%}
 /* flip tooltips that sit low on the image so they don't clip */
@@ -46,7 +46,7 @@
 .st-cell .st-thumb{height:300px;overflow:hidden;background:#fff}
 .st-cell .st-thumb img{width:100%;display:block;object-fit:cover;object-position:top center;transition:transform .5s}
 .st-cell:hover .st-thumb img{transform:scale(1.04)}
-.st-cell .cap{position:absolute;left:0;right:0;bottom:0;padding:24px 14px 12px;background:linear-gradient(transparent,rgba(20,18,15,.82));color:#fff;font-family:'Satoshi',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.st-cell .cap{position:absolute;left:0;right:0;bottom:0;padding:24px 14px 12px;background:linear-gradient(transparent,rgba(20,18,15,.82));color:#fff;font-family:'Satoshi',system-ui,sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
 .st-cell .zoom{position:absolute;top:11px;right:11px;width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.92);display:grid;place-items:center;font-size:14px;color:var(--ink);opacity:0;transform:translateY(-4px);transition:.25s;box-shadow:0 3px 10px rgba(0,0,0,.18)}
 .st-cell:hover .zoom{opacity:1;transform:none}
 @media(max-width:680px){.st-bento{grid-template-columns:1fr}}
@@ -55,4 +55,4 @@
 #stlb.on{display:block}
 #stlb img{display:block;max-width:1040px;width:100%;height:auto;margin:0 auto;border-radius:10px;box-shadow:0 30px 90px rgba(0,0,0,.5)}
 #stlb .x{position:fixed;top:18px;right:26px;color:#fff;font-size:30px;line-height:1;cursor:pointer;z-index:2;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.12)}
-#stlb .hint{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-family:'Satoshi',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;z-index:2}
+#stlb .hint{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-family:'Satoshi',system-ui,sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;z-index:2}

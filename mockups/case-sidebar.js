@@ -56,7 +56,7 @@
     entries.forEach(function(entry,index){
       select.add(new Option((entry.num?entry.num+' · ':'')+entry.label,String(index)));
     });
-    var content=document.querySelector('main')||document.querySelector('header.hero');
+    var content=document.querySelector('body > main, body > header.hero, body > section');
     content?.before(holder);
     return {holder:holder,select:select};
   }
@@ -80,7 +80,9 @@
   html+='<div class="cr-navlabel">Contents</div><nav class="cr-nav" id="crNav"></nav>';
   html+='<div class="cr-foot"><div class="cr-prog"><i id="crProgBar"></i></div><div class="cr-pct" id="crPct">0%</div></div>';
   rail.innerHTML=html;
-  document.body.appendChild(rail);
+  var content=document.querySelector('body > main, body > header.hero, body > section');
+  if(!content) return;
+  content.before(rail);
 
   var navEl=rail.querySelector('#crNav');
   entries.forEach(function(entry){

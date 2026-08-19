@@ -20,7 +20,7 @@
   display:inline-flex; align-items:center; gap:9px; cursor:pointer;
   background:#fff; color:var(--gc-ink);
   border:1px solid rgba(20,32,52,.12); border-radius:999px; padding:9px 16px 9px 13px;
-  box-shadow:0 6px 18px -10px rgba(20,32,52,.25); font-family:"Satoshi",monospace;
+  box-shadow:0 6px 18px -10px rgba(20,32,52,.25); font-family:"Satoshi",system-ui,sans-serif;
   font-size:11px; letter-spacing:.12em; text-transform:uppercase;
   transition:transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s, border-color .2s, opacity .2s;
 }
@@ -53,7 +53,7 @@
 .gachat-av{ width:38px; height:38px; flex:0 0 38px; border-radius:50%; display:grid; place-items:center; color:#fff;
   background:radial-gradient(120% 120% at 30% 25%,#5a93cf,var(--gc-accent)); box-shadow:inset 0 1px 1px rgba(255,255,255,.5), 0 4px 14px -4px rgba(31,114,201,.6); }
 .gachat-av svg{ width:20px; height:20px; }
-.gachat-head .sub{ display:flex; align-items:center; gap:6px; font-family:"Satoshi",monospace; font-size:10px;
+.gachat-head .sub{ display:flex; align-items:center; gap:6px; font-family:"Satoshi",system-ui,sans-serif; font-size:10px;
   text-transform:uppercase; letter-spacing:.09em; color:var(--gc-muted); margin-top:5px; white-space:nowrap; }
 .gachat-head .sub .live{ flex:0 0 auto; }
 .gachat-head .sub .live{ width:6px; height:6px; border-radius:50%; background:#5fd29a;
@@ -136,7 +136,7 @@
 .gachat-iconbtn.gc-voice.on{ background:var(--gc-accent); color:#fff; }
 .gachat-iconbtn.gc-voice.on:hover{ background:var(--gc-accent); color:#fff; }
 @media (prefers-reduced-motion: reduce){ .gachat-mic.listening{ animation:none; } }
-.gachat-foot{ font-family:"Satoshi",monospace; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase;
+.gachat-foot{ font-family:"Satoshi",system-ui,sans-serif; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase;
   color:var(--gc-muted); text-align:center; padding:0 0 10px; }
 
 @media (max-width:480px){
@@ -166,9 +166,9 @@
   box-shadow:inset 0 1px 1px rgba(255,255,255,.7), 0 14px 28px -16px rgba(18,40,72,.45); }
 .gachat-card-ttl{ font-family:"Satoshi",system-ui,sans-serif; font-weight:600; font-size:14px; letter-spacing:-.01em;
   text-transform:lowercase; color:var(--gc-ink); line-height:1.05; }
-.gachat-card-meta{ font-family:"Satoshi",monospace; font-size:10px; letter-spacing:.06em;
+.gachat-card-meta{ font-family:"Satoshi",system-ui,sans-serif; font-size:10px; letter-spacing:.06em;
   text-transform:uppercase; color:var(--gc-muted); }
-.gachat-card-go{ font-family:"Satoshi",monospace; font-size:11px; letter-spacing:.06em;
+.gachat-card-go{ font-family:"Satoshi",system-ui,sans-serif; font-size:11px; letter-spacing:.06em;
   text-transform:uppercase; color:var(--gc-accent); margin-top:5px; }
 .gachat-follow{ align-self:flex-start; margin-left:33px; display:flex; flex-wrap:wrap; gap:7px; max-width:90%; }
 .gachat-chip.sm{ font-size:12px; padding:7px 12px; border-radius:20px; }

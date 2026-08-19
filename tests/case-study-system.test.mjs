@@ -20,12 +20,12 @@ Object.assign(requiredLabels, {
   'case-googlehealth.html': ['Overview','Context','Audit','Principles','Solution','System','Prototype','Testing','Reflection'],
 });
 
-test('shared shell applies only one desktop content offset', async () => {
+test('shared shell offsets the entire case-study flow on desktop', async () => {
   const css = await readFile('mockups/case-editorial.css', 'utf8');
-  assert.match(css, /\.case-study\s*\{[^}]*padding-left:0;/s,
-    'editorial body neutralizes the legacy sidebar padding');
-  assert.match(css, /\.case-study main\{margin-left:var\(--case-rail\)\}/,
-    'the variable-driven main offset remains authoritative');
+  assert.match(css, /@media\s*\(min-width:1180px\)\s*\{[\s\S]*?\.case-study\s*\{[^}]*padding-left:var\(--case-rail\)/,
+    'the desktop rail offset applies to every body-level case-study child');
+  assert.doesNotMatch(css, /\.case-study main\s*\{[^}]*margin-left:/,
+    'a main-only offset cannot leave sibling content beneath the rail');
 });
 
 test('project accent is inherited and consumed by editorial chrome', async () => {
@@ -64,6 +64,7 @@ for (const name of cases) {
     assert.ok($('[data-case-accent]').length === 1, 'one project accent hook');
     assert.equal(new Set($('section[id]').map((_, el) => $(el).attr('id')).get()).size,
       $('section[id]').length, 'unique section ids');
+    assert.doesNotMatch(html, /secnav/i, 'legacy case navigator is completely removed');
   });
 }
 
