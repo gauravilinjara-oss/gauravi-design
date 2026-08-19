@@ -1,0 +1,33 @@
+{
+  "redirects": [
+    { "source": "/making", "destination": "/artofmaking", "permanent": true },
+    { "source": "/making.html", "destination": "/artofmaking", "permanent": true },
+    { "source": "/lab.html", "destination": "/lab", "permanent": true },
+    { "source": "/health", "destination": "/mockups/gh-redesign.html", "permanent": false },
+    { "source": "/journey.html", "destination": "/", "permanent": true },
+    { "source": "/journey", "destination": "/", "permanent": true },
+    { "source": "/meadow.html", "destination": "/", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/", "destination": "/mockups/meadow-ship.html" },
+    { "source": "/lab", "destination": "/mockups/lab.html" },
+    { "source": "/site-info", "destination": "/mockups/site-info.html" },
+    { "source": "/blog", "destination": "/mockups/blog.html" },
+    { "source": "/artofmaking", "destination": "/mockups/making.html" },
+    { "source": "/bridging", "destination": "/mockups/bridging.html" },
+    { "source": "/say-my-name", "destination": "/mockups/lab-sayit.html" },
+    { "source": "/yawn", "destination": "/mockups/lab-excuse.html" },
+    { "source": "/excuse", "destination": "/mockups/lab-excuse.html" },
+    { "source": "/((?!api/|assets/|mockups/).*)", "destination": "/mockups/$1" }
+  ],
+  "headers": [
+    {
+      "source": "/((?!assets/).*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" },
+        { "key": "Vercel-CDN-Cache-Control", "value": "no-cache" }
+      ]
+    }
+  ]
+}
+
