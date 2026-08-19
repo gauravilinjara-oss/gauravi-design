@@ -5,7 +5,7 @@
 .bo-phone .scr::before{content:'';position:absolute;top:14px;left:50%;transform:translateX(-50%);width:78px;height:18px;background:#1c1a17;border-radius:0 0 14px 14px;z-index:3}
 .bo-phone .scr video,.bo-phone .scr img{width:100%;height:100%;object-fit:cover;border-radius:26px;display:block}
 .bo-phone.tall .scr img{object-position:top}
-.bo-phone .cap{font-family:'Geist Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);text-align:center;margin-top:14px}
+.bo-phone .cap{font-family:'Satoshi',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);text-align:center;margin-top:14px}
 @media(max-width:760px){.bo-phones{grid-template-columns:1fr 1fr}.bo-phone.tall{grid-column:span 2;max-width:300px;margin:0 auto}}
 
 .bo-board{border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 24px 60px -34px rgba(42,37,32,.4);cursor:zoom-in;background:#fff}
@@ -17,7 +17,7 @@
 .bo-tilt .card{border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 24px 60px -34px rgba(42,37,32,.4);transition:transform .35s ease;transform-style:preserve-3d}
 .bo-tilt:hover .card{transform:rotateX(4deg) rotateY(-6deg) scale(1.02)}
 .bo-tilt .card img{display:block;width:100%}
-.bo-tilt .t{font-family:'Geist Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);margin-top:12px}
+.bo-tilt .t{font-family:'Satoshi',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);margin-top:12px}
 @media(max-width:760px){.bo-tilts{grid-template-columns:1fr}}
 
 .bo-ba{position:relative;width:100%;max-width:300px;margin:0 auto;aspect-ratio:887/1786;border-radius:30px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 70px -40px rgba(0,0,0,.5);user-select:none;cursor:ew-resize;background:#fff}
@@ -25,7 +25,7 @@
 .bo-ba .after{clip-path:inset(0 0 0 var(--x,50%))}
 .bo-ba .ba-handle{position:absolute;top:0;bottom:0;left:var(--x,50%);width:3px;background:var(--accent);transform:translateX(-50%);pointer-events:none}
 .bo-ba .ba-handle::after{content:'\21C6';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.3)}
-.bo-ba .ba-lbl{position:absolute;top:12px;font-family:'Geist Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;background:rgba(0,0,0,.6);color:#fff;padding:5px 10px;border-radius:20px;pointer-events:none}
+.bo-ba .ba-lbl{position:absolute;top:12px;font-family:'Satoshi',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;background:rgba(0,0,0,.6);color:#fff;padding:5px 10px;border-radius:20px;pointer-events:none}
 .bo-ba .ba-lbl.l{left:12px}.bo-ba .ba-lbl.r{right:12px}
 
 #lb{position:fixed;inset:0;background:rgba(20,18,15,.92);display:none;place-items:center;z-index:2000;padding:30px;cursor:zoom-out}
@@ -38,7 +38,7 @@
 .bo-cmp{position:relative;width:100%;max-width:300px;margin:0;border-radius:30px;overflow:hidden;border:1px solid var(--line);box-shadow:0 24px 60px -20px rgba(22,32,43,.18);cursor:zoom-in;background:#fff}
 .bo-cmp img{display:block;width:100%;height:auto;transition:transform .5s}
 .bo-cmp:hover img{transform:scale(1.03)}
-.bo-cmp figcaption{position:absolute;top:12px;left:12px;font-family:'Geist Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;background:rgba(0,0,0,.6);color:#fff;padding:5px 10px;border-radius:20px}
+.bo-cmp figcaption{position:absolute;top:12px;left:12px;font-family:'Satoshi',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;background:rgba(0,0,0,.6);color:#fff;padding:5px 10px;border-radius:20px}
 .bo-cmp.after figcaption{background:var(--accent)}
 @media(max-width:620px){.bo-compare{grid-template-columns:1fr;gap:24px}}
 
@@ -46,18 +46,18 @@
 .rchain{display:flex;align-items:stretch;gap:0;border:1px solid var(--line);border-radius:20px;background:#fff;padding:26px 22px;box-shadow:0 24px 60px -34px rgba(42,37,32,.22)}
 .rstep{flex:1 1 0;min-width:0;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;background:var(--paper);padding:18px;transition:transform .3s,box-shadow .3s,border-color .3s}
 .rstep:hover{transform:translateY(-3px);border-color:rgba(42,37,32,.2);box-shadow:0 14px 34px -22px rgba(42,37,32,.4)}
-.rrole{align-self:flex-start;font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.08em;font-size:10.5px;font-weight:500;padding:5px 11px;border-radius:20px;margin-bottom:14px}
+.rrole{align-self:flex-start;font-family:'Satoshi',monospace;text-transform:uppercase;letter-spacing:.08em;font-size:10.5px;font-weight:500;padding:5px 11px;border-radius:20px;margin-bottom:14px}
 .rrole.maker{background:rgba(159,192,214,.24);color:#3f6f8c}
 .rrole.checker{background:rgba(232,181,60,.20);color:#9a6f17}
 .rrole.auth{background:var(--accent-soft);color:var(--accent)}
-.rnum{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--accent);margin-bottom:5px}
-.rstep h4{font-family:'Switzer',sans-serif;font-weight:400;font-size:15.5px;line-height:1.2;margin:0 0 5px}
+.rnum{font-family:'Satoshi',monospace;font-size:11px;letter-spacing:.12em;color:var(--accent);margin-bottom:5px}
+.rstep h4{font-family:'Satoshi',sans-serif;font-weight:400;font-size:15.5px;line-height:1.2;margin:0 0 5px}
 .rstep p{font-size:13px;color:var(--ink-soft);margin:0;line-height:1.45}
 .rfork{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto;padding-top:13px}
-.rfork .fork{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.02em;padding:5px 9px;border-radius:8px;white-space:nowrap}
+.rfork .fork{font-family:'Satoshi',monospace;font-size:10px;letter-spacing:.02em;padding:5px 9px;border-radius:8px;white-space:nowrap}
 .rfork .approve{background:rgba(143,189,108,.18);color:#4f7d3a;border:1px solid rgba(143,189,108,.45)}
 .rfork .reject{background:rgba(216,90,48,.12);color:#b4524a;border:1px solid rgba(216,90,48,.34)}
-.rarrow{align-self:center;flex:0 0 auto;padding:0 13px;color:var(--ink-faint);font-size:18px;font-family:'Geist Mono',monospace}
+.rarrow{align-self:center;flex:0 0 auto;padding:0 13px;color:var(--ink-faint);font-size:18px;font-family:'Satoshi',monospace}
 @media(max-width:760px){
   .rchain{flex-direction:column;padding:18px 16px}
   .rarrow{align-self:center;transform:rotate(90deg);padding:9px 0}
@@ -73,8 +73,8 @@
 .bo-sc-steps{display:flex;flex-direction:column;gap:0;padding:16vh 0}
 .bo-sc-step{min-height:70vh;display:flex;flex-direction:column;justify-content:center;opacity:.32;transition:opacity .4s ease}
 .bo-sc-step.act{opacity:1}
-.bo-sc-step .n{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--accent)}
-.bo-sc-step h3{font-family:'Switzer',sans-serif;font-weight:400;font-size:clamp(22px,3vw,30px);letter-spacing:-.02em;margin:8px 0 10px;line-height:1.1}
+.bo-sc-step .n{font-family:'Satoshi',monospace;font-size:12px;letter-spacing:.14em;color:var(--accent)}
+.bo-sc-step h3{font-family:'Satoshi',sans-serif;font-weight:400;font-size:clamp(22px,3vw,30px);letter-spacing:-.02em;margin:8px 0 10px;line-height:1.1}
 .bo-sc-step p{font-size:16px;color:var(--ink-soft);max-width:440px;margin:0;line-height:1.55}
 @media(max-width:760px){.bo-scrolly{grid-template-columns:1fr;gap:0}.bo-sticky{position:static;margin-bottom:30px}.bo-sc-steps{gap:8vh;padding:6vh 0}.bo-sc-step{opacity:1;min-height:auto}}
 
@@ -87,7 +87,7 @@
 .bo-hot .dot::after{content:'';position:absolute;inset:0;border-radius:50%;background:rgba(150,144,133,.9);animation:bo-ping 2.4s cubic-bezier(0,0,.2,1) infinite}
 @keyframes bo-ping{0%{transform:scale(1);opacity:.35}80%,100%{transform:scale(1.9);opacity:0}}
 .bo-hot .tip{position:absolute;bottom:140%;left:50%;transform:translate(-50%,8px);width:210px;background:#1c1a17;color:#fff;border-radius:12px;padding:12px 14px;font-size:12.5px;line-height:1.45;opacity:0;visibility:hidden;transition:opacity .25s,transform .25s;box-shadow:0 18px 40px -18px rgba(0,0,0,.6);z-index:5;text-align:left}
-.bo-hot .tip b{display:block;font-family:'Switzer',sans-serif;font-weight:400;font-size:13px;margin-bottom:4px;color:#fff}
+.bo-hot .tip b{display:block;font-family:'Satoshi',sans-serif;font-weight:400;font-size:13px;margin-bottom:4px;color:#fff}
 .bo-hot .tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:#1c1a17}
 .bo-hot:hover .tip,.bo-hot:focus-visible .tip,.bo-hot.open .tip{opacity:1;visibility:visible;transform:translate(-50%,0)}
 .bo-hot:hover,.bo-hot.open{z-index:6}
@@ -100,16 +100,16 @@
 .bo-vids{display:flex;gap:48px;justify-content:center;flex-wrap:wrap;align-items:flex-start}
 .bo-vid{margin:0;width:100%;max-width:320px}
 .bo-vid video{width:100%;height:auto;display:block;border-radius:40px;box-shadow:0 24px 60px -20px rgba(22,32,43,.18)}
-.bo-vid figcaption{margin-top:14px;text-align:center;font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.12em;font-size:11px;color:var(--ink-faint)}
+.bo-vid figcaption{margin-top:14px;text-align:center;font-family:'Satoshi',monospace;text-transform:uppercase;letter-spacing:.12em;font-size:11px;color:var(--ink-faint)}
 /* role-based design decisions — before/after toggle */
 .roledec-toggle{display:inline-flex;gap:4px;border:1px solid var(--line);border-radius:999px;padding:4px;background:#fff;margin:0 auto 28px;box-shadow:0 10px 30px -24px rgba(42,37,32,.4)}
-.roledec-toggle button{font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--ink-soft);background:none;border:0;padding:9px 18px;border-radius:999px;cursor:pointer;transition:background .2s,color .2s}
+.roledec-toggle button{font-family:'Satoshi',monospace;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--ink-soft);background:none;border:0;padding:9px 18px;border-radius:999px;cursor:pointer;transition:background .2s,color .2s}
 .roledec-toggle button.on{background:var(--accent);color:#fff}
 .roledec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 .roledec-card{border:1px solid var(--line);border-radius:16px;padding:24px 22px;background:#fff;box-shadow:0 14px 40px -28px rgba(42,37,32,.22)}
 .roledec-card .rd-h{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
 .roledec-card h3{font-size:17px;text-transform:none;letter-spacing:-.01em;line-height:1.2}
-.roledec-card .rd-role{flex:none;font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.06em;font-size:9.5px;color:var(--accent);background:rgba(255,59,29,.08);border-radius:999px;padding:5px 10px;white-space:nowrap;margin-top:2px}
+.roledec-card .rd-role{flex:none;font-family:'Satoshi',monospace;text-transform:uppercase;letter-spacing:.06em;font-size:9.5px;color:var(--accent);background:rgba(255,59,29,.08);border-radius:999px;padding:5px 10px;white-space:nowrap;margin-top:2px}
 .roledec-card p{color:var(--ink-soft);font-size:14.5px;line-height:1.5;margin:0}
 .roledec-card p b{color:var(--ink);font-weight:600}
 .roledec:not(.is-after) .rd-after{display:none}
@@ -130,19 +130,19 @@
 
 /* ---- onboarding: inline decision callout (per step) ---- */
 .bo-sc-note{margin-top:15px;display:flex;align-items:baseline;gap:10px;padding:10px 14px;background:rgba(0,131,231,.06);border:1px solid rgba(0,131,231,.2);border-radius:11px;max-width:440px}
-.bo-sc-note .k{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.12em;color:#0083E7;flex:none;text-transform:uppercase;transform:translateY(1px)}
+.bo-sc-note .k{font-family:'Satoshi',monospace;font-size:10px;letter-spacing:.12em;color:#0083E7;flex:none;text-transform:uppercase;transform:translateY(1px)}
 .bo-sc-note .v{font-size:13.5px;color:var(--ink-soft);line-height:1.45}
 
 /* ---- onboarding: edge-case branch diagram ---- */
 .bo-branch{margin:66px auto 0;max-width:800px}
 .bo-branch .bb-head{margin-bottom:6px}
-.bo-branch .bb-eyebrow{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--accent)}
-.bo-branch .bb-head h3{font-family:'Switzer',sans-serif;font-weight:400;font-size:clamp(20px,2.6vw,27px);letter-spacing:-.02em;margin:9px 0 9px;line-height:1.12}
+.bo-branch .bb-eyebrow{font-family:'Satoshi',monospace;font-size:12px;letter-spacing:.14em;color:var(--accent)}
+.bo-branch .bb-head h3{font-family:'Satoshi',sans-serif;font-weight:400;font-size:clamp(20px,2.6vw,27px);letter-spacing:-.02em;margin:9px 0 9px;line-height:1.12}
 .bo-branch .bb-head p{font-size:15px;color:var(--ink-soft);max-width:580px;margin:0;line-height:1.55}
 .bb-gate{display:grid;grid-template-columns:172px 142px 22px 1fr;gap:18px;align-items:center;padding:19px 0;border-top:1px solid var(--line)}
 .bb-gate:last-child{border-bottom:1px solid var(--line)}
-.bb-gate .bb-name{font-family:'Geist Mono',monospace;font-size:13px;letter-spacing:.03em;color:var(--ink);line-height:1.35}
-.bb-gate .bb-tag{justify-self:start;font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.05em;padding:4px 11px;border-radius:20px;white-space:nowrap;background:rgba(216,90,48,.1);color:#b4524a;border:1px solid rgba(216,90,48,.3)}
+.bb-gate .bb-name{font-family:'Satoshi',monospace;font-size:13px;letter-spacing:.03em;color:var(--ink);line-height:1.35}
+.bb-gate .bb-tag{justify-self:start;font-family:'Satoshi',monospace;font-size:10.5px;letter-spacing:.05em;padding:4px 11px;border-radius:20px;white-space:nowrap;background:rgba(216,90,48,.1);color:#b4524a;border:1px solid rgba(216,90,48,.3)}
 .bb-gate .bb-arw{color:var(--accent);font-size:15px;text-align:center}
 .bb-gate .bb-txt{font-size:14.5px;line-height:1.45;color:var(--ink-soft)}
 .bb-gate .bb-txt b{color:var(--ink);font-weight:600}
@@ -156,7 +156,7 @@
 .ba-fig .ph{position:relative;width:100%;border-radius:30px;overflow:hidden;border:1px solid var(--line);box-shadow:0 24px 60px -20px rgba(22,32,43,.18);background:#fff;cursor:zoom-in}
 .ba-fig .ph img{display:block;width:100%;height:auto;transition:transform .5s}
 .ba-fig .ph:hover img{transform:scale(1.03)}
-.ba-fig .ba-lab{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);font-weight:500}
+.ba-fig .ba-lab{font-family:'Satoshi',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);font-weight:500}
 .ba-notes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:center;gap:30px;height:100%}
 .ba-notes li{display:flex;align-items:center;gap:13px;font-size:13.5px;line-height:1.45;color:var(--ink-soft);opacity:0;transform:translateY(10px);transition:opacity .55s ease,transform .55s ease}
 .ba-annotated.go .ba-notes li{opacity:1;transform:none}
@@ -210,19 +210,19 @@
 @media(max-width:760px){.team-grid{grid-template-columns:1fr;gap:26px}}
 
 /* ---- attention heatmaps: figure + Observed/Insight/Decision ---- */
-.heat-kicker{font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin:6px 0 4px}
+.heat-kicker{font-family:'Satoshi',monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin:6px 0 4px}
 .heatflow{margin-top:34px;padding-top:30px;border-top:1px solid var(--line)}
 .heatflow:first-of-type{border-top:none;padding-top:8px}
 .heat-figlabel{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
-.heat-figlabel .fl{font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
-.heat-verdict{display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);background:var(--paper,#f5f5f5);border:1px solid var(--line);padding:5px 11px 5px 10px;border-radius:8px;white-space:nowrap}
+.heat-figlabel .fl{font-family:'Satoshi',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+.heat-verdict{display:inline-flex;align-items:center;gap:8px;font-family:'Satoshi',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);background:var(--paper,#f5f5f5);border:1px solid var(--line);padding:5px 11px 5px 10px;border-radius:8px;white-space:nowrap}
 .heat-verdict::before{content:'';width:6px;height:6px;border-radius:50%;background:#d8623c;flex:none}
 .heat-fig{position:relative;margin:0 auto;max-width:680px;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 24px 60px -32px rgba(22,32,43,.3);background:#fff;cursor:zoom-in}
 .heat-fig img{display:block;width:100%;height:auto;transition:transform .5s}
 .heat-fig:hover img{transform:scale(1.015)}
 .heat-oid{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
 .heat-oid li{display:block}
-.heat-oid .k{display:block;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:7px}
+.heat-oid .k{display:block;font-family:'Satoshi',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:7px}
 .heat-oid .v{font-size:14px;line-height:1.55;color:var(--ink-soft)}
 .heat-oid .v b{color:var(--ink);font-weight:600}
 @media(max-width:760px){.heat-oid{grid-template-columns:1fr;gap:18px}}
@@ -230,7 +230,7 @@
 /* ---- closing thoughts reflection card ---- */
 /* ---- closing thoughts: editorial split (big serif statement + prose) ---- */
 .refl-split{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
-.refl-split .rs-big{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(30px,4.2vw,54px);line-height:1.06;letter-spacing:-.02em;margin:0;color:var(--ink);position:sticky;top:96px}
+.refl-split .rs-big{font-family:'Satoshi',serif;font-weight:300;font-size:clamp(30px,4.2vw,54px);line-height:1.06;letter-spacing:-.02em;margin:0;color:var(--ink);position:sticky;top:96px}
 .refl-split .rs-big em{font-style:italic;color:#0083E7}
 .refl-split .rs-body p{font-size:16.5px;line-height:1.68;color:var(--ink-soft);margin:0 0 20px}
 .refl-split .rs-body p:last-child{color:var(--ink);margin-bottom:0}
@@ -259,15 +259,15 @@
 .roleflow .rej{opacity:0;transition:opacity .7s ease .5s}
 .roleflow.go .rej{opacity:1}
 .pnode{position:absolute;top:136px;transform:translate(-50%,-50%);background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 24px;text-align:center;box-shadow:0 16px 40px -28px rgba(20,32,52,.45);opacity:0;transition:opacity .6s ease}
-.pnode .role{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+.pnode .role{font-family:'Satoshi',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
 .pnode .act{font-weight:600;font-size:15px;margin-top:4px;letter-spacing:-.01em}
 .dnode{position:absolute;top:136px;transform:translate(-50%,-50%) rotate(45deg);width:106px;height:106px;border:2px solid #0083E7;border-radius:18px;background:rgba(0,131,231,.06);display:grid;place-items:center;opacity:0;transition:opacity .6s ease}
 .dnode>div{transform:rotate(-45deg);text-align:center}
-.dnode .role{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#0083E7}
+.dnode .role{font-family:'Satoshi',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#0083E7}
 .dnode .act{font-weight:600;font-size:13.5px;margin-top:2px}
-.dbio{position:absolute;top:212px;transform:translateX(-50%);font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);opacity:0;transition:opacity .6s ease}
-.dterm{position:absolute;top:74px;transform:translate(-50%,-50%);background:#0083E7;color:#fff;border-radius:24px;padding:8px 16px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;opacity:0;transition:opacity .6s ease}
-.dret{position:absolute;top:200px;transform:translate(0,-50%);font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap;opacity:0;transition:opacity .6s ease}
+.dbio{position:absolute;top:212px;transform:translateX(-50%);font-family:'Satoshi',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);opacity:0;transition:opacity .6s ease}
+.dterm{position:absolute;top:74px;transform:translate(-50%,-50%);background:#0083E7;color:#fff;border-radius:24px;padding:8px 16px;font-family:'Satoshi',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;opacity:0;transition:opacity .6s ease}
+.dret{position:absolute;top:200px;transform:translate(0,-50%);font-family:'Satoshi',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap;opacity:0;transition:opacity .6s ease}
 .roleflow.go .pnode,.roleflow.go .dnode,.roleflow.go .dterm,.roleflow.go .dret,.roleflow.go .dbio{opacity:1}
 .roleflow.go .pnode:nth-of-type(2){transition-delay:.12s}
 .roleflow.go .dnode{transition-delay:.26s}

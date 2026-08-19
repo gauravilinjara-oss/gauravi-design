@@ -1,5 +1,4 @@
-@import url("https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700,800,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600&display=swap");
 
 /* =============================================================================
    tokens.css — SINGLE SOURCE OF TRUTH for the whole portfolio.
@@ -7,7 +6,7 @@
 
    ── MIGRATION (air.inc-style system) ────────────────────────────────────────
    The portfolio is moving to the system defined in mockups/meadow-ship.html:
-     • ONE type superfamily — Switzer (display + body) + Geist Mono (labels)
+     • ONE type superfamily — Satoshi (display, body, and labels)
      • Light & airy palette; flat NAVY accent (#16202b), GREEN italic emphasis
      • One section rhythm, a tight type scale, one signature ease
    The block below defines the NEW canonical tokens. The LEGACY SHIM at the
@@ -37,10 +36,10 @@
   --line:rgba(20,32,52,.12);/* hairlines / borders                               */
 
   /* type */
-  --font-display: Switzer, system-ui, sans-serif;
-  --font-text: Switzer, system-ui, sans-serif;
-  --font-accent: Switzer, system-ui, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, Menlo, "SF Mono", monospace;
+  --font-display: Satoshi, system-ui, sans-serif;
+  --font-text: Satoshi, system-ui, sans-serif;
+  --font-accent: Satoshi, system-ui, sans-serif;
+  --font-mono: Satoshi, system-ui, sans-serif;
 
   /* rhythm, scale, motion */
   --edge:max(22px,8%);
@@ -120,11 +119,11 @@
   --t-blue:#8CC7F4;
 
   /* type — all collapse onto the one superfamily (no serif / no handwriting) */
-  --t-font-sans:"Switzer",system-ui,sans-serif;
-  --t-font-display:"Switzer",system-ui,sans-serif;
-  --t-font-serif:"Switzer",system-ui,sans-serif;
-  --t-font-hand:"Switzer",system-ui,sans-serif;
-  --t-font-mono:"Geist Mono",ui-monospace,Menlo,"SF Mono",monospace;
+  --t-font-sans:Satoshi,system-ui,sans-serif;
+  --t-font-display:Satoshi,system-ui,sans-serif;
+  --t-font-serif:Satoshi,system-ui,sans-serif;
+  --t-font-hand:Satoshi,system-ui,sans-serif;
+  --t-font-mono:Satoshi,system-ui,sans-serif;
 
   --t-maxw:1080px;
   --t-edge:max(22px,8%);
@@ -142,10 +141,12 @@ body:not(.home){ background:#ffffff !important; }
    ============================================================================= */
 
 /* §2 · typography — size-specific tracking ladder (the highest-craft change) */
-body{ text-rendering:optimizeLegibility; font-feature-settings:"kern" 1; }
-h1{ letter-spacing:var(--tr-display); line-height:1.02; }
+body{ font-family:var(--font-text);font-weight:400;text-rendering:optimizeLegibility; font-feature-settings:"kern" 1; }
+h1{ font-family:var(--font-display);font-weight:400;letter-spacing:-.035em;line-height:1.02; }
+h2,h3,h4{ font-family:var(--font-display);font-weight:500; }
 h2{ letter-spacing:var(--tr-h2);      line-height:1.1;  }
 h3{ letter-spacing:var(--tr-h3);      line-height:1.2;  }
+.eyebrow,.navmeta,.note,figcaption{ font-family:var(--font-text);font-weight:500; }
 p { letter-spacing:var(--tr-body); }
 /* figures line up in metric / impact blocks */
 .metric,.metrics,.impact,.ibig,.imp-stat,.big,[data-count],[data-target]{

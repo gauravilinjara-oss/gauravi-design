@@ -1,7 +1,7 @@
 /* ============================================================================
    PORTFOLIO CHAT WIDGET — scoped styles (everything under #gachat / .gachat-*)
    On-brand with the new homepage: frosted sky-glass + sky-blue accent,
-   Switzer / Geist Mono. Transforms+opacity only; respects prefers-reduced-motion.
+   Satoshi / Satoshi. Transforms+opacity only; respects prefers-reduced-motion.
    Self-contained — safe to drop on any page.
    ============================================================================ */
 #gachat{
@@ -11,7 +11,7 @@
   /* right edge follows the page grid (--edge) so the launcher lines up with the
      clock in the nav above; falls back to 22px on pages without the grid token */
   position:fixed; right:var(--edge, 22px); bottom:22px; z-index:9000;
-  font-family:"Switzer",system-ui,sans-serif; color:var(--gc-ink);
+  font-family:"Satoshi",system-ui,sans-serif; color:var(--gc-ink);
 }
 #gachat *{box-sizing:border-box;}
 
@@ -20,7 +20,7 @@
   display:inline-flex; align-items:center; gap:9px; cursor:pointer;
   background:#fff; color:var(--gc-ink);
   border:1px solid rgba(20,32,52,.12); border-radius:999px; padding:9px 16px 9px 13px;
-  box-shadow:0 6px 18px -10px rgba(20,32,52,.25); font-family:"Geist Mono",monospace;
+  box-shadow:0 6px 18px -10px rgba(20,32,52,.25); font-family:"Satoshi",monospace;
   font-size:11px; letter-spacing:.12em; text-transform:uppercase;
   transition:transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s, border-color .2s, opacity .2s;
 }
@@ -47,13 +47,13 @@
 .gachat-head{ display:flex; align-items:center; gap:10px; padding:16px 16px 14px;
   border-bottom:1px solid var(--gc-hair); background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,0)); }
 .gachat-head .gc-htxt{ flex:1 1 auto; min-width:0; overflow:hidden; }
-.gachat-head .ttl{ font-family:"Switzer",system-ui,sans-serif; font-weight:500; letter-spacing:-.02em;
+.gachat-head .ttl{ font-family:"Satoshi",system-ui,sans-serif; font-weight:500; letter-spacing:-.02em;
   text-transform:lowercase; font-size:18px; line-height:1.05; white-space:nowrap; }
 .gachat-head .ttl .a{ color:var(--gc-accent); }
 .gachat-av{ width:38px; height:38px; flex:0 0 38px; border-radius:50%; display:grid; place-items:center; color:#fff;
   background:radial-gradient(120% 120% at 30% 25%,#5a93cf,var(--gc-accent)); box-shadow:inset 0 1px 1px rgba(255,255,255,.5), 0 4px 14px -4px rgba(31,114,201,.6); }
 .gachat-av svg{ width:20px; height:20px; }
-.gachat-head .sub{ display:flex; align-items:center; gap:6px; font-family:"Geist Mono",monospace; font-size:10px;
+.gachat-head .sub{ display:flex; align-items:center; gap:6px; font-family:"Satoshi",monospace; font-size:10px;
   text-transform:uppercase; letter-spacing:.09em; color:var(--gc-muted); margin-top:5px; white-space:nowrap; }
 .gachat-head .sub .live{ flex:0 0 auto; }
 .gachat-head .sub .live{ width:6px; height:6px; border-radius:50%; background:#5fd29a;
@@ -87,7 +87,7 @@
 .gachat-intro{ padding:6px 2px 2px; }
 .gachat-intro p{ font-size:14.5px; line-height:1.55; color:var(--gc-soft); margin-bottom:14px; }
 .gachat-chips{ display:flex; flex-direction:column; gap:8px; }
-.gachat-chip{ text-align:left; cursor:pointer; font-family:"Switzer",system-ui,sans-serif; font-size:13.5px; color:var(--gc-ink);
+.gachat-chip{ text-align:left; cursor:pointer; font-family:"Satoshi",system-ui,sans-serif; font-size:13.5px; color:var(--gc-ink);
   background:var(--gc-card); border:1px solid var(--gc-line); border-radius:13px; padding:10px 13px;
   -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
   box-shadow:inset 0 1px 1px rgba(255,255,255,.55);
@@ -114,7 +114,7 @@
 .gachat-inwrap:focus-within{ box-shadow:0 8px 26px -10px rgba(31,114,201,.55); }
 .gachat-form textarea::placeholder{ color:var(--gc-muted); }
 .gachat-form textarea{ flex:1; resize:none; border:none; background:transparent; padding:8px 0;
-  font-family:"Switzer",system-ui,sans-serif; font-size:14px; line-height:1.4; color:var(--gc-ink); max-height:110px; }
+  font-family:"Satoshi",system-ui,sans-serif; font-size:14px; line-height:1.4; color:var(--gc-ink); max-height:110px; }
 .gachat-inwrap:has(textarea:focus-visible){ outline:2px solid var(--focus-inner,#fff); outline-offset:2px; box-shadow:0 0 0 5px var(--focus-ring,#2f6cb8); }
 .gachat-send{ flex:0 0 auto; width:38px; height:38px; border:none; border-radius:50%; cursor:pointer;
   background:linear-gradient(180deg,var(--gc-accent-bright),var(--gc-accent)); color:#fff; display:grid; place-items:center; transition:transform .15s, opacity .2s, box-shadow .2s;
@@ -136,7 +136,7 @@
 .gachat-iconbtn.gc-voice.on{ background:var(--gc-accent); color:#fff; }
 .gachat-iconbtn.gc-voice.on:hover{ background:var(--gc-accent); color:#fff; }
 @media (prefers-reduced-motion: reduce){ .gachat-mic.listening{ animation:none; } }
-.gachat-foot{ font-family:"Geist Mono",monospace; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase;
+.gachat-foot{ font-family:"Satoshi",monospace; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase;
   color:var(--gc-muted); text-align:center; padding:0 0 10px; }
 
 @media (max-width:480px){
@@ -164,11 +164,11 @@
   padding:11px 13px; transition:border-color .2s, transform .15s, box-shadow .2s; }
 .gachat-card:hover{ border-color:rgba(31,114,201,.5); transform:translateY(-1px);
   box-shadow:inset 0 1px 1px rgba(255,255,255,.7), 0 14px 28px -16px rgba(18,40,72,.45); }
-.gachat-card-ttl{ font-family:"Switzer",system-ui,sans-serif; font-weight:700; font-size:14px; letter-spacing:-.01em;
+.gachat-card-ttl{ font-family:"Satoshi",system-ui,sans-serif; font-weight:700; font-size:14px; letter-spacing:-.01em;
   text-transform:lowercase; color:var(--gc-ink); line-height:1.05; }
-.gachat-card-meta{ font-family:"Geist Mono",monospace; font-size:10px; letter-spacing:.06em;
+.gachat-card-meta{ font-family:"Satoshi",monospace; font-size:10px; letter-spacing:.06em;
   text-transform:uppercase; color:var(--gc-muted); }
-.gachat-card-go{ font-family:"Geist Mono",monospace; font-size:11px; letter-spacing:.06em;
+.gachat-card-go{ font-family:"Satoshi",monospace; font-size:11px; letter-spacing:.06em;
   text-transform:uppercase; color:var(--gc-accent); margin-top:5px; }
 .gachat-follow{ align-self:flex-start; margin-left:33px; display:flex; flex-wrap:wrap; gap:7px; max-width:90%; }
 .gachat-chip.sm{ font-size:12px; padding:7px 12px; border-radius:20px; }

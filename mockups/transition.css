@@ -16,7 +16,7 @@
 
 .pgx-mark{position:absolute;inset:0;display:grid;place-items:center;opacity:1;transition:opacity var(--motion-expressive,500ms) var(--ease-standard,ease);}
 .pgx.reveal .pgx-mark{opacity:0;}
-.pgx-mark .wm{font-family:"Switzer",system-ui,sans-serif;font-weight:600;letter-spacing:-.02em;line-height:1.02;
+.pgx-mark .wm{font-family:"Satoshi",system-ui,sans-serif;font-weight:600;letter-spacing:-.02em;line-height:1.02;
   font-size:clamp(38px,7.2vw,92px);color:#16202b;filter:url(#pgxink);
   text-align:center;max-width:90vw;text-transform:lowercase;}
 .pgx-mark .wm .dot{color:#2f6cb8;}
