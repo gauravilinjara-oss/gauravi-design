@@ -44,6 +44,33 @@ for (const path of cases) {
   });
 }
 
+test('case prose matches the Bridgeway contrast and callout hierarchy', async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('desktop'));
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/case-podonos.html');
+
+  const styles = await page.evaluate(() => {
+    const prose = getComputedStyle(document.querySelector('.section-lede'));
+    const label = getComputedStyle(document.querySelector('.snapshot .eyebrow'));
+    const callout = getComputedStyle(document.querySelector('.reframe .re-line'));
+    return {
+      proseColor: prose.color,
+      labelColor: label.color,
+      calloutColor: callout.color,
+      calloutSize: callout.fontSize,
+      calloutLeading: callout.lineHeight,
+    };
+  });
+
+  expect(styles).toEqual({
+    proseColor: 'rgb(78, 95, 116)',
+    labelColor: 'rgb(50, 64, 79)',
+    calloutColor: 'rgb(78, 95, 116)',
+    calloutSize: '22px',
+    calloutLeading: '30.8px',
+  });
+});
+
 test('case content clears the desktop rail at every supported desktop boundary', async ({ page }, testInfo) => {
   test.skip(!testInfo.project.name.startsWith('desktop'));
 

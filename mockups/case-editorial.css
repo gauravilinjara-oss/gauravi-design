@@ -109,8 +109,8 @@
   --case-canvas:#fcfcfa;
   --case-sidebar:#f3f2ed;
   --case-ink:#25282d;
-  --case-soft:#666c74;
-  --case-faint:#666c74;
+  --case-soft:#4e5f74;
+  --case-faint:#32404f;
   --case-rule:rgba(37,40,45,.12);
   --case-prose:720px;
   --case-media:1040px;
@@ -136,7 +136,7 @@
 .case-study .voices-label,
 .case-study .snap-kicker{
   font-family:'Satoshi',system-ui,sans-serif;
-  color:var(--case-faint);font-size:12px;font-weight:600;
+  color:#32404f;font-size:12px;font-weight:600;
   letter-spacing:.1em;line-height:1.5;text-transform:uppercase;
 }
 .case-study[data-case-accent] header.hero .eyebrow{color:var(--case-accent)}
@@ -163,6 +163,11 @@
   .case-study section{padding-block:48px}
 }
 .case-study .section-lede{margin-top:16px;font-size:15px;line-height:1.5;color:var(--case-soft)}
+.case-study .reframe{max-width:760px}
+.case-study .reframe .re-line{
+  color:var(--case-soft);font-size:clamp(18px,1.6vw,22px);line-height:1.4;
+  letter-spacing:-.01em;
+}
 .case-study .trust-sec{padding-block:48px 32px}
 .case-study .trust-sec .wrap{display:flex;flex-direction:column;align-items:flex-start}
 .case-study .trust-label,.case-study .trust-note{text-align:left;margin-inline:0}
