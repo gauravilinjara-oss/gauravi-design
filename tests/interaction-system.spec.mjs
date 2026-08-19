@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('keyboard focus is visible on the global menu button', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
   const menu = page.locator('.gnav-burger');
   await expect(menu).toBeVisible();
   await menu.focus();
@@ -23,7 +23,7 @@ test('keyboard focus is visible on the global menu button', async ({ page }) => 
 });
 
 test('shared text tokens use readable colors on white', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
   const tokens = await page.evaluate(() => {
     const style = getComputedStyle(document.documentElement);
     return ['--faint', '--green', '--t-ink-faint', '--t-muted-on-dark', '--t-sage']
@@ -44,7 +44,7 @@ test.describe('reduced motion', () => {
 
   test('suppresses representative ambient and reveal motion', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
     expect(await page.evaluate(() => matchMedia('(prefers-reduced-motion: reduce)').matches)).toBe(true);
     const motions = await page
       .locator('.bee-wing, .i-rays, .ai-rv')

@@ -9,8 +9,8 @@
   "theme_color": "#0a0b0d",
   "icons": [
     {
-      "src": "assets/gh-icon-512.png",
-      "sizes": "512x512",
+      "src": "assets/gh-icon-180.png",
+      "sizes": "180x180",
       "type": "image/png"
     },
     {
