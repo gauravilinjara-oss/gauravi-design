@@ -160,6 +160,32 @@ html { overflow-x: clip; }
    <style>, so they layer on top without being overridden.
    ============================================================ */
 @media (max-width: 760px) {
+  .case-embed {
+    inline-size: 100%;
+    max-inline-size: 100%;
+    margin-inline: auto;
+    overflow: clip;
+  }
+  .cmp .dmframe-wrap.case-embed {
+    inline-size: min(100%, 380px);
+    block-size: auto;
+    aspect-ratio: 412 / 660;
+  }
+  .cmp .dmframe-wrap.case-embed iframe {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    max-inline-size: 100%;
+    transform: none;
+  }
+  .proto-wrap.case-embed iframe {
+    display: block;
+    inline-size: min(340px, 100%);
+    block-size: auto;
+    max-inline-size: 100%;
+    aspect-ratio: 340 / 700;
+  }
+
   /* framed browser/product screenshots → pan, don't shrink */
   .bw {
     overflow-x: auto !important;
