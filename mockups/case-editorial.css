@@ -140,12 +140,12 @@
   letter-spacing:.1em;line-height:1.5;text-transform:uppercase;
 }
 .case-study[data-case-accent] header.hero .eyebrow{color:var(--case-accent)}
-.case-study section{padding-block:56px;border-color:var(--case-rule)}
+.case-study section{padding-block:56px;border-top:0!important;border-bottom:0!important}
 .case-study p{max-width:68ch;color:var(--case-soft);font-size:15px;line-height:1.5}
 .case-study figure,.case-study .visual{margin-block:clamp(28px,3.5vw,48px)}
 .case-study figcaption{margin-top:12px;color:var(--case-faint);font-size:12px;line-height:1.5}
 .case-study .snap-card,.case-study .meta-grid{
-  border-block:1px solid var(--case-rule);border-radius:0;background:transparent;box-shadow:none;
+  border:0;border-radius:0;background:transparent;box-shadow:none;
 }
 .case-study .card,.case-study .voice,.case-study .imp{
   border:1px solid var(--case-rule);background:#fff;box-shadow:none;
@@ -164,14 +164,18 @@
 }
 .case-study .section-lede{margin-top:16px;font-size:15px;line-height:1.5;color:var(--case-soft)}
 .case-study .trust-sec{padding-block:48px 32px}
+.case-study .trust-sec .wrap{display:flex;flex-direction:column;align-items:flex-start}
+.case-study .trust-label,.case-study .trust-note{text-align:left;margin-inline:0}
+.case-study .trust-row{justify-content:flex-start;width:100%}
 .case-study .snapshot-sec{padding-block:48px}
+.case-study .snapshot{border-top:0!important}
 .case-study .snap-fact p,.case-study .snap-cell p{font-size:15px;line-height:1.5}
 .case-study .quote{max-width:780px;margin-inline:auto;padding:0;background:transparent;border:0;box-shadow:none}
 .case-study .quote .q{font-size:clamp(28px,3.2vw,42px);line-height:1.25;font-weight:400;color:var(--case-ink)}
 .case-study .impact-sky{padding:0;background:transparent;border-radius:0}
 .case-study .impact{gap:20px}
 .case-study .handoff{padding-block:0;background:transparent;color:var(--case-ink)}
-.case-study .nextcase{border-top:1px solid var(--case-rule)}
+.case-study footer,.case-study .nextcase{border-top:0!important;border-bottom:0!important}
 .case-study .nextcase .t{font-size:clamp(30px,4vw,54px);font-weight:500;text-transform:none}
 .case-study[data-case-accent] :is(.cards .card,.themes .theme,.voices .voice){background:#fff;box-shadow:none}
 .case-study[data-case-accent] :is(.cards .card,.themes .theme,.voices .voice):hover{background:#fff;box-shadow:none;transform:none}

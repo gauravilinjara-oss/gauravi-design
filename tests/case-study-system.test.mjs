@@ -44,6 +44,20 @@ test('shared case-study typography follows the restrained Bridgeway scale', asyn
     'case-study labels use the shipped Satoshi face with a dense editorial treatment');
 });
 
+test('shared case-study structure is aligned and divider-free', async () => {
+  const css = await readFile('mockups/case-editorial.css', 'utf8');
+  assert.match(css, /\.case-study section\{[^}]*border-top:0!important;[^}]*border-bottom:0!important/,
+    'narrative sections do not draw horizontal dividers');
+  assert.match(css, /\.case-study \.snap-card,\.case-study \.meta-grid\{[^}]*border:0/,
+    'case metadata does not draw container dividers');
+  assert.match(css, /\.case-study \.snapshot\{border-top:0!important\}/,
+    'the snapshot rows are separated by spacing, not a rule');
+  assert.match(css, /\.case-study footer,\.case-study \.nextcase\{[^}]*border-top:0!important;[^}]*border-bottom:0!important/,
+    'next-chapter navigation is divider-free');
+  assert.match(css, /\.case-study \.trust-sec \.wrap\{[^}]*align-items:flex-start/,
+    'social proof uses one shared left alignment');
+});
+
 test('project accent is inherited and consumed by editorial chrome', async () => {
   const css = await readFile('mockups/case-editorial.css', 'utf8');
   assert.doesNotMatch(css, /--case-accent\s*:/,
