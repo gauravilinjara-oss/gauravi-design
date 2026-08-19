@@ -101,6 +101,58 @@ test('case introductions use one text color without highlight treatments', async
   expect(styles.mark.backgroundColor).toBe('rgba(0, 0, 0, 0)');
 });
 
+test('all case-study paragraphs use one inline emphasis treatment', async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('desktop'));
+
+  for (const path of cases) {
+    await page.goto(path);
+    const failures = await page.evaluate(() => {
+      const transparent = 'rgba(0, 0, 0, 0)';
+      const results = [];
+      document.querySelectorAll('p').forEach((paragraph, paragraphIndex) => {
+        const base = getComputedStyle(paragraph);
+        paragraph.querySelectorAll('b,strong,em,.mk').forEach((element) => {
+          const style = getComputedStyle(element);
+          const mismatch = style.color !== base.color
+            || style.fontWeight !== base.fontWeight
+            || style.fontStyle !== 'normal'
+            || style.backgroundColor !== transparent
+            || style.backgroundImage !== 'none';
+          if (mismatch) {
+            results.push({
+              paragraphIndex,
+              tag: element.tagName,
+              className: element.className,
+              text: element.textContent.trim().slice(0, 80),
+              base: { color: base.color, fontWeight: base.fontWeight },
+              actual: {
+                color: style.color,
+                fontWeight: style.fontWeight,
+                fontStyle: style.fontStyle,
+                backgroundColor: style.backgroundColor,
+                backgroundImage: style.backgroundImage,
+              },
+            });
+          }
+        });
+      });
+      return results;
+    });
+    expect(failures, path).toEqual([]);
+  }
+});
+
+test('case-study reframe labels use the shared editorial ink', async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('desktop'));
+  for (const path of cases) {
+    await page.goto(path);
+    const labels = page.locator('.reframe .re-eyebrow');
+    for (let index = 0; index < await labels.count(); index += 1) {
+      await expect(labels.nth(index), path).toHaveCSS('color', 'rgb(50, 64, 79)');
+    }
+  }
+});
+
 test('case content clears the desktop rail at every supported desktop boundary', async ({ page }, testInfo) => {
   test.skip(!testInfo.project.name.startsWith('desktop'));
 
