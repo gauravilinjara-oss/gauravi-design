@@ -5,13 +5,13 @@
   --case-soft:#666c74;
   --case-faint:#8b9097;
   --case-rule:rgba(37,40,45,.12);
-  --case-accent:var(--accent);
   --case-prose:720px;
   --case-media:1040px;
   --case-rail:236px;
   background:var(--case-canvas)!important;
   color:var(--case-ink);
   font-family:var(--font-text);
+  padding-left:0;
 }
 .case-study main{margin-left:var(--case-rail)}
 .case-study .wrap{width:min(var(--case-media),calc(100% - 80px));margin-inline:auto}
@@ -29,6 +29,7 @@
   color:var(--case-faint);font-size:11px;font-weight:500;
   letter-spacing:.14em;line-height:1.4;text-transform:uppercase;
 }
+.case-study[data-case-accent] header.hero .eyebrow{color:var(--case-accent)}
 .case-study section{padding-block:clamp(72px,9vw,128px);border-color:var(--case-rule)}
 .case-study p{max-width:68ch;color:var(--case-soft);font-size:17px;line-height:1.7}
 .case-study figure,.case-study .visual{margin-block:clamp(36px,5vw,72px)}
@@ -57,3 +58,7 @@
 .case-study .handoff{padding-block:0;background:transparent;color:var(--case-ink)}
 .case-study .nextcase{border-top:1px solid var(--case-rule)}
 .case-study .nextcase .t{font-size:clamp(30px,4vw,54px);font-weight:500;text-transform:none}
+.case-study[data-case-accent] :is(.cards .card,.themes .theme,.voices .voice){background:#fff;box-shadow:none}
+.case-study[data-case-accent] :is(.cards .card,.themes .theme,.voices .voice):hover{background:#fff;box-shadow:none;transform:none}
+.case-study[data-case-accent] .impact-sky .imp{background:#fff;box-shadow:none}
+.case-study[data-case-accent] .impact-sky .imp:hover{background:#fff;box-shadow:none;transform:none}
