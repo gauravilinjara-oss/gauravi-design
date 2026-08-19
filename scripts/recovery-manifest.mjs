@@ -88,6 +88,7 @@ const ALLOWED_ROOT_FILES = new Set([
   'README.md',
   'package-lock.json',
   'package.json',
+  'playwright.config.mjs',
   'recovery-report.json',
   'vercel.json',
 ]);
