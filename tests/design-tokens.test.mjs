@@ -165,6 +165,20 @@ test('the public type specimen documents the shipped Satoshi range', async () =>
   assert.doesNotMatch(html, /Satoshi[^<]*400\s*→\s*900/);
 });
 
+test('the portfolio never renders italic type', async () => {
+  const css = await readFile('mockups/tokens.css', 'utf8');
+  assert.match(css, /html em,html i\{font-style:normal!important\}/,
+    'semantic emphasis stays upright across every token-powered page');
+  const upright = await readFile('mockups/upright.css', 'utf8');
+  assert.match(upright, /html em,html i\{font-style:normal!important\}/,
+    'standalone experiences use the same upright emphasis rule');
+  const standalone = (await readdir('mockups')).filter((name) => /^lab(?:-[\w-]+)?\.html$/.test(name));
+  for (const name of standalone) {
+    const html = await readFile(`mockups/${name}`, 'utf8');
+    assert.match(html, /href="upright\.css\?v=1"/, `${name} loads the upright type policy`);
+  }
+});
+
 test('portfolio heading overrides retain the editorial weight hierarchy', async () => {
   const files = (await readdir('mockups'))
     .filter((name) => /\.(?:css|html)$/.test(name))

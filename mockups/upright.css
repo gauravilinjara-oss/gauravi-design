@@ -1,0 +1,2 @@
+/* Global typography rule for standalone pages that do not load tokens.css. */
+html em,html i{font-style:normal!important}

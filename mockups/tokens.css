@@ -142,6 +142,8 @@ body:not(.home){ background:#ffffff !important; }
 
 /* §2 · typography — size-specific tracking ladder (the highest-craft change) */
 body{ font-family:var(--font-text);font-weight:400;text-rendering:optimizeLegibility; font-feature-settings:"kern" 1; }
+/* The portfolio uses weight and color for emphasis; slanted type is not part of the system. */
+html em,html i{font-style:normal!important}
 h1{ font-family:var(--font-display);font-weight:400;letter-spacing:-.035em;line-height:1.02; }
 h2,h3,h4{ font-family:var(--font-display);font-weight:500; }
 h2{ letter-spacing:var(--tr-h2);      line-height:1.1;  }
