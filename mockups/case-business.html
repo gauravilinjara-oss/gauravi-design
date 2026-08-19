@@ -43,6 +43,7 @@
     --ink-faint:var(--t-ink-faint);
     --line:var(--t-line);
     --accent:var(--t-accent);
+    --case-accent:#a14f38;
     --accent-soft:var(--t-accent-soft);
     --sage:#8DB67E;
     --gold:var(--t-gold);
@@ -393,7 +394,7 @@
   <script src="clarity.js?v=1" defer></script>
   <link rel="stylesheet" href="cinematic.css?v=1" />
 </head>
-<body data-cine="hero parallax tilt magnet grain">
+<body class="case-study" data-cine="hero parallax grain" data-case-accent>
   <!-- shared page transition (ink wipe), see transition.css/js -->
   <div class="pgx" id="pgx" aria-hidden="true">
     <div class="pgx-ink"></div>
@@ -567,7 +568,7 @@
 </script>
 </section>
 
-<header class="hero" data-cine-hero="noh1">
+<header class="hero" data-cine-hero="noh1" data-nav-label="Overview">
   <div class="wrap">
     <div class="hero-grid">
       <div class="hero-txt">
@@ -1256,7 +1257,8 @@
 <div id="lb"><span class="x">✕</span><img src="" alt=""></div>
 <script src="../assets/case/case-bo-ix.js?v=9"></script>
   <!-- persistent case-study left rail (metadata + scroll-spy nav) -->
-  <link rel="stylesheet" href="case-sidebar.css?v=bloom1">
+  <link rel="stylesheet" href="case-editorial.css?v=1">
+  <link rel="stylesheet" href="case-sidebar.css?v=editorial1">
   <script src="case-sidebar.js?v=name2" defer></script>
   <!-- global footer -->
   <link rel="stylesheet" href="footer.css?v=blue1">
