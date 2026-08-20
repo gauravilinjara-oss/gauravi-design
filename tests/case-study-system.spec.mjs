@@ -44,6 +44,27 @@ for (const path of cases) {
   });
 }
 
+test('every desktop case-study sidebar uses the white neutral palette', async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('desktop'));
+
+  for (const path of cases) {
+    await page.goto(path);
+    await expect(page.locator('#caserail')).toBeVisible();
+
+    const palette = await page.locator('#caserail').evaluate((rail) => ({
+      background: getComputedStyle(rail).backgroundColor,
+      projectAccent: getComputedStyle(rail.querySelector('.cr-proj .a')).color,
+      progressAccent: getComputedStyle(rail.querySelector('.cr-prog i')).backgroundColor,
+    }));
+
+    expect(palette, path).toEqual({
+      background: 'rgb(255, 255, 255)',
+      projectAccent: 'rgb(22, 32, 43)',
+      progressAccent: 'rgb(22, 32, 43)',
+    });
+  }
+});
+
 test('case prose matches the Bridgeway contrast and callout hierarchy', async ({ page }, testInfo) => {
   test.skip(!testInfo.project.name.startsWith('desktop'));
   await page.setViewportSize({ width: 1440, height: 900 });

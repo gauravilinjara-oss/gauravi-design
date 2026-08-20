@@ -106,8 +106,9 @@
 @media(max-width:820px){.refl-split{grid-template-columns:1fr;gap:26px}.refl-split .rs-big{position:static}}
 
 .case-study{
-  --case-canvas:#fcfcfa;
-  --case-sidebar:#f3f2ed;
+  --case-canvas:#ffffff;
+  --case-sidebar:#ffffff;
+  --case-accent:var(--accent);
   --case-ink:#25282d;
   --case-soft:#4e5f74;
   --case-faint:#32404f;
