@@ -59,6 +59,17 @@ test('homepage credibility statement uses the quieter lowercase treatment', asyn
   expect(textTransform).toBe('lowercase');
 });
 
+test('homepage animated rails cannot create horizontal page scrolling', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+
+  const horizontalScroll = await page.evaluate(() => {
+    window.scrollTo({ left: 100_000, top: 0, behavior: 'instant' });
+    return window.scrollX;
+  });
+
+  expect(horizontalScroll).toBe(0);
+});
+
 test('mobile homepage keeps the lighting control clear of the introduction', async ({ page }) => {
   test.skip((page.viewportSize()?.width ?? 1000) > 720, 'mobile-only behavior');
   await page.goto('/', { waitUntil: 'domcontentloaded' });
