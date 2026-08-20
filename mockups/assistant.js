@@ -12,10 +12,9 @@
   var ENDPOINT     = '/api/chat';     // same-origin (works under `vercel dev`)
   var MAX_HISTORY  = 12;              // turns sent to the server
   var STARTERS = [
-    "What's her strongest project?",
-    "Tell me about the AI-voice work",
-    "What's her design process?",
-    "How do I reach her?"
+    "Which project should I start with?",
+    "Tell me about the AI voice work",
+    "How does Gauravi approach design?"
   ];
   var GENERAL_FOLLOW = ["What's her design process?", "Where has she worked?", "How do I reach her?"];
   var CASES = [
@@ -48,29 +47,41 @@
     '<div class="gachat-panel" role="dialog" aria-label="Chat about Gauravi" aria-modal="false">' +
       '<div class="gachat-head">' +
         '<div class="gachat-av"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 6l2.4 5.4L12 18l-2.4-6.6z" fill="#fff" stroke="none"/></svg></div>' +
-        '<div class="gc-htxt"><div class="ttl">ask about <span class="a">gauravi</span></div>' +
-        '<div class="sub"><span class="live"></span>online · replies instantly</div></div>' +
-        '<button class="gachat-iconbtn gc-voice" type="button" aria-pressed="false" aria-label="Voice mode, read replies aloud" title="Voice mode (read replies aloud)">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M19 5a9 9 0 0 1 0 14"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>' +
-        '</button>' +
-        '<button class="gachat-iconbtn gc-reset" type="button" aria-label="Clear conversation" title="Clear">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>' +
-        '</button>' +
+        '<div class="gc-htxt"><div class="ttl">Ask <span class="a">Gauravi</span></div>' +
+        '<div class="sub">Portfolio assistant</div></div>' +
+        '<div class="gachat-menu-wrap">' +
+          '<button class="gachat-iconbtn gc-more" type="button" aria-expanded="false" aria-controls="gachatMenu" aria-label="Chat options" title="Options">' +
+            '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>' +
+          '</button>' +
+          '<div class="gachat-menu" id="gachatMenu" role="menu" hidden>' +
+            '<button class="gachat-menuitem gc-voice" type="button" role="menuitem" aria-pressed="false">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M19 5a9 9 0 0 1 0 14"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>' +
+              '<span>Read replies aloud</span><small class="gachat-menu-state">Off</small>' +
+            '</button>' +
+            '<button class="gachat-menuitem gachat-mic" type="button" role="menuitem">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/><path d="M8 21h8"/></svg>' +
+              '<span>Speak a question</span>' +
+            '</button>' +
+            '<button class="gachat-menuitem gc-reset" type="button" role="menuitem">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>' +
+              '<span>Clear conversation</span>' +
+            '</button>' +
+          '</div>' +
+        '</div>' +
         '<button class="gachat-iconbtn gc-close" type="button" aria-label="Close chat" title="Close">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>' +
         '</button>' +
       '</div>' +
       '<div class="gachat-log" aria-live="polite"></div>' +
       '<form class="gachat-form">' +
-        '<div class="gachat-inwrap"><textarea rows="1" placeholder="ask me something…" aria-label="Your message" maxlength="600"></textarea></div>' +
-        '<button class="gachat-mic" type="button" aria-label="Speak your question" title="Tap to speak">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/><path d="M8 21h8"/></svg>' +
-        '</button>' +
-        '<button class="gachat-send" type="submit" aria-label="Send" disabled>' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>' +
-        '</button>' +
+        '<div class="gachat-inwrap">' +
+          '<textarea rows="1" placeholder="Ask a question" aria-label="Your message" maxlength="600"></textarea>' +
+          '<button class="gachat-send" type="submit" aria-label="Send" disabled>' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>' +
+          '</button>' +
+        '</div>' +
       '</form>' +
-      '<div class="gachat-foot">grounded in gauravi’s real work · portfolio assistant</div>' +
+      '<div class="gachat-foot">Answers from Gauravi’s portfolio.</div>' +
     '</div>';
   document.body.appendChild(root);
 
@@ -80,6 +91,8 @@
   var form   = root.querySelector('.gachat-form');
   var input  = form.querySelector('textarea');
   var sendBtn= form.querySelector('.gachat-send');
+  var moreBtn= root.querySelector('.gc-more');
+  var menu   = root.querySelector('.gachat-menu');
 
   // ---- protect host page (e.g. the journey's custom scroll engine) ----
   // stop wheel/drag/touch inside the widget from feeding the page scroll engine.
@@ -88,19 +101,30 @@
   });
 
   // ---- open / close ----
+  function setMenu(opened) {
+    menu.hidden = !opened;
+    moreBtn.setAttribute('aria-expanded', opened ? 'true' : 'false');
+  }
   function open() {
     root.classList.add('open');
-    if (!history.length) renderIntro();
+    setMenu(false);
+    if (!history.length && !log.querySelector('.gachat-intro')) renderIntro();
     setTimeout(function () { input.focus(); }, reduce ? 0 : 250);
   }
-  function close() { root.classList.remove('open'); stopSpeaking(); launch.focus(); }
+  function close() { setMenu(false); root.classList.remove('open'); stopSpeaking(); launch.focus(); }
   launch.addEventListener('click', open);
+  moreBtn.addEventListener('click', function () { setMenu(menu.hidden); });
   root.querySelector('.gc-close').addEventListener('click', close);
   root.querySelector('.gc-reset').addEventListener('click', function () {
-    history = []; log.innerHTML = ''; stopSpeaking(); renderIntro(); input.focus();
+    history = []; log.innerHTML = ''; stopSpeaking(); setMenu(false); renderIntro(); input.focus();
+  });
+  document.addEventListener('pointerdown', function (e) {
+    if (!menu.hidden && !e.target.closest('.gachat-menu-wrap')) setMenu(false);
   });
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && root.classList.contains('open')) close();
+    if (e.key !== 'Escape' || !root.classList.contains('open')) return;
+    if (!menu.hidden) { setMenu(false); moreBtn.focus(); }
+    else close();
   });
 
   // ---- empty-state greeting + starter chips ----
@@ -108,7 +132,7 @@
     var wrap = document.createElement('div');
     wrap.className = 'gachat-intro';
     var p = document.createElement('p');
-    p.textContent = "Hi! I can tell you about Gauravi’s work, background, and how she designs. Ask me anything, or start here:";
+    p.textContent = "Ask about my work, process, or experience.";
     wrap.appendChild(p);
     var chips = document.createElement('div');
     chips.className = 'gachat-chips';
@@ -127,12 +151,6 @@
   function addMsg(role, text) {
     var row = document.createElement('div');
     row.className = 'gachat-row ' + role;
-    if (role === 'bot') {
-      var av = document.createElement('div');
-      av.className = 'gachat-botav';
-      av.innerHTML = '<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M12 5l2.5 6L12 19l-2.5-8z"/></svg>';
-      row.appendChild(av);
-    }
     var el = document.createElement('div');
     el.className = 'gachat-msg ' + role;
     el.textContent = text || '';
@@ -220,8 +238,9 @@
   //  (SpeechSynthesis). Progressive enhancement: controls hide if unsupported.
   //  Fitting for a portfolio whose owner designs AI-voice experiences.
   // ============================================================================
-  var micBtn   = form.querySelector('.gachat-mic');
+  var micBtn   = root.querySelector('.gachat-mic');
   var voiceBtn = root.querySelector('.gc-voice');
+  var voiceState = voiceBtn ? voiceBtn.querySelector('.gachat-menu-state') : null;
   var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   var synth = window.speechSynthesis || null;
   var recog = null, listening = false;
@@ -270,6 +289,7 @@
       voiceOn = !voiceOn;
       voiceBtn.classList.toggle('on', voiceOn);
       voiceBtn.setAttribute('aria-pressed', voiceOn ? 'true' : 'false');
+      if (voiceState) voiceState.textContent = voiceOn ? 'On' : 'Off';
       if (!voiceOn) stopSpeaking();
       else if (synth) speak('Voice mode on. Ask me anything about Gauravi.');
     });
@@ -279,10 +299,17 @@
   function buildRecog() {
     var r = new SR();
     r.lang = 'en-US'; r.interimResults = true; r.maxAlternatives = 1; r.continuous = false;
-    r.onstart = function () { listening = true; if (micBtn) micBtn.classList.add('listening'); stopSpeaking(); };
-    r.onerror = function () { listening = false; if (micBtn) micBtn.classList.remove('listening'); };
+    r.onstart = function () {
+      listening = true; if (micBtn) micBtn.classList.add('listening');
+      input.placeholder = 'Listening…'; setMenu(false); stopSpeaking(); input.focus();
+    };
+    r.onerror = function () {
+      listening = false; if (micBtn) micBtn.classList.remove('listening');
+      input.placeholder = 'Ask a question';
+    };
     r.onend   = function () {
       listening = false; if (micBtn) micBtn.classList.remove('listening');
+      input.placeholder = 'Ask a question';
       // In voice mode, a finished utterance auto-sends (hands-free conversation).
       if (voiceOn && input.value.trim()) form.requestSubmit();
     };

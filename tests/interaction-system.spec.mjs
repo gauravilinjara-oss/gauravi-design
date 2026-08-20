@@ -96,6 +96,7 @@ test('Podonos provides a useful public summary before asking for a passcode', as
 test('chat composer uses one clear focus treatment', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   await page.locator('.gachat-launch').evaluate((button) => button.click());
+  const baseBorderWidth = await page.locator('.gachat-inwrap').evaluate((node) => parseFloat(getComputedStyle(node).borderWidth));
   await page.locator('.gachat-form textarea').focus();
 
   const focus = await page.evaluate(() => {
@@ -106,13 +107,49 @@ test('chat composer uses one clear focus treatment', async ({ page }) => {
       inputShadow: input.boxShadow,
       wrapperBorder: wrapper.borderStyle,
       wrapperBorderWidth: parseFloat(wrapper.borderWidth),
+      wrapperShadow: wrapper.boxShadow,
     };
   });
 
+  expect(baseBorderWidth).toBe(1);
   expect(focus.inputOutline).toBe('none');
   expect(focus.inputShadow).toBe('none');
   expect(focus.wrapperBorder).toBe('solid');
-  expect(focus.wrapperBorderWidth).toBeGreaterThanOrEqual(2);
+  expect(focus.wrapperBorderWidth).toBe(1);
+  expect(focus.wrapperShadow).not.toBe('none');
+});
+
+test('chat opens with a compact guided starting point', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  await page.locator('.gachat-launch').evaluate((button) => button.click());
+
+  await expect(page.locator('.gachat-panel')).toBeVisible();
+  await expect(page.locator('.gachat-head .ttl')).toHaveText('Ask Gauravi');
+  await expect(page.locator('.gachat-head .sub')).toHaveText('Portfolio assistant');
+  await expect(page.locator('.gachat-intro p')).toHaveText('Ask about my work, process, or experience.');
+  await expect(page.locator('.gachat-intro .gachat-chip')).toHaveCount(3);
+  await expect(page.locator('.gachat-foot')).toHaveText('Answers from Gauravi’s portfolio.');
+  await expect(page.locator('.gachat-send')).toHaveCount(1);
+  expect(await page.locator('.gachat-send').evaluate((button) => button.parentElement.classList.contains('gachat-inwrap'))).toBe(true);
+
+  const panelHeight = await page.locator('.gachat-panel').evaluate((panel) => panel.getBoundingClientRect().height);
+  expect(panelHeight).toBeLessThanOrEqual(540);
+  await expect(page.locator('.gachat-head button:visible')).toHaveCount(2);
+});
+
+test('chat keeps secondary controls inside an options menu', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  await page.locator('.gachat-launch').evaluate((button) => button.click());
+
+  await expect(page.locator('.gachat-menu')).toBeHidden();
+  await page.locator('.gc-more').click();
+  await expect(page.locator('.gachat-menu')).toBeVisible();
+  await expect(page.locator('.gachat-menu .gc-reset')).toBeVisible();
+  await expect(page.locator('.gc-more')).toHaveAttribute('aria-expanded', 'true');
+
+  await page.keyboard.press('Escape');
+  await expect(page.locator('.gachat-menu')).toBeHidden();
+  await expect(page.locator('.gachat-panel')).toBeVisible();
 });
 
 test.describe('reduced motion', () => {
