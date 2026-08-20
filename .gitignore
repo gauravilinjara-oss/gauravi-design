@@ -23,3 +23,5 @@ _backup-cinematic-20260722/
 _migration-backup/
 .fuse_hidden*
 *.bak
+.vercel
+.env*
