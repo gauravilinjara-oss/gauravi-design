@@ -44,6 +44,19 @@ test('shared case-study typography follows the restrained Bridgeway scale', asyn
     'case-study labels use the shipped Satoshi face with a dense editorial treatment');
 });
 
+test('impact cards use a supporting headline scale', async () => {
+  const css = await readFile('mockups/case-editorial.css', 'utf8');
+  assert.match(css, /\.impact-sky \.imp \.ibig\{[^}]*font-size:clamp\(24px,2\.2vw,32px\)[^}]*line-height:1\.12/,
+    'impact-card headlines stay subordinate to section titles');
+});
+
+test('Podonos states the configurable-pipeline decision once', async () => {
+  const $ = cheerio.load(await readFile('mockups/case-podonos.html', 'utf8'));
+  assert.equal($('#design .reframe').length, 0, 'the repeated THE BET callout is removed');
+  assert.match($('#design .body-col p').first().text(), /Every correction and validator is selectable/,
+    'the remaining paragraph carries the decision in one concise sentence');
+});
+
 test('shared case-study structure is aligned and divider-free', async () => {
   const css = await readFile('mockups/case-editorial.css', 'utf8');
   assert.match(css, /\.case-study section\{[^}]*border-top:0!important;[^}]*border-bottom:0!important/,
@@ -56,15 +69,6 @@ test('shared case-study structure is aligned and divider-free', async () => {
     'next-chapter navigation is divider-free');
   assert.match(css, /\.case-study \.trust-sec \.wrap\{[^}]*align-items:flex-start/,
     'social proof uses one shared left alignment');
-});
-
-test('project accent is inherited and consumed by editorial chrome', async () => {
-  const css = await readFile('mockups/case-editorial.css', 'utf8');
-  assert.doesNotMatch(css, /--case-accent\s*:/,
-    'shared body must not shadow the project root accent');
-  assert.match(css,
-    /\.case-study\[data-case-accent\] header\.hero \.eyebrow\{color:var\(--case-accent\)\}/,
-    'the inherited project accent is visible in introduction chrome');
 });
 
 test('editorial cards stay flat after the sidebar stylesheet loads', async () => {

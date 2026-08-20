@@ -39,6 +39,71 @@ test('shared text tokens use readable colors on white', async ({ page }) => {
   });
 });
 
+test('homepage leads from the illustrated hero into selected work and a quick overview', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+
+  const heroOverview = page.locator('.hero a[href="quick.html"]');
+  await expect(heroOverview).toBeVisible();
+  await expect(heroOverview).toContainText('60-second overview');
+
+  const order = await page.evaluate(() => ({
+    work: document.querySelector('.sw-sec')?.getBoundingClientRect().top,
+    stats: document.querySelector('#aiStatSec')?.getBoundingClientRect().top,
+  }));
+  expect(order.work).toBeLessThan(order.stats);
+});
+
+test('homepage credibility statement uses the quieter lowercase treatment', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  const textTransform = await page.locator('#aiStat').evaluate((node) => getComputedStyle(node).textTransform);
+  expect(textTransform).toBe('lowercase');
+});
+
+test('mobile homepage keeps the lighting control clear of the introduction', async ({ page }) => {
+  test.skip((page.viewportSize()?.width ?? 1000) > 720, 'mobile-only behavior');
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  await expect(page.locator('#skyRail')).toBeHidden();
+});
+
+for (const path of ['/work.html', '/beyond.html']) {
+  test(`${path} shows useful content without a loading-screen delay`, async ({ page }) => {
+    await page.goto(path, { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#pgx')).toBeHidden({ timeout: 250 });
+    await expect(page.locator('h1')).toBeVisible();
+  });
+}
+
+test('Podonos provides a useful public summary before asking for a passcode', async ({ page }) => {
+  await page.goto('/case-podonos.html', { waitUntil: 'domcontentloaded' });
+  const summary = page.locator('#gate .gate-summary');
+  await expect(summary).toBeVisible();
+  await expect(summary).toContainText('Founding Product Designer');
+  await expect(summary).toContainText('days to hours');
+  await expect(summary).toContainText('Research, product design, and production frontend');
+});
+
+test('chat composer uses one clear focus treatment', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  await page.locator('.gachat-launch').evaluate((button) => button.click());
+  await page.locator('.gachat-form textarea').focus();
+
+  const focus = await page.evaluate(() => {
+    const input = getComputedStyle(document.querySelector('.gachat-form textarea'));
+    const wrapper = getComputedStyle(document.querySelector('.gachat-inwrap'));
+    return {
+      inputOutline: input.outlineStyle,
+      inputShadow: input.boxShadow,
+      wrapperBorder: wrapper.borderStyle,
+      wrapperBorderWidth: parseFloat(wrapper.borderWidth),
+    };
+  });
+
+  expect(focus.inputOutline).toBe('none');
+  expect(focus.inputShadow).toBe('none');
+  expect(focus.wrapperBorder).toBe('solid');
+  expect(focus.wrapperBorderWidth).toBeGreaterThanOrEqual(2);
+});
+
 test.describe('reduced motion', () => {
   test.use({ reducedMotion: 'reduce' });
 

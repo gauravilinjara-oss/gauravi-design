@@ -153,6 +153,122 @@ test('case-study reframe labels use the shared editorial ink', async ({ page }, 
   }
 });
 
+test('case-study editorial chrome uses one shared color system', async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('desktop'));
+
+  for (const path of cases) {
+    await page.goto(path, { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('header.hero .eyebrow').first(), path).toHaveCSS('color', 'rgb(50, 64, 79)');
+
+    const mismatches = await page.evaluate(() => {
+      const selectors = [
+        'header.hero h1 .accent',
+        'header.hero h1 .mk',
+        '.sec-head h2 .accent',
+        '.sec-head h2 .mk',
+        '.sec-head h2 em',
+        '.refl-split .rs-big em',
+        '.handoff h2 .accent',
+        '.handoff h2 .mk',
+      ];
+      return [...document.querySelectorAll(selectors.join(','))].flatMap((element) => {
+        const parent = element.parentElement;
+        const style = getComputedStyle(element);
+        const parentStyle = getComputedStyle(parent);
+        return style.color === parentStyle.color
+          && style.backgroundImage === 'none'
+          && style.backgroundColor === 'rgba(0, 0, 0, 0)'
+          ? []
+          : [{
+              text: element.textContent.trim(),
+              color: style.color,
+              parentColor: parentStyle.color,
+              backgroundColor: style.backgroundColor,
+              backgroundImage: style.backgroundImage,
+            }];
+      });
+    });
+    expect(mismatches, path).toEqual([]);
+  }
+});
+
+test('case-study editorial surfaces avoid widows across supported widths', async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('desktop'));
+  test.setTimeout(300_000);
+  await page.addInitScript(() => {
+    try { sessionStorage.setItem('podonos_unlocked', '1'); } catch {}
+  });
+
+  const widths = [320, 375, 390, 768, 1024, 1180, 1280, 1440, 1512];
+  const failures = [];
+  for (const width of widths) {
+    await page.setViewportSize({ width, height: 900 });
+    for (const path of cases) {
+      await page.goto(path, { waitUntil: 'domcontentloaded' });
+      const result = await page.evaluate(() => {
+        const selectors = [
+          'header.hero h1',
+          'header.hero .lede',
+          '.sec-head h2',
+          '.section-lede',
+          '.refl-split .rs-big',
+          '.refl-split .rs-body p',
+          '.handoff h2',
+          '.handoff p',
+          '.nextcase .t',
+        ];
+        const lineWords = (element) => {
+          const words = [];
+          const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+          while (walker.nextNode()) {
+            const node = walker.currentNode;
+            const pattern = /\S+/g;
+            let match;
+            while ((match = pattern.exec(node.nodeValue || ''))) {
+              const range = document.createRange();
+              range.setStart(node, match.index);
+              range.setEnd(node, match.index + match[0].length);
+              const rect = range.getBoundingClientRect();
+              if (rect.width && rect.height) words.push({ word: match[0], top: rect.top });
+            }
+          }
+          const lines = [];
+          for (const item of words) {
+            let line = lines.find((candidate) => Math.abs(candidate.top - item.top) < 2);
+            if (!line) {
+              line = { top: item.top, words: [] };
+              lines.push(line);
+            }
+            line.words.push(item.word);
+          }
+          return lines.sort((a, b) => a.top - b.top).map((line) => line.words);
+        };
+
+        const widows = [...document.querySelectorAll(selectors.join(','))].flatMap((element) => {
+          if (getComputedStyle(element).display === 'none') return [];
+          const lines = lineWords(element);
+          if (lines.length < 2 || lines.at(-1).length > 1) return [];
+          return [{
+            selector: element.matches('h1,h2') ? element.tagName : element.className,
+            section: element.closest('section')?.id || 'hero',
+            text: element.textContent.replace(/\s+/g, ' ').trim(),
+            lastLine: lines.at(-1).join(' '),
+          }];
+        });
+        return {
+          overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+          widows,
+        };
+      });
+
+      if (result.overflow > 1 || result.widows.length) {
+        failures.push({ path, width, ...result });
+      }
+    }
+  }
+  expect(failures).toEqual([]);
+});
+
 test('case content clears the desktop rail at every supported desktop boundary', async ({ page }, testInfo) => {
   test.skip(!testInfo.project.name.startsWith('desktop'));
 

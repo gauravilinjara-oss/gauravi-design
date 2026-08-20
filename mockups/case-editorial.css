@@ -36,7 +36,7 @@
 .impact-sky .imp{border:none;border-radius:18px;padding:30px 28px;background:#fff;box-shadow:0 22px 54px -32px rgba(20,32,52,.32)}
 .impact-sky .imp .eyebrow{display:flex;align-items:center;gap:7px;margin-bottom:18px}
 .impact-sky .imp .eyebrow::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green,#0083E7)}
-.impact-sky .imp .ibig{font-family:'Satoshi',system-ui,sans-serif;font-weight:500;font-size:clamp(30px,3vw,42px);letter-spacing:-.03em;line-height:1.04;margin-bottom:14px;color:var(--ink,#22271e)}
+.impact-sky .imp .ibig{font-family:'Satoshi',system-ui,sans-serif;font-weight:500;font-size:clamp(24px,2.2vw,32px);letter-spacing:-.02em;line-height:1.12;margin-bottom:14px;color:var(--ink,#22271e)}
 .impact-sky .imp .ibig .arrow{color:var(--green,#0083E7);font-weight:500;font-size:.82em;display:inline-block;opacity:1;transform:none}
 .impact-sky .imp p{font-size:14.5px;color:var(--ink-soft,#4a4a40);margin:0;line-height:1.5}
 @media(max-width:820px){.impact-sky{padding:24px}.impact-sky .impact{grid-template-columns:1fr}}
@@ -139,7 +139,7 @@
   color:#32404f;font-size:12px;font-weight:600;
   letter-spacing:.1em;line-height:1.5;text-transform:uppercase;
 }
-.case-study[data-case-accent] header.hero .eyebrow{color:var(--case-accent)}
+.case-study[data-case-accent] header.hero .eyebrow{color:#32404f}
 .case-study section{padding-block:56px;border-top:0!important;border-bottom:0!important}
 .case-study p{max-width:68ch;color:var(--case-soft);font-size:15px;line-height:1.5}
 .case-study figure,.case-study .visual{margin-block:clamp(28px,3.5vw,48px)}
@@ -163,6 +163,16 @@
   .case-study section{padding-block:48px}
 }
 .case-study .section-lede{margin-top:16px;font-size:15px;line-height:1.5;color:var(--case-soft)}
+.case-study :is(header.hero h1,.sec-head h2,.refl-split .rs-big,.handoff h2,.nextcase .t){
+  text-wrap:balance;
+}
+.case-study :is(header.hero .lede,.section-lede,.refl-split .rs-body p,.handoff p){
+  text-wrap:pretty;
+}
+.case-study :is(header.hero h1,.sec-head h2,.refl-split .rs-big,.handoff h2) :is(.accent,.mk,em){
+  color:inherit!important;background:none!important;background-image:none!important;
+  padding:0!important;border-radius:0!important;
+}
 .case-study p :is(b,strong,em,.mk){
   color:inherit!important;font-weight:inherit!important;font-style:normal!important;
   background:none!important;background-image:none!important;padding:0!important;border-radius:0!important;

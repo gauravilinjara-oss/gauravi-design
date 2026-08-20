@@ -7,10 +7,11 @@
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var pgx = document.getElementById('pgx');
+  var instant = document.body && document.body.hasAttribute('data-instant-transition');
 
   function fireRevealed(){ try{ document.dispatchEvent(new Event('pgx:revealed')); }catch(_){} }
 
-  if(!pgx || reduce){ if(pgx) pgx.style.display='none'; fireRevealed(); return; }
+  if(!pgx || reduce || instant){ if(pgx) pgx.style.display='none'; fireRevealed(); return; }
 
   /* one inked line per transition, carried across the navigation (sessionStorage) so the
      SAME line shows from cover (leaving) through reveal (arriving), never mid-transition flicker */
